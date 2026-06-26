@@ -1,2 +1,13 @@
 *.key
 *.pub
+
+# Automation environment/structure ignores
+__pycache__/
+*.py[cod]
+.env
+.venv/
+env/
+
+# Ignore zip files except in the templates directory
+*.zip
+!artifacts/templates/*.zip

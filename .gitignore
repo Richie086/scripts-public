@@ -11,3 +11,8 @@ env/
 # Ignore zip files except in the templates directory
 *.zip
 !artifacts/templates/*.zip
+projects/openssl-output-generator/wildcard_extremesarcasm_org_ca_chain.cer
+projects/openssl-output-generator/wildcard_extremesarcasm_org.cer
+projects/openssl-output-generator/things/STAR.extremesarcasm.org.crt
+projects/openssl-output-generator/things/STAR.extremesarcasm.org.csr
+projects/openssl-output-generator/things/STAR.extremesarcasm.org.p7b

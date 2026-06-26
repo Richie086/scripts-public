@@ -21,7 +21,7 @@ show_help() {
     echo ""
     echo "Options:"
     echo "  --help              Show this help message and exit"
-    echo "  --input <path>      Specify the input .pfx certificate file"
+    echo "  --input <path>      Specify the input .pfx, .p12, or .p7b certificate file"
     echo "  --output <prefix>   Specify the base output file path/name (e.g., /tmp/mycert)"
     echo ""
     echo "Created By Richard Troiano - 2026"
@@ -53,7 +53,7 @@ echo ""
 # 2. Interactive Prompts
 # ==========================================
 if [[ -z "$INPUT_FILE" ]]; then
-    read -p "Enter the full path to the .pfx file [Default: ./cert.pfx]: " INPUT_FILE
+    read -p "Enter the full path to the certificate file [Default: ./cert.pfx]: " INPUT_FILE
     INPUT_FILE="${INPUT_FILE:-./cert.pfx}"
 fi
 
@@ -62,17 +62,59 @@ if [[ ! -f "$INPUT_FILE" ]]; then
     exit 1
 fi
 
+case "${INPUT_FILE##*.}" in
+    p7b|P7B)
+        INPUT_TYPE="p7b"
+        ;;
+    pfx|PFX|p12|P12)
+        INPUT_TYPE="pfx"
+        ;;
+    *)
+        echo -e "${RED}Error: Unsupported certificate type. Use .pfx, .p12, or .p7b.${NC}"
+        exit 1
+        ;;
+esac
+
 if [[ -z "$OUTPUT_BASE" ]]; then
     out_dir=$(dirname "$INPUT_FILE")
-    base_name=$(basename "$INPUT_FILE" .pfx)
-    OUTPUT_BASE="$out_dir/$base_name"
+    base_name=$(basename "$INPUT_FILE")
+    OUTPUT_BASE="$out_dir/${base_name%.*}"
 fi
 
-# We read the password, but export it to be used securely via env vars
-read -s -p "Enter the .pfx password (leave blank if none): " raw_pass
-export CERT_PASS="$raw_pass"
-unset raw_pass # Clear local variable immediately
-echo -e "\n"
+detect_p7b_format() {
+    if openssl pkcs7 -inform DER -in "$INPUT_FILE" -print_certs -out /dev/null 2>/dev/null; then
+        PKCS7_FORMAT="DER"
+        return 0
+    fi
+
+    if openssl pkcs7 -inform PEM -in "$INPUT_FILE" -print_certs -out /dev/null 2>/dev/null; then
+        PKCS7_FORMAT="PEM"
+        return 0
+    fi
+
+    echo -e "${RED}Error: Unable to parse .p7b file format.${NC}"
+    exit 1
+}
+
+prepare_certificate_input() {
+    if [[ "$INPUT_TYPE" == "p7b" ]]; then
+        export CERT_PASS=""
+        detect_p7b_format
+        return 0
+    fi
+
+    if openssl pkcs12 -in "$INPUT_FILE" -nokeys -passin pass: -info >/dev/null 2>&1; then
+        export CERT_PASS=""
+        return 0
+    fi
+
+    read -s -p "Enter the .pfx password: " raw_pass
+    export CERT_PASS="$raw_pass"
+    unset raw_pass
+    echo -e "\n"
+}
+
+prepare_certificate_input
 
 # ==========================================
 # 3. Secure Execution Functions
@@ -80,17 +122,30 @@ echo -e "\n"
 
 extract_cer() {
     echo -e "\n${YELLOW}[+] Extracting Public Certificate...${NC}"
-    openssl pkcs12 -in "$INPUT_FILE" -clcerts -nokeys -legacy -out "${OUTPUT_BASE}.cer" -passin env:CERT_PASS
+    if [[ "$INPUT_TYPE" == "p7b" ]]; then
+        openssl pkcs7 -in "$INPUT_FILE" -inform "$PKCS7_FORMAT" -print_certs -out "${OUTPUT_BASE}.cer"
+    else
+        openssl pkcs12 -in "$INPUT_FILE" -clcerts -nokeys -legacy -out "${OUTPUT_BASE}.cer" -passin env:CERT_PASS
+    fi
     if [ $? -eq 0 ]; then echo -e "${GREEN} -> Created: ${OUTPUT_BASE}.cer${NC}"; fi
 }
 
 extract_ca_chain() {
     echo -e "\n${YELLOW}[+] Extracting CA Chain (Root/Intermediate)...${NC}"
-    openssl pkcs12 -in "$INPUT_FILE" -nokeys -cacerts -legacy -out "${OUTPUT_BASE}_ca_chain.cer" -passin env:CERT_PASS
+    if [[ "$INPUT_TYPE" == "p7b" ]]; then
+        openssl pkcs7 -in "$INPUT_FILE" -inform "$PKCS7_FORMAT" -print_certs -out "${OUTPUT_BASE}_ca_chain.cer"
+    else
+        openssl pkcs12 -in "$INPUT_FILE" -nokeys -cacerts -legacy -out "${OUTPUT_BASE}_ca_chain.cer" -passin env:CERT_PASS
+    fi
     if [ $? -eq 0 ]; then echo -e "${GREEN} -> Created: ${OUTPUT_BASE}_ca_chain.cer${NC}"; fi
 }
 
 extract_pem() {
+    if [[ "$INPUT_TYPE" == "p7b" ]]; then
+        echo -e "\n${RED}[!] Error: .p7b files do not contain private keys, so PEM extraction is not supported.${NC}"
+        return
+    fi
+
     echo -e "\n${YELLOW}[+] Extracting Cert + Unencrypted Key (.pem)...${NC}"
     openssl pkcs12 -in "$INPUT_FILE" -out "${OUTPUT_BASE}.pem" -nodes -legacy -passin env:CERT_PASS
     if [ $? -eq 0 ]; then
@@ -100,6 +155,11 @@ extract_pem() {
 }
 
 extract_key() {
+    if [[ "$INPUT_TYPE" == "p7b" ]]; then
+        echo -e "\n${RED}[!] Error: .p7b files do not contain private keys, so key extraction is not supported.${NC}"
+        return
+    fi
+
     echo -e "\n${YELLOW}[+] Extracting Unencrypted Private Key (.key)...${NC}"
     openssl pkcs12 -in "$INPUT_FILE" -nocerts -out "${OUTPUT_BASE}.key" -nodes -legacy -passin env:CERT_PASS
     if [ $? -eq 0 ]; then
@@ -109,6 +169,11 @@ extract_key() {
 }
 
 copy_p12() {
+    if [[ "$INPUT_TYPE" == "p7b" ]]; then
+        echo -e "\n${RED}[!] Error: .p7b files cannot be converted to .p12 because they do not contain private keys.${NC}"
+        return
+    fi
+
     echo -e "\n${YELLOW}[+] Copying to .p12 format...${NC}"
     cp "$INPUT_FILE" "${OUTPUT_BASE}.p12"
     echo -e "${GREEN} -> Created: ${OUTPUT_BASE}.p12${NC}"

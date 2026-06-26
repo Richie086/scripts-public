@@ -16,3 +16,9 @@ projects/openssl-output-generator/wildcard_extremesarcasm_org.cer
 projects/openssl-output-generator/things/STAR.extremesarcasm.org.crt
 projects/openssl-output-generator/things/STAR.extremesarcasm.org.csr
 projects/openssl-output-generator/things/STAR.extremesarcasm.org.p7b
+PowerShell/STAR.extremesarcasm.org.ca-bundle
+PowerShell/STAR.extremesarcasm.org.crt
+PowerShell/STAR.extremesarcasm.org.csr
+PowerShell/STAR.extremesarcasm.org.p7b
+PowerShell/wildcard_extremesarcasm_org_ca_chain.cer
+PowerShell/wildcard_extremesarcasm_org.cer

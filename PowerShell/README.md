@@ -37,3 +37,6 @@ A Windows PowerShell version of the OpenSSL certificate utility.
 ### Notes
 - `.p7b` files are certificate bundles only and do not contain private keys.
 - The script will warn when a requested operation is not supported for `.p7b` input.
+
+### Bash version
+A Bash version of this utility is available at `projects/openssl-output-generator/openssl-certtool.sh`. Its interactive menu includes an option `7` to create a combined `.pem` file containing the private key, primary certificate, then the CA chain.

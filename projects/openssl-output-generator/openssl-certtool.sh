@@ -24,6 +24,9 @@ show_help() {
     echo "  --input <path>      Specify the input .pfx, .p12, or .p7b certificate file"
     echo "  --output <prefix>   Specify the base output file path/name (e.g., /tmp/mycert)"
     echo ""
+    echo "Interactive Menu:"
+    echo "  - Use the interactive menu after running the script; option 7 creates a combined .pem (private key, primary cert, then CA chain)."
+    echo ""
     echo "Created By Richard Troiano - 2026"
     exit 0
 }
@@ -231,6 +234,47 @@ generate_csr() {
     if [ $? -eq 0 ]; then echo -e "${GREEN}[SUCCESS] CSR generated at: ${OUTPUT_BASE}.csr${NC}"; fi
 }
 
+extract_combined_pem() {
+    if [[ "$INPUT_TYPE" == "p7b" ]]; then
+        echo -e "\n${RED}[!] Error: .p7b files do not contain private keys, so combined PEM cannot be created.${NC}"
+        return
+    fi
+
+    echo -e "\n${YELLOW}[+] Creating Combined .pem (key -> cert -> root)...${NC}"
+
+    # Ensure individual pieces exist (will extract if missing)
+    if [[ ! -f "${OUTPUT_BASE}.key" ]]; then
+        extract_key
+    fi
+    if [[ ! -f "${OUTPUT_BASE}.cer" ]]; then
+        extract_cer
+    fi
+    if [[ ! -f "${OUTPUT_BASE}_ca_chain.cer" ]]; then
+        extract_ca_chain
+    fi
+
+    if [[ ! -f "${OUTPUT_BASE}.key" ]] || [[ ! -f "${OUTPUT_BASE}.cer" ]]; then
+        echo -e "${RED}[!] Error: Required files (.key and .cer) are missing; cannot build combined PEM.${NC}"
+        return
+    fi
+
+    combined_file="${OUTPUT_BASE}.combined.pem"
+
+    # Concatenate in the requested order: private key, primary cert, then root/chain
+    cat "${OUTPUT_BASE}.key" > "$combined_file"
+    echo "" >> "$combined_file"
+    cat "${OUTPUT_BASE}.cer" >> "$combined_file"
+    echo "" >> "$combined_file"
+    if [[ -f "${OUTPUT_BASE}_ca_chain.cer" ]]; then
+        cat "${OUTPUT_BASE}_ca_chain.cer" >> "$combined_file"
+    fi
+
+    chmod 600 "$combined_file"
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN} -> Created and Secured (chmod 600): ${combined_file}${NC}"
+    fi
+}
+
 # ==========================================
 # 4. Continuous Interactive Menu
 # ==========================================
@@ -245,17 +289,19 @@ while true; do
     echo "  4) Extract CA Chain (Root/Intermediate certificates)"
     echo "  5) Copy to .p12 format"
     echo "  6) Extract All of the above"
+    echo "  7) Create Combined .pem (private key, primary cert, CA chain)"
     echo ""
     echo -e "${YELLOW}Advanced Tools:${NC}"
-    echo "  7) View Expiration Date & SANs (Requires .cer)"
-    echo "  8) Verify Cert & Key Match     (Requires .cer & .key)"
-    echo "  9) Print Cert as Base64        (Requires .cer)"
-    echo " 10) Generate a new CSR          (Requires .key)"
+    echo "  8) View Expiration Date & SANs (Requires .cer)"
+    echo "  9) Verify Cert & Key Match     (Requires .cer & .key)"
+    echo " 10) Print Cert as Base64        (Requires .cer)"
+    echo " 11) Generate a new CSR          (Requires .key)"
     echo ""
-    echo -e "${RED} 11) Exit & Wipe Memory${NC}"
+    echo -e "${RED} 12) Exit & Wipe Memory${NC}"
     echo ""
     
-    read -p "Select an option [1-11]: " choice
+    # Extraction option for combined PEM moved to 7
+    read -p "Select an option [1-12]: " choice
 
     case $choice in
         1) extract_cer ;;
@@ -267,11 +313,12 @@ while true; do
             echo -e "${YELLOW}--- Extracting All Formats ---${NC}"
             extract_cer; extract_key; extract_pem; extract_ca_chain 
             ;;
-        7) view_cert_info ;;
-        8) verify_match ;;
-        9) display_base64 ;;
-       10) generate_csr ;;
-       11) 
+        7) extract_combined_pem ;;
+        8) view_cert_info ;;
+        9) verify_match ;;
+       10) display_base64 ;;
+       11) generate_csr ;;
+       12) 
             echo -e "\nExiting. Have a great day!"
             exit 0 
             ;;

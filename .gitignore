@@ -22,3 +22,10 @@ PowerShell/STAR.extremesarcasm.org.csr
 PowerShell/STAR.extremesarcasm.org.p7b
 PowerShell/wildcard_extremesarcasm_org_ca_chain.cer
 PowerShell/wildcard_extremesarcasm_org.cer
+projects/openssl-output-generator/README.md
+tmp_openssl_test/test.crt
+tmp_openssl_test/test.pfx
+tmp_openssl_test/testcert_ca_chain.cer
+tmp_openssl_test/testcert.cer
+tmp_openssl_test/testcert.combined.pem
+PowerShell/README.md

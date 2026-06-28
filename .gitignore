@@ -12,22 +12,3 @@ env/
 # Ignore zip files except in the templates directory
 *.zip
 !artifacts/templates/*.zip
-projects/openssl-output-generator/wildcard_extremesarcasm_org_ca_chain.cer
-projects/openssl-output-generator/wildcard_extremesarcasm_org.cer
-projects/openssl-output-generator/things/STAR.extremesarcasm.org.crt
-projects/openssl-output-generator/things/STAR.extremesarcasm.org.csr
-projects/openssl-output-generator/things/STAR.extremesarcasm.org.p7b
-PowerShell/STAR.extremesarcasm.org.ca-bundle
-PowerShell/STAR.extremesarcasm.org.crt
-PowerShell/STAR.extremesarcasm.org.csr
-PowerShell/STAR.extremesarcasm.org.p7b
-PowerShell/wildcard_extremesarcasm_org_ca_chain.cer
-PowerShell/wildcard_extremesarcasm_org.cer
-projects/openssl-output-generator/README.md
-tmp_openssl_test/test.crt
-tmp_openssl_test/test.pfx
-tmp_openssl_test/testcert_ca_chain.cer
-tmp_openssl_test/testcert.cer
-tmp_openssl_test/testcert.combined.pem
-PowerShell/README.md
-projects/stftp/.gitignore

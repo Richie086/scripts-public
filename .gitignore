@@ -1,6 +1,7 @@
 *.key
 *.pub
-
+*.cer
+*.crt
 # Automation environment/structure ignores
 __pycache__/
 *.py[cod]
@@ -29,3 +30,4 @@ tmp_openssl_test/testcert_ca_chain.cer
 tmp_openssl_test/testcert.cer
 tmp_openssl_test/testcert.combined.pem
 PowerShell/README.md
+projects/stftp/.gitignore

@@ -38,6 +38,7 @@ scripts-public/
 * [script-public-merge.sh](bash/script-public-merge.sh): Ensure we are in the root of the existing repo
 
 ### 🔷 Windows PowerShell (`/powershell`)
+* [Calculate-FolderStats.ps1](powershell/Calculate-FolderStats.ps1): Recursively calculates and reports total files, folders, and sizes in a directory.
 * [check_mtu.ps1](powershell/check_mtu.ps1): ----------------------------- HELP / USAGE
 * [openssl-certtool.ps1](powershell/openssl-certtool.ps1): Extract certificates, CA chains, private keys, PEM bundles, and CSRs from
 * [Create-RecoveryPartition.ps1](powershell/recovery-partition/Create-RecoveryPartition.ps1): PHASE 1: SHRINK C: AND CREATE THE PARTITION

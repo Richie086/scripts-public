@@ -14,6 +14,7 @@ graph TD
     root --> python["🐍 python/"]
     root --> testing["🧪 testing/"]
     root --> web["🌐 web/"]
+    root --> dir_stats_report["directory_stats.md"]
 
     agents --> agents_md["AGENTS.md"]
     bash --> cert_sh["openssl-certtool.sh"]
@@ -55,6 +56,7 @@ graph TD
 | **Python** | [stftp/client.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/client.py) | Client logic for connection and message parsing for Secure TFTP. | Python 3 |
 | **Testing** | [testing/dir_stats.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/dir_stats.sh) | Calculates file/folder statistics (total files, top-level folders, total subfolders, size) of a directory. | Bash environment, UNIX find utility |
 | **Testing** | [testing/README.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/README.md) | Overview documentation for the testing directory. | None |
+| **Report** | [directory_stats.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/directory_stats.md) | Generated directory statistics report (e.g. file, folder counts, sizes). | None |
 | **Web Config** | [apache-reverse-proxy/apache-proxy-wizard.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/web/apache-reverse-proxy/apache-proxy-wizard.sh) | Interactive setup wizard to automatically install and configure an Apache reverse proxy with SSL modules. | **Root privileges**, Linux with `apt` package manager |
 
 ---

@@ -21,7 +21,8 @@ scripts-public/
 ├── powershell/         # Windows PowerShell utility scripts
 ├── python/             # Python-based tools and CLI programs
 ├── testing/            # Directory analysis testing scripts
-└── web/                # Web configuration utilities and server scripts
+├── web/                # Web configuration utilities and server scripts
+└── directory_stats.md  # Generated directory statistics report
 ```
 
 ---

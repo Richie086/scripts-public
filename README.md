@@ -33,22 +33,30 @@ scripts-public/
 ## Catalog of Tools
 
 ### 🐚 Linux Bash (`/bash`)
-* [openssl-certtool.sh](file:///home/rtroiano/scripts-public/scripts-public/bash/openssl-certtool.sh): Interactive shell script for generating, converting, and analyzing OpenSSL certificates.
-* [script-public-merge.sh](file:///home/rtroiano/scripts-public/scripts-public/bash/script-public-merge.sh): Helper script for merging codebase resources.
+* [openssl-certtool.sh](bash/openssl-certtool.sh): 1. Initialization & Security Setup Color codes for readable output
+* [script-public-merge.sh](bash/script-public-merge.sh): Ensure we are in the root of the existing repo
 
 ### 🔷 Windows PowerShell (`/powershell`)
-* [openssl-certtool.ps1](file:///home/rtroiano/scripts-public/scripts-public/powershell/openssl-certtool.ps1): Interactive Windows PowerShell equivalent of the OpenSSL certificate utility.
-* [check_mtu.ps1](file:///home/rtroiano/scripts-public/scripts-public/powershell/check_mtu.ps1): Utility for diagnosing Maximum Transmission Unit (MTU) sizes.
-* [recovery-partition/](file:///home/rtroiano/scripts-public/scripts-public/powershell/recovery-partition/): Suite of scripts to automate creating, removing, and managing Windows Recovery Partitions.
+* [check_mtu.ps1](powershell/check_mtu.ps1): ----------------------------- HELP / USAGE
+* [openssl-certtool.ps1](powershell/openssl-certtool.ps1): Extract certificates, CA chains, private keys, PEM bundles, and CSRs from
+* [Create-RecoveryPartition.ps1](powershell/recovery-partition/Create-RecoveryPartition.ps1): PHASE 1: SHRINK C: AND CREATE THE PARTITION
+* [Create-RecoveryPartition2.ps1](powershell/recovery-partition/Create-RecoveryPartition2.ps1): 1. Automatically detect the volume labeled "Recovery" on your main system disk
+* [Create-RecoveryPartition3.ps1](powershell/recovery-partition/Create-RecoveryPartition3.ps1): 1. Turn off the current Recovery Environment mapping to avoid conflicts
+* [RecoveryPartitionManager.ps1](powershell/recovery-partition/RecoveryPartitionManager.ps1): Requires Administrator Privileges
+* [Remove-RecoveryPartition.ps1](powershell/recovery-partition/Remove-RecoveryPartition.ps1): 1. Automatically find the C: Drive disk and partition details
 
 ### 🐍 Python (`/python`)
-* [stftp/](file:///home/rtroiano/scripts-public/scripts-public/python/stftp/): Python-based client-server implementation of the Secure Trivial File Transfer Protocol.
-
-### 🌐 Web / Server Config (`/web`)
-* [apache-reverse-proxy/](file:///home/rtroiano/scripts-public/scripts-public/web/apache-reverse-proxy/): Interactive configuration generation wizard for Apache reverse proxy setups.
+* [client.py](python/stftp/client.py): --- Protocol Framing Logic ---
+* [client2.py](python/stftp/client2.py): --- Client Configuration ---
+* [server.py](python/stftp/server.py): Define the master folder where all incoming files will be trapped
+* [server2.py](python/stftp/server2.py): --- Server Configuration ---
 
 ### 🧪 Testing & Directory Analysis (`/testing`)
-* [dir_stats.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/dir_stats.sh): Bash script that calculates the files, folders, subfolders, and size of a target directory, outputting the result in Markdown format to both stdout and a file.
+* [dir_stats.sh](testing/dir_stats.sh): Target directory to analyze (default: current directory)
+* [update_readme.py](testing/update_readme.py): !/usr/bin/env python3
+
+### 🌐 Web / Server Config (`/web`)
+* [apache-proxy-wizard.sh](web/apache-reverse-proxy/apache-proxy-wizard.sh): COLOR DEFINITIONS
 
 ---
 

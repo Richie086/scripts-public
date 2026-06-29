@@ -21,6 +21,7 @@ The repository is organized by environment and runtime type:
 scripts-public/
 ├── .agents/            # Workspace agent rules and guidelines
 ├── bash/               # Linux Bash utility scripts
+├── markdown/           # WordPress blog posts and writeups
 ├── powershell/         # Windows PowerShell utility scripts
 ├── python/             # Python-based tools and CLI programs
 ├── testing/            # Directory analysis testing scripts

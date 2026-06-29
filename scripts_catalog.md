@@ -8,11 +8,13 @@ Welcome to the **scripts-public** interactive folder browser. This catalog provi
 
 ```mermaid
 graph TD
-    root["scripts-public (Root)"] --> bash["🐚 bash/"]
+    root["scripts-public (Root)"] --> agents["⚙️ .agents/"]
+    root --> bash["🐚 bash/"]
     root --> powershell["🔷 powershell/"]
     root --> python["🐍 python/"]
     root --> web["🌐 web/"]
 
+    agents --> agents_md["AGENTS.md"]
     bash --> cert_sh["openssl-certtool.sh"]
     bash --> merge_sh["script-public-merge.sh"]
 
@@ -39,6 +41,7 @@ graph TD
 
 | Category | File / Tool | Purpose | Requirements / Dependencies |
 | :--- | :--- | :--- | :--- |
+| **Configuration** | [AGENTS.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/.agents/AGENTS.md) | Workspace-specific rules for code change documentation and pre-commit security verification checks. | None |
 | **Linux Bash** | [openssl-certtool.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/bash/openssl-certtool.sh) | Interactive utility for generating, converting, and extracting OpenSSL certificates (e.g. PEM, PFX, P12, P7B). | OpenSSL, Bash environment |
 | **Linux Bash** | [script-public-merge.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/bash/script-public-merge.sh) | Restructures the workspace directories and automatically appends common file ignores to `.gitignore`. | Git repository environment |
 | **PowerShell** | [openssl-certtool.ps1](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/powershell/openssl-certtool.ps1) | Windows PowerShell equivalent of the OpenSSL certificate utility for extracting keys and certificate chains. | PowerShell, OpenSSL in system PATH |

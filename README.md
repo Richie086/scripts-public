@@ -16,6 +16,7 @@ The repository is organized by environment and runtime type:
 
 ```text
 scripts-public/
+├── .agents/            # Workspace agent rules and guidelines
 ├── bash/               # Linux Bash utility scripts
 ├── powershell/         # Windows PowerShell utility scripts
 ├── python/             # Python-based tools and CLI programs

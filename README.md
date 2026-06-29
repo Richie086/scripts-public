@@ -2,6 +2,9 @@
 
 A curated collection of utility scripts, automation tools, and applications for various environments.
 
+All of these scripts along with detailed writeups on their usage and configuration can be found on my WordPress blog: [Extreme Sarcasm](https://extremesarcasm.org).
+
+
 The [scripts_catalog.md](scripts_catalog.md) in this repository was generated using [Google Antigravity](https://antigravity.google/).
 
 For more information about Google Antigravity, check out the [Official Documentation](https://antigravity.google/docs) or download the platform for your operating system:

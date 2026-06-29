@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer & Safety Warning | Richie's Scripts</title>
+    <meta name="description" content="Important disclaimer regarding the execution of scripts, automations, and tools found on Richie's blog. TL;DR: Check the code before you run it.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-primary: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.15);
+            --warning-color: #f59e0b;
+            --warning-glow: rgba(245, 158, 11, 0.15);
+            --danger-color: #ef4444;
+            --danger-glow: rgba(239, 68, 68, 0.15);
+            --success-color: #10b981;
+            --font-main: 'Outfit', sans-serif;
+            --font-code: 'Fira Code', monospace;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(239, 68, 68, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphic Header Card */
+        .header-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--warning-color), var(--danger-color));
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .shield-icon {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--warning-color), var(--danger-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px var(--warning-glow));
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--warning-glow)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.3)); }
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #ffffff, #d1d5db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            color: var(--warning-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lead-text {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Disclaimer statement styling */
+        .disclaimer-statement {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 4px solid var(--warning-color);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #e5e7eb;
+        }
+
+        .highlight-accent {
+            color: var(--warning-color);
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* Items Grid */
+        .grid-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .grid-item i {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .item-text h4 {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .item-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .color-time { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .color-data { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+        .color-money { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+        .color-assets { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+        .color-pets { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+        .color-girlfriends { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+        /* Code block design */
+        .terminal-block {
+            background: #05070c;
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .terminal-title {
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .terminal-content {
+            padding: 1.25rem;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            overflow-x: auto;
+            color: #93c5fd;
+        }
+
+        .terminal-content code {
+            display: block;
+            white-space: pre;
+        }
+
+        .code-comment { color: #6b7280; font-style: italic; }
+        .code-keyword { color: #f472b6; }
+        .code-string { color: #34d399; }
+        .code-warning { color: #fbbf24; font-weight: bold; }
+
+        /* Copy & Paste Center Card */
+        .copy-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .copy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        .copy-title-area h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .copy-title-area p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.3rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-main);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .pane-container {
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: var(--font-main);
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+
+        .copy-pane {
+            display: none;
+            background: #05070c;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            min-height: 200px;
+            max-height: 350px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+
+        .copy-pane.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding-bottom: 2rem;
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
+
+        /* Responsive adaptations */
+        @media (max-width: 640px) {
+            .header-card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .copy-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .tabs {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .tab-btn {
+                flex: 1;
+                text-align: center;
+                padding: 0.5rem 0.25rem;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header / Main Disclaimer Content -->
+        <main class="header-card">
+            <div class="logo-area">
+                <i class="fa-solid fa-triangle-exclamation shield-icon"></i>
+                <span class="logo-text">Richie's Scripts</span>
+            </div>
+            
+            <span class="badge">Disclaimer & Warning</span>
+            <h1>Run Code Wisely</h1>
+            <p class="lead-text">Before executing any code from my blog (or anywhere else on the internet), please take a moment to read this disclaimer.</p>
+
+            <div class="disclaimer-statement">
+                "All scripts and tools published here were written and tested by me. However, running random executable scripts from some dude's site on the internet without checking the contents first is generally a <span class="highlight-accent">bad idea</span>."
+            </div>
+
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                By running any of the scripts, automations, tools, applications, or other media found on this blog, you are explicitly accepting the potential risk that something I wrote might not work as intended. 
+            </p>
+
+            <div class="grid-title">Not covered under my warranty:</div>
+            
+            <div class="grid">
+                <div class="grid-item">
+                    <i class="fa-solid fa-hourglass-half color-time"></i>
+                    <div class="item-text">
+                        <h4>Lost Time</h4>
+                        <p>Hours spent debugging</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <i class="fa-solid fa-database color-data"></i>
+                    <div class="item-text">
+                        <h4>Lost Data</h4>
+                        <p>Unintended system wipes</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <i class="fa-solid fa-dollar-sign color-money"></i>
+                    <div class="item-text">
+                        <h4>Lost Money</h4>
+                        <p>Cloud bills or repair costs</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <i class="fa-solid fa-server color-assets"></i>
+                    <div class="item-text">
+                        <h4>Assets</h4>
+                        <p>Physical or virtual hardware</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <i class="fa-solid fa-paw color-pets"></i>
+                    <div class="item-text">
+                        <h4>Pets</h4>
+                        <p>Frightened cats or dogs</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <i class="fa-solid fa-heart-crack color-girlfriends"></i>
+                    <div class="item-text">
+                        <h4>Girlfriends</h4>
+                        <p>Or boyfriends / partners</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="terminal-block">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span class="terminal-title">check_before_you_run.sh</span>
+                </div>
+                <div class="terminal-content">
+<code><span class="code-comment">#!/usr/bin/env bash</span>
+<span class="code-comment"># The golden rule of running scripts online:</span>
+
+<span class="code-keyword">read</span> -p <span class="code-string">"Did you review Richie's code first? (y/n): "</span> reviewed
+
+<span class="code-keyword">if</span> [[ <span class="code-string">"$reviewed"</span> == <span class="code-string">"y"</span> ]]; <span class="code-keyword">then</span>
+    <span class="code-keyword">echo</span> <span class="code-string">"Excellent. Proceed with execution."</span>
+<span class="code-keyword">else</span>
+    <span class="code-warning">echo "WARNING: Don't run random executables blindly!"</span>
+    <span class="code-keyword">exit</span> 1
+<span class="code-keyword">fi</span></code>
+                </div>
+            </div>
+
+            <p style="color: var(--text-secondary); text-align: center; font-size: 0.95rem;">
+                <i class="fa-solid fa-code" style="color: var(--accent-primary); margin-right: 0.5rem;"></i>
+                Please take a look at my code prior to executing to make absolutely sure it does what we both intend.
+            </p>
+        </main>
+
+        <!-- Copy & Paste Center -->
+        <section class="copy-card">
+            <div class="copy-header">
+                <div class="copy-title-area">
+                    <h3>Copy to WordPress</h3>
+                    <p>Select format below and copy to your blog post or page editor.</p>
+                </div>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('html')">WordPress HTML</button>
+                    <button class="tab-btn" onclick="switchTab('markdown')">Markdown</button>
+                    <button class="tab-btn" onclick="switchTab('text')">Plain Text</button>
+                </div>
+            </div>
+
+            <div class="pane-container">
+                <button class="copy-btn" id="copyBtn" onclick="copyActivePane()">
+                    <i class="fa-regular fa-copy"></i> Copy Content
+                </button>
+                
+                <!-- WP HTML Block -->
+                <pre class="copy-pane active" id="pane-html"></pre>
+                
+                <!-- Markdown Block -->
+                <pre class="copy-pane" id="pane-markdown"></pre>
+                
+                <!-- Plain Text Block -->
+                <pre class="copy-pane" id="pane-text"></pre>
+            </div>
+        </section>
+
+        <footer>
+            <p>Made with care for a safer terminal. Richie's Blog &copy; 2026.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Disclaimer Text Content Variations
+        const plainTextDisclaimer = `DISCLAIMER & SAFETY WARNING
+
+All scripts, automations, tools, applications, or other media found on Richie's blog were written and have been tested by me. However, running random executable scripts from some dude's site on the internet without checking the contents is generally a bad idea.
+
+By running any of the scripts, automations, tools, applications, or other media found on my blog, you are accepting the potential risk that something I wrote did not work as intended. 
+
+I assume no responsibility for any lost time, data, money, physical or virtual assets, pets, girlfriends, etc. 
+
+Please take a look at my code prior to executing to make absolutely sure that the script is going to do what you and I intend for it to do.`;
+
+        const markdownDisclaimer = `### ⚠️ Disclaimer & Safety Warning
+
+> **TL;DR:** All scripts, automations, tools, applications, or other media found on this blog were written and tested by me. However, running random executable scripts from some dude's site on the internet without checking the contents is generally a **bad idea**.
+
+By running any of the tools or scripts found on my blog, you are accepting the potential risk that something I wrote did not work as intended. 
+
+I assume **no responsibility** for any lost:
+* ⏳ Time (debugging/recovery)
+* 💾 Data (lost/corrupted files)
+* 💸 Money (cloud bills/damages)
+* 🖥️ Assets (physical or virtual hardware)
+* 🐶 Pets (frightened or otherwise affected)
+* 💔 Girlfriends / Boyfriends / Partners
+
+**Please take a look at my code prior to executing** to make absolutely sure that the script is going to do what you and I intend for it to do. Safe scripting!`;
+
+        const wordpressHtmlDisclaimer = `<!-- wp:group {"style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem","left":"2rem","right":"2rem"}},"border":{"radius":"12px","width":"1px","style":"solid"}},"borderColor":"border-color-goes-here","backgroundColor":"background-color-goes-here","layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="border-style:solid;border-width:1px;border-radius:12px;padding-top:2rem;padding-right:2rem;padding-bottom:2rem;padding-left:2rem;background-color:rgba(239, 68, 68, 0.05);border-color:rgba(239, 68, 68, 0.2)">
+    
+    <!-- wp:heading {"level":3,"style":{"color":{"text":"#ef4444"}}} -->
+    <h3 class="wp-block-heading" style="color:#ef4444">⚠️ Disclaimer &amp; Safety Warning</h3>
+    <!-- /wp:heading -->
+
+    <!-- wp:paragraph {"style":{"typography":{"fontSize":"1.1rem"}}} -->
+    <p style="font-size:1.1rem">All scripts, automations, tools, applications, or other media found on this blog were written and tested by me. However, running random executable scripts from some dude's site on the internet without checking the contents is generally a <strong>bad idea</strong>.</p>
+    <!-- /wp:paragraph -->
+
+    <!-- wp:paragraph -->
+    <p>By running any of the scripts or tools found here, you are accepting the potential risk that something I wrote did not work as intended.</p>
+    <!-- /wp:paragraph -->
+
+    <!-- wp:quote {"style":{"border":{"color":"#f59e0b"}}} -->
+    <blockquote class="wp-block-quote" style="border-color:#f59e0b">
+        <p><strong>I assume no responsibility for:</strong><br>
+        Lost time, data, money, physical or virtual assets, pets, girlfriends, etc.</p>
+    </blockquote>
+    <!-- /wp:quote -->
+
+    <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"}}} -->
+    <p><strong>Please take a look at my code prior to executing</strong> to make absolutely sure that the script is going to do what you and I intend for it to do.</p>
+    <!-- /wp:paragraph -->
+
+</div>
+<!-- /wp:group -->`;
+
+        // Inject the text content into panes
+        document.getElementById('pane-html').textContent = wordpressHtmlDisclaimer;
+        document.getElementById('pane-markdown').textContent = markdownDisclaimer;
+        document.getElementById('pane-text').textContent = plainTextDisclaimer;
+
+        let activeTab = 'html';
+
+        function switchTab(tabName) {
+            activeTab = tabName;
+            
+            // Toggle active classes on tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Toggle active classes on panes
+            document.querySelectorAll('.copy-pane').forEach(pane => pane.classList.remove('active'));
+            document.getElementById(`pane-${tabName}`).classList.add('active');
+
+            // Reset copy button styling
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Content';
+            copyBtn.classList.remove('copied');
+        }
+
+        function copyActivePane() {
+            const activePane = document.getElementById(`pane-${activeTab}`);
+            const textToCopy = activePane.textContent;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                copyBtn.classList.add('copied');
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Content';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

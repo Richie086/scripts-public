@@ -26,6 +26,7 @@ scripts-public/
 ├── python/             # Python-based tools and CLI programs
 ├── testing/            # Directory analysis testing scripts
 ├── web/                # Web configuration utilities and server scripts
+├── wordpress/          # WordPress blog posts and guides
 └── directory_stats.md  # Generated directory statistics report
 ```
 
@@ -56,6 +57,9 @@ scripts-public/
 ### 🧪 Testing & Directory Analysis (`/testing`)
 * [dir_stats.sh](testing/dir_stats.sh): Target directory to analyze (default: current directory)
 * [update_readme.py](testing/update_readme.py): !/usr/bin/env python3
+
+### 📝 WordPress Blog Posts (`/wordpress`)
+* [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): A comprehensive guide on Google Antigravity and generating PowerShell scripts.
 
 ### 🌐 Web / Server Config (`/web`)
 * [apache-proxy-wizard.sh](web/apache-reverse-proxy/apache-proxy-wizard.sh): COLOR DEFINITIONS

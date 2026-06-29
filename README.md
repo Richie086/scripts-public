@@ -2,6 +2,14 @@
 
 A curated collection of utility scripts, automation tools, and applications for various environments.
 
+The [scripts_catalog.md](scripts_catalog.md) in this repository was generated using [Google Antigravity](https://antigravity.google/).
+
+For more information about Google Antigravity, check out the [Official Documentation](https://antigravity.google/docs) or download the platform for your operating system:
+* 🪟 [Windows Download](https://antigravity.google/download/windows)
+* 🍎 [macOS Download](https://antigravity.google/download/macos)
+* 🐧 [Linux Download](https://antigravity.google/download/linux)
+
+
 ## Repository Structure
 
 The repository is organized by environment and runtime type:

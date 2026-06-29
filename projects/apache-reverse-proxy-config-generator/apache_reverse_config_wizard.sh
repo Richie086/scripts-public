@@ -183,8 +183,17 @@ cat <<EOF >> "$TMP_CONFIG"
     SSLCertificateKeyFile $keypath
     SSLCertificateChainFile $pempath
 
+    # SSL Hardening (disables SSLv3, TLS 1.0, TLS 1.1)
+    SSLProtocol             all -SSLv3 -TLSv1 -TLSv1.1
+    SSLCipherSuite          ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+    SSLHonorCipherOrder     off
+    SSLSessionTickets       off
+
     ProxyPreserveHost On
     ProxyRequests Off
+
+    RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-Port "443"
 
     ProxyPass $application_path http://$ip_address:$proxy_port/
     ProxyPassReverse $application_path http://$ip_address:$proxy_port/

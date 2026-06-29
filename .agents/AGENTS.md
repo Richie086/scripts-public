@@ -13,6 +13,13 @@ These rules apply to any agent working inside the `scripts-public` repository.
   - Passwords or credentials (e.g., hardcoded passwords, `CERT_PASS`, `passwd`)
   - Secret API tokens or keys
   - Active certificates (e.g., `cert.pem`, `key.pem`)
-- **Warning System**: If you detect any sensitive information in the diff, you **must halt** and warn the user explicitly before proceeding with any commit or push, using a clear warning message such as:
   > [!CAUTION]
   > **Sensitive Data Detected!** You are about to commit sensitive information (passwords, keys, or certificates). Please verify if you want to proceed.
+
+## 🚀 Git Pushing Workflow (Pre-Push Approval)
+- **Automate Local Git Tasks**: When the user requests a push to GitHub, automate all intermediate steps:
+  1. Stage files (`git add`).
+  2. Run the security scan (`git diff --cached`).
+  3. Commit locally with a descriptive commit message (`git commit -m "..."`).
+- **Prompt Before Push**: **Stop** before executing the final `git push` command. Prompt the user for explicit confirmation or approval before running `git push`.
+

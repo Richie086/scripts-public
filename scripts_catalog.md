@@ -12,6 +12,7 @@ graph TD
     root --> bash["🐚 bash/"]
     root --> powershell["🔷 powershell/"]
     root --> python["🐍 python/"]
+    root --> testing["🧪 testing/"]
     root --> web["🌐 web/"]
 
     agents --> agents_md["AGENTS.md"]
@@ -29,6 +30,9 @@ graph TD
     python --> stftp["stftp/"]
     stftp --> stftp_srv["server.py"]
     stftp --> stftp_cli["client.py"]
+
+    testing --> dir_stats_sh["dir_stats.sh"]
+    testing --> test_readme["README.md"]
 
     web --> proxy["apache-reverse-proxy/"]
     proxy --> proxy_sh["apache-proxy-wizard.sh"]
@@ -49,6 +53,8 @@ graph TD
 | **PowerShell** | [recovery-partition/RecoveryPartitionManager.ps1](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/powershell/recovery-partition/RecoveryPartitionManager.ps1) | High-level interactive manager to create, remove, and manage Windows Recovery Partitions. | **Administrator privileges** |
 | **Python** | [stftp/server.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/server.py) | A simple Secure Trivial File Transfer Protocol server using TLS wrapping over standard sockets. | Python 3, OpenSSL certificate file (`cert.pem`, `key.pem`) |
 | **Python** | [stftp/client.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/client.py) | Client logic for connection and message parsing for Secure TFTP. | Python 3 |
+| **Testing** | [testing/dir_stats.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/dir_stats.sh) | Calculates file/folder statistics (total files, top-level folders, total subfolders, size) of a directory. | Bash environment, UNIX find utility |
+| **Testing** | [testing/README.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/README.md) | Overview documentation for the testing directory. | None |
 | **Web Config** | [apache-reverse-proxy/apache-proxy-wizard.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/web/apache-reverse-proxy/apache-proxy-wizard.sh) | Interactive setup wizard to automatically install and configure an Apache reverse proxy with SSL modules. | **Root privileges**, Linux with `apt` package manager |
 
 ---

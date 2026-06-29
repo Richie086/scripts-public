@@ -20,6 +20,7 @@ scripts-public/
 ├── bash/               # Linux Bash utility scripts
 ├── powershell/         # Windows PowerShell utility scripts
 ├── python/             # Python-based tools and CLI programs
+├── testing/            # Directory analysis testing scripts
 └── web/                # Web configuration utilities and server scripts
 ```
 
@@ -41,6 +42,9 @@ scripts-public/
 
 ### 🌐 Web / Server Config (`/web`)
 * [apache-reverse-proxy/](file:///home/rtroiano/scripts-public/scripts-public/web/apache-reverse-proxy/): Interactive configuration generation wizard for Apache reverse proxy setups.
+
+### 🧪 Testing & Directory Analysis (`/testing`)
+* [dir_stats.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/dir_stats.sh): Bash script that calculates the files, folders, subfolders, and size of a target directory, outputting the result in Markdown format to both stdout and a file.
 
 ---
 

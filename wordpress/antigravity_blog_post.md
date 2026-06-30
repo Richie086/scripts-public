@@ -1,276 +1,117 @@
-# Google Antigravity: The Next-Generation AI-First Development Platform
+# Google Antigravity: The AI-First Development Platform You Need to Try
 
-If you're looking for a paradigm shift in how you write, review, and manage code, look no further. **Google Antigravity** is a cutting-edge, AI-first development platform that integrates highly capable agentic workflows directly into your coding environment. Whether you want an AI that simply predicts your next keystroke, or an autonomous agent that can navigate your codebase, read files, run terminal commands, and search the web, Antigravity has you covered.
+**Google Antigravity** is a powerful, AI-first development platform designed to seamlessly integrate autonomous agentic workflows directly into your coding environment. Whether you are creating a new codebase, modifying an existing one, or just looking to automate repetitive tasks, Antigravity provides the tools you need to build faster and smarter.
 
-In this post, we'll explore what Antigravity is, how to install it across different operating systems, the differences between its various interfaces (CLI vs. IDE), and finally, a hands-on tutorial on using Antigravity to generate a useful PowerShell script.
-
----
-
-## How to Install Google Antigravity
-
-Google Antigravity is available across all major operating systems. You can download the latest releases directly from the official portal at `https://antigravity.google`.
-
-### Windows
-1. Visit the official downloads page and grab the `.exe` installer.
-2. Run the executable and follow the setup wizard.
-3. Once installed, you can launch Antigravity 2.0 from your Start menu or use the `agy` command in your terminal.
-
-### macOS
-1. Download the `.dmg` file for Apple Silicon or Intel from the releases page.
-2. Open the `.dmg` and drag the Antigravity app into your `Applications` folder.
-3. *Alternatively*, if you use Homebrew, you can install it via cask (once available in the core tap): `brew install --cask google-antigravity`.
-
-### Linux
-1. Download the `.AppImage`, `.deb`, or `.rpm` package depending on your distribution.
-2. For the `.AppImage`, make it executable (`chmod +x Antigravity-*.AppImage`) and run it.
-3. For Debian/Ubuntu based systems, install via `sudo apt install ./antigravity.deb`.
-
-*Note: If you only want the lightweight CLI version, you can typically install it via Python's package manager: `pip install google-antigravity-cli`.*
+In this post, we’ll explore what Google Antigravity is, how to install it, the differences between its IDE and CLI interfaces, basic setup options, and how to configure global agent skills to ensure your generated scripts are secure, complete, and fully functional.
 
 ---
 
-## Choosing Your Weapon: CLI vs. IDE vs. App
+## How to Install Google Antigravity via CLI (Mac, Windows, Linux)
 
-Antigravity comes in a few different flavors to match your preferred workflow:
+Installing Google Antigravity is straightforward across all major operating systems. The easiest way to get started and programmatically access the agent runtime is by installing the Antigravity Python SDK using `pip`. 
 
-### 1. Antigravity CLI (`agy`)
-The CLI is a lightweight, terminal-based Terminal User Interface (TUI) for fast agent interaction. 
-- **Best for:** Developers who live in the terminal and want low-latency, keyboard-driven interactions.
-- **Key Features:** Slash commands (`/context`, `/diff`, `/skills`), terminal session management, and configuration via a simple `settings.json` file. It's incredibly fast and consumes very few system resources.
+Open your terminal and run the following command:
 
-### 2. Antigravity IDE
-A standalone, AI-first integrated development environment built on top of VS Code.
-- **Best for:** Developers who want deeply integrated AI assistance while they type.
-- **Key Features:** 
-  - **Passive:** Next-intent prediction, autocomplete, and "Tab to Import".
-  - **Instructive:** Highlight code and press `Cmd+I` / `Ctrl+I` to have the AI perform localized edits, refactoring, or documentation.
-  - **Collaborative:** A sidebar chat to discuss complex architecture and an Agent Mode that acts as an autonomous pair programmer.
+```bash
+pip install google-antigravity
+```
 
-### 3. Antigravity 2.0 (Desktop App)
-A parallel Electron-based desktop application that orchestrates agents alongside your existing tools.
-- **Best for:** Users who want a dedicated canvas for agent planning and execution without being tied to a specific code editor.
-- **Key Features:** Unified sidebar for projects, scheduled background tasks, deep customization for permissions and sandboxing, and drag-and-drop media support.
+> **Note:** The SDK relies on a compiled runtime binary included in the platform-specific wheels published to PyPI. Always install using `pip` to ensure you get the correct binary for your OS.
+
+Once installed, you can launch the Antigravity CLI by simply typing:
+
+```bash
+agy
+```
+
+On your first run, the CLI will prompt you to press `Enter` to open a browser window for Google OAuth authentication. Once authenticated, paste the provided code back into your terminal, and you are ready to go!
 
 ---
 
-## Tutorial: Creating a PowerShell Script with Antigravity
+## Exploring the Interfaces: IDE vs. CLI
 
-One of the best ways to understand Antigravity's power is to have it write a script for you. Let's walk through how you would use Antigravity to create a Windows PowerShell script that calculates folder statistics.
+Google Antigravity provides distinct interfaces tailored to how you prefer to work.
 
-### Step 1: Prompting the Agent
-Open your Antigravity IDE or the Antigravity 2.0 app and start a new conversation. In the chat canvas, provide a clear and detailed prompt:
+### 1. Antigravity IDE
+The Antigravity IDE is a standalone, AI-first integrated development environment (built on VS Code). It offers three core interaction modalities:
 
-> *"Create a PowerShell script that calculates the number of files and folders in a given directory on a Windows machine. The script should output the total number of files, total folders, and the size of each file in a human-readable format, along with the total size of the folder to standard out. Do not recurse into subfolders. Finally, output a txt file in the root of the targeted folder with the output of the script in text format."*
+*   **Passive (Autocomplete):** A next-intent prediction experience that proposes insertions, deletions, and cursor movements based on your surrounding code and open tabs.
+*   **Instructive (Inline Commands):** Highlight a block of code and press `Cmd+I` (Mac) or `Ctrl+I` (Windows/Linux) to ask the AI to refactor, explain, or modify that specific block. 
+*   **Collaborative (Sidebar Chat & Agent):** The primary panel for complex tasks. Launch an agent that can act as a multi-step pair programmer—capable of reading and writing files, running terminal commands, searching the web, and executing tools autonomously.
 
-### Step 2: The Agent's Output
-Antigravity will analyze your request and generate the exact code needed. It might even create the file directly in your workspace if you ask it to! 
+### 2. Antigravity CLI (`agy`)
+For developers who prefer staying in the terminal, the Antigravity CLI (`agy`) offers a lightweight, interactive Terminal User Interface (TUI). 
 
-Here is the simple script Antigravity will generate for you:
+With the CLI, you can use built-in slash commands to manage your workspace and interact with agents. Some useful commands include:
+*   `/config` or `/settings`: Open the TUI configuration panel.
+*   `/diff`: View the current codebase diff of changes made by the agent.
+*   `/skills`: List all active agent skills.
+*   `/tasks`: Display the active task list and progress.
 
-```powershell
-param (
-    [Parameter(Mandatory=$false)]
-    [string]$TargetFolder = "."
-)
+---
 
-# Ensure the target folder exists
-if (-not (Test-Path -Path $TargetFolder -PathType Container)) {
-    Write-Error "The specified directory does not exist: $TargetFolder"
-    exit
-}
+## Advanced Configuration for SysAdmins & DevOps
 
-# Get files and folders (no recursion)
-$files = Get-ChildItem -Path $TargetFolder -File
-$folders = Get-ChildItem -Path $TargetFolder -Directory
+Antigravity is highly customizable and built with enterprise security in mind. You can configure your environment using the CLI via the `~/.gemini/antigravity-cli/settings.json` file or through the Settings panel in the Antigravity desktop application. 
 
-$totalFiles = @($files).Count
-$totalFolders = @($folders).Count
+For System Administrators and DevOps engineers managing deployments, here are the crucial configuration keys to secure your environment:
 
-# Helper function for human-readable sizes
-function Format-Bytes {
-    param([long]$bytes)
-    $units = "B", "KB", "MB", "GB", "TB"
-    $unit = 0
-    $val = $bytes
-    while ($val -ge 1024 -and $unit -lt ($units.Count - 1)) {
-        $val /= 1024
-        $unit++
-    }
-    return "{0:N2} {1}" -f $val, $units[$unit]
-}
+*   **`enableTerminalSandbox` (Security):** Set this boolean to `true` to force all agent-executed terminal commands to run inside a restricted sandbox environment, preventing accidental system modifications.
+*   **`toolPermission` (Execution Policy):** Controls whether the agent requires explicit approval before running commands. Options include `always-proceed`, `request-review`, `strict`, or `proceed-in-sandbox`. For production environments, `strict` or `request-review` is recommended.
+*   **`permissions` (Granular ACLs):** Define explicit allow/deny/ask rules for specific files, terminal commands, and URLs. This is essential for ensuring the agent only interacts with approved CI/CD scripts and safe domains.
+*   **`allowNonWorkspaceAccess` (Boundary Control):** Permits or denies the agent's ability to read or write files outside the current workspace root (`true`/`false`).
+*   **`trustedWorkspaces` (Trust Zones):** An array of directory paths trusted for execution. You can whitelist specific repositories where agent activity is fully permitted.
+*   **`gcp` (Cloud Integration):** An object for GCP project and location configurations, enabling seamless and authenticated interaction with Google Cloud tools and deployments.
+*   **`enableTelemetry` (Privacy):** A boolean to toggle anonymous usage and crash reporting based on your organization's data privacy policies.
+*   **`model` (Model Selection):** Set the active model identifier (e.g., `gemini-3.5-flash` or `gemini-pro`) to balance speed, cost, and capability.
 
-# Process sizes and build output
-$totalSize = 0
-$outputLines = @()
-$outputLines += "Folder Statistics for: $TargetFolder"
-$outputLines += "========================================"
-$outputLines += "Total Folders: $totalFolders"
-$outputLines += "Total Files: $totalFiles"
-$outputLines += ""
-$outputLines += "File Breakdown:"
-$outputLines += "----------------------------------------"
+---
 
-foreach ($file in $files) {
-    $totalSize += $file.Length
-    $sizeStr = Format-Bytes -bytes $file.Length
-    $outputLines += "$($file.Name) - $sizeStr"
-}
+## Configuring Global Agent Skills for Secure, Working Scripts
 
-$totalSizeStr = Format-Bytes -bytes $totalSize
-$outputLines += "----------------------------------------"
-$outputLines += "Total Folder Size: $totalSizeStr"
+One of Antigravity's most powerful features is the ability to customize agent behavior using **Skills** and **Rules**. To ensure that your agents consistently produce secure, complete, and working scripts, you should configure your global customizations.
 
-# 1. Output to standard out
-$outputLines | Write-Host
+### Step 1: Create a Global Skill
+Skills are directories containing specialized instructions that extend the agent's capabilities. Your global customizations root is located at `~/.gemini/config/`.
 
-# 2. Output to text file in the target directory
-$outFilePath = Join-Path -Path $TargetFolder -ChildPath "folder_stats.txt"
-$outputLines | Out-File -FilePath $outFilePath -Encoding utf8
+To create a new skill for secure scripting:
+1. Navigate to `~/.gemini/config/skills/` and create a new folder named `secure-scripting`.
+2. Inside this folder, create a file named `SKILL.md`.
 
-Write-Host "`nReport successfully saved to: $outFilePath"
+Add the following content to `SKILL.md`:
+
+```markdown
+---
+name: secure-scripting
+description: Enforces security best practices when writing scripts, ensuring no hardcoded secrets and complete functionality.
+---
+
+# Secure Scripting Guidelines
+When generating scripts, you MUST adhere to the following rules:
+1. **No Hardcoded Secrets:** Never hardcode passwords, API keys, private keys, or usernames. Always use environment variables or prompt the user for input.
+2. **Complete Functionality:** Provide fully functional, complete scripts rather than snippets or placeholders.
+3. **Error Handling:** Include robust error handling and logging to ensure the script fails gracefully.
 ```
 
-### Step 3: Leveling Up The Script (Recursion)
-What if we want to step this simple script up a notch? Let's say we want a command argument that will recursively generate a text file located at the root of *each* directory it recurses into, showing the output to standard out and saving the text file in each folder. 
+### Step 2: Define Global Rules
+For broader constraints that should apply universally across all tasks and workspaces, you can append rules to your global `AGENTS.md` file.
 
-We can prompt Antigravity again:
-> *"Update the script so that if the user passes `-Recursive On`, it recursively gets all subdirectories and generates a `folder_stats.txt` file for every single one of them, as well as printing the stats to standard out."*
+Open or create `~/.gemini/config/AGENTS.md` and add your security constraints:
 
-Antigravity will refactor the code to extract the core logic into a reusable `Process-Directory` function, and add the recursive loop:
+```markdown
+# Global Agent Rules
 
-```powershell
-param (
-    [Parameter(Mandatory=$false)]
-    [string]$TargetFolder = ".",
+## Security Verification (Critical)
+- Before executing or proposing any script, verify that it does not contain sensitive data.
+- If you detect any potential secrets in the diff, you **must halt** and warn the user explicitly.
 
-    [Parameter(Mandatory=$false)]
-    [string]$Recursive = "Off"
-)
-
-# Ensure the target folder exists
-if (-not (Test-Path -Path $TargetFolder -PathType Container)) {
-    Write-Error "The specified directory does not exist: $TargetFolder"
-    exit
-}
-
-# Helper function for human-readable sizes
-function Format-Bytes {
-    param([long]$bytes)
-    $units = "B", "KB", "MB", "GB", "TB"
-    $unit = 0
-    $val = $bytes
-    while ($val -ge 1024 -and $unit -lt ($units.Count - 1)) {
-        $val /= 1024
-        $unit++
-    }
-    return "{0:N2} {1}" -f $val, $units[$unit]
-}
-
-# Process a single directory
-function Process-Directory {
-    param([string]$Path)
-
-    # Get files and folders (no recursion)
-    $files = Get-ChildItem -Path $Path -File
-    $folders = Get-ChildItem -Path $Path -Directory
-
-    $totalFiles = @($files).Count
-    $totalFolders = @($folders).Count
-
-    # Process sizes and build output
-    $totalSize = 0
-    $outputLines = @()
-    $outputLines += "Folder Statistics for: $Path"
-    $outputLines += "========================================"
-    $outputLines += "Total Folders: $totalFolders"
-    $outputLines += "Total Files: $totalFiles"
-    $outputLines += ""
-    $outputLines += "File Breakdown:"
-    $outputLines += "----------------------------------------"
-
-    foreach ($file in $files) {
-        $totalSize += $file.Length
-        $sizeStr = Format-Bytes -bytes $file.Length
-        $outputLines += "$($file.Name) - $sizeStr"
-    }
-
-    $totalSizeStr = Format-Bytes -bytes $totalSize
-    $outputLines += "----------------------------------------"
-    $outputLines += "Total Folder Size: $totalSizeStr"
-
-    # 1. Output to standard out
-    $outputLines | Write-Host
-
-    # 2. Output to text file in the target directory
-    $outFilePath = Join-Path -Path $Path -ChildPath "folder_stats.txt"
-    $outputLines | Out-File -FilePath $outFilePath -Encoding utf8
-
-    Write-Host "`nReport successfully saved to: $outFilePath`n"
-}
-
-# 1. Always process the root directory
-Process-Directory -Path $TargetFolder
-
-# 2. Process subdirectories if Recursive is On
-if ($Recursive -eq "On") {
-    # Get all subdirectories recursively from the root folder
-    $allSubDirs = Get-ChildItem -Path $TargetFolder -Directory -Recurse
-    foreach ($subDir in $allSubDirs) {
-        Process-Directory -Path $subDir.FullName
-    }
-}
+## Code Quality
+- Ensure all generated code is token-efficient and adheres to modern best practices.
+- Do not use command aliases in PowerShell/Bash scripts (e.g., use `Select-Object` instead of `select`) to maintain readability.
 ```
 
-### Step 4: Execution and Verification
-Because Antigravity can run terminal commands, you don't even need to leave the window. You can simply tell the agent: 
-> *"Run this script on the `./src` directory with `-Recursive On`."* 
+By setting up these skills and rules, your Antigravity agents will automatically inherit these behaviors, ensuring that the scripts they produce are consistently reliable, secure, and ready for production.
 
-Antigravity will execute the command, capture the standard output, and verify that the files were created. 
+---
 
-For example, when running this recursively, Antigravity might capture the following output:
-
-```text
-Folder Statistics for: C:\Users\User\Desktop\scripts-public
-========================================
-Total Folders: 4
-Total Files: 3
-
-File Breakdown:
-----------------------------------------
-.gitattributes - 174.00 B
-.gitignore - 208.00 B
-README.md - 2.25 KB
-----------------------------------------
-Total Folder Size: 2.62 KB
-
-Report successfully saved to: C:\Users\User\Desktop\scripts-public\folder_stats.txt
-
-Folder Statistics for: C:\Users\User\Desktop\scripts-public\bash
-========================================
-Total Folders: 0
-Total Files: 2
-
-File Breakdown:
-----------------------------------------
-openssl-certtool.sh - 13.59 KB
-script-public-merge.sh - 1.25 KB
-----------------------------------------
-Total Folder Size: 14.84 KB
-
-Report successfully saved to: C:\Users\User\Desktop\scripts-public\bash\folder_stats.txt
-```
-
-### Step 5: Version Control and Git Operations
-Once you're satisfied with your new script, you don't even have to leave Antigravity to commit your work. You can instruct the agent:
-> *"Add this script to git and commit."*
-
-Antigravity will automatically stage your file and formulate a relevant commit message (e.g., `Add Calculate-FolderStats.ps1 utility script`). But it doesn't stop there! If you ask Antigravity to push your changes to GitHub and it encounters a **merge conflict** (for instance, if someone else updated the `README.md` catalog while you were working), Antigravity can intelligently resolve it.
-
-When faced with a merge conflict during a `git pull --rebase`, Antigravity will:
-1. Read the conflicted file to understand the `<<<<<<< HEAD` markers.
-2. Intelligently merge the remote changes with your local additions.
-3. Automatically run `git add` and `git rebase --continue` to finish the job.
-4. Finally, push the changes to your remote repository and even open up the GitHub page in your browser so you can verify the deployment.
-
-### Conclusion
-Google Antigravity drastically reduces the friction between having an idea and executing it. By utilizing its different modalities—whether through the CLI or the IDE—you can automate mundane tasks, write boilerplate code instantly, and focus on the architecture that actually matters. Happy coding!
+**Ready to start building?** Install Google Antigravity today and experience the future of AI-assisted development!

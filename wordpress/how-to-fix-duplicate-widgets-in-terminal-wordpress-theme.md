@@ -28,33 +28,7 @@ Sometimes, when you switch themes or update, widgets get moved around and duplic
 3. If you see a lot of widgets piled up here, hit the **Clear Inactive Widgets** button.
 4. Refresh your site to see if the issue is resolved.
 
-## 3. Check for Duplicate Registrations in `functions.php`
-
-If you have customized your Terminal theme's `functions.php` file, you might have accidentally registered the same sidebar or widget area twice.
-
-**Solution:**
-1. Go to **Appearance > Theme File Editor**.
-2. Select your `functions.php` file.
-3. Search for the `register_sidebar()` function.
-4. Ensure that each sidebar has a unique `id` and is only registered once.
-
-```php
-// Example of a correct registration
-function terminal_widgets_init() {
-    register_sidebar( array(
-        'name'          => __( 'Sidebar', 'terminal' ),
-        'id'            => 'sidebar-1',
-        'description'   => __( 'Add widgets here.', 'terminal' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
-    ) );
-}
-add_action( 'widgets_init', 'terminal_widgets_init' );
-```
-
-## 4. Clear Your Cache
+## 3. Clear Your Cache
 
 If you are using a caching plugin (like LiteSpeed Cache, W3 Total Cache, or WP Super Cache), your site might be serving an old, bugged version of the page.
 

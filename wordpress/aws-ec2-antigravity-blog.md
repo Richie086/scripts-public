@@ -1,5 +1,3 @@
-# Create an Amazon AWS EC2 Linux Instance to run Google Antigravity (Because Your Laptop Can't Handle It)
-
 Welcome to the future of AI-first development! Google Antigravity (AGY) is a powerful platform that supercharges your coding workflows. Sure, you *could* try running it locally on that machine Microsoft insists on updating right when you're in the middle of a thought, but hosting Antigravity on an Amazon Web Services (AWS) EC2 instance provides 24/7 availability. Because unlike your attention span while doom-scrolling Facebook, the cloud never sleeps. 
 
 In this guide, we'll walk you through provisioning an AWS EC2 Linux instance step-by-step and installing Google Antigravity. It's almost easy enough that an executive could do it. Almost.

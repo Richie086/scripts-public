@@ -4,6 +4,8 @@ If you are using the Terminal theme for WordPress and you've noticed that your w
 
 Here is a quick guide on how to troubleshoot and fix duplicate widgets in the Terminal WordPress theme.
 
+![Duplicate widgets appearing in the sidebar of the Terminal theme](./images/duplicate-widgets.png)
+
 ## 1. The Classic Widgets Fix (Most Common)
 
 Since WordPress 5.8, the classic widget editor was replaced with a block-based widget editor. While this is great for modern themes, older themes like Terminal might not fully support it, causing widgets to duplicate or render incorrectly.
@@ -61,3 +63,5 @@ Simply purge or clear all caches from your caching plugin's settings, and clear 
 
 ---
 Hopefully, one of these solutions helped you get your Terminal theme looking clean and functional again!
+
+*This article was assisted by AI. You can view the original Google Gemini conversation that helped draft this post [here](https://gemini.google.com/app/6aa1bf98c9f79871).*

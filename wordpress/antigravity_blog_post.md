@@ -1,5 +1,3 @@
-# Google Antigravity: The AI-First Development Platform You Need to Try
-
 **Google Antigravity** is a powerful, AI-first development platform designed to seamlessly integrate autonomous agentic workflows directly into your coding environment. Whether you are creating a new codebase, modifying an existing one, or just looking to automate repetitive tasks, Antigravity provides the tools you need to build faster and smarter.
 
 In this post, we’ll explore what Google Antigravity is, how to install it, the differences between its IDE and CLI interfaces, basic setup options, and how to configure global agent skills to ensure your generated scripts are secure, complete, and fully functional.

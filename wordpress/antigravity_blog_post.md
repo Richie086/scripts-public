@@ -6,19 +6,30 @@ In this post, we’ll explore what Google Antigravity is, how to install it, the
 
 ---
 
-## How to Install Google Antigravity via CLI (Mac, Windows, Linux)
+## How to Install Google Antigravity (Mac, Windows, Linux)
 
-Installing Google Antigravity is straightforward across all major operating systems. The easiest way to get started and programmatically access the agent runtime is by installing the Antigravity Python SDK using `pip`. 
+Google Antigravity is available as both a Desktop Application (Antigravity 2.0) and a CLI/Python SDK. Here is how to install the platform on your operating system of choice.
 
-Open your terminal and run the following command:
+### 1. Installing the Desktop Application (Antigravity 2.0)
+If you prefer a full graphical interface, you can download the standalone desktop application for your OS directly from the official site:
+* 🪟 **Windows:** [Download for Windows](https://antigravity.google/download/windows)
+* 🍎 **macOS:** [Download for macOS](https://antigravity.google/download/macos) (Apple Silicon & Intel)
+* 🐧 **Linux:** [Download for Linux](https://antigravity.google/download/linux) (.deb and AppImage available)
+
+Once downloaded, run the installer, launch the app, and follow the on-screen prompts to authenticate with your Google account.
+
+### 2. Installing the CLI & Python SDK
+For developers who want to stay in the terminal or programmatically access the agent runtime, you can install the Antigravity Python SDK using `pip`. This works universally across Mac, Windows, and Linux.
+
+Open your terminal and run:
 
 ```bash
 pip install google-antigravity
 ```
 
-> **Note:** The SDK relies on a compiled runtime binary included in the platform-specific wheels published to PyPI. Always install using `pip` to ensure you get the correct binary for your OS.
+> **Note:** The SDK relies on a compiled runtime binary included in the platform-specific wheels published to PyPI. Always install using `pip` to ensure you get the correct binary for your OS architecture.
 
-Once installed, you can launch the Antigravity CLI by simply typing:
+Once installed, you can launch the Antigravity CLI by typing:
 
 ```bash
 agy

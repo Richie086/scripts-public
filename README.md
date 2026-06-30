@@ -24,6 +24,7 @@ scripts-public/
 ├── markdown/           # WordPress blog posts and writeups
 ├── powershell/         # Windows PowerShell utility scripts
 ├── python/             # Python-based tools and CLI programs
+├── projects/           # Various complete projects and scripts
 ├── testing/            # Directory analysis testing scripts
 ├── web/                # Web configuration utilities and server scripts
 └── wordpress/          # WordPress blog posts and guides
@@ -63,6 +64,9 @@ scripts-public/
 
 ### 🌐 Web / Server Config (`/web`)
 * [apache-proxy-wizard.sh](web/apache-reverse-proxy/apache-proxy-wizard.sh): COLOR DEFINITIONS
+
+### 📁 Projects (`/projects`)
+* [provision_vms.sh](projects/kvm-provisioning/provision_vms.sh): A bash script to automatically provision Windows 11 and Ubuntu VMs using virt-install (KVM/QEMU).
 
 ---
 

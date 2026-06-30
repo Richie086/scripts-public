@@ -31,10 +31,10 @@ You have two straightforward options:
 
 If you're only interested in this specific utility, you can download the raw file via the link below, or directly in your terminal using `curl`/`wget`:
 
-[Download openssl-certtool.sh (Raw GitHub Link)](https://raw.githubusercontent.com/Richie086/scripts-public/refs/heads/main/projects/openssl-output-generator/openssl-certtool.sh)
+[Download openssl-certtool.sh (Raw GitHub Link)](https://raw.githubusercontent.com/Richie086/scripts-public/refs/heads/main/bash/openssl-certtool.sh)
 
 ```bash
-curl -O https://raw.githubusercontent.com/Richie086/scripts-public/refs/heads/main/projects/openssl-output-generator/openssl-certtool.sh
+curl -O https://raw.githubusercontent.com/Richie086/scripts-public/refs/heads/main/bash/openssl-certtool.sh
 ```
 
 ### Option 2: Clone the Full Repository

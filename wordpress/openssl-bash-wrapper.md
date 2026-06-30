@@ -1,4 +1,4 @@
-# The Ultimate OpenSSL Bash Wrapper: Painless Certificate Management
+# The Ultimate OpenSSL Output Generator 
 
 If you've ever found yourself staring at a blinking cursor, desperately trying to remember the arcane OpenSSL syntax required to rip a private key from a `.pfx` file, take comfort—you're in good company. Certificate management is a high-stakes chore, yet OpenSSL’s command-line arguments are infamously hard to recall.
 

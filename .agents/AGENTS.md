@@ -23,3 +23,9 @@ These rules apply to any agent working inside the `scripts-public` repository.
   3. Commit locally with a descriptive commit message (`git commit -m "..."`).
 - **Prompt Before Push**: **Stop** before executing the final `git push` command. Prompt the user for explicit confirmation or approval before running `git push`.
 
+## 📝 WordPress Shortcode Generation
+- **Automatic Shortcode Generation**: Every time the user asks to create a WordPress blog post, you must:
+  1. Save it as a markdown file in the `wordpress` folder of this repository.
+  2. Follow the standard push workflow to push it to GitHub.
+  3. After a successful push, always provide the user with the permalink to the markdown file enclosed in the following shortcode format:
+     `[git-github-markdown url="insert permalink url to markdown file in github"]`

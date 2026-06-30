@@ -29,6 +29,7 @@ These rules apply to any agent working inside the `scripts-public` repository.
   2. Follow the standard push workflow to push it to GitHub.
   3. After a successful push, always provide the user with the permalink to the markdown file enclosed in the following shortcode format:
      `[git-github-markdown url="insert permalink url to markdown file in github"]`
+  4. Automatically invoke `powershell/Publish-WordPressPost.ps1` to create a draft post on your WordPress instance containing the generated shortcode block, using the markdown filename (or a requested title) as the post title.
 
 ## 📥 Script Download Instructions in Blog Posts
 - **Include Download Links**: Whenever you create a blog post that mentions a script available for download, you must always include a working permalink to the script with a `curl` command to allow the reader to easily download it, as well as a blurb showing how to clone the entire repository.

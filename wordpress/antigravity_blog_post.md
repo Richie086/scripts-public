@@ -78,18 +78,40 @@ For System Administrators and DevOps engineers managing deployments, here are th
 
 ---
 
-## Configuring Global Agent Skills for Secure, Working Scripts
+## Configuring Agent Skills and Rules for Secure, Working Scripts
 
-One of Antigravity's most powerful features is the ability to customize agent behavior using **Skills** and **Rules**. To ensure that your agents consistently produce secure, complete, and working scripts, you should configure your global customizations.
+One of Antigravity's most powerful features is the ability to customize agent behavior using **Skills** and **Rules**. You can apply these globally or scope them to specific workspaces (projects).
 
-### Step 1: Create a Global Skill
-Skills are directories containing specialized instructions that extend the agent's capabilities. Your global customizations root is located at `~/.gemini/config/`.
+### 1. Workspace-Scoped Rules (`AGENTS.md`)
+To enforce strict behaviors for a specific project, you can create a `.agents` folder in the root of your workspace and add an `AGENTS.md` file. The agent will read this file every time it operates in that workspace.
 
-To create a new skill for secure scripting:
-1. Navigate to `~/.gemini/config/skills/` and create a new folder named `secure-scripting`.
-2. Inside this folder, create a file named `SKILL.md`.
+Here is an example of a robust, real-world `AGENTS.md` configuration used to ensure scripts are fully documented, secure, and properly version-controlled:
 
-Add the following content to `SKILL.md`:
+```markdown
+# Agent Guidelines for `scripts-public` Workspace
+
+## 📝 Documenting Changes
+- **Enforce Documentation Updates**: Any changes, additions, or removals of scripts/files in this repository must be reflected and documented in the README.md file.
+
+## 🛡️ Pre-Commit Sensitive Data Verification (Critical)
+- **Do Not Disclose Sensitive Data**: Sensitive information like passwords, API keys, private keys, or certificates must **never** be committed.
+- **Pre-Commit Scan**: Before staging, committing, or pushing any changes, you **must** scan all files in the current diff for sensitive patterns (e.g., `-----BEGIN PRIVATE KEY-----`, hardcoded passwords, `CERT_PASS`).
+- **Warning System**: If you detect any sensitive information in the diff, you **must halt** and warn the user explicitly using a clear warning message:
+  > [!CAUTION]
+  > **Sensitive Data Detected!** You are about to commit sensitive information. Please verify if you want to proceed.
+
+## 🚀 Git Pushing Workflow (Pre-Push Approval)
+- **Automate Local Git Tasks**: When the user requests a push to GitHub, automate all intermediate steps:
+  1. Stage files (`git add`).
+  2. Run the security scan (`git diff --cached`).
+  3. Commit locally with a descriptive commit message (`git commit -m "..."`).
+- **Prompt Before Push**: **Stop** before executing the final `git push` command. Prompt the user for explicit confirmation or approval before running `git push`.
+```
+
+### 2. Creating Reusable Agent Skills
+While rules are great for constraints, **Skills** provide specialized capabilities. A skill is a directory placed in your global `~/.gemini/config/skills/` folder containing a `SKILL.md` file with a YAML frontmatter.
+
+For example, to create a skill that enforces secure script generation across all projects, create `~/.gemini/config/skills/secure-scripting/SKILL.md`:
 
 ```markdown
 ---
@@ -99,29 +121,18 @@ description: Enforces security best practices when writing scripts, ensuring no 
 
 # Secure Scripting Guidelines
 When generating scripts, you MUST adhere to the following rules:
-1. **No Hardcoded Secrets:** Never hardcode passwords, API keys, private keys, or usernames. Always use environment variables or prompt the user for input.
+1. **No Hardcoded Secrets:** Always use environment variables or prompt the user for input.
 2. **Complete Functionality:** Provide fully functional, complete scripts rather than snippets or placeholders.
 3. **Error Handling:** Include robust error handling and logging to ensure the script fails gracefully.
 ```
 
-### Step 2: Define Global Rules
-For broader constraints that should apply universally across all tasks and workspaces, you can append rules to your global `AGENTS.md` file.
+### 3. Ask Antigravity for Security Enhancements!
+Antigravity isn't just a rule-follower—it's an active collaborator. If you aren't sure what other security measures you should put in place, just ask! 
 
-Open or create `~/.gemini/config/AGENTS.md` and add your security constraints:
+Try sending a prompt like this to the agent:
+> *"Review my current workspace configuration and suggest more actions or rules you can perform related to security and DevOps best practices. How else can we lock this down?"*
 
-```markdown
-# Global Agent Rules
-
-## Security Verification (Critical)
-- Before executing or proposing any script, verify that it does not contain sensitive data.
-- If you detect any potential secrets in the diff, you **must halt** and warn the user explicitly.
-
-## Code Quality
-- Ensure all generated code is token-efficient and adheres to modern best practices.
-- Do not use command aliases in PowerShell/Bash scripts (e.g., use `Select-Object` instead of `select`) to maintain readability.
-```
-
-By setting up these skills and rules, your Antigravity agents will automatically inherit these behaviors, ensuring that the scripts they produce are consistently reliable, secure, and ready for production.
+The agent can analyze your setup and suggest adding specific linting rules, deploying credential scanning tools (like `trufflehog`), or creating new automated background tasks to keep your environment secure.
 
 ---
 

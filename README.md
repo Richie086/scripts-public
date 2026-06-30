@@ -60,6 +60,7 @@ scripts-public/
 
 ### 📝 WordPress Blog Posts (`/wordpress`)
 * [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): A comprehensive guide on Google Antigravity and generating PowerShell scripts.
+* [aws-ec2-antigravity-blog.md](wordpress/aws-ec2-antigravity-blog.md): A sarcastic, humorous guide on provisioning an AWS EC2 instance for Google Antigravity.
 
 ### 🌐 Web / Server Config (`/web`)
 * [apache-proxy-wizard.sh](web/apache-reverse-proxy/apache-proxy-wizard.sh): COLOR DEFINITIONS

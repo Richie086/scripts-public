@@ -56,9 +56,16 @@ scripts-public/
 
 ### 📝 WordPress Blog Posts (`/wordpress`)
 * [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): A comprehensive guide on Google Antigravity and generating PowerShell scripts.
+* [mermaid-markup-language-guide.md](wordpress/mermaid-markup-language-guide.md): A complete guide to using Mermaid JS in VS Code.
 * [aws-ec2-antigravity-blog.md](wordpress/aws-ec2-antigravity-blog.md): A sarcastic, humorous guide on provisioning an AWS EC2 instance for Google Antigravity.
 * [how-to-update-rust-desk-pro-self-hosted-docker.md](wordpress/how-to-update-rust-desk-pro-self-hosted-docker.md): A guide on how to update Rust Desk Pro Self Hosted using Docker.
 * [technical-writing.md](wordpress/technical-writing.md): A markdown rewrite of the Technical Writing page from Extreme Sarcasm.
+
+### 📊 Mermaid JS Examples (`/markdown/mermaid-examples`)
+* [flowchart.md](markdown/mermaid-examples/flowchart.md): An example of a basic user registration flowchart.
+* [gantt.md](markdown/mermaid-examples/gantt.md): An example of a software development sprint Gantt chart.
+* [sequence.md](markdown/mermaid-examples/sequence.md): An example of an OAuth authentication sequence diagram.
+* [state.md](markdown/mermaid-examples/state.md): An example of an e-commerce shopping cart state diagram.
 
 ### 🌐 Web / Server Config (`/web`)
 * [apache-proxy-wizard.sh](web/apache-reverse-proxy/apache-proxy-wizard.sh): An interactive bash wizard for generating and configuring Apache reverse proxy setups.

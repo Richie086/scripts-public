@@ -49,11 +49,6 @@ scripts-public/
 * [RecoveryPartitionManager.ps1](powershell/recovery-partition/RecoveryPartitionManager.ps1): A comprehensive menu-driven utility for managing Windows recovery partitions.
 * [Remove-RecoveryPartition.ps1](powershell/recovery-partition/Remove-RecoveryPartition.ps1): Automates the safe detection and removal of a Windows recovery partition.
 
-### 🐍 Python (`/python`)
-* [client.py](python/stftp/client.py): A Python client script implementing STFTP (Simple Trivial File Transfer Protocol).
-* [client2.py](python/stftp/client2.py): An alternative Python STFTP client with modified configuration options.
-* [server.py](python/stftp/server.py): A Python STFTP server script to receive and store incoming files.
-* [server2.py](python/stftp/server2.py): An alternative Python STFTP server with modified configuration options.
 
 ### 🧪 Testing & Directory Analysis (`/testing`)
 * [dir_stats.sh](testing/dir_stats.sh): A bash script that analyzes and reports detailed directory statistics.
@@ -69,6 +64,10 @@ scripts-public/
 
 ### 📁 Projects (`/projects`)
 * [provision_vms.sh](projects/kvm-provisioning/provision_vms.sh): A bash script to automatically provision Windows 11 and Ubuntu VMs using virt-install (KVM/QEMU).
+* [client.py](projects/stftp/client.py): A Python client script implementing STFTP (Simple Trivial File Transfer Protocol).
+* [client2.py](projects/stftp/client2.py): An alternative Python STFTP client with modified configuration options.
+* [server.py](projects/stftp/server.py): A Python STFTP server script to receive and store incoming files.
+* [server2.py](projects/stftp/server2.py): An alternative Python STFTP server with modified configuration options.
 
 ---
 

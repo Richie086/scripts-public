@@ -72,7 +72,7 @@ graph TD
 ### 2. Sequence Diagrams
 Perfect for documenting API interactions, microservice communication, or authentication flows.
 
-```mermaid
+```text
 sequenceDiagram
     participant User
     participant Client
@@ -103,7 +103,7 @@ sequenceDiagram
 ### 3. State Diagrams
 Great for modeling the lifecycle of an object, like an order in an e-commerce system.
 
-```mermaid
+```text
 stateDiagram-v2
     [*] --> Pending
     Pending --> Processing : Payment Verified
@@ -123,7 +123,7 @@ stateDiagram-v2
 ### 4. Gantt Charts
 You can even track project schedules and dependencies.
 
-```mermaid
+```text
 gantt
     title Software Release Schedule
     dateFormat  YYYY-MM-DD

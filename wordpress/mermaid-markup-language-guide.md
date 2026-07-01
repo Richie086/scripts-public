@@ -66,6 +66,9 @@ graph TD
     style C fill:#ccf,stroke:#333,stroke-width:2px
 ```
 
+**Rendered Output:**
+![Flowchart](https://mermaid.ink/img/eyJjb2RlIjogImdyYXBoIFREXG4gICAgQVtVc2VyIFN1Ym1pdHMgRm9ybV0gLS0+fFZhbGlkYXRpb258IEJ7SXMgRGF0YSBWYWxpZD99XG4gICAgQiAtLSBZZXMgLS0+IENbU2F2ZSB0byBEYXRhYmFzZV1cbiAgICBCIC0tIE5vIC0tPiBEW1JldHVybiBFcnJvciBNZXNzYWdlXVxuICAgIEMgLS0+IEVbU2VuZCBDb25maXJtYXRpb24gRW1haWxdXG4gICAgRCAtLT4gRltVc2VyIENvcnJlY3RzIERhdGFdXG4gICAgRiAtLT4gQVxuICAgIFxuICAgIHN0eWxlIEEgZmlsbDojZjlmLHN0cm9rZTojMzMzLHN0cm9rZS13aWR0aDoycHhcbiAgICBzdHlsZSBDIGZpbGw6I2NjZixzdHJva2U6IzMzMyxzdHJva2Utd2lkdGg6MnB4IiwgIm1lcm1haWQiOiB7InRoZW1lIjogImRlZmF1bHQifX0=)
+
 ### 2. Sequence Diagrams
 Perfect for documenting API interactions, microservice communication, or authentication flows.
 
@@ -94,6 +97,9 @@ sequenceDiagram
     Client-->>User: Show Dashboard or Error
 ```
 
+**Rendered Output:**
+![Sequence Diagram](https://mermaid.ink/img/eyJjb2RlIjogInNlcXVlbmNlRGlhZ3JhbVxuICAgIHBhcnRpY2lwYW50IFVzZXJcbiAgICBwYXJ0aWNpcGFudCBDbGllbnRcbiAgICBwYXJ0aWNpcGFudCBTZXJ2ZXJcbiAgICBwYXJ0aWNpcGFudCBEYXRhYmFzZVxuXG4gICAgVXNlci0+PkNsaWVudDogQ2xpY2sgTG9naW5cbiAgICBDbGllbnQtPj5TZXJ2ZXI6IFBPU1QgL2xvZ2luIChDcmVkZW50aWFscylcbiAgICBhY3RpdmF0ZSBTZXJ2ZXJcbiAgICBTZXJ2ZXItPj5EYXRhYmFzZTogUXVlcnkgVXNlclxuICAgIGFjdGl2YXRlIERhdGFiYXNlXG4gICAgRGF0YWJhc2UtLT4+U2VydmVyOiBSZXR1cm4gVXNlciBEYXRhXG4gICAgZGVhY3RpdmF0ZSBEYXRhYmFzZVxuICAgIFxuICAgIGFsdCBWYWxpZCBDcmVkZW50aWFsc1xuICAgICAgICBTZXJ2ZXItLT4+Q2xpZW50OiAyMDAgT0sgKyBBdXRoIFRva2VuXG4gICAgZWxzZSBJbnZhbGlkIENyZWRlbnRpYWxzXG4gICAgICAgIFNlcnZlci0tPj5DbGllbnQ6IDQwMSBVbmF1dGhvcml6ZWRcbiAgICBlbmRcbiAgICBkZWFjdGl2YXRlIFNlcnZlclxuICAgIFxuICAgIENsaWVudC0tPj5Vc2VyOiBTaG93IERhc2hib2FyZCBvciBFcnJvciIsICJtZXJtYWlkIjogeyJ0aGVtZSI6ICJkZWZhdWx0In19)
+
 ### 3. State Diagrams
 Great for modeling the lifecycle of an object, like an order in an e-commerce system.
 
@@ -111,6 +117,9 @@ stateDiagram-v2
     Cancelled --> [*]
 ```
 
+**Rendered Output:**
+![State Diagram](https://mermaid.ink/img/eyJjb2RlIjogInN0YXRlRGlhZ3JhbS12MlxuICAgIFsqXSAtLT4gUGVuZGluZ1xuICAgIFBlbmRpbmcgLS0+IFByb2Nlc3NpbmcgOiBQYXltZW50IFZlcmlmaWVkXG4gICAgUHJvY2Vzc2luZyAtLT4gU2hpcHBlZCA6IFBhY2thZ2UgSGFuZGVkIHRvIENvdXJpZXJcbiAgICBTaGlwcGVkIC0tPiBEZWxpdmVyZWQgOiBDdXN0b21lciBSZWNlaXZlc1xuICAgIFxuICAgIFBlbmRpbmcgLS0+IENhbmNlbGxlZCA6IFBheW1lbnQgRmFpbGVkXG4gICAgUHJvY2Vzc2luZyAtLT4gQ2FuY2VsbGVkIDogSXRlbSBPdXQgb2YgU3RvY2tcbiAgICBcbiAgICBEZWxpdmVyZWQgLS0+IFsqXVxuICAgIENhbmNlbGxlZCAtLT4gWypdIiwgIm1lcm1haWQiOiB7InRoZW1lIjogImRlZmF1bHQifX0=)
+
 ### 4. Gantt Charts
 You can even track project schedules and dependencies.
 
@@ -127,6 +136,9 @@ gantt
     section Testing
     Integration Tests      :         test1, after dev1, 3d
 ```
+
+**Rendered Output:**
+![Gantt Chart](https://mermaid.ink/img/eyJjb2RlIjogImdhbnR0XG4gICAgdGl0bGUgU29mdHdhcmUgUmVsZWFzZSBTY2hlZHVsZVxuICAgIGRhdGVGb3JtYXQgIFlZWVktTU0tRERcbiAgICBzZWN0aW9uIFBsYW5uaW5nXG4gICAgUmVxdWlyZW1lbnRzIGdhdGhlcmluZyA6ZG9uZSwgICAgZGVzMSwgMjAyNi0wNy0wMSwgMjAyNi0wNy0wM1xuICAgIFN5c3RlbSBhcmNoaXRlY3R1cmUgICAgOmFjdGl2ZSwgIGRlczIsIDIwMjYtMDctMDQsIDNkXG4gICAgc2VjdGlvbiBEZXZlbG9wbWVudFxuICAgIENvcmUgQVBJICAgICAgICAgICAgICAgOiAgICAgICAgIGRldjEsIGFmdGVyIGRlczIsIDVkXG4gICAgRnJvbnRlbmQgVUkgICAgICAgICAgICA6ICAgICAgICAgZGV2MiwgYWZ0ZXIgZGVzMiwgNWRcbiAgICBzZWN0aW9uIFRlc3RpbmdcbiAgICBJbnRlZ3JhdGlvbiBUZXN0cyAgICAgIDogICAgICAgICB0ZXN0MSwgYWZ0ZXIgZGV2MSwgM2QiLCAibWVybWFpZCI6IHsidGhlbWUiOiAiZGVmYXVsdCJ9fQ==)
 
 ---
 

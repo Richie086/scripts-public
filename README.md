@@ -35,28 +35,29 @@ scripts-public/
 ## Catalog of Tools
 
 ### 🐚 Linux Bash (`/bash`)
-* [openssl-certtool.sh](bash/openssl-certtool.sh): 1. Initialization & Security Setup Color codes for readable output
-* [script-public-merge.sh](bash/script-public-merge.sh): Ensure we are in the root of the existing repo
+* [openssl-certtool.sh](bash/openssl-certtool.sh): A bash script for generating and managing OpenSSL certificates.
+* [script-public-merge.sh](bash/script-public-merge.sh): A utility script to merge public scripts into a repository.
+* [user_manager.sh](bash/user_manager.sh): Menu-driven Linux user account manager for Ubuntu.
 
 ### 🔷 Windows PowerShell (`/powershell`)
 * [Calculate-FolderStats.ps1](powershell/Calculate-FolderStats.ps1): Recursively calculates and reports total files, folders, and sizes in a directory.
-* [check_mtu.ps1](powershell/check_mtu.ps1): ----------------------------- HELP / USAGE
-* [openssl-certtool.ps1](powershell/openssl-certtool.ps1): Extract certificates, CA chains, private keys, PEM bundles, and CSRs from
-* [Create-RecoveryPartition.ps1](powershell/recovery-partition/Create-RecoveryPartition.ps1): PHASE 1: SHRINK C: AND CREATE THE PARTITION
-* [Create-RecoveryPartition2.ps1](powershell/recovery-partition/Create-RecoveryPartition2.ps1): 1. Automatically detect the volume labeled "Recovery" on your main system disk
-* [Create-RecoveryPartition3.ps1](powershell/recovery-partition/Create-RecoveryPartition3.ps1): 1. Turn off the current Recovery Environment mapping to avoid conflicts
-* [RecoveryPartitionManager.ps1](powershell/recovery-partition/RecoveryPartitionManager.ps1): Requires Administrator Privileges
-* [Remove-RecoveryPartition.ps1](powershell/recovery-partition/Remove-RecoveryPartition.ps1): 1. Automatically find the C: Drive disk and partition details
+* [check_mtu.ps1](powershell/check_mtu.ps1): Checks and reports the Maximum Transmission Unit (MTU) size for network interfaces.
+* [openssl-certtool.ps1](powershell/openssl-certtool.ps1): A PowerShell utility to extract certificates, CA chains, private keys, PEM bundles, and CSRs.
+* [Create-RecoveryPartition.ps1](powershell/recovery-partition/Create-RecoveryPartition.ps1): Automates shrinking the C: drive and creating a Windows recovery partition.
+* [Create-RecoveryPartition2.ps1](powershell/recovery-partition/Create-RecoveryPartition2.ps1): Alternative script for detecting and configuring a Windows recovery partition.
+* [Create-RecoveryPartition3.ps1](powershell/recovery-partition/Create-RecoveryPartition3.ps1): Advanced script for disabling current mappings and creating a new recovery environment.
+* [RecoveryPartitionManager.ps1](powershell/recovery-partition/RecoveryPartitionManager.ps1): A comprehensive menu-driven utility for managing Windows recovery partitions.
+* [Remove-RecoveryPartition.ps1](powershell/recovery-partition/Remove-RecoveryPartition.ps1): Automates the safe detection and removal of a Windows recovery partition.
 
 ### 🐍 Python (`/python`)
-* [client.py](python/stftp/client.py): --- Protocol Framing Logic ---
-* [client2.py](python/stftp/client2.py): --- Client Configuration ---
-* [server.py](python/stftp/server.py): Define the master folder where all incoming files will be trapped
-* [server2.py](python/stftp/server2.py): --- Server Configuration ---
+* [client.py](python/stftp/client.py): A Python client script implementing STFTP (Simple Trivial File Transfer Protocol).
+* [client2.py](python/stftp/client2.py): An alternative Python STFTP client with modified configuration options.
+* [server.py](python/stftp/server.py): A Python STFTP server script to receive and store incoming files.
+* [server2.py](python/stftp/server2.py): An alternative Python STFTP server with modified configuration options.
 
 ### 🧪 Testing & Directory Analysis (`/testing`)
-* [dir_stats.sh](testing/dir_stats.sh): Target directory to analyze (default: current directory)
-* [update_readme.py](testing/update_readme.py): !/usr/bin/env python3
+* [dir_stats.sh](testing/dir_stats.sh): A bash script that analyzes and reports detailed directory statistics.
+* [update_readme.py](testing/update_readme.py): A Python script that automates the generation and updating of the README.md file.
 
 ### 📝 WordPress Blog Posts (`/wordpress`)
 * [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): A comprehensive guide on Google Antigravity and generating PowerShell scripts.
@@ -64,7 +65,7 @@ scripts-public/
 * [how-to-update-rust-desk-pro-self-hosted-docker.md](wordpress/how-to-update-rust-desk-pro-self-hosted-docker.md): A guide on how to update Rust Desk Pro Self Hosted using Docker.
 
 ### 🌐 Web / Server Config (`/web`)
-* [apache-proxy-wizard.sh](web/apache-reverse-proxy/apache-proxy-wizard.sh): COLOR DEFINITIONS
+* [apache-proxy-wizard.sh](web/apache-reverse-proxy/apache-proxy-wizard.sh): An interactive bash wizard for generating and configuring Apache reverse proxy setups.
 
 ### 📁 Projects (`/projects`)
 * [provision_vms.sh](projects/kvm-provisioning/provision_vms.sh): A bash script to automatically provision Windows 11 and Ubuntu VMs using virt-install (KVM/QEMU).

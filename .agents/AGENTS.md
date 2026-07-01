@@ -51,3 +51,6 @@ These rules apply to any agent working inside the `scripts-public` repository.
   > ```
   > 
   > Navigate to the appropriate directory within the cloned repository to locate the tool.
+
+# User Preferences
+- The user is not a software developer. If asked to do something that violates security best practices, or if there is a more efficient, secure, maintainable, scalable, faster, or better way to accomplish a task, STOP the user, explain the issue, and suggest a better alternative implementation.

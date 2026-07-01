@@ -1,5 +1,3 @@
-# Visualizing Logic: A Complete Guide to Mermaid Markup Language in VS Code
-
 If you’ve ever found yourself struggling to maintain diagrams alongside your code, you’re not alone. Visio, Lucidchart, and other drag-and-drop tools are great, but they decouple your architecture from your repository. Enter **Mermaid** (often referred to as Mermaid Markup Language or Mermaid JS).
 
 Mermaid is a JavaScript-based diagramming and charting tool that renders Markdown-inspired text definitions to create and modify diagrams dynamically. It treats diagrams as code, allowing you to version control your visualizations right next to your application logic.

@@ -1,5 +1,3 @@
-# The Ultimate Guide to Installing Visual Studio Code (VSCode) on Windows, macOS, and Linux
-
 Visual Studio Code (VSCode) has become the go-to code editor for developers worldwide. It's lightweight, incredibly customizable, and supports a massive ecosystem of extensions. Whether you are a seasoned software engineer or just starting your coding journey, VSCode is an excellent choice.
 
 In this guide, we will walk you through the steps to install Visual Studio Code on Windows, macOS, and Linux.

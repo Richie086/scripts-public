@@ -3,43 +3,40 @@ param(
     [string]$Title,
     
     [Parameter(Mandatory=$true)]
-    [string]$Content
+    [string]$Content,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$Status = "private"
 )
 
-$wpUrl = $env:WP_URL
-$wpUser = $env:WP_USERNAME
-$wpPass = $env:WP_APP_PASSWORD
+$webhookUrl = $env:WP_WEBHOOK_URL
 
-if (-not $wpUrl -or -not $wpUser -or -not $wpPass) {
-    Write-Error "Missing required environment variables: WP_URL, WP_USERNAME, WP_APP_PASSWORD."
+if (-not $webhookUrl -or $webhookUrl -eq "paste_your_uncanny_webhook_url_here") {
+    Write-Error "Missing or invalid required environment variable: WP_WEBHOOK_URL. Please ensure you have set the actual webhook URL."
     exit 1
 }
 
-# Ensure URL doesn't have trailing slash for consistency
-$wpUrl = $wpUrl.TrimEnd('/')
-
-$apiUrl = "$wpUrl/wp-json/wp/v2/posts"
-$authString = "$($wpUser):$($wpPass)"
-$authBytes = [System.Text.Encoding]::UTF8.GetBytes($authString)
-$authBase64 = [System.Convert]::ToBase64String($authBytes)
+# Format content as a Gutenberg shortcode block if it is a raw shortcode
+if ($Content.Trim().StartsWith("[") -and $Content.Trim().EndsWith("]")) {
+    $Content = "<!-- wp:shortcode -->`n$Content`n<!-- /wp:shortcode -->"
+}
 
 $headers = @{
-    "Authorization" = "Basic $authBase64"
     "Content-Type"  = "application/json"
+    "User-Agent"    = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 }
 
 $body = @{
     title   = $Title
     content = $Content
-    status  = "draft"
+    status  = $Status
 } | ConvertTo-Json -Depth 5
 
 try {
-    Write-Host "Creating WordPress post '$Title'..."
-    $response = Invoke-RestMethod -Uri $apiUrl -Method Post -Headers $headers -Body $body
-    Write-Host "Post created successfully!"
-    Write-Host "ID: $($response.id)"
-    Write-Host "Link: $($response.link)"
+    Write-Host "Triggering WordPress Webhook for post '$Title'..."
+    $response = Invoke-RestMethod -Uri $webhookUrl -Method Post -Headers $headers -Body $body
+    Write-Host "Webhook triggered successfully!"
+    Write-Host "Response: $($response | ConvertTo-Json -Compress)"
 } catch {
-    Write-Error "Failed to create post. Error: $_"
+    Write-Error "Failed to trigger webhook. Error: $_"
 }

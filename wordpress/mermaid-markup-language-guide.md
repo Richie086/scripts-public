@@ -53,7 +53,7 @@ Mermaid supports a wide variety of diagrams. Here are a few examples of what you
 ### 1. Complex Flowcharts
 Flowcharts are the bread and butter of Mermaid. You can define node shapes, link styles, and even add styling classes.
 
-```mermaid
+```text
 graph TD
     A[User Submits Form] -->|Validation| B{Is Data Valid?}
     B -- Yes --> C[Save to Database]

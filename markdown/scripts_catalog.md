@@ -13,7 +13,6 @@ graph TD
     root --> markdown["📝 markdown/"]
     root --> powershell["🔷 powershell/"]
     root --> python["🐍 python/"]
-    root --> testing["🧪 testing/"]
     root --> web["🌐 web/"]
     root --> dir_stats_report["directory_stats.md"]
 
@@ -35,10 +34,6 @@ graph TD
     stftp --> stftp_srv["server.py"]
     stftp --> stftp_cli["client.py"]
 
-    testing --> dir_stats_sh["dir_stats.sh"]
-    testing --> update_readme_py["update_readme.py"]
-    testing --> test_readme["README.md"]
-
     web --> proxy["apache-reverse-proxy/"]
     proxy --> proxy_htm["disclaimer.html"]
 ```
@@ -59,9 +54,6 @@ graph TD
 | **Python** | [stftp/server.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/server.py) | A simple Secure Trivial File Transfer Protocol server using TLS wrapping over standard sockets. | Python 3, OpenSSL certificate file (`cert.pem`, `key.pem`) |
 | **Python** | [stftp/client.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/client.py) | Client logic for connection and message parsing for Secure TFTP. | Python 3 |
 | **Writeup** | [markdown/blog_post_wordpress.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/markdown/blog_post_wordpress.md) | WordPress-compatible Markdown blog post explaining directory analysis and pre-commit security verification. | None |
-| **Testing** | [testing/dir_stats.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/dir_stats.sh) | Calculates file/folder statistics (total files, top-level folders, total subfolders, size) of a directory. | Bash environment, UNIX find utility |
-| **Testing** | [testing/update_readme.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/update_readme.py) | Python auto-updater script to automatically refresh the README.md tools catalog based on script headers. | Python 3 |
-| **Testing** | [testing/README.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/README.md) | Overview documentation for the testing directory. | None |
 | **Report** | [directory_stats.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/directory_stats.md) | Generated directory statistics report (e.g. file, folder counts, sizes). | None |
 
 ---

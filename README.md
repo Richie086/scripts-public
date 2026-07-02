@@ -25,7 +25,6 @@ scripts-public/
 ├── powershell/         # Windows PowerShell utility scripts
 ├── python/             # Python-based tools and CLI programs
 ├── projects/           # Various complete projects and scripts
-├── testing/            # Directory analysis testing scripts
 ├── web/                # Web configuration utilities and server scripts
 └── wordpress/          # WordPress blog posts and guides
 ```
@@ -50,10 +49,6 @@ scripts-public/
 * [RecoveryPartitionManager.ps1](powershell/recovery-partition/RecoveryPartitionManager.ps1): A comprehensive menu-driven utility for managing Windows recovery partitions.
 * [Remove-RecoveryPartition.ps1](powershell/recovery-partition/Remove-RecoveryPartition.ps1): Automates the safe detection and removal of a Windows recovery partition.
 
-
-### 🧪 Testing & Directory Analysis (`/testing`)
-* [dir_stats.sh](testing/dir_stats.sh): A bash script that analyzes and reports detailed directory statistics.
-* [update_readme.py](testing/update_readme.py): A Python script that automates the generation and updating of the README.md file.
 
 ### 📝 WordPress Blog Posts (`/wordpress`)
 * [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): A comprehensive guide on Google Antigravity and generating PowerShell scripts.

@@ -4,7 +4,7 @@ In this guide, we will walk you through the steps to install Visual Studio Code 
 
 ---
 
-## 🪟 Installing VSCode on Windows
+## Installing VSCode on Windows
 
 Installing VSCode on Windows is straightforward thanks to the official installer provided by Microsoft.
 
@@ -39,7 +39,7 @@ winget install -e --id Microsoft.VisualStudioCode
 
 ---
 
-## 🍎 Installing VSCode on macOS
+## Installing VSCode on macOS
 
 For Mac users, installing VSCode is as simple as dragging an app into your Applications folder.
 
@@ -67,7 +67,7 @@ brew install --cask visual-studio-code
 
 ---
 
-## 🐧 Installing VSCode on Linux
+## Installing VSCode on Linux
 
 Linux distributions vary, so the installation method depends on the package manager your system uses. We'll cover Debian/Ubuntu-based and Red Hat/Fedora/SUSE-based distributions, as well as the Snap store.
 
@@ -126,7 +126,7 @@ For RHEL, Fedora, CentOS, and similar systems:
 
 ---
 
-## 🔌 Installing Extensions
+## Installing Extensions
 
 One of VSCode's greatest strengths is its massive extension marketplace.
 
@@ -136,7 +136,7 @@ One of VSCode's greatest strengths is its massive extension marketplace.
 
 ---
 
-## 🐙 Working with GitHub
+## Working with GitHub
 
 VSCode has excellent built-in support for Git and GitHub, making version control seamless.
 
@@ -150,7 +150,7 @@ VSCode has excellent built-in support for Git and GitHub, making version control
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
 Now that you have Visual Studio Code installed, extended, and connected to GitHub, you're ready to start coding! Here are a few quick tips to get you started:
 

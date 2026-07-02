@@ -10,7 +10,7 @@ Welcome to the **scripts-public** interactive folder browser. This catalog provi
 graph TD
     root["scripts-public (Root)"] --> agents["⚙️ .agents/"]
     root --> bash["🐚 bash/"]
-    root --> markdown["📝 markdown/"]
+    root --> wordpress["📝 wordpress/"]
     root --> powershell["🔷 powershell/"]
     root --> python["🐍 python/"]
     root --> web["🌐 web/"]
@@ -20,7 +20,7 @@ graph TD
     bash --> proxy_sh["apache-proxy-wizard.sh"]
     bash --> cert_sh["openssl-certtool.sh"]
     bash --> merge_sh["script-public-merge.sh"]
-    markdown --> blog_post_wp["blog_post_wordpress.md"]
+    wordpress --> blog_post_wp["blog_post_wordpress.md"]
 
     powershell --> check_mtu["check_mtu.ps1"]
     powershell --> cert_ps1["openssl-certtool.ps1"]
@@ -53,8 +53,8 @@ graph TD
 | **PowerShell** | [recovery-partition/RecoveryPartitionManager.ps1](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/powershell/recovery-partition/RecoveryPartitionManager.ps1) | High-level interactive manager to create, remove, and manage Windows Recovery Partitions. | **Administrator privileges** |
 | **Python** | [stftp/server.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/server.py) | A simple Secure Trivial File Transfer Protocol server using TLS wrapping over standard sockets. | Python 3, OpenSSL certificate file (`cert.pem`, `key.pem`) |
 | **Python** | [stftp/client.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/client.py) | Client logic for connection and message parsing for Secure TFTP. | Python 3 |
-| **Writeup** | [markdown/blog_post_wordpress.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/markdown/blog_post_wordpress.md) | WordPress-compatible Markdown blog post explaining directory analysis and pre-commit security verification. | None |
-| **Report** | [directory_stats.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/directory_stats.md) | Generated directory statistics report (e.g. file, folder counts, sizes). | None |
+| **Writeup** | [wordpress/blog_post_wordpress.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/wordpress/blog_post_wordpress.md) | WordPress-compatible Markdown blog post explaining directory analysis and pre-commit security verification. | None |
+| **Report** | [wordpress/directory_stats.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/wordpress/directory_stats.md) | Generated directory statistics report (e.g. file, folder counts, sizes). | None |
 
 ---
 

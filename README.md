@@ -5,7 +5,7 @@ A curated collection of utility scripts, automation tools, and applications for 
 All of these scripts along with detailed writeups on their usage and configuration can be found on my WordPress blog: [Extreme Sarcasm](https://extremesarcasm.org).
 
 
-The [scripts_catalog.md](markdown/scripts_catalog.md) in this repository was generated using [Google Antigravity](https://antigravity.google/).
+The [scripts_catalog.md](wordpress/scripts_catalog.md) in this repository was generated using [Google Antigravity](https://antigravity.google/).
 
 For more information about Google Antigravity, check out the [Official Documentation](https://antigravity.google/docs) or download the platform for your operating system:
 * 🪟 [Windows Download](https://antigravity.google/download/windows)
@@ -21,12 +21,11 @@ The repository is organized by environment and runtime type:
 scripts-public/
 ├── .agents/            # Workspace agent rules and guidelines
 ├── bash/               # Linux Bash utility scripts
-├── markdown/           # WordPress blog posts and writeups
 ├── powershell/         # Windows PowerShell utility scripts
 ├── python/             # Python-based tools and CLI programs
 ├── projects/           # Various complete projects and scripts
 ├── web/                # Web configuration utilities and server scripts
-└── wordpress/          # WordPress blog posts and guides
+└── wordpress/          # WordPress blog posts, catalogs, and guides
 ```
 
 ---
@@ -57,11 +56,11 @@ scripts-public/
 * [how-to-update-rust-desk-pro-self-hosted-docker.md](wordpress/how-to-update-rust-desk-pro-self-hosted-docker.md): A guide on how to update Rust Desk Pro Self Hosted using Docker.
 * [technical-writing.md](wordpress/technical-writing.md): A markdown rewrite of the Technical Writing page from Extreme Sarcasm.
 
-### 📊 Mermaid JS Examples (`/markdown/mermaid-examples`)
-* [flowchart.md](markdown/mermaid-examples/flowchart.md): An example of a basic user registration flowchart.
-* [gantt.md](markdown/mermaid-examples/gantt.md): An example of a software development sprint Gantt chart.
-* [sequence.md](markdown/mermaid-examples/sequence.md): An example of an OAuth authentication sequence diagram.
-* [state.md](markdown/mermaid-examples/state.md): An example of an e-commerce shopping cart state diagram.
+### 📊 Mermaid JS Examples (`/wordpress/mermaid-examples`)
+* [flowchart.md](wordpress/mermaid-examples/flowchart.md): An example of a basic user registration flowchart.
+* [gantt.md](wordpress/mermaid-examples/gantt.md): An example of a software development sprint Gantt chart.
+* [sequence.md](wordpress/mermaid-examples/sequence.md): An example of an OAuth authentication sequence diagram.
+* [state.md](wordpress/mermaid-examples/state.md): An example of an e-commerce shopping cart state diagram.
 
 ### 📁 Projects (`/projects`)
 * [provision_vms.sh](projects/kvm-provisioning/provision_vms.sh): A bash script to automatically provision Windows 11 and Ubuntu VMs using virt-install (KVM/QEMU).

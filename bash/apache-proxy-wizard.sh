@@ -87,13 +87,13 @@ read -p "Enter Backend IP Address [127.0.0.1]: " ip_address
 ip_address=${ip_address:-127.0.0.1} 
 read -p "Enter Backend Port (e.g., 8080): " proxy_port
 
-read -p "Enter Web Application Path (URL Proxy Path) [/var/www/html]: " application_path
-application_path=${application_path:-/var/www/html}
+read -p "Enter Web Application Path (URL Proxy Path) [/]: " application_path
+application_path=${application_path:-/}
 
 echo -e "\n${CYAN}--- SSL Certificates ---${NC}"
 read -p "Full path to .crt file: " certpath
 read -p "Full path to .key file: " keypath
-read -p "Full path to .pem file: " pempath
+read -p "Full path to .pem file (optional): " pempath
 
 echo -e "\n${CYAN}--- Extra Features ---${NC}"
 read -p "Force HTTP to HTTPS redirect? (y/n): " redirect_choice
@@ -121,7 +121,9 @@ validate_file() {
 echo -e "\n${CYAN}[*] Validating certificate files...${NC}"
 validate_file "Certificate (.crt)" "$certpath"
 validate_file "Private Key (.key)" "$keypath"
-validate_file "Chain/PEM (.pem)" "$pempath"
+if [ -n "$pempath" ]; then
+    validate_file "Chain/PEM (.pem)" "$pempath"
+fi
 
 # ==============================================================================
 # SECTION: Pre-Flight Summary
@@ -181,7 +183,13 @@ cat <<EOF >> "$TMP_CONFIG"
     SSLEngine on
     SSLCertificateFile $certpath
     SSLCertificateKeyFile $keypath
-    SSLCertificateChainFile $pempath
+EOF
+
+if [ -n "$pempath" ]; then
+    echo "    SSLCertificateChainFile $pempath" >> "$TMP_CONFIG"
+fi
+
+cat <<EOF >> "$TMP_CONFIG"
 
     # SSL Hardening (disables SSLv3, TLS 1.0, TLS 1.1)
     SSLProtocol             all -SSLv3 -TLSv1 -TLSv1.1
@@ -241,12 +249,6 @@ echo -e "${GREEN}[*] Copying configuration to $DEST_CONFIG...${NC}"
 cp "$TMP_CONFIG" "$DEST_CONFIG"
 
 echo -e "\n${CYAN}--- Site Activation ---${NC}"
-read -p "Copy config directly to /etc/apache2/sites-enabled/? (y/n): " copy_choice
-if [[ "$copy_choice" =~ ^[Yy]$ ]]; then
-    echo -e "${GREEN}[*] Copying configuration...${NC}"
-    cp "$DEST_CONFIG" /etc/apache2/sites-enabled/
-fi
-
 read -p "Enable site using 'a2ensite ${application}.conf'? (y/n): " a2ensite_choice
 if [[ "$a2ensite_choice" =~ ^[Yy]$ ]]; then
     echo -e "${GREEN}[*] Running a2ensite...${NC}"

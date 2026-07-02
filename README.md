@@ -35,6 +35,7 @@ scripts-public/
 ## Catalog of Tools
 
 ### 🐚 Linux Bash (`/bash`)
+* [apache-proxy-wizard.sh](bash/apache-proxy-wizard.sh): An interactive bash wizard for generating and configuring Apache reverse proxy setups.
 * [openssl-certtool.sh](bash/openssl-certtool.sh): A bash script for generating and managing OpenSSL certificates.
 * [script-public-merge.sh](bash/script-public-merge.sh): A utility script to merge public scripts into a repository.
 * [user_manager.sh](bash/user_manager.sh): Menu-driven Linux user account manager for Ubuntu.
@@ -66,9 +67,6 @@ scripts-public/
 * [gantt.md](markdown/mermaid-examples/gantt.md): An example of a software development sprint Gantt chart.
 * [sequence.md](markdown/mermaid-examples/sequence.md): An example of an OAuth authentication sequence diagram.
 * [state.md](markdown/mermaid-examples/state.md): An example of an e-commerce shopping cart state diagram.
-
-### 🌐 Web / Server Config (`/web`)
-* [apache-proxy-wizard.sh](web/apache-reverse-proxy/apache-proxy-wizard.sh): An interactive bash wizard for generating and configuring Apache reverse proxy setups.
 
 ### 📁 Projects (`/projects`)
 * [provision_vms.sh](projects/kvm-provisioning/provision_vms.sh): A bash script to automatically provision Windows 11 and Ubuntu VMs using virt-install (KVM/QEMU).

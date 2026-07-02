@@ -33,7 +33,7 @@ scripts-public/
 ## Catalog of Tools
 
 ### 🐚 Linux Bash (`/bash`)
-* [apache-proxy-wizard.sh](bash/apache-proxy-wizard.sh): An interactive bash wizard for generating and configuring Apache reverse proxy setups.
+* [apache-proxy-wizard.sh](bash/apache-proxy-wizard.sh): An interactive bash wizard for configuring Apache reverse proxy setups with manual SSL or automated Let's Encrypt integration.
 * [openssl-certtool.sh](bash/openssl-certtool.sh): A bash script for generating and managing OpenSSL certificates.
 * [script-public-merge.sh](bash/script-public-merge.sh): A utility script to merge public scripts into a repository.
 * [user_manager.sh](bash/user_manager.sh): Menu-driven Linux user account manager for Ubuntu.

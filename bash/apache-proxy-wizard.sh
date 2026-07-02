@@ -91,9 +91,18 @@ read -p "Enter Web Application Path (URL Proxy Path) [/]: " application_path
 application_path=${application_path:-/}
 
 echo -e "\n${CYAN}--- SSL Certificates ---${NC}"
-read -p "Full path to .crt file: " certpath
-read -p "Full path to .key file: " keypath
-read -p "Full path to .pem file (optional): " pempath
+read -p "Use Let's Encrypt for automated SSL? (y/n): " use_letsencrypt
+
+if [[ "$use_letsencrypt" =~ ^[Yy]$ ]]; then
+    read -p "Enter email address for Let's Encrypt notifications: " email
+    certpath="/etc/letsencrypt/live/$fqdn/fullchain.pem"
+    keypath="/etc/letsencrypt/live/$fqdn/privkey.pem"
+    pempath=""
+else
+    read -p "Full path to .crt file: " certpath
+    read -p "Full path to .key file: " keypath
+    read -p "Full path to .pem file (optional): " pempath
+fi
 
 echo -e "\n${CYAN}--- Extra Features ---${NC}"
 read -p "Force HTTP to HTTPS redirect? (y/n): " redirect_choice
@@ -119,10 +128,18 @@ validate_file() {
 }
 
 echo -e "\n${CYAN}[*] Validating certificate files...${NC}"
-validate_file "Certificate (.crt)" "$certpath"
-validate_file "Private Key (.key)" "$keypath"
-if [ -n "$pempath" ]; then
-    validate_file "Chain/PEM (.pem)" "$pempath"
+if [[ "$use_letsencrypt" =~ ^[Yy]$ ]]; then
+    if [ -f "$certpath" ] && [ -f "$keypath" ]; then
+        echo -e "${GREEN}[+] Existing Let's Encrypt certificate files found.${NC}"
+    else
+        echo -e "${YELLOW}[*] Let's Encrypt certificate will be acquired during deployment.${NC}"
+    fi
+else
+    validate_file "Certificate (.crt)" "$certpath"
+    validate_file "Private Key (.key)" "$keypath"
+    if [ -n "$pempath" ]; then
+        validate_file "Chain/PEM (.pem)" "$pempath"
+    fi
 fi
 
 # ==============================================================================
@@ -148,6 +165,48 @@ fi
 # ==============================================================================
 echo -e "\n${CYAN}[*] Enabling Apache modules...${NC}"
 a2enmod ssl proxy proxy_http headers rewrite
+
+# ==============================================================================
+# SECTION: Let's Encrypt Certificate Acquisition
+# ==============================================================================
+if [[ "$use_letsencrypt" =~ ^[Yy]$ ]]; then
+    echo -e "\n${CYAN}--- Let's Encrypt Setup ---${NC}"
+    
+    # 1. Install certbot and apache plugin if missing
+    if ! command -v certbot >/dev/null 2>&1; then
+        echo -e "${CYAN}[*] Installing certbot and apache plugin...${NC}"
+        apt update && apt install -y certbot python3-certbot-apache
+    fi
+    
+    # 2. Check if cert already exists
+    if [ -f "$certpath" ] && [ -f "$keypath" ]; then
+        echo -e "${GREEN}[+] Let's Encrypt certificate already exists at $certpath.${NC}"
+    else
+        echo -e "${CYAN}[*] Creating temporary HTTP configuration for verification...${NC}"
+        # Write a temporary site config to sites-available
+        TEMP_LE_CONFIG="/etc/apache2/sites-available/${application}.conf"
+        cat <<EOF > "$TEMP_LE_CONFIG"
+<VirtualHost *:80>
+    ServerName $fqdn
+    DocumentRoot /var/www/html
+</VirtualHost>
+EOF
+        # Enable temporary site and restart Apache
+        if [ ! -f "/etc/apache2/sites-enabled/${application}.conf" ]; then
+            a2ensite "${application}.conf" >/dev/null 2>&1
+        fi
+        systemctl restart apache2
+        
+        echo -e "${CYAN}[*] Requesting Let's Encrypt certificate...${NC}"
+        if certbot certonly --apache -d "$fqdn" --non-interactive --agree-tos --email "$email"; then
+            echo -e "${GREEN}[+] Let's Encrypt certificate obtained successfully!${NC}"
+        else
+            echo -e "${RED}[!] Error: Let's Encrypt certificate acquisition failed.${NC}"
+            echo -e "${YELLOW}Aborting deployment. Verify DNS resolution and firewall rules for $fqdn.${NC}"
+            exit 1
+        fi
+    fi
+fi
 
 # ==============================================================================
 # SECTION: Configuration Generation (to /tmp)

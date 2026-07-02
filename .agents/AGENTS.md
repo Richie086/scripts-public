@@ -25,7 +25,7 @@ These rules apply to any agent working inside the `scripts-public` repository.
 
 ## 📝 WordPress Shortcode Generation
 - **Automatic Shortcode Generation**: Every time the user asks to create a WordPress blog post, you must:
-  1. Save it as a markdown file in the `wordpress` folder of this repository.
+  1. Save it as a markdown file in the `wordpress` folder of this repository. **Always remove the first H1 element** (e.g. the main title `# Title`) from the markdown file (as the title is handled by WordPress), but do not touch other H1 elements if any exist.
   2. Follow the standard push workflow to push it to GitHub.
   3. After a successful push, always provide the user with the permalink to the markdown file enclosed in the following shortcode format:
      `[git-github-markdown url="insert permalink url to markdown file in github"]`

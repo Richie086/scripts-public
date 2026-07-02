@@ -1,5 +1,3 @@
-# How to Fix Duplicate Widgets in Terminal WordPress Theme
-
 ![Duplicate widgets appearing in the sidebar of the Terminal theme](./images/duplicate-widgets.png)
 
 If you are using the Terminal WordPress Theme, you might have run into an annoying bug where widgets appear duplicated in your sidebar. After digging into the theme's code, the exact culprit is hidden right inside the `sidebar.php` file.

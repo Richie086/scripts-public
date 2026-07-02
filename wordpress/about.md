@@ -1,5 +1,3 @@
-# About
-
 Hi, I’m Richard. I’m an IT professional and network engineer with over two decades of experience designing, building, and securing enterprise networks and server infrastructure.
 
 ---

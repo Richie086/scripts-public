@@ -18,6 +18,7 @@ graph TD
     root --> dir_stats_report["directory_stats.md"]
 
     agents --> agents_md["AGENTS.md"]
+    bash --> proxy_sh["apache-proxy-wizard.sh"]
     bash --> cert_sh["openssl-certtool.sh"]
     bash --> merge_sh["script-public-merge.sh"]
     markdown --> blog_post_wp["blog_post_wordpress.md"]
@@ -39,7 +40,6 @@ graph TD
     testing --> test_readme["README.md"]
 
     web --> proxy["apache-reverse-proxy/"]
-    proxy --> proxy_sh["apache-proxy-wizard.sh"]
     proxy --> proxy_htm["disclaimer.html"]
 ```
 
@@ -50,6 +50,7 @@ graph TD
 | Category | File / Tool | Purpose | Requirements / Dependencies |
 | :--- | :--- | :--- | :--- |
 | **Configuration** | [AGENTS.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/.agents/AGENTS.md) | Workspace-specific rules for code change documentation and pre-commit security verification checks. | None |
+| **Linux Bash** | [apache-proxy-wizard.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/bash/apache-proxy-wizard.sh) | Interactive setup wizard to automatically install and configure an Apache reverse proxy with SSL modules. | **Root privileges**, Linux with `apt` package manager |
 | **Linux Bash** | [openssl-certtool.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/bash/openssl-certtool.sh) | Interactive utility for generating, converting, and extracting OpenSSL certificates (e.g. PEM, PFX, P12, P7B). | OpenSSL, Bash environment |
 | **Linux Bash** | [script-public-merge.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/bash/script-public-merge.sh) | Restructures the workspace directories and automatically appends common file ignores to `.gitignore`. | Git repository environment |
 | **PowerShell** | [openssl-certtool.ps1](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/powershell/openssl-certtool.ps1) | Windows PowerShell equivalent of the OpenSSL certificate utility for extracting keys and certificate chains. | PowerShell, OpenSSL in system PATH |
@@ -62,7 +63,6 @@ graph TD
 | **Testing** | [testing/update_readme.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/update_readme.py) | Python auto-updater script to automatically refresh the README.md tools catalog based on script headers. | Python 3 |
 | **Testing** | [testing/README.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/testing/README.md) | Overview documentation for the testing directory. | None |
 | **Report** | [directory_stats.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/directory_stats.md) | Generated directory statistics report (e.g. file, folder counts, sizes). | None |
-| **Web Config** | [apache-reverse-proxy/apache-proxy-wizard.sh](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/web/apache-reverse-proxy/apache-proxy-wizard.sh) | Interactive setup wizard to automatically install and configure an Apache reverse proxy with SSL modules. | **Root privileges**, Linux with `apt` package manager |
 
 ---
 

@@ -54,6 +54,7 @@ graph TD
 | **Python** | [stftp/server.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/server.py) | A simple Secure Trivial File Transfer Protocol server using TLS wrapping over standard sockets. | Python 3, OpenSSL certificate file (`cert.pem`, `key.pem`) |
 | **Python** | [stftp/client.py](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/python/stftp/client.py) | Client logic for connection and message parsing for Secure TFTP. | Python 3 |
 | **Writeup** | [wordpress/blog_post_wordpress.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/wordpress/blog_post_wordpress.md) | WordPress-compatible Markdown blog post explaining directory analysis and pre-commit security verification. | None |
+| **Writeup** | [wordpress/ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/wordpress/ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md) | Ultimate Guide to Bitwarden: Securing Your Digital Life Across Every Device. | None |
 | **Report** | [wordpress/directory_stats.md](file:///C:/Users/Richard%20Troiano/.gemini/antigravity/scratch/scripts-public/wordpress/directory_stats.md) | Generated directory statistics report (e.g. file, folder counts, sizes). | None |
 
 ---

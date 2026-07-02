@@ -50,6 +50,7 @@ scripts-public/
 
 
 ### 📝 WordPress Blog Posts (`/wordpress`)
+* [about.md](wordpress/about.md): The About page biography from Extreme Sarcasm.
 * [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): A comprehensive guide on Google Antigravity and generating PowerShell scripts.
 * [mermaid-markup-language-guide.md](wordpress/mermaid-markup-language-guide.md): A complete guide to using Mermaid JS in VS Code.
 * [aws-ec2-antigravity-blog.md](wordpress/aws-ec2-antigravity-blog.md): A sarcastic, humorous guide on provisioning an AWS EC2 instance for Google Antigravity.

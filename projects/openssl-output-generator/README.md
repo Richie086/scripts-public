@@ -1,3 +1,15 @@
+<!-- AUTO-GENERATED MERMAID START -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+
+```mermaid
+graph TD
+n0["openssl-output-generator"]
+n1["README.md"]
+n0 --> n1
+```
+
+<!-- AUTO-GENERATED MERMAID END -->
+
 # OpenSSL Output Generator (Bash)
 
 This folder contains a Bash interactive utility `openssl-certtool.sh` to extract certificates and keys from `.pfx`, `.p12`, and `.p7b` files using OpenSSL.

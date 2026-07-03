@@ -3,38 +3,21 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `projects`</summary>
+
 ```mermaid
-graph TD
-n0["projects"]
-n1["kvm-provisioning/"]
-n2["provision_vms.sh"]
-n3["openssl-output-generator/"]
-n4["README.md"]
-n5["stftp/"]
-n6[".gitignore"]
-n7["client.py"]
-n8["client2.py"]
-n9["data/"]
-n10["stftpupload/"]
-n11["test.txt"]
-n12["server.py"]
-n13["server2.py"]
-n14["test.txt"]
-n0 --> n1
-n1 --> n2
-n0 --> n3
-n3 --> n4
-n0 --> n5
-n5 --> n6
-n5 --> n7
-n5 --> n8
-n5 --> n9
-n9 --> n10
-n10 --> n11
-n5 --> n12
-n5 --> n13
-n5 --> n14
+gitGraph
+    commit id: "root: projects"
+    commit id: "dir: kvm-provisioning (2 entries)"
+    commit id: "dir: openssl-output-generator (1 entries)"
+    commit id: "file: README.md (494 bytes)"
+    commit id: "dir: stftp (8 entries)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

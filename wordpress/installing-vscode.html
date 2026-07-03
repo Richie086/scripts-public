@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installing Visual Studio Code</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #f6f8fa;
+            padding: 20px;
+        }
+
+        .markdown-body {
+            max-width: 890px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 45px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            border-radius: 6px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e4e8;
+            color: #6a737d;
+            font-size: 12px;
+        }
+
+        .code-block-wrapper {
+            position: relative;
+            margin: 16px 0;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #1f2937;
+            color: #fff;
+            border: 1px solid #374151;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .copy-button:hover {
+            background-color: #111827;
+            border-color: #4b5563;
+        }
+
+        .copy-button.copied {
+            background-color: #10b981;
+            border-color: #059669;
+        }
+
+        .copy-button.copied::after {
+            content: '✓ Copied!';
+        }
+
+        .copy-button:not(.copied)::after {
+            content: 'Copy';
+        }
+    </style>
+</head>
+<body>
+    <article class="markdown-body">
+        <h1>Installing Visual Studio Code</h1>
+        
+        <p>Visual Studio Code (VSCode) has become the go-to code editor for developers worldwide. It's lightweight, incredibly customizable, and supports a massive ecosystem of extensions. Whether you are a seasoned software engineer or just starting your coding journey, VSCode is an excellent choice.</p>
+
+        <p>In this guide, we will walk you through the steps to install Visual Studio Code on Windows, macOS, and Linux.</p>
+
+        <hr>
+
+        <h2>Installing VSCode on Windows</h2>
+
+        <p>Installing VSCode on Windows is straightforward thanks to the official installer provided by Microsoft.</p>
+
+        <h3>Method 1: Using the Official Installer (Recommended)</h3>
+
+        <ol>
+            <li>
+                <strong>Download the Installer:</strong><br>
+                Navigate to the official <a href="https://code.visualstudio.com/Download">VSCode download page</a> and click on the <strong>Windows</strong> button to download the User Installer (recommended for most users).
+            </li>
+            <li>
+                <strong>Run the Installer:</strong><br>
+                Once the download is complete, locate the downloaded <code>.exe</code> file (usually in your Downloads folder) and double-click it to run the installer.
+            </li>
+            <li>
+                <strong>Follow the Setup Wizard:</strong>
+                <ul>
+                    <li><strong>Accept the License Agreement.</strong></li>
+                    <li><strong>Select Destination Location:</strong> You can usually leave this as the default.</li>
+                    <li><strong>Select Additional Tasks:</strong> This is important! We highly recommend checking the boxes for:
+                        <ul>
+                            <li><strong>"Add 'Open with Code' action to Windows Explorer file context menu"</strong></li>
+                            <li><strong>"Add 'Open with Code' action to Windows Explorer directory context menu"</strong></li>
+                            <li><strong>"Register Code as an editor for supported file types"</strong></li>
+                            <li><strong>"Add to PATH (requires shell restart)"</strong> (Crucial for running VSCode from the command line).</li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>Install</strong>.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Launch VSCode:</strong><br>
+                Once the installation is finished, check "Launch Visual Studio Code" and click <strong>Finish</strong>.
+            </li>
+        </ol>
+
+        <h3>Method 2: Using the Windows Package Manager (winget)</h3>
+
+        <p>If you prefer using the command line, you can install VSCode using <code>winget</code>. Open PowerShell or Command Prompt and run:</p>
+
+        <pre><code>winget install -e --id Microsoft.VisualStudioCode</code></pre>
+
+        <hr>
+
+        <h2>Installing VSCode on macOS</h2>
+
+        <p>For Mac users, installing VSCode is as simple as dragging an app into your Applications folder.</p>
+
+        <h3>Method 1: Standard Installation</h3>
+
+        <ol>
+            <li>
+                <strong>Download the Archive:</strong><br>
+                Go to the <a href="https://code.visualstudio.com/Download">VSCode download page</a> and click on the <strong>Mac</strong> button. This will download a <code>.zip</code> file containing the application.
+            </li>
+            <li>
+                <strong>Extract the Application:</strong><br>
+                Double-click the downloaded <code>.zip</code> file to extract its contents. You should now see the "Visual Studio Code" application.
+            </li>
+            <li>
+                <strong>Move to Applications Folder:</strong><br>
+                Drag the "Visual Studio Code" application into your <strong>Applications</strong> folder to make it available in your Launchpad.
+            </li>
+            <li>
+                <strong>Launch VSCode:</strong><br>
+                Open Launchpad or Finder, navigate to Applications, and double-click Visual Studio Code. (You may see a warning that it's an app downloaded from the internet; click "Open").
+            </li>
+        </ol>
+
+        <h3>Method 2: Using Homebrew (For Terminal Users)</h3>
+
+        <p>If you use Homebrew, the popular package manager for macOS, you can install VSCode via Homebrew Cask. Open your terminal and run:</p>
+
+        <pre><code>brew install --cask visual-studio-code</code></pre>
+
+        <hr>
+
+        <h2>Installing VSCode on Linux</h2>
+
+        <p>Linux distributions vary, so the installation method depends on the package manager your system uses. We'll cover Debian/Ubuntu-based and Red Hat/Fedora/SUSE-based distributions, as well as the Snap store.</p>
+
+        <h3>Method 1: Snap Package (Easiest for Many Distros)</h3>
+
+        <p>If your Linux distribution supports Snaps (like Ubuntu), this is the easiest way to get the latest version. Open your terminal and run:</p>
+
+        <pre><code>sudo snap install --classic code</code></pre>
+
+        <h3>Method 2: Debian/Ubuntu (APT)</h3>
+
+        <p>For Debian, Ubuntu, Linux Mint, and similar distributions, use the official Microsoft repository.</p>
+
+        <ol>
+            <li>
+                <strong>Update packages and install dependencies:</strong>
+                <pre><code>sudo apt-get update
+sudo apt-get install wget gpg</code></pre>
+            </li>
+            <li>
+                <strong>Import the Microsoft GPG key:</strong>
+                <pre><code>wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg</code></pre>
+            </li>
+            <li>
+                <strong>Add the VSCode repository:</strong>
+                <pre><code>echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null</code></pre>
+            </li>
+            <li>
+                <strong>Install VSCode:</strong>
+                <pre><code>sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install code</code></pre>
+            </li>
+        </ol>
+
+        <h3>Method 3: Red Hat/Fedora/CentOS (YUM/DNF)</h3>
+
+        <p>For RHEL, Fedora, CentOS, and similar systems:</p>
+
+        <ol>
+            <li>
+                <strong>Import the Microsoft GPG key and add the repository:</strong>
+                <pre><code>sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'</code></pre>
+            </li>
+            <li>
+                <strong>Install VSCode (using DNF on Fedora/RHEL 8+):</strong>
+                <pre><code>sudo dnf check-update
+sudo dnf install code</code></pre>
+                <p><em>(Alternatively, use <code>yum</code> instead of <code>dnf</code> on older systems).</em></p>
+            </li>
+        </ol>
+
+        <hr>
+
+        <h2>Installing Extensions</h2>
+
+        <p>One of VSCode's greatest strengths is its massive extension marketplace.</p>
+
+        <ol>
+            <li><strong>Open the Extensions View:</strong> Click on the Extensions icon on the left Activity Bar (it looks like four squares) or press <code>Ctrl+Shift+X</code> (<code>Cmd+Shift+X</code> on macOS).</li>
+            <li><strong>Search:</strong> In the search bar at the top, type the name of the extension or language you want (e.g., "Python", "Prettier", "Live Server").</li>
+            <li><strong>Install:</strong> Click the <strong>Install</strong> button next to the extension you want. It will install and activate instantly—no restart required in most cases!</li>
+        </ol>
+
+        <hr>
+
+        <h2>Working with GitHub</h2>
+
+        <p>VSCode has excellent built-in support for Git and GitHub, making version control seamless.</p>
+
+        <ol>
+            <li><strong>Initialize a Repository:</strong> If your project isn't already a Git repository, you can initialize one by clicking the <strong>Source Control</strong> icon on the Activity Bar (it looks like a branching graph) and clicking <strong>Initialize Repository</strong>.</li>
+            <li><strong>Stage and Commit:</strong> Make changes to your files, then go to the Source Control view. Click the <code>+</code> icon next to files to stage them, type a commit message in the text box, and click the <strong>Commit</strong> button (or checkmark icon).</li>
+            <li>
+                <strong>Connect to GitHub:</strong>
+                <ul>
+                    <li>To push your code, click the <strong>Publish Branch</strong> button (or the Sync icon in the bottom status bar).</li>
+                    <li>VSCode will prompt you to sign in to GitHub if you haven't already. Follow the browser prompts to authenticate.</li>
+                    <li>You can choose to publish to a public or private repository directly from the editor.</li>
+                </ul>
+            </li>
+            <li><strong>Pull Requests and Issues:</strong> For even deeper integration, install the official <strong>GitHub Pull Requests and Issues</strong> extension. This allows you to review PRs, comment on code, and manage issues without ever leaving VSCode!</li>
+        </ol>
+
+        <hr>
+
+        <h2>Next Steps</h2>
+
+        <p>Now that you have Visual Studio Code installed, extended, and connected to GitHub, you're ready to start coding! Here are a few quick tips to get you started:</p>
+
+        <ul>
+            <li><strong>Open a Folder:</strong> Go to <code>File > Open Folder...</code> to open your project directory and start working on your code.</li>
+            <li><strong>Use the Integrated Terminal:</strong> Press <code>Ctrl+`</code> (backtick) or go to <code>Terminal > New Terminal</code> to open a command line right inside VSCode.</li>
+        </ul>
+
+        <p style="text-align: center; margin-top: 40px; font-size: 1.2em;">Happy coding!</p>
+
+        <footer>
+            <p>Generated from Markdown | Styled with GitHub Markdown CSS</p>
+        </footer>
+    </article>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find all pre elements
+            const preElements = document.querySelectorAll('pre');
+            
+            preElements.forEach((pre) => {
+                // Create wrapper div
+                const wrapper = document.createElement('div');
+                wrapper.className = 'code-block-wrapper';
+                
+                // Create copy button
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.setAttribute('aria-label', 'Copy code to clipboard');
+                
+                // Insert wrapper before pre and move pre inside wrapper
+                pre.parentNode.insertBefore(wrapper, pre);
+                wrapper.appendChild(pre);
+                wrapper.appendChild(button);
+                
+                // Add copy functionality
+                button.addEventListener('click', async function() {
+                    const code = pre.querySelector('code');
+                    const text = code ? code.textContent : pre.textContent;
+                    
+                    try {
+                        await navigator.clipboard.writeText(text);
+                        
+                        // Visual feedback
+                        button.classList.add('copied');
+                        
+                        // Reset after 2 seconds
+                        setTimeout(() => {
+                            button.classList.remove('copied');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy:', err);
+                        alert('Failed to copy code');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

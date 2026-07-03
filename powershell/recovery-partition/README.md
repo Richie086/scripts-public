@@ -3,20 +3,23 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `recovery-partition`</summary>
+
 ```mermaid
-graph TD
-n0["recovery-partition"]
-n1["Create-RecoveryPartition.ps1"]
-n2["Create-RecoveryPartition2.ps1"]
-n3["Create-RecoveryPartition3.ps1"]
-n4["RecoveryPartitionManager.ps1"]
-n5["Remove-RecoveryPartition.ps1"]
-n0 --> n1
-n0 --> n2
-n0 --> n3
-n0 --> n4
-n0 --> n5
+gitGraph
+    commit id: "root: recovery-partition"
+    commit id: "file: Create-RecoveryPartition.ps1 (2821 bytes)"
+    commit id: "file: Create-RecoveryPartition2.ps1 (1141 bytes)"
+    commit id: "file: Create-RecoveryPartition3.ps1 (2015 bytes)"
+    commit id: "file: README.md (654 bytes)"
+    commit id: "file: RecoveryPartitionManager.ps1 (9398 bytes)"
+    commit id: "file: Remove-RecoveryPartition.ps1 (1351 bytes)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

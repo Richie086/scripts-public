@@ -3,28 +3,25 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `stftp`</summary>
+
 ```mermaid
-graph TD
-n0["stftp"]
-n1[".gitignore"]
-n2["client.py"]
-n3["client2.py"]
-n4["data/"]
-n5["stftpupload/"]
-n6["test.txt"]
-n7["server.py"]
-n8["server2.py"]
-n9["test.txt"]
-n0 --> n1
-n0 --> n2
-n0 --> n3
-n0 --> n4
-n4 --> n5
-n5 --> n6
-n0 --> n7
-n0 --> n8
-n0 --> n9
+gitGraph
+    commit id: "root: stftp"
+    commit id: "file: .gitignore (18 bytes)"
+    commit id: "file: client.py (1122 bytes)"
+    commit id: "file: client2.py (4944 bytes)"
+    commit id: "dir: data (2 entries)"
+    commit id: "file: README.md (570 bytes)"
+    commit id: "file: server.py (2429 bytes)"
+    commit id: "file: server2.py (3949 bytes)"
+    commit id: "file: test.txt (25165824 bytes)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

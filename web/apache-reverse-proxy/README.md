@@ -3,12 +3,19 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `apache-reverse-proxy`</summary>
+
 ```mermaid
-graph TD
-n0["apache-reverse-proxy"]
-n1["disclaimer.html"]
-n0 --> n1
+gitGraph
+    commit id: "root: apache-reverse-proxy"
+    commit id: "file: disclaimer.html (25913 bytes)"
+    commit id: "file: README.md (461 bytes)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

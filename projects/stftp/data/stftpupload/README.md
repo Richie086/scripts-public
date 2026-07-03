@@ -3,12 +3,19 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `stftpupload`</summary>
+
 ```mermaid
-graph TD
-n0["stftpupload"]
-n1["test.txt"]
-n0 --> n1
+gitGraph
+    commit id: "root: stftpupload"
+    commit id: "file: README.md (427 bytes)"
+    commit id: "file: test.txt (25165824 bytes)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

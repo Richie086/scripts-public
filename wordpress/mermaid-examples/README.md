@@ -3,18 +3,22 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `mermaid-examples`</summary>
+
 ```mermaid
-graph TD
-n0["mermaid-examples"]
-n1["flowchart.md"]
-n2["gantt.md"]
-n3["sequence.md"]
-n4["state.md"]
-n0 --> n1
-n0 --> n2
-n0 --> n3
-n0 --> n4
+gitGraph
+    commit id: "root: mermaid-examples"
+    commit id: "file: flowchart.md (446 bytes)"
+    commit id: "file: gantt.md (760 bytes)"
+    commit id: "file: README.md (527 bytes)"
+    commit id: "file: sequence.md (762 bytes)"
+    commit id: "file: state.md (491 bytes)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

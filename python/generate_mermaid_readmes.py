@@ -55,31 +55,19 @@ def describe_entry(path: Path) -> str:
 
 
 def build_mermaid_tree(directory: Path) -> str:
-    lines = ["```mermaid", "flowchart TD"]
-    node_ids: Dict[Path, str] = {}
-
-    def add_node(path: Path, parent_id: str | None = None) -> str:
-        node_id = node_ids.get(path)
-        if node_id is None:
-            node_id = f"n{len(node_ids)}"
-            node_ids[path] = node_id
-
-        label = escape_label(path.name or str(path))
-        if parent_id is None:
-            lines.append(f'    {node_id}["{label}"]')
-        else:
-            lines.append(f'    {parent_id} --> {node_id}["{label}"]')
+    def render_tree(path: Path, indent: str = "") -> list[str]:
+        lines: list[str] = []
+        lines.append(f"{indent}{path.name or str(path)}")
 
         if path.is_dir():
             children = [child for child in sorted(path.iterdir(), key=lambda p: str(p).lower()) if not should_skip(child)]
             for child in children:
-                add_node(child, node_id)
+                lines.extend(render_tree(child, indent + "  "))
 
-        return node_id
+        return lines
 
-    add_node(directory)
-    lines.append("```")
-    return "\n".join(lines)
+    tree_lines = [directory.name or str(directory), *render_tree(directory, "  ")]
+    return "\n".join(["```mermaid", "dirtree-chart", *tree_lines, "```"])
 
 
 def build_inventory(directory: Path, indent: str = "") -> list[str]:

@@ -3,54 +3,37 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `wordpress`</summary>
+
 ```mermaid
-graph TD
-n0["wordpress"]
-n1["about.md"]
-n2["ai-automation.md"]
-n3["antigravity_blog_post.md"]
-n4["automating-wordpress-antigravity.md"]
-n5["aws-ec2-antigravity-blog.md"]
-n6["blog_post_wordpress.md"]
-n7["directory_stats.md"]
-n8["how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md"]
-n9["how-to-update-rust-desk-pro-self-hosted-docker.md"]
-n10["how_to_use_antigravity.md"]
-n11["installing-vscode.md"]
-n12["mermaid-examples/"]
-n13["flowchart.md"]
-n14["gantt.md"]
-n15["sequence.md"]
-n16["state.md"]
-n17["mermaid-markup-language-guide.md"]
-n18["openssl-bash-wrapper.md"]
-n19["scripts_catalog.md"]
-n20["technical-writing.md"]
-n21["test_post.md"]
-n22["ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md"]
-n0 --> n1
-n0 --> n2
-n0 --> n3
-n0 --> n4
-n0 --> n5
-n0 --> n6
-n0 --> n7
-n0 --> n8
-n0 --> n9
-n0 --> n10
-n0 --> n11
-n0 --> n12
-n12 --> n13
-n12 --> n14
-n12 --> n15
-n12 --> n16
-n0 --> n17
-n0 --> n18
-n0 --> n19
-n0 --> n20
-n0 --> n21
-n0 --> n22
+gitGraph
+    commit id: "root: wordpress"
+    commit id: "file: about.md (2992 bytes)"
+    commit id: "file: ai-automation.md (2431 bytes)"
+    commit id: "file: antigravity_blog_post.md (9658 bytes)"
+    commit id: "file: automating-wordpress-antigravity.md (4236 bytes)"
+    commit id: "file: aws-ec2-antigravity-blog.md (9332 bytes)"
+    commit id: "file: blog_post_wordpress.md (11312 bytes)"
+    commit id: "file: directory_stats.md (359 bytes)"
+    commit id: "file: how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md (2182 bytes)"
+    commit id: "file: how-to-update-rust-desk-pro-self-hosted-docker.md (1635 bytes)"
+    commit id: "file: how_to_use_antigravity.md (1955 bytes)"
+    commit id: "file: installing-vscode.html (14564 bytes)"
+    commit id: "file: installing-vscode.md (7312 bytes)"
+    commit id: "dir: mermaid-examples (5 entries)"
+    commit id: "file: mermaid-markup-language-guide.md (7883 bytes)"
+    commit id: "file: openssl-bash-wrapper.md (5433 bytes)"
+    commit id: "file: README.md (1261 bytes)"
+    commit id: "file: scripts_catalog.md (5915 bytes)"
+    commit id: "file: technical-writing.md (7001 bytes)"
+    commit id: "file: test_post.md (475 bytes)"
+    commit id: "file: ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md (7386 bytes)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

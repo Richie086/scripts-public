@@ -3,12 +3,19 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `kvm-provisioning`</summary>
+
 ```mermaid
-graph TD
-n0["kvm-provisioning"]
-n1["provision_vms.sh"]
-n0 --> n1
+gitGraph
+    commit id: "root: kvm-provisioning"
+    commit id: "file: provision_vms.sh (2655 bytes)"
+    commit id: "file: README.md (450 bytes)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

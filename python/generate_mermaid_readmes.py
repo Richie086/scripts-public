@@ -5,7 +5,18 @@ import re
 from pathlib import Path
 from typing import Dict
 
-REPO_ROOT = Path(__file__).resolve().parent
+
+def find_repo_root() -> Path:
+    """Find the git repository root by searching for .git directory."""
+    current = Path(__file__).resolve().parent
+    while current != current.parent:
+        if (current / ".git").exists():
+            return current
+        current = current.parent
+    return Path(__file__).resolve().parent
+
+
+REPO_ROOT = find_repo_root()
 README_NAME = "README.md"
 AUTO_START = "<!-- AUTO-GENERATED MERMAID START -->"
 AUTO_END = "<!-- AUTO-GENERATED MERMAID END -->"
@@ -16,54 +27,55 @@ def escape_label(label: str) -> str:
     return label.replace('"', '\\"')
 
 
-def build_mermaid_tree(directory: Path) -> str:
-    node_ids: Dict[Path, str] = {}
-    edges: list[str] = []
-    current_id = 0
+def should_skip(path: Path) -> bool:
+    return any(part in EXCLUDE_DIRS for part in path.parts)
 
-    def node_id(path: Path) -> str:
-        nonlocal current_id
-        if path not in node_ids:
-            node_ids[path] = f"n{current_id}"
-            current_id += 1
-        return node_ids[path]
 
-    def should_skip(path: Path) -> bool:
-        return any(part in EXCLUDE_DIRS for part in path.parts)
+def describe_entry(path: Path) -> str:
+    if path.is_dir():
+        children = [p for p in path.iterdir() if not should_skip(p)]
+        child_count = len(children)
+        return f"dir: {path.name} ({child_count} entries)"
 
-    root_node = node_id(directory)
-    nodes: dict[str, str] = {root_node: escape_label(directory.name or directory.drive or "/")}
+    try:
+        size = path.stat().st_size
+    except OSError:
+        size = 0
+    return f"file: {path.name} ({size} bytes)"
 
-    for child in sorted(directory.rglob("*"), key=lambda p: str(p).lower()):
+
+def build_mermaid_gitgraph(directory: Path) -> str:
+    entries = []
+    for child in sorted(directory.iterdir(), key=lambda p: str(p).lower()):
         if should_skip(child):
             continue
-        parent = child.parent
-        if should_skip(parent):
-            continue
-        parent_id = node_id(parent)
-        child_id = node_id(child)
-        label = child.name + ("/" if child.is_dir() else "")
-        nodes[child_id] = escape_label(label)
-        edges.append(f"{parent_id} --> {child_id}")
+        entries.append(child)
 
-    lines = ["```mermaid", "graph TD"]
-    lines.append(f'{root_node}["{nodes[root_node]}"]')
-    for path in sorted(node_ids, key=lambda p: str(p).lower()):
-        nid = node_ids[path]
-        if nid == root_node:
-            continue
-        lines.append(f'{nid}["{nodes[nid]}"]')
-    lines.extend(edges)
+    lines = ["```mermaid", "gitGraph"]
+    root_label = escape_label(f"root: {directory.name or directory.drive or '/'}")
+    lines.append(f'    commit id: "{root_label}"')
+
+    for child in entries:
+        label = escape_label(describe_entry(child))
+        lines.append(f'    commit id: "{label}"')
+
+    if not entries:
+        lines.append('    commit id: "(empty directory)"')
+
     lines.append("```")
     return "\n".join(lines)
 
 
 def build_generated_block(directory: Path) -> str:
-    graph = build_mermaid_tree(directory)
+    graph = build_mermaid_gitgraph(directory)
     return (
         f"{AUTO_START}\n"
         f"<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->\n\n"
+        f"## Directory structure\n\n"
+        f"<details>\n"
+        f"<summary>Show GitGraph diagram for `{directory.name or directory}`</summary>\n\n"
         f"{graph}\n\n"
+        f"</details>\n\n"
         f"{AUTO_END}\n\n"
     )
 

@@ -3,22 +3,24 @@
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
+## Directory structure
+
+<details>
+<summary>Show GitGraph diagram for `bash`</summary>
+
 ```mermaid
-graph TD
-n0["bash"]
-n1["apache-proxy-wizard.sh"]
-n2["openssl-certtool.sh"]
-n3["remove_user.md"]
-n4["remove_user.sh"]
-n5["script-public-merge.sh"]
-n6["user_manager.sh"]
-n0 --> n1
-n0 --> n2
-n0 --> n3
-n0 --> n4
-n0 --> n5
-n0 --> n6
+gitGraph
+    commit id: "root: bash"
+    commit id: "file: apache-proxy-wizard.sh (13959 bytes)"
+    commit id: "file: openssl-certtool.sh (13525 bytes)"
+    commit id: "file: README.md (594 bytes)"
+    commit id: "file: remove_user.md (5010 bytes)"
+    commit id: "file: remove_user.sh (15790 bytes)"
+    commit id: "file: script-public-merge.sh (1230 bytes)"
+    commit id: "file: user_manager.sh (8585 bytes)"
 ```
+
+</details>
 
 <!-- AUTO-GENERATED MERMAID END -->
 

@@ -35,47 +35,79 @@ def describe_entry(path: Path) -> str:
     if path.is_dir():
         children = [p for p in path.iterdir() if not should_skip(p)]
         child_count = len(children)
-        return f"dir: {path.name} ({child_count} entries)"
+        if child_count == 0:
+            return "Empty directory"
+        return f"Directory with {child_count} item{'s' if child_count != 1 else ''}"
 
     try:
         size = path.stat().st_size
     except OSError:
         size = 0
-    return f"file: {path.name} ({size} bytes)"
+
+    suffix = path.suffix.lower().lstrip(".")
+    if suffix in {"md", "txt", "rst", "json", "yml", "yaml", "ini", "cfg", "toml", "xml", "html", "css", "js", "ts", "py", "sh", "ps1"}:
+        kind = "text/config file"
+    elif suffix in {"png", "jpg", "jpeg", "gif", "svg", "webp", "pdf"}:
+        kind = "binary asset"
+    else:
+        kind = "file"
+    return f"{kind} ({size} bytes)"
 
 
-def build_mermaid_gitgraph(directory: Path) -> str:
-    entries = []
-    for child in sorted(directory.iterdir(), key=lambda p: str(p).lower()):
-        if should_skip(child):
-            continue
-        entries.append(child)
+def build_mermaid_tree(directory: Path) -> str:
+    lines = ["```mermaid", "flowchart TD"]
+    node_ids: Dict[Path, str] = {}
 
-    lines = ["```mermaid", "gitGraph"]
-    root_label = escape_label(f"root: {directory.name or directory.drive or '/'}")
-    lines.append(f'    commit id: "{root_label}"')
+    def add_node(path: Path, parent_id: str | None = None) -> str:
+        node_id = node_ids.get(path)
+        if node_id is None:
+            node_id = f"n{len(node_ids)}"
+            node_ids[path] = node_id
 
-    for child in entries:
-        label = escape_label(describe_entry(child))
-        lines.append(f'    commit id: "{label}"')
+        label = escape_label(path.name or str(path))
+        if parent_id is None:
+            lines.append(f'    {node_id}["{label}"]')
+        else:
+            lines.append(f'    {parent_id} --> {node_id}["{label}"]')
 
-    if not entries:
-        lines.append('    commit id: "(empty directory)"')
+        if path.is_dir():
+            children = [child for child in sorted(path.iterdir(), key=lambda p: str(p).lower()) if not should_skip(child)]
+            for child in children:
+                add_node(child, node_id)
 
+        return node_id
+
+    add_node(directory)
     lines.append("```")
     return "\n".join(lines)
 
 
+def build_inventory(directory: Path, indent: str = "") -> list[str]:
+    entries: list[str] = []
+    children = [child for child in sorted(directory.iterdir(), key=lambda p: str(p).lower()) if not should_skip(child)]
+    for child in children:
+        marker = "-"
+        if child.is_dir():
+            entries.append(f"{indent}{marker} {child.name}/ — {describe_entry(child)}")
+            entries.extend(build_inventory(child, indent + "  "))
+        else:
+            entries.append(f"{indent}{marker} {child.name} — {describe_entry(child)}")
+    return entries
+
+
 def build_generated_block(directory: Path) -> str:
-    graph = build_mermaid_gitgraph(directory)
+    graph = build_mermaid_tree(directory)
+    inventory = "\n".join(build_inventory(directory))
     return (
         f"{AUTO_START}\n"
-        f"<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->\n\n"
+        f"<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->\n\n"
         f"## Directory structure\n\n"
         f"<details>\n"
-        f"<summary>Show GitGraph diagram for `{directory.name or directory}`</summary>\n\n"
+        f"<summary>Show directory tree diagram for `{directory.name or directory}`</summary>\n\n"
         f"{graph}\n\n"
         f"</details>\n\n"
+        f"## Files and folders\n\n"
+        f"{inventory or '*No entries found.*'}\n\n"
         f"{AUTO_END}\n\n"
     )
 

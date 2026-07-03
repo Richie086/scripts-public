@@ -1,20 +1,25 @@
 # PowerShell
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `PowerShell`</summary>
+<summary>Show directory tree diagram for `PowerShell`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: PowerShell"
-    commit id: "file: README.md (398 bytes)"
+dirtree-chart
+PowerShell
+  PowerShell
+    README.md
 ```
 
 </details>
+
+## Files and folders
+
+- README.md — text/config file (475 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

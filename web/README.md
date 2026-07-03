@@ -1,21 +1,31 @@
 # web
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `web`</summary>
+<summary>Show directory tree diagram for `web`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: web"
-    commit id: "dir: apache-reverse-proxy (2 entries)"
-    commit id: "file: README.md (416 bytes)"
+dirtree-chart
+web
+  web
+    apache-reverse-proxy
+      disclaimer.html
+      README.md
+    README.md
 ```
 
 </details>
+
+## Files and folders
+
+- apache-reverse-proxy/ — Directory with 2 items
+  - disclaimer.html — text/config file (25913 bytes)
+  - README.md — text/config file (588 bytes)
+- README.md — text/config file (663 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

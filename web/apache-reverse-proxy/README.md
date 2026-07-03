@@ -1,21 +1,27 @@
 # apache-reverse-proxy
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `apache-reverse-proxy`</summary>
+<summary>Show directory tree diagram for `apache-reverse-proxy`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: apache-reverse-proxy"
-    commit id: "file: disclaimer.html (25913 bytes)"
-    commit id: "file: README.md (461 bytes)"
+dirtree-chart
+apache-reverse-proxy
+  apache-reverse-proxy
+    disclaimer.html
+    README.md
 ```
 
 </details>
+
+## Files and folders
+
+- disclaimer.html — text/config file (25913 bytes)
+- README.md — text/config file (588 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

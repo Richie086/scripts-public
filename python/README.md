@@ -1,25 +1,35 @@
 # python
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `python`</summary>
+<summary>Show directory tree diagram for `python`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: python"
-    commit id: "file: extract_conv.py (1763 bytes)"
-    commit id: "file: fetch_agent.py (1602 bytes)"
-    commit id: "file: generate_mermaid_readmes.py (3814 bytes)"
-    commit id: "file: list_keys.py (767 bytes)"
-    commit id: "file: README.md (561 bytes)"
-    commit id: "file: search_scripts.py (566 bytes)"
+dirtree-chart
+python
+  python
+    extract_conv.py
+    fetch_agent.py
+    generate_mermaid_readmes.py
+    list_keys.py
+    README.md
+    search_scripts.py
 ```
 
 </details>
+
+## Files and folders
+
+- extract_conv.py — text/config file (1763 bytes)
+- fetch_agent.py — text/config file (1602 bytes)
+- generate_mermaid_readmes.py — text/config file (4943 bytes)
+- list_keys.py — text/config file (767 bytes)
+- README.md — text/config file (837 bytes)
+- search_scripts.py — text/config file (566 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

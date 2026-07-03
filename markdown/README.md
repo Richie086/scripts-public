@@ -1,20 +1,25 @@
 # markdown
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `markdown`</summary>
+<summary>Show directory tree diagram for `markdown`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: markdown"
-    commit id: "file: README.md (392 bytes)"
+dirtree-chart
+markdown
+  markdown
+    README.md
 ```
 
 </details>
+
+## Files and folders
+
+- README.md — text/config file (467 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

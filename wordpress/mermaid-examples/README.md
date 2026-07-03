@@ -1,24 +1,33 @@
 # mermaid-examples
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `mermaid-examples`</summary>
+<summary>Show directory tree diagram for `mermaid-examples`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: mermaid-examples"
-    commit id: "file: flowchart.md (446 bytes)"
-    commit id: "file: gantt.md (760 bytes)"
-    commit id: "file: README.md (527 bytes)"
-    commit id: "file: sequence.md (762 bytes)"
-    commit id: "file: state.md (491 bytes)"
+dirtree-chart
+mermaid-examples
+  mermaid-examples
+    flowchart.md
+    gantt.md
+    README.md
+    sequence.md
+    state.md
 ```
 
 </details>
+
+## Files and folders
+
+- flowchart.md — text/config file (446 bytes)
+- gantt.md — text/config file (760 bytes)
+- README.md — text/config file (741 bytes)
+- sequence.md — text/config file (762 bytes)
+- state.md — text/config file (491 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

@@ -1,18 +1,23 @@
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `openssl-output-generator`</summary>
+<summary>Show directory tree diagram for `openssl-output-generator`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: openssl-output-generator"
-    commit id: "file: README.md (1285 bytes)"
+dirtree-chart
+openssl-output-generator
+  openssl-output-generator
+    README.md
 ```
 
 </details>
+
+## Files and folders
+
+- README.md — text/config file (1377 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

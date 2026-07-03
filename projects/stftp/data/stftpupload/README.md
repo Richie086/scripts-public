@@ -1,21 +1,27 @@
 # stftpupload
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `stftpupload`</summary>
+<summary>Show directory tree diagram for `stftpupload`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: stftpupload"
-    commit id: "file: README.md (427 bytes)"
-    commit id: "file: test.txt (25165824 bytes)"
+dirtree-chart
+stftpupload
+  stftpupload
+    README.md
+    test.txt
 ```
 
 </details>
+
+## Files and folders
+
+- README.md — text/config file (541 bytes)
+- test.txt — text/config file (25165824 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

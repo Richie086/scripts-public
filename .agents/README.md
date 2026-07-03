@@ -1,21 +1,27 @@
 # .agents
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
 <details>
-<summary>Show GitGraph diagram for `.agents`</summary>
+<summary>Show directory tree diagram for `.agents`</summary>
 
 ```mermaid
-gitGraph
-    commit id: "root: .agents"
-    commit id: "file: AGENTS.md (4032 bytes)"
-    commit id: "file: README.md (416 bytes)"
+dirtree-chart
+.agents
+  .agents
+    AGENTS.md
+    README.md
 ```
 
 </details>
+
+## Files and folders
+
+- AGENTS.md — text/config file (4032 bytes)
+- README.md — text/config file (523 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

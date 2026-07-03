@@ -1,3 +1,35 @@
+<!-- AUTO-GENERATED MERMAID START -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+
+```mermaid
+graph TD
+n0["powershell"]
+n1["Calculate-FolderStats.ps1"]
+n2["check_mtu.ps1"]
+n3["openssl-certtool.ps1"]
+n4["Publish-WordPressPost.ps1"]
+n5["README.md"]
+n6["recovery-partition/"]
+n7["Create-RecoveryPartition.ps1"]
+n8["Create-RecoveryPartition2.ps1"]
+n9["Create-RecoveryPartition3.ps1"]
+n10["RecoveryPartitionManager.ps1"]
+n11["Remove-RecoveryPartition.ps1"]
+n0 --> n1
+n0 --> n2
+n0 --> n3
+n0 --> n4
+n0 --> n5
+n0 --> n6
+n6 --> n7
+n6 --> n8
+n6 --> n9
+n6 --> n10
+n6 --> n11
+```
+
+<!-- AUTO-GENERATED MERMAID END -->
+
 # PowerShell
 
 ## openssl-certtool.ps1

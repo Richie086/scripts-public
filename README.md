@@ -1,3 +1,161 @@
+<!-- AUTO-GENERATED MERMAID START -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
+
+```mermaid
+graph TD
+n0["scripts-public"]
+n1[".agents/"]
+n2["AGENTS.md"]
+n3[".gitattributes"]
+n4[".gitignore"]
+n5["bash/"]
+n6["apache-proxy-wizard.sh"]
+n7["openssl-certtool.sh"]
+n8["remove_user.md"]
+n9["remove_user.sh"]
+n10["script-public-merge.sh"]
+n11["user_manager.sh"]
+n12["extract_conv.py"]
+n13["fetch_agent.py"]
+n14["generate_mermaid_readmes.py"]
+n15["list_keys.py"]
+n16["markdown/"]
+n17["PowerShell/"]
+n18["powershell/"]
+n19["Calculate-FolderStats.ps1"]
+n20["check_mtu.ps1"]
+n21["openssl-certtool.ps1"]
+n22["Publish-WordPressPost.ps1"]
+n23["README.md"]
+n24["recovery-partition/"]
+n25["Create-RecoveryPartition.ps1"]
+n26["Create-RecoveryPartition2.ps1"]
+n27["Create-RecoveryPartition3.ps1"]
+n28["RecoveryPartitionManager.ps1"]
+n29["Remove-RecoveryPartition.ps1"]
+n30["projects/"]
+n31["kvm-provisioning/"]
+n32["provision_vms.sh"]
+n33["openssl-output-generator/"]
+n34["README.md"]
+n35["stftp/"]
+n36[".gitignore"]
+n37["client.py"]
+n38["client2.py"]
+n39["data/"]
+n40["stftpupload/"]
+n41["test.txt"]
+n42["server.py"]
+n43["server2.py"]
+n44["test.txt"]
+n45["python/"]
+n46["README.md"]
+n47["search_scripts.py"]
+n48["SECURITY.md"]
+n49["web/"]
+n50["apache-reverse-proxy/"]
+n51["disclaimer.html"]
+n52["wordpress/"]
+n53["about.md"]
+n54["ai-automation.md"]
+n55["antigravity_blog_post.md"]
+n56["automating-wordpress-antigravity.md"]
+n57["aws-ec2-antigravity-blog.md"]
+n58["blog_post_wordpress.md"]
+n59["directory_stats.md"]
+n60["how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md"]
+n61["how-to-update-rust-desk-pro-self-hosted-docker.md"]
+n62["how_to_use_antigravity.md"]
+n63["installing-vscode.md"]
+n64["mermaid-examples/"]
+n65["flowchart.md"]
+n66["gantt.md"]
+n67["sequence.md"]
+n68["state.md"]
+n69["mermaid-markup-language-guide.md"]
+n70["openssl-bash-wrapper.md"]
+n71["scripts_catalog.md"]
+n72["technical-writing.md"]
+n73["test_post.md"]
+n74["ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md"]
+n0 --> n1
+n1 --> n2
+n0 --> n3
+n0 --> n4
+n0 --> n5
+n5 --> n6
+n5 --> n7
+n5 --> n8
+n5 --> n9
+n5 --> n10
+n5 --> n11
+n0 --> n12
+n0 --> n13
+n0 --> n14
+n0 --> n15
+n0 --> n16
+n0 --> n17
+n0 --> n18
+n18 --> n19
+n18 --> n20
+n18 --> n21
+n18 --> n22
+n18 --> n23
+n18 --> n24
+n24 --> n25
+n24 --> n26
+n24 --> n27
+n24 --> n28
+n24 --> n29
+n0 --> n30
+n30 --> n31
+n31 --> n32
+n30 --> n33
+n33 --> n34
+n30 --> n35
+n35 --> n36
+n35 --> n37
+n35 --> n38
+n35 --> n39
+n39 --> n40
+n40 --> n41
+n35 --> n42
+n35 --> n43
+n35 --> n44
+n0 --> n45
+n0 --> n46
+n0 --> n47
+n0 --> n48
+n0 --> n49
+n49 --> n50
+n50 --> n51
+n0 --> n52
+n52 --> n53
+n52 --> n54
+n52 --> n55
+n52 --> n56
+n52 --> n57
+n52 --> n58
+n52 --> n59
+n52 --> n60
+n52 --> n61
+n52 --> n62
+n52 --> n63
+n52 --> n64
+n64 --> n65
+n64 --> n66
+n64 --> n67
+n64 --> n68
+n52 --> n69
+n52 --> n70
+n52 --> n71
+n52 --> n72
+n52 --> n73
+n52 --> n74
+```
+
+<!-- AUTO-GENERATED MERMAID END -->
+
 # Public Scripts (`scripts-public`)
 
 A curated collection of utility scripts, automation tools, and applications for various environments.

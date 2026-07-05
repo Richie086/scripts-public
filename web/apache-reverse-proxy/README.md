@@ -1,7 +1,7 @@
 # apache-reverse-proxy
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -9,18 +9,16 @@
 <summary>Show directory tree diagram for `apache-reverse-proxy`</summary>
 
 ```mermaid
-treeView-beta
-apache-reverse-proxy/
-  disclaimer.html
-  README.md
+graph TD
+	root["apache-reverse-proxy"]:::root --> n1["README.md"]:::file-md
+	root["apache-reverse-proxy"]:::root --> n2["disclaimer.html"]:::file-html
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-html fill:#ffedd5,stroke:#ea580c,stroke-width:1px,color:#7c2d12;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
 ```
 
 </details>
-
-## Files and folders
-
-- disclaimer.html — text/config file (25913 bytes)
-- README.md — text/config file (562 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

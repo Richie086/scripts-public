@@ -7,7 +7,7 @@ Each script now lives in its own subfolder and includes a local README with:
 - Safety warnings for potentially destructive or system-level actions
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -15,50 +15,27 @@ Each script now lives in its own subfolder and includes a local README with:
 <summary>Show directory tree diagram for `bash`</summary>
 
 ```mermaid
-treeView-beta
-bash/
-  apache-proxy-wizard/
-    apache-proxy-wizard.sh
-    README.md
-  apt-get-tui.sh
-  openssl-certtool/
-    openssl-certtool.sh
-    README.md
-  README.md
-  remove_user/
-    README.md
-    remove_user.md
-    remove_user.sh
-  script-public-merge/
-    README.md
-    script-public-merge.sh
-  user_manager/
-    README.md
-    user_manager.sh
+graph TD
+	root["bash"]:::root --> n1("script-public-merge"):::folder
+	root["bash"]:::root --> n2("user_manager"):::folder
+	root["bash"]:::root --> n3("apache-proxy-wizard"):::folder
+	root["bash"]:::root --> n4("openssl-certtool"):::folder
+	root["bash"]:::root --> n5("remove_user"):::folder
+	root["bash"]:::root --> n6["README.md"]:::file-md
+	root["bash"]:::root --> n7["apt-get-tui.sh"]:::file-sh
+	n1 --> n1_2["README.md<br>script-public-merge.sh"]:::file-bundle
+	n2 --> n2_2["README.md<br>user_manager.sh"]:::file-bundle
+	n3 --> n3_2["README.md<br>apache-proxy-wizard.sh"]:::file-bundle
+	n4 --> n4_2["openssl-certtool.sh<br>README.md"]:::file-bundle
+	n5 --> n5_3["remove_user.md<br>README.md<br>remove_user.sh"]:::file-bundle
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-bundle fill:#e2e8f0,stroke:#64748b,stroke-width:1px,color:#334155;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
+classDef file-sh fill:#ccfbf1,stroke:#0d9488,stroke-width:1px,color:#134e4a;
 ```
 
 </details>
-
-## Files and folders
-
-- apache-proxy-wizard/ — Directory with 2 items
-  - apache-proxy-wizard.sh — text/config file (13959 bytes)
-  - README.md — text/config file (1678 bytes)
-- apt-get-tui.sh — text/config file (17910 bytes)
-- openssl-certtool/ — Directory with 2 items
-  - openssl-certtool.sh — text/config file (13525 bytes)
-  - README.md — text/config file (1591 bytes)
-- README.md — text/config file (1911 bytes)
-- remove_user/ — Directory with 3 items
-  - README.md — text/config file (1607 bytes)
-  - remove_user.md — text/config file (5010 bytes)
-  - remove_user.sh — text/config file (15790 bytes)
-- script-public-merge/ — Directory with 2 items
-  - README.md — text/config file (1212 bytes)
-  - script-public-merge.sh — text/config file (1230 bytes)
-- user_manager/ — Directory with 2 items
-  - README.md — text/config file (1396 bytes)
-  - user_manager.sh — text/config file (8585 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

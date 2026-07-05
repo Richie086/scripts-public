@@ -1,7 +1,7 @@
 # markup
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -9,22 +9,17 @@
 <summary>Show directory tree diagram for `markup`</summary>
 
 ```mermaid
-treeView-beta
-markup/
-  html/
-    bash-readme.html
-    README.md
-  README.md
+graph TD
+	root["markup"]:::root --> n1("html"):::folder
+	root["markup"]:::root --> n2["README.md"]:::file-md
+	n1 --> n1_2["README.md<br>bash-readme.html"]:::file-bundle
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-bundle fill:#e2e8f0,stroke:#64748b,stroke-width:1px,color:#334155;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
 ```
 
 </details>
-
-## Files and folders
-
-- html/ — Directory with 2 items
-  - bash-readme.html — text/config file (2072 bytes)
-  - README.md — text/config file (515 bytes)
-- README.md — text/config file (629 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

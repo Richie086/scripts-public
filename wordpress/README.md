@@ -1,7 +1,7 @@
 # wordpress
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -9,68 +9,37 @@
 <summary>Show directory tree diagram for `wordpress`</summary>
 
 ```mermaid
-treeView-beta
-wordpress/
-  about.md
-  ai-automation.md
-  antigravity_blog_post.md
-  automating-wordpress-antigravity.md
-  aws-ec2-antigravity-blog.md
-  blog_post_wordpress.md
-  conquering-docker-permissions-and-antigravity-ui-crashes.md
-  directory_stats.md
-  extremely-sarcastic-mcp-docker.md
-  how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md
-  how-to-update-rust-desk-pro-self-hosted-docker.md
-  how_to_use_antigravity.md
-  installing-vscode.html
-  installing-vscode.md
-  mermaid-examples/
-    flowchart.md
-    gantt.md
-    README.md
-    sequence.md
-    state.md
-  mermaid-markup-language-guide.md
-  openssl-bash-wrapper.md
-  README.md
-  scripts_catalog.md
-  technical-writing.md
-  test_post.md
-  ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md
+graph TD
+	root["wordpress"]:::root --> n1("mermaid-examples"):::folder
+	root["wordpress"]:::root --> n2["extremely-sarcastic-mcp-docker.md"]:::file-md
+	root["wordpress"]:::root --> n3["README.md"]:::file-md
+	root["wordpress"]:::root --> n4["ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md"]:::file-md
+	root["wordpress"]:::root --> n5["how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md"]:::file-md
+	root["wordpress"]:::root --> n6["aws-ec2-antigravity-blog.md"]:::file-md
+	root["wordpress"]:::root --> n7["how_to_use_antigravity.md"]:::file-md
+	root["wordpress"]:::root --> n8["ai-automation.md"]:::file-md
+	root["wordpress"]:::root --> n9["test_post.md"]:::file-md
+	root["wordpress"]:::root --> n10["automating-wordpress-antigravity.md"]:::file-md
+	root["wordpress"]:::root --> n11["about.md"]:::file-md
+	root["wordpress"]:::root --> n12["how-to-update-rust-desk-pro-self-hosted-docker.md"]:::file-md
+	root["wordpress"]:::root --> n13["mermaid-markup-language-guide.md"]:::file-md
+	root["wordpress"]:::root --> n14["openssl-bash-wrapper.md"]:::file-md
+	root["wordpress"]:::root --> n15["technical-writing.md"]:::file-md
+	root["wordpress"]:::root --> n16["directory_stats.md"]:::file-md
+	root["wordpress"]:::root --> n17["blog_post_wordpress.md"]:::file-md
+	root["wordpress"]:::root --> n18["conquering-docker-permissions-and-antigravity-ui-crashes.md"]:::file-md
+	root["wordpress"]:::root --> n19["scripts_catalog.md"]:::file-md
+	root["wordpress"]:::root --> n20["antigravity_blog_post.md"]:::file-md
+	root["wordpress"]:::root --> n21["installing-vscode.md"]:::file-md
+	root["wordpress"]:::root --> n22["installing-vscode.html"]:::file-html
+	n1 --> n1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-html fill:#ffedd5,stroke:#ea580c,stroke-width:1px,color:#7c2d12;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
 ```
 
 </details>
-
-## Files and folders
-
-- about.md — text/config file (2992 bytes)
-- ai-automation.md — text/config file (2431 bytes)
-- antigravity_blog_post.md — text/config file (9658 bytes)
-- automating-wordpress-antigravity.md — text/config file (4236 bytes)
-- aws-ec2-antigravity-blog.md — text/config file (9332 bytes)
-- blog_post_wordpress.md — text/config file (11312 bytes)
-- conquering-docker-permissions-and-antigravity-ui-crashes.md — text/config file (4819 bytes)
-- directory_stats.md — text/config file (359 bytes)
-- extremely-sarcastic-mcp-docker.md — text/config file (5254 bytes)
-- how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md — text/config file (2182 bytes)
-- how-to-update-rust-desk-pro-self-hosted-docker.md — text/config file (1635 bytes)
-- how_to_use_antigravity.md — text/config file (1955 bytes)
-- installing-vscode.html — text/config file (14564 bytes)
-- installing-vscode.md — text/config file (7312 bytes)
-- mermaid-examples/ — Directory with 5 items
-  - flowchart.md — text/config file (446 bytes)
-  - gantt.md — text/config file (760 bytes)
-  - README.md — text/config file (713 bytes)
-  - sequence.md — text/config file (762 bytes)
-  - state.md — text/config file (491 bytes)
-- mermaid-markup-language-guide.md — text/config file (7883 bytes)
-- openssl-bash-wrapper.md — text/config file (5433 bytes)
-- README.md — text/config file (2835 bytes)
-- scripts_catalog.md — text/config file (5915 bytes)
-- technical-writing.md — text/config file (7001 bytes)
-- test_post.md — text/config file (475 bytes)
-- ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md — text/config file (7386 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

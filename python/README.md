@@ -1,7 +1,7 @@
 # python
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -9,28 +9,22 @@
 <summary>Show directory tree diagram for `python`</summary>
 
 ```mermaid
-treeView-beta
-python/
-  extract_conv.py
-  fetch_agent.py
-  generate_mermaid_readmes.py
-  list_keys.py
-  README.md
-  requirements.txt
-  search_scripts.py
+graph TD
+	root["python"]:::root --> n1["README.md"]:::file-md
+	root["python"]:::root --> n2["fetch_agent.py"]:::file-py
+	root["python"]:::root --> n3["search_scripts.py"]:::file-py
+	root["python"]:::root --> n4["extract_conv.py"]:::file-py
+	root["python"]:::root --> n5["requirements.txt"]:::file-text
+	root["python"]:::root --> n6["generate_mermaid_readmes.py"]:::file-py
+	root["python"]:::root --> n7["list_keys.py"]:::file-py
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
+classDef file-py fill:#dcfce7,stroke:#16a34a,stroke-width:1px,color:#14532d;
+classDef file-text fill:#fafafa,stroke:#a3a3a3,stroke-width:1px,color:#404040;
 ```
 
 </details>
-
-## Files and folders
-
-- extract_conv.py — text/config file (1763 bytes)
-- fetch_agent.py — text/config file (1602 bytes)
-- generate_mermaid_readmes.py — text/config file (4892 bytes)
-- list_keys.py — text/config file (767 bytes)
-- README.md — text/config file (887 bytes)
-- requirements.txt — text/config file (21 bytes)
-- search_scripts.py — text/config file (566 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

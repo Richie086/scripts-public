@@ -1,5 +1,5 @@
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -7,38 +7,22 @@
 <summary>Show directory tree diagram for `powershell`</summary>
 
 ```mermaid
-treeView-beta
-powershell/
-  Calculate-FolderStats.ps1
-  check_mtu.ps1
-  openssl-certtool.ps1
-  Publish-WordPressPost.ps1
-  README.md
-  recovery-partition/
-    Create-RecoveryPartition.ps1
-    Create-RecoveryPartition2.ps1
-    Create-RecoveryPartition3.ps1
-    README.md
-    RecoveryPartitionManager.ps1
-    Remove-RecoveryPartition.ps1
+graph TD
+	root["powershell"]:::root --> n1("recovery-partition"):::folder
+	root["powershell"]:::root --> n2["README.md"]:::file-md
+	root["powershell"]:::root --> n3["Publish-WordPressPost.ps1"]:::file-ps1
+	root["powershell"]:::root --> n4["check_mtu.ps1"]:::file-ps1
+	root["powershell"]:::root --> n5["openssl-certtool.ps1"]:::file-ps1
+	root["powershell"]:::root --> n6["Calculate-FolderStats.ps1"]:::file-ps1
+	n1 --> n1_6["README.md<br>Create-RecoveryPartition2.ps1<br>Remove-RecoveryPartition.ps1<br>Create-RecoveryPartition.ps1<br>Create-RecoveryPartition3.ps1<br>RecoveryPartitionManager.ps1"]:::file-bundle
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-bundle fill:#e2e8f0,stroke:#64748b,stroke-width:1px,color:#334155;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
+classDef file-ps1 fill:#e0e7ff,stroke:#6366f1,stroke-width:1px,color:#312e81;
 ```
 
 </details>
-
-## Files and folders
-
-- Calculate-FolderStats.ps1 — text/config file (2425 bytes)
-- check_mtu.ps1 — text/config file (5541 bytes)
-- openssl-certtool.ps1 — text/config file (10959 bytes)
-- Publish-WordPressPost.ps1 — text/config file (1560 bytes)
-- README.md — text/config file (2625 bytes)
-- recovery-partition/ — Directory with 6 items
-  - Create-RecoveryPartition.ps1 — text/config file (2821 bytes)
-  - Create-RecoveryPartition2.ps1 — text/config file (1141 bytes)
-  - Create-RecoveryPartition3.ps1 — text/config file (2015 bytes)
-  - README.md — text/config file (970 bytes)
-  - RecoveryPartitionManager.ps1 — text/config file (9398 bytes)
-  - Remove-RecoveryPartition.ps1 — text/config file (1351 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

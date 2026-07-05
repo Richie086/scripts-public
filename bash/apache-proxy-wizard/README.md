@@ -1,5 +1,5 @@
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -7,18 +7,16 @@
 <summary>Show directory tree diagram for `apache-proxy-wizard`</summary>
 
 ```mermaid
-treeView-beta
-apache-proxy-wizard/
-  apache-proxy-wizard.sh
-  README.md
+graph TD
+	root["apache-proxy-wizard"]:::root --> n1["README.md"]:::file-md
+	root["apache-proxy-wizard"]:::root --> n2["apache-proxy-wizard.sh"]:::file-sh
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
+classDef file-sh fill:#ccfbf1,stroke:#0d9488,stroke-width:1px,color:#134e4a;
 ```
 
 </details>
-
-## Files and folders
-
-- apache-proxy-wizard.sh — text/config file (13959 bytes)
-- README.md — text/config file (1678 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

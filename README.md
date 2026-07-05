@@ -1,5 +1,5 @@
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -7,234 +7,69 @@
 <summary>Show directory tree diagram for `scripts-public`</summary>
 
 ```mermaid
-treeView-beta
-scripts-public/
-  .agent.md
-  .agents/
-    AGENTS.md
-    README.md
-  .gitattributes
-  .gitignore
-  bash/
-    apache-proxy-wizard/
-      apache-proxy-wizard.sh
-      README.md
-    apt-get-tui.sh
-    openssl-certtool/
-      openssl-certtool.sh
-      README.md
-    README.md
-    remove_user/
-      README.md
-      remove_user.md
-      remove_user.sh
-    script-public-merge/
-      README.md
-      script-public-merge.sh
-    user_manager/
-      README.md
-      user_manager.sh
-  markdown/
-    README.md
-  markup/
-    html/
-      bash-readme.html
-      README.md
-    README.md
-  PowerShell/
-    README.md
-  powershell/
-    Calculate-FolderStats.ps1
-    check_mtu.ps1
-    openssl-certtool.ps1
-    Publish-WordPressPost.ps1
-    README.md
-    recovery-partition/
-      Create-RecoveryPartition.ps1
-      Create-RecoveryPartition2.ps1
-      Create-RecoveryPartition3.ps1
-      README.md
-      RecoveryPartitionManager.ps1
-      Remove-RecoveryPartition.ps1
-  projects/
-    kvm-provisioning/
-      provision_vms.sh
-      README.md
-    openssl-output-generator/
-      README.md
-    README.md
-    stftp/
-      .gitignore
-      client.py
-      client2.py
-      data/
-        README.md
-        stftpupload/
-          README.md
-          test.txt
-      README.md
-      server.py
-      server2.py
-      test.txt
-  python/
-    extract_conv.py
-    fetch_agent.py
-    generate_mermaid_readmes.py
-    list_keys.py
-    README.md
-    requirements.txt
-    search_scripts.py
-  README.md
-  SECURITY.md
-  web/
-    apache-reverse-proxy/
-      disclaimer.html
-      README.md
-    README.md
-  wordpress/
-    about.md
-    ai-automation.md
-    antigravity_blog_post.md
-    automating-wordpress-antigravity.md
-    aws-ec2-antigravity-blog.md
-    blog_post_wordpress.md
-    conquering-docker-permissions-and-antigravity-ui-crashes.md
-    directory_stats.md
-    extremely-sarcastic-mcp-docker.md
-    how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md
-    how-to-update-rust-desk-pro-self-hosted-docker.md
-    how_to_use_antigravity.md
-    installing-vscode.html
-    installing-vscode.md
-    mermaid-examples/
-      flowchart.md
-      gantt.md
-      README.md
-      sequence.md
-      state.md
-    mermaid-markup-language-guide.md
-    openssl-bash-wrapper.md
-    README.md
-    scripts_catalog.md
-    technical-writing.md
-    test_post.md
-    ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md
+graph TD
+	root["scripts-public"]:::root --> n1("python"):::folder
+	root["scripts-public"]:::root --> n2("bash"):::folder
+	root["scripts-public"]:::root --> n3("web"):::folder
+	root["scripts-public"]:::root --> n4("markdown"):::folder
+	root["scripts-public"]:::root --> n5("PowerShell"):::folder
+	root["scripts-public"]:::root --> n6("wordpress"):::folder
+	root["scripts-public"]:::root --> n7("powershell"):::folder
+	root["scripts-public"]:::root --> n8("projects"):::folder
+	root["scripts-public"]:::root --> n9("markup"):::folder
+	root["scripts-public"]:::root --> n10[".agents"]:::file-other
+	root["scripts-public"]:::root --> n11["README.md"]:::file-md
+	root["scripts-public"]:::root --> n12[".agent.md"]:::file-md
+	root["scripts-public"]:::root --> n13[".gitattributes"]:::file-git
+	root["scripts-public"]:::root --> n14["SECURITY.md"]:::file-md
+	root["scripts-public"]:::root --> n15[".gitignore"]:::file-git
+	n2 --> n2_1("script-public-merge"):::folder
+	n2 --> n2_2("user_manager"):::folder
+	n2 --> n2_3("apache-proxy-wizard"):::folder
+	n2 --> n2_4("openssl-certtool"):::folder
+	n2 --> n2_5("remove_user"):::folder
+	n1 --> n1_7["README.md<br>fetch_agent.py<br>search_scripts.py<br>extract_conv.py<br>requirements.txt<br>generate_mermaid_readmes.py<br>list_keys.py"]:::file-bundle
+	n3 --> n3_1("apache-reverse-proxy"):::folder
+	n2 --> n2_7["README.md<br>apt-get-tui.sh"]:::file-bundle
+	n3 --> n3_2["README.md"]:::file-md
+	n4 --> n4_1["README.md"]:::file-md
+	n6 --> n6_1("mermaid-examples"):::folder
+	n5 --> n5_1["README.md"]:::file-md
+	n7 --> n7_1("recovery-partition"):::folder
+	n6 --> n6_22["extremely-sarcastic-mcp-docker.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md<br>aws-ec2-antigravity-blog.md<br>how_to_use_antigravity.md<br>ai-automation.md<br>... +14 more"]:::file-md
+	n8 --> n8_1("openssl-output-generator"):::folder
+	n8 --> n8_2("kvm-provisioning"):::folder
+	n8 --> n8_3("stftp"):::folder
+	n7 --> n7_6["README.md<br>Publish-WordPressPost.ps1<br>check_mtu.ps1<br>openssl-certtool.ps1<br>Calculate-FolderStats.ps1"]:::file-bundle
+	n9 --> n9_1("html"):::folder
+	n8 --> n8_4["README.md"]:::file-md
+	n9 --> n9_2["README.md"]:::file-md
+	n10 --> n10_2["README.md<br>AGENTS.md"]:::file-md
+	n2_1 --> n2_1_2["README.md<br>script-public-merge.sh"]:::file-bundle
+	n2_2 --> n2_2_2["README.md<br>user_manager.sh"]:::file-bundle
+	n2_3 --> n2_3_2["README.md<br>apache-proxy-wizard.sh"]:::file-bundle
+	n2_4 --> n2_4_2["openssl-certtool.sh<br>README.md"]:::file-bundle
+	n2_5 --> n2_5_3["remove_user.md<br>README.md<br>remove_user.sh"]:::file-bundle
+	n3_1 --> n3_1_2["README.md<br>disclaimer.html"]:::file-bundle
+	n6_1 --> n6_1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
+	n7_1 --> n7_1_6["README.md<br>Create-RecoveryPartition2.ps1<br>Remove-RecoveryPartition.ps1<br>Create-RecoveryPartition.ps1<br>Create-RecoveryPartition3.ps1<br>RecoveryPartitionManager.ps1"]:::file-bundle
+	n8_1 --> n8_1_1["README.md"]:::file-md
+	n8_3 --> n8_3_1("data"):::folder
+	n8_2 --> n8_2_2["README.md<br>provision_vms.sh"]:::file-bundle
+	n8_3 --> n8_3_8["client.py<br>README.md<br>test.txt<br>server2.py<br>server.py<br>client2.py<br>.gitignore"]:::file-bundle
+	n9_1 --> n9_1_2["README.md<br>bash-readme.html"]:::file-bundle
+	n8_3_1 --> n8_3_1_1("stftpupload"):::folder
+	n8_3_1 --> n8_3_1_2["README.md"]:::file-md
+	n8_3_1_1 --> n8_3_1_1_2["README.md<br>test.txt"]:::file-bundle
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-bundle fill:#e2e8f0,stroke:#64748b,stroke-width:1px,color:#334155;
+classDef file-git fill:#fee2e2,stroke:#ef4444,stroke-width:1px,color:#7f1d1d;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
+classDef file-other fill:#f2f2f2,stroke:#9ca3af,stroke-width:1px,color:#374151;
 ```
 
 </details>
-
-## Files and folders
-
-- .agent.md — text/config file (1262 bytes)
-- .agents/ — Directory with 2 items
-  - AGENTS.md — text/config file (4032 bytes)
-  - README.md — text/config file (510 bytes)
-- .gitattributes — file (170 bytes)
-- .gitignore — file (256 bytes)
-- bash/ — Directory with 7 items
-  - apache-proxy-wizard/ — Directory with 2 items
-    - apache-proxy-wizard.sh — text/config file (13959 bytes)
-    - README.md — text/config file (1678 bytes)
-  - apt-get-tui.sh — text/config file (17910 bytes)
-  - openssl-certtool/ — Directory with 2 items
-    - openssl-certtool.sh — text/config file (13525 bytes)
-    - README.md — text/config file (1591 bytes)
-  - README.md — text/config file (1911 bytes)
-  - remove_user/ — Directory with 3 items
-    - README.md — text/config file (1607 bytes)
-    - remove_user.md — text/config file (5010 bytes)
-    - remove_user.sh — text/config file (15790 bytes)
-  - script-public-merge/ — Directory with 2 items
-    - README.md — text/config file (1212 bytes)
-    - script-public-merge.sh — text/config file (1230 bytes)
-  - user_manager/ — Directory with 2 items
-    - README.md — text/config file (1396 bytes)
-    - user_manager.sh — text/config file (8585 bytes)
-- markdown/ — Directory with 1 item
-  - README.md — text/config file (455 bytes)
-- markup/ — Directory with 2 items
-  - html/ — Directory with 2 items
-    - bash-readme.html — text/config file (2072 bytes)
-    - README.md — text/config file (515 bytes)
-  - README.md — text/config file (629 bytes)
-- PowerShell/ — Directory with 1 item
-  - README.md — text/config file (461 bytes)
-- powershell/ — Directory with 6 items
-  - Calculate-FolderStats.ps1 — text/config file (2425 bytes)
-  - check_mtu.ps1 — text/config file (5541 bytes)
-  - openssl-certtool.ps1 — text/config file (10959 bytes)
-  - Publish-WordPressPost.ps1 — text/config file (1560 bytes)
-  - README.md — text/config file (2625 bytes)
-  - recovery-partition/ — Directory with 6 items
-    - Create-RecoveryPartition.ps1 — text/config file (2821 bytes)
-    - Create-RecoveryPartition2.ps1 — text/config file (1141 bytes)
-    - Create-RecoveryPartition3.ps1 — text/config file (2015 bytes)
-    - README.md — text/config file (970 bytes)
-    - RecoveryPartitionManager.ps1 — text/config file (9398 bytes)
-    - Remove-RecoveryPartition.ps1 — text/config file (1351 bytes)
-- projects/ — Directory with 4 items
-  - kvm-provisioning/ — Directory with 2 items
-    - provision_vms.sh — text/config file (2655 bytes)
-    - README.md — text/config file (551 bytes)
-  - openssl-output-generator/ — Directory with 1 item
-    - README.md — text/config file (1349 bytes)
-  - README.md — text/config file (1595 bytes)
-  - stftp/ — Directory with 8 items
-    - .gitignore — file (18 bytes)
-    - client.py — text/config file (1122 bytes)
-    - client2.py — text/config file (4944 bytes)
-    - data/ — Directory with 2 items
-      - README.md — text/config file (625 bytes)
-      - stftpupload/ — Directory with 2 items
-        - README.md — text/config file (524 bytes)
-        - test.txt — text/config file (25165824 bytes)
-    - README.md — text/config file (1087 bytes)
-    - server.py — text/config file (2429 bytes)
-    - server2.py — text/config file (3949 bytes)
-    - test.txt — text/config file (25165824 bytes)
-- python/ — Directory with 7 items
-  - extract_conv.py — text/config file (1763 bytes)
-  - fetch_agent.py — text/config file (1602 bytes)
-  - generate_mermaid_readmes.py — text/config file (4892 bytes)
-  - list_keys.py — text/config file (767 bytes)
-  - README.md — text/config file (887 bytes)
-  - requirements.txt — text/config file (21 bytes)
-  - search_scripts.py — text/config file (566 bytes)
-- README.md — text/config file (14574 bytes)
-- SECURITY.md — text/config file (221 bytes)
-- web/ — Directory with 2 items
-  - apache-reverse-proxy/ — Directory with 2 items
-    - disclaimer.html — text/config file (25913 bytes)
-    - README.md — text/config file (562 bytes)
-  - README.md — text/config file (651 bytes)
-- wordpress/ — Directory with 22 items
-  - about.md — text/config file (2992 bytes)
-  - ai-automation.md — text/config file (2431 bytes)
-  - antigravity_blog_post.md — text/config file (9658 bytes)
-  - automating-wordpress-antigravity.md — text/config file (4236 bytes)
-  - aws-ec2-antigravity-blog.md — text/config file (9332 bytes)
-  - blog_post_wordpress.md — text/config file (11312 bytes)
-  - conquering-docker-permissions-and-antigravity-ui-crashes.md — text/config file (4819 bytes)
-  - directory_stats.md — text/config file (359 bytes)
-  - extremely-sarcastic-mcp-docker.md — text/config file (5254 bytes)
-  - how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md — text/config file (2182 bytes)
-  - how-to-update-rust-desk-pro-self-hosted-docker.md — text/config file (1635 bytes)
-  - how_to_use_antigravity.md — text/config file (1955 bytes)
-  - installing-vscode.html — text/config file (14564 bytes)
-  - installing-vscode.md — text/config file (7312 bytes)
-  - mermaid-examples/ — Directory with 5 items
-    - flowchart.md — text/config file (446 bytes)
-    - gantt.md — text/config file (760 bytes)
-    - README.md — text/config file (713 bytes)
-    - sequence.md — text/config file (762 bytes)
-    - state.md — text/config file (491 bytes)
-  - mermaid-markup-language-guide.md — text/config file (7883 bytes)
-  - openssl-bash-wrapper.md — text/config file (5433 bytes)
-  - README.md — text/config file (2835 bytes)
-  - scripts_catalog.md — text/config file (5915 bytes)
-  - technical-writing.md — text/config file (7001 bytes)
-  - test_post.md — text/config file (475 bytes)
-  - ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md — text/config file (7386 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 
@@ -270,47 +105,144 @@ scripts-public/
 
 ---
 
+<!-- AUTO-GENERATED CATALOG START -->
+<!-- This catalog is auto-generated. Do not edit directly. -->
+
 ## Catalog of Tools
 
+### 📄 Repository Root (`/`)
+* [.agents/](.agents/): .agents
+* [bash/](bash/): This folder contains Bash-based administration and automation scripts.
+* [markdown/](markdown/): markdown
+* [markup/](markup/): markup
+* [PowerShell/](PowerShell/): PowerShell
+* [powershell/](powershell/): A Windows PowerShell version of the OpenSSL certificate utility.
+* [projects/](projects/): projects
+* [python/](python/): python
+* [web/](web/): web
+* [wordpress/](wordpress/): wordpress
+* [.agent.md](.agent.md): name: readme-tree-diagram
+* [.gitattributes](.gitattributes): file (170 bytes)
+* [.gitignore](.gitignore): file (256 bytes)
+* [README.md](README.md): Public Scripts (`scripts-public`)
+* [SECURITY.md](SECURITY.md): Security Policy
+
+### ⚙️ Agent Guidelines (`/.agents`)
+* [AGENTS.md](.agents/AGENTS.md): Agent Guidelines for `scripts-public` Workspace
+* [README.md](.agents/README.md): .agents
+
 ### 🐚 Linux Bash (`/bash`)
-* [apache-proxy-wizard.sh](bash/apache-proxy-wizard.sh): An interactive bash wizard for configuring Apache reverse proxy setups with manual SSL or automated Let's Encrypt integration.
-* [openssl-certtool.sh](bash/openssl-certtool.sh): A bash script for generating and managing OpenSSL certificates.
-* [script-public-merge.sh](bash/script-public-merge.sh): A utility script to merge public scripts into a repository.
-* [user_manager.sh](bash/user_manager.sh): Menu-driven Linux user account manager for Ubuntu.
+* [apache-proxy-wizard/](bash/apache-proxy-wizard/): apache-proxy-wizard.sh
+  * [apache-proxy-wizard.sh](bash/apache-proxy-wizard/apache-proxy-wizard.sh): Check Port 80
+  * [README.md](bash/apache-proxy-wizard/README.md): apache-proxy-wizard.sh
+* [openssl-certtool/](bash/openssl-certtool/): openssl-certtool.sh
+  * [openssl-certtool.sh](bash/openssl-certtool/openssl-certtool.sh): 1. Initialization & Security Setup Color codes for readable output
+  * [README.md](bash/openssl-certtool/README.md): openssl-certtool.sh
+* [remove_user/](bash/remove_user/): remove_user.sh
+  * [README.md](bash/remove_user/README.md): remove_user.sh
+  * [remove_user.md](bash/remove_user/remove_user.md): User Account Decommissioning Utility (`remove_user.sh`)
+  * [remove_user.sh](bash/remove_user/remove_user.sh): Completely remove a user account from an Ubuntu system. This script terminates the user's active processes, stops user services, removes crontabs, deletes user-specific sudo rules, removes the user
+* [script-public-merge/](bash/script-public-merge/): script-public-merge.sh
+  * [README.md](bash/script-public-merge/README.md): script-public-merge.sh
+  * [script-public-merge.sh](bash/script-public-merge/script-public-merge.sh): Ensure we are in the root of the existing repo
+* [user_manager/](bash/user_manager/): user_manager.sh
+  * [README.md](bash/user_manager/README.md): user_manager.sh
+  * [user_manager.sh](bash/user_manager/user_manager.sh): Script Name: user_manager.sh Description: Advanced Linux user account manager for Ubuntu. Supports interactive and CLI mode, audit logging, and dry-runs.
+* [apt-get-tui.sh](bash/apt-get-tui.sh): apt-get-tui.sh - A Text User Interface (TUI) for apt / apt-get on Ubuntu/Debian. Every common apt-get / apt-cache / apt-mark function is reachable from a menu. Package name fields for install/remove/etc. support TAB auto-completion:
+* [README.md](bash/README.md): bash
+
+### 📝 Markdown (`/markdown`)
+* [README.md](markdown/README.md): markdown
+
+### 📄 Markup (`/markup`)
+* [html/](markup/html/): html
+  * [bash-readme.html](markup/html/bash-readme.html): bash README
+  * [README.md](markup/html/README.md): html
+* [README.md](markup/README.md): markup
+
+### 🔷 PowerShell (`/PowerShell`)
+* [README.md](PowerShell/README.md): PowerShell
 
 ### 🔷 Windows PowerShell (`/powershell`)
-* [Calculate-FolderStats.ps1](powershell/Calculate-FolderStats.ps1): Recursively calculates and reports total files, folders, and sizes in a directory.
-* [check_mtu.ps1](powershell/check_mtu.ps1): Checks and reports the Maximum Transmission Unit (MTU) size for network interfaces.
-* [openssl-certtool.ps1](powershell/openssl-certtool.ps1): A PowerShell utility to extract certificates, CA chains, private keys, PEM bundles, and CSRs.
-* [Create-RecoveryPartition.ps1](powershell/recovery-partition/Create-RecoveryPartition.ps1): Automates shrinking the C: drive and creating a Windows recovery partition.
-* [Create-RecoveryPartition2.ps1](powershell/recovery-partition/Create-RecoveryPartition2.ps1): Alternative script for detecting and configuring a Windows recovery partition.
-* [Create-RecoveryPartition3.ps1](powershell/recovery-partition/Create-RecoveryPartition3.ps1): Advanced script for disabling current mappings and creating a new recovery environment.
-* [RecoveryPartitionManager.ps1](powershell/recovery-partition/RecoveryPartitionManager.ps1): A comprehensive menu-driven utility for managing Windows recovery partitions.
-* [Remove-RecoveryPartition.ps1](powershell/recovery-partition/Remove-RecoveryPartition.ps1): Automates the safe detection and removal of a Windows recovery partition.
-
-
-### 📝 WordPress Blog Posts (`/wordpress`)
-* [about.md](wordpress/about.md): The About page biography from Extreme Sarcasm.
-* [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): A comprehensive guide on Google Antigravity and generating PowerShell scripts.
-* [mermaid-markup-language-guide.md](wordpress/mermaid-markup-language-guide.md): A complete guide to using Mermaid JS in VS Code.
-* [aws-ec2-antigravity-blog.md](wordpress/aws-ec2-antigravity-blog.md): A sarcastic, humorous guide on provisioning an AWS EC2 instance for Google Antigravity.
-* [how-to-update-rust-desk-pro-self-hosted-docker.md](wordpress/how-to-update-rust-desk-pro-self-hosted-docker.md): A guide on how to update Rust Desk Pro Self Hosted using Docker.
-* [technical-writing.md](wordpress/technical-writing.md): A markdown rewrite of the Technical Writing page from Extreme Sarcasm.
-* [ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md](wordpress/ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md): Ultimate Guide to Bitwarden: Securing Your Digital Life Across Every Device.
-
-### 📊 Mermaid JS Examples (`/wordpress/mermaid-examples`)
-* [flowchart.md](wordpress/mermaid-examples/flowchart.md): An example of a basic user registration flowchart.
-* [gantt.md](wordpress/mermaid-examples/gantt.md): An example of a software development sprint Gantt chart.
-* [sequence.md](wordpress/mermaid-examples/sequence.md): An example of an OAuth authentication sequence diagram.
-* [state.md](wordpress/mermaid-examples/state.md): An example of an e-commerce shopping cart state diagram.
+* [recovery-partition/](powershell/recovery-partition/): recovery-partition
+  * [Create-RecoveryPartition.ps1](powershell/recovery-partition/Create-RecoveryPartition.ps1): text/config file (2821 bytes)
+  * [Create-RecoveryPartition2.ps1](powershell/recovery-partition/Create-RecoveryPartition2.ps1): text/config file (1141 bytes)
+  * [Create-RecoveryPartition3.ps1](powershell/recovery-partition/Create-RecoveryPartition3.ps1): text/config file (2015 bytes)
+  * [README.md](powershell/recovery-partition/README.md): recovery-partition
+  * [RecoveryPartitionManager.ps1](powershell/recovery-partition/RecoveryPartitionManager.ps1): text/config file (9398 bytes)
+  * [Remove-RecoveryPartition.ps1](powershell/recovery-partition/Remove-RecoveryPartition.ps1): text/config file (1351 bytes)
+* [Calculate-FolderStats.ps1](powershell/Calculate-FolderStats.ps1): text/config file (2425 bytes)
+* [check_mtu.ps1](powershell/check_mtu.ps1): Performs MTU validation testing using ICMP.
+* [openssl-certtool.ps1](powershell/openssl-certtool.ps1): Extract certificates, CA chains, private keys, PEM bundles, and CSRs from
+* [Publish-WordPressPost.ps1](powershell/Publish-WordPressPost.ps1): text/config file (1560 bytes)
+* [README.md](powershell/README.md): PowerShell
 
 ### 📁 Projects (`/projects`)
-* [provision_vms.sh](projects/kvm-provisioning/provision_vms.sh): A bash script to automatically provision Windows 11 and Ubuntu VMs using virt-install (KVM/QEMU).
-* [client.py](projects/stftp/client.py): A Python client script implementing STFTP (Simple Trivial File Transfer Protocol).
-* [client2.py](projects/stftp/client2.py): An alternative Python STFTP client with modified configuration options.
-* [server.py](projects/stftp/server.py): A Python STFTP server script to receive and store incoming files.
-* [server2.py](projects/stftp/server2.py): An alternative Python STFTP server with modified configuration options.
+* [kvm-provisioning/](projects/kvm-provisioning/): kvm-provisioning
+  * [provision_vms.sh](projects/kvm-provisioning/provision_vms.sh): Ensure the script is run with sufficient privileges
+  * [README.md](projects/kvm-provisioning/README.md): kvm-provisioning
+* [openssl-output-generator/](projects/openssl-output-generator/): OpenSSL Output Generator (Bash)
+  * [README.md](projects/openssl-output-generator/README.md): OpenSSL Output Generator (Bash)
+* [stftp/](projects/stftp/): stftp
+  * [data/](projects/stftp/data/): data
+    * [stftpupload/](projects/stftp/data/stftpupload/): stftpupload
+      * [README.md](projects/stftp/data/stftpupload/README.md): stftpupload
+      * [test.txt](projects/stftp/data/stftpupload/test.txt): text/config file (25165824 bytes)
+    * [README.md](projects/stftp/data/README.md): data
+  * [.gitignore](projects/stftp/.gitignore): file (18 bytes)
+  * [client.py](projects/stftp/client.py): text/config file (1122 bytes)
+  * [client2.py](projects/stftp/client2.py): text/config file (4944 bytes)
+  * [README.md](projects/stftp/README.md): stftp
+  * [server.py](projects/stftp/server.py): text/config file (2429 bytes)
+  * [server2.py](projects/stftp/server2.py): text/config file (3949 bytes)
+  * [test.txt](projects/stftp/test.txt): text/config file (25165824 bytes)
+* [README.md](projects/README.md): projects
 
+### 🐍 Python (`/python`)
+* [extract_conv.py](python/extract_conv.py): text/config file (1763 bytes)
+* [fetch_agent.py](python/fetch_agent.py): text/config file (1602 bytes)
+* [generate_mermaid_readmes.py](python/generate_mermaid_readmes.py): text/config file (23925 bytes)
+* [list_keys.py](python/list_keys.py): text/config file (767 bytes)
+* [README.md](python/README.md): python
+* [requirements.txt](python/requirements.txt): text/config file (67 bytes)
+* [search_scripts.py](python/search_scripts.py): text/config file (566 bytes)
+
+### 🌐 Web (`/web`)
+* [apache-reverse-proxy/](web/apache-reverse-proxy/): apache-reverse-proxy
+  * [disclaimer.html](web/apache-reverse-proxy/disclaimer.html): Disclaimer & Safety Warning | Richie's Scripts
+  * [README.md](web/apache-reverse-proxy/README.md): apache-reverse-proxy
+* [README.md](web/README.md): web
+
+### 📝 WordPress (`/wordpress`)
+* [mermaid-examples/](wordpress/mermaid-examples/): mermaid-examples
+  * [flowchart.md](wordpress/mermaid-examples/flowchart.md): Mermaid JS Flowchart Example
+  * [gantt.md](wordpress/mermaid-examples/gantt.md): Mermaid JS Gantt Chart Example
+  * [README.md](wordpress/mermaid-examples/README.md): mermaid-examples
+  * [sequence.md](wordpress/mermaid-examples/sequence.md): Mermaid JS Sequence Diagram Example
+  * [state.md](wordpress/mermaid-examples/state.md): Mermaid JS State Diagram Example
+* [about.md](wordpress/about.md): Hi, I’m Richard. I’m an IT professional and network engineer with over two decades of experience designing, building, and securing enterprise networks and server infrastructure.
+* [ai-automation.md](wordpress/ai-automation.md): Embracing the Future: Why AI and Gemini Are Game-Changers in IT
+* [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): Agent Guidelines for `scripts-public` Workspace
+* [automating-wordpress-antigravity.md](wordpress/automating-wordpress-antigravity.md): Automating WordPress Workflows with Google Antigravity: A Practical DevOps Use Case
+* [aws-ec2-antigravity-blog.md](wordpress/aws-ec2-antigravity-blog.md): Welcome to the future of AI-first development! Google Antigravity (AGY) is a powerful platform that supercharges your coding workflows. Sure, you *could* try running it locally on that machine Microsoft insists on updating right when you...
+* [blog_post_wordpress.md](wordpress/blog_post_wordpress.md): Automating My GitHub Scripts Catalog with an AI Agent (And Preventing "Dumb" Commits)
+* [conquering-docker-permissions-and-antigravity-ui-crashes.md](wordpress/conquering-docker-permissions-and-antigravity-ui-crashes.md): How I Conquered Docker Permissions and Antigravity UI Crashes for MCP Servers
+* [directory_stats.md](wordpress/directory_stats.md): Directory Statistics Report
+* [extremely-sarcastic-mcp-docker.md](wordpress/extremely-sarcastic-mcp-docker.md): The Absolute Joy of Modern Dev Tools: How I Spent My Weekend Begging Docker and Antigravity to Talk to Each Other
+* [how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md](wordpress/how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md): ![Duplicate widgets appearing in the sidebar of the Terminal theme](./images/duplicate-widgets.png)
+* [how-to-update-rust-desk-pro-self-hosted-docker.md](wordpress/how-to-update-rust-desk-pro-self-hosted-docker.md): How to Update Rust Desk Pro Self Hosted - Docker
+* [how_to_use_antigravity.md](wordpress/how_to_use_antigravity.md): Getting Started with Google Antigravity
+* [installing-vscode.html](wordpress/installing-vscode.html): Installing Visual Studio Code
+* [installing-vscode.md](wordpress/installing-vscode.md): Visual Studio Code (VSCode) has become the go-to code editor for developers worldwide. It's lightweight, incredibly customizable, and supports a massive ecosystem of extensions. Whether you are a seasoned software engineer or just starti...
+* [mermaid-markup-language-guide.md](wordpress/mermaid-markup-language-guide.md): If you’ve ever found yourself struggling to maintain diagrams alongside your code, you’re not alone. Visio, Lucidchart, and other drag-and-drop tools are great, but they decouple your architecture from your repository. Enter **Mermaid**...
+* [openssl-bash-wrapper.md](wordpress/openssl-bash-wrapper.md): The Ultimate OpenSSL Output Generator
+* [README.md](wordpress/README.md): wordpress
+* [scripts_catalog.md](wordpress/scripts_catalog.md): Workspace Catalog: `scripts-public`
+* [technical-writing.md](wordpress/technical-writing.md): **From Troubleshooting to Technical Writing**
+* [test_post.md](wordpress/test_post.md): Antigravity WordPress Integration Test
+* [ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md](wordpress/ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md): If you are still relying on a single, easy-to-guess password for all your accounts, or if your browser's built-in password manager is holding the keys to your entire digital kingdom, it is time for a serious upgrade. Today, we are diving...
+
+<!-- AUTO-GENERATED CATALOG END -->
 ---
 
 ## ⚠️ Disclaimer

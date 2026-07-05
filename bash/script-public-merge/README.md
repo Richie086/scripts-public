@@ -1,5 +1,5 @@
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -7,18 +7,16 @@
 <summary>Show directory tree diagram for `script-public-merge`</summary>
 
 ```mermaid
-treeView-beta
-script-public-merge/
-  README.md
-  script-public-merge.sh
+graph TD
+	root["script-public-merge"]:::root --> n1["README.md"]:::file-md
+	root["script-public-merge"]:::root --> n2["script-public-merge.sh"]:::file-sh
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
+classDef file-sh fill:#ccfbf1,stroke:#0d9488,stroke-width:1px,color:#134e4a;
 ```
 
 </details>
-
-## Files and folders
-
-- README.md — text/config file (1212 bytes)
-- script-public-merge.sh — text/config file (1230 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

@@ -7,21 +7,20 @@
 <summary>Show directory tree diagram for `powershell`</summary>
 
 ```mermaid
-dirtree-chart
-powershell
-  powershell
-    Calculate-FolderStats.ps1
-    check_mtu.ps1
-    openssl-certtool.ps1
-    Publish-WordPressPost.ps1
+treeView-beta
+powershell/
+  Calculate-FolderStats.ps1
+  check_mtu.ps1
+  openssl-certtool.ps1
+  Publish-WordPressPost.ps1
+  README.md
+  recovery-partition/
+    Create-RecoveryPartition.ps1
+    Create-RecoveryPartition2.ps1
+    Create-RecoveryPartition3.ps1
     README.md
-    recovery-partition
-      Create-RecoveryPartition.ps1
-      Create-RecoveryPartition2.ps1
-      Create-RecoveryPartition3.ps1
-      README.md
-      RecoveryPartitionManager.ps1
-      Remove-RecoveryPartition.ps1
+    RecoveryPartitionManager.ps1
+    Remove-RecoveryPartition.ps1
 ```
 
 </details>
@@ -32,12 +31,12 @@ powershell
 - check_mtu.ps1 — text/config file (5541 bytes)
 - openssl-certtool.ps1 — text/config file (10959 bytes)
 - Publish-WordPressPost.ps1 — text/config file (1560 bytes)
-- README.md — text/config file (2660 bytes)
+- README.md — text/config file (2625 bytes)
 - recovery-partition/ — Directory with 6 items
   - Create-RecoveryPartition.ps1 — text/config file (2821 bytes)
   - Create-RecoveryPartition2.ps1 — text/config file (1141 bytes)
   - Create-RecoveryPartition3.ps1 — text/config file (2015 bytes)
-  - README.md — text/config file (1002 bytes)
+  - README.md — text/config file (970 bytes)
   - RecoveryPartitionManager.ps1 — text/config file (9398 bytes)
   - Remove-RecoveryPartition.ps1 — text/config file (1351 bytes)
 

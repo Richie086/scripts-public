@@ -9,28 +9,27 @@
 <summary>Show directory tree diagram for `projects`</summary>
 
 ```mermaid
-dirtree-chart
-projects
-  projects
-    kvm-provisioning
-      provision_vms.sh
-      README.md
-    openssl-output-generator
-      README.md
+treeView-beta
+projects/
+  kvm-provisioning/
+    provision_vms.sh
     README.md
-    stftp
-      .gitignore
-      client.py
-      client2.py
-      data
-        README.md
-        stftpupload
-          README.md
-          test.txt
+  openssl-output-generator/
+    README.md
+  README.md
+  stftp/
+    .gitignore
+    client.py
+    client2.py
+    data/
       README.md
-      server.py
-      server2.py
-      test.txt
+      stftpupload/
+        README.md
+        test.txt
+    README.md
+    server.py
+    server2.py
+    test.txt
 ```
 
 </details>
@@ -39,20 +38,20 @@ projects
 
 - kvm-provisioning/ — Directory with 2 items
   - provision_vms.sh — text/config file (2655 bytes)
-  - README.md — text/config file (573 bytes)
+  - README.md — text/config file (551 bytes)
 - openssl-output-generator/ — Directory with 1 item
-  - README.md — text/config file (1377 bytes)
-- README.md — text/config file (1638 bytes)
+  - README.md — text/config file (1349 bytes)
+- README.md — text/config file (1595 bytes)
 - stftp/ — Directory with 8 items
   - .gitignore — file (18 bytes)
   - client.py — text/config file (1122 bytes)
   - client2.py — text/config file (4944 bytes)
   - data/ — Directory with 2 items
-    - README.md — text/config file (638 bytes)
+    - README.md — text/config file (625 bytes)
     - stftpupload/ — Directory with 2 items
-      - README.md — text/config file (541 bytes)
+      - README.md — text/config file (524 bytes)
       - test.txt — text/config file (25165824 bytes)
-  - README.md — text/config file (1116 bytes)
+  - README.md — text/config file (1087 bytes)
   - server.py — text/config file (2429 bytes)
   - server2.py — text/config file (3949 bytes)
   - test.txt — text/config file (25165824 bytes)

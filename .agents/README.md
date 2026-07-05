@@ -9,11 +9,10 @@
 <summary>Show directory tree diagram for `.agents`</summary>
 
 ```mermaid
-dirtree-chart
-.agents
-  .agents
-    AGENTS.md
-    README.md
+treeView-beta
+.agents/
+  AGENTS.md
+  README.md
 ```
 
 </details>
@@ -21,7 +20,7 @@ dirtree-chart
 ## Files and folders
 
 - AGENTS.md — text/config file (4032 bytes)
-- README.md — text/config file (523 bytes)
+- README.md — text/config file (510 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

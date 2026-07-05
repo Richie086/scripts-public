@@ -7,19 +7,18 @@
 <summary>Show directory tree diagram for `remove_user`</summary>
 
 ```mermaid
-dirtree-chart
-remove_user
-  remove_user
-    README.md
-    remove_user.md
-    remove_user.sh
+treeView-beta
+remove_user/
+  README.md
+  remove_user.md
+  remove_user.sh
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (1072 bytes)
+- README.md — text/config file (1607 bytes)
 - remove_user.md — text/config file (5010 bytes)
 - remove_user.sh — text/config file (15790 bytes)
 

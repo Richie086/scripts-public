@@ -9,17 +9,16 @@
 <summary>Show directory tree diagram for `PowerShell`</summary>
 
 ```mermaid
-dirtree-chart
-PowerShell
-  PowerShell
-    README.md
+treeView-beta
+PowerShell/
+  README.md
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (475 bytes)
+- README.md — text/config file (461 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

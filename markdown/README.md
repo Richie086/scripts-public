@@ -9,17 +9,16 @@
 <summary>Show directory tree diagram for `markdown`</summary>
 
 ```mermaid
-dirtree-chart
-markdown
-  markdown
-    README.md
+treeView-beta
+markdown/
+  README.md
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (467 bytes)
+- README.md — text/config file (455 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

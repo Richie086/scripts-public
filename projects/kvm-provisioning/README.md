@@ -9,11 +9,10 @@
 <summary>Show directory tree diagram for `kvm-provisioning`</summary>
 
 ```mermaid
-dirtree-chart
-kvm-provisioning
-  kvm-provisioning
-    provision_vms.sh
-    README.md
+treeView-beta
+kvm-provisioning/
+  provision_vms.sh
+  README.md
 ```
 
 </details>
@@ -21,7 +20,7 @@ kvm-provisioning
 ## Files and folders
 
 - provision_vms.sh — text/config file (2655 bytes)
-- README.md — text/config file (573 bytes)
+- README.md — text/config file (551 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

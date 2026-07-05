@@ -9,18 +9,17 @@
 <summary>Show directory tree diagram for `stftpupload`</summary>
 
 ```mermaid
-dirtree-chart
-stftpupload
-  stftpupload
-    README.md
-    test.txt
+treeView-beta
+stftpupload/
+  README.md
+  test.txt
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (541 bytes)
+- README.md — text/config file (524 bytes)
 - test.txt — text/config file (25165824 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->

@@ -7,11 +7,10 @@
 <summary>Show directory tree diagram for `apache-proxy-wizard`</summary>
 
 ```mermaid
-dirtree-chart
-apache-proxy-wizard
-  apache-proxy-wizard
-    apache-proxy-wizard.sh
-    README.md
+treeView-beta
+apache-proxy-wizard/
+  apache-proxy-wizard.sh
+  README.md
 ```
 
 </details>
@@ -19,7 +18,7 @@ apache-proxy-wizard
 ## Files and folders
 
 - apache-proxy-wizard.sh — text/config file (13959 bytes)
-- README.md — text/config file (1179 bytes)
+- README.md — text/config file (1678 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

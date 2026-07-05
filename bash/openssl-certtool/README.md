@@ -7,11 +7,10 @@
 <summary>Show directory tree diagram for `openssl-certtool`</summary>
 
 ```mermaid
-dirtree-chart
-openssl-certtool
-  openssl-certtool
-    openssl-certtool.sh
-    README.md
+treeView-beta
+openssl-certtool/
+  openssl-certtool.sh
+  README.md
 ```
 
 </details>
@@ -19,7 +18,7 @@ openssl-certtool
 ## Files and folders
 
 - openssl-certtool.sh — text/config file (13525 bytes)
-- README.md — text/config file (1104 bytes)
+- README.md — text/config file (1591 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

@@ -1,7 +1,7 @@
 # .agents
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -9,18 +9,15 @@
 <summary>Show directory tree diagram for `.agents`</summary>
 
 ```mermaid
-treeView-beta
-.agents/
-  AGENTS.md
-  README.md
+graph TD
+	root[".agents"]:::root --> n1["README.md"]:::file-md
+	root[".agents"]:::root --> n2["AGENTS.md"]:::file-md
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
 ```
 
 </details>
-
-## Files and folders
-
-- AGENTS.md — text/config file (4032 bytes)
-- README.md — text/config file (510 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

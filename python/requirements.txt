@@ -1,1 +1,1 @@
-dirtree-chart>=0.0.6
+dirtree-chart @ git+https://github.com/prayer007/dirtree-chart.git

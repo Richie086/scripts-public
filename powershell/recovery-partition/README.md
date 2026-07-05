@@ -1,7 +1,7 @@
 # recovery-partition
 
 <!-- AUTO-GENERATED MERMAID START -->
-<!-- This Mermaid diagram and inventory are auto-generated. Do not edit directly. -->
+<!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
 ## Directory structure
 
@@ -9,26 +9,20 @@
 <summary>Show directory tree diagram for `recovery-partition`</summary>
 
 ```mermaid
-treeView-beta
-recovery-partition/
-  Create-RecoveryPartition.ps1
-  Create-RecoveryPartition2.ps1
-  Create-RecoveryPartition3.ps1
-  README.md
-  RecoveryPartitionManager.ps1
-  Remove-RecoveryPartition.ps1
+graph TD
+	root["recovery-partition"]:::root --> n1["README.md"]:::file-md
+	root["recovery-partition"]:::root --> n2["Create-RecoveryPartition2.ps1"]:::file-ps1
+	root["recovery-partition"]:::root --> n3["Remove-RecoveryPartition.ps1"]:::file-ps1
+	root["recovery-partition"]:::root --> n4["Create-RecoveryPartition.ps1"]:::file-ps1
+	root["recovery-partition"]:::root --> n5["Create-RecoveryPartition3.ps1"]:::file-ps1
+	root["recovery-partition"]:::root --> n6["RecoveryPartitionManager.ps1"]:::file-ps1
+classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
+classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
+classDef file-ps1 fill:#e0e7ff,stroke:#6366f1,stroke-width:1px,color:#312e81;
 ```
 
 </details>
-
-## Files and folders
-
-- Create-RecoveryPartition.ps1 — text/config file (2821 bytes)
-- Create-RecoveryPartition2.ps1 — text/config file (1141 bytes)
-- Create-RecoveryPartition3.ps1 — text/config file (2015 bytes)
-- README.md — text/config file (970 bytes)
-- RecoveryPartitionManager.ps1 — text/config file (9398 bytes)
-- Remove-RecoveryPartition.ps1 — text/config file (1351 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

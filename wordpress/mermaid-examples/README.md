@@ -9,14 +9,13 @@
 <summary>Show directory tree diagram for `mermaid-examples`</summary>
 
 ```mermaid
-dirtree-chart
-mermaid-examples
-  mermaid-examples
-    flowchart.md
-    gantt.md
-    README.md
-    sequence.md
-    state.md
+treeView-beta
+mermaid-examples/
+  flowchart.md
+  gantt.md
+  README.md
+  sequence.md
+  state.md
 ```
 
 </details>
@@ -25,7 +24,7 @@ mermaid-examples
 
 - flowchart.md — text/config file (446 bytes)
 - gantt.md — text/config file (760 bytes)
-- README.md — text/config file (741 bytes)
+- README.md — text/config file (713 bytes)
 - sequence.md — text/config file (762 bytes)
 - state.md — text/config file (491 bytes)
 

@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import Dict
 
 
 def find_repo_root() -> Path:
@@ -21,10 +20,6 @@ README_NAME = "README.md"
 AUTO_START = "<!-- AUTO-GENERATED MERMAID START -->"
 AUTO_END = "<!-- AUTO-GENERATED MERMAID END -->"
 EXCLUDE_DIRS = {".git", "__pycache__", ".venv", "venv", "env"}
-
-
-def escape_label(label: str) -> str:
-    return label.replace('"', '\\"')
 
 
 def should_skip(path: Path) -> bool:
@@ -54,20 +49,22 @@ def describe_entry(path: Path) -> str:
     return f"{kind} ({size} bytes)"
 
 
+def format_tree_label(path: Path) -> str:
+    name = path.name or str(path)
+    return f"{name}/" if path.is_dir() else name
+
+
 def build_mermaid_tree(directory: Path) -> str:
     def render_tree(path: Path, indent: str = "") -> list[str]:
-        lines: list[str] = []
-        lines.append(f"{indent}{path.name or str(path)}")
-
+        lines = [f"{indent}{format_tree_label(path)}"]
         if path.is_dir():
             children = [child for child in sorted(path.iterdir(), key=lambda p: str(p).lower()) if not should_skip(child)]
             for child in children:
                 lines.extend(render_tree(child, indent + "  "))
-
         return lines
 
-    tree_lines = [directory.name or str(directory), *render_tree(directory, "  ")]
-    return "\n".join(["```mermaid", "dirtree-chart", *tree_lines, "```"])
+    tree_lines = render_tree(directory)
+    return "\n".join(["```mermaid", "treeView-beta", *tree_lines, "```"])
 
 
 def build_inventory(directory: Path, indent: str = "") -> list[str]:

@@ -9,22 +9,21 @@
 <summary>Show directory tree diagram for `data`</summary>
 
 ```mermaid
-dirtree-chart
-data
-  data
+treeView-beta
+data/
+  README.md
+  stftpupload/
     README.md
-    stftpupload
-      README.md
-      test.txt
+    test.txt
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (638 bytes)
+- README.md — text/config file (625 bytes)
 - stftpupload/ — Directory with 2 items
-  - README.md — text/config file (541 bytes)
+  - README.md — text/config file (524 bytes)
   - test.txt — text/config file (25165824 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->

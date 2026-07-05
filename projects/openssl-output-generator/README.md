@@ -7,17 +7,16 @@
 <summary>Show directory tree diagram for `openssl-output-generator`</summary>
 
 ```mermaid
-dirtree-chart
-openssl-output-generator
-  openssl-output-generator
-    README.md
+treeView-beta
+openssl-output-generator/
+  README.md
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (1377 bytes)
+- README.md — text/config file (1349 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

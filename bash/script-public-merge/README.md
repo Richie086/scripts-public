@@ -7,18 +7,17 @@
 <summary>Show directory tree diagram for `script-public-merge`</summary>
 
 ```mermaid
-dirtree-chart
-script-public-merge
-  script-public-merge
-    README.md
-    script-public-merge.sh
+treeView-beta
+script-public-merge/
+  README.md
+  script-public-merge.sh
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (714 bytes)
+- README.md — text/config file (1212 bytes)
 - script-public-merge.sh — text/config file (1230 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->

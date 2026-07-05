@@ -7,18 +7,17 @@
 <summary>Show directory tree diagram for `user_manager`</summary>
 
 ```mermaid
-dirtree-chart
-user_manager
-  user_manager
-    README.md
-    user_manager.sh
+treeView-beta
+user_manager/
+  README.md
+  user_manager.sh
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (926 bytes)
+- README.md — text/config file (1396 bytes)
 - user_manager.sh — text/config file (8585 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->

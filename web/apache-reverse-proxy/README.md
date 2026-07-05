@@ -9,11 +9,10 @@
 <summary>Show directory tree diagram for `apache-reverse-proxy`</summary>
 
 ```mermaid
-dirtree-chart
-apache-reverse-proxy
-  apache-reverse-proxy
-    disclaimer.html
-    README.md
+treeView-beta
+apache-reverse-proxy/
+  disclaimer.html
+  README.md
 ```
 
 </details>
@@ -21,7 +20,7 @@ apache-reverse-proxy
 ## Files and folders
 
 - disclaimer.html — text/config file (25913 bytes)
-- README.md — text/config file (588 bytes)
+- README.md — text/config file (562 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

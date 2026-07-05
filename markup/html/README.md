@@ -9,17 +9,18 @@
 <summary>Show directory tree diagram for `html`</summary>
 
 ```mermaid
-dirtree-chart
-html
-  html
-    README.md
+treeView-beta
+html/
+  bash-readme.html
+  README.md
 ```
 
 </details>
 
 ## Files and folders
 
-- README.md — text/config file (451 bytes)
+- bash-readme.html — text/config file (2072 bytes)
+- README.md — text/config file (515 bytes)
 
 <!-- AUTO-GENERATED MERMAID END -->
 

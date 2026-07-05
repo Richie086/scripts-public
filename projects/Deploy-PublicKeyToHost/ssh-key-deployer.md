@@ -1,4 +1,4 @@
-# SSH Key Generator & Remote Deployment Tool (`setup_ssh_key.sh`)
+# SSH Key Generator & Remote Deployment Tool (`ssh-key-deployer.sh`)
 
 A production-grade, interactive Bash script designed to securely generate an Ed25519 keypair, deploy the public key to a remote host, configure permissions, and verify the connection.
 
@@ -40,7 +40,7 @@ The script runs in the following sequence:
 ### 1. Execute the Script
 Run the script from the directory containing it:
 ```bash
-./setup_ssh_key.sh
+./ssh-key-deployer.sh
 ```
 
 ### 2. Manual Login command (Once configured)

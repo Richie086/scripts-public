@@ -57,6 +57,8 @@ scripts-public/
 * [how-to-update-rust-desk-pro-self-hosted-docker.md](wordpress/how-to-update-rust-desk-pro-self-hosted-docker.md): A guide on how to update Rust Desk Pro Self Hosted using Docker.
 * [technical-writing.md](wordpress/technical-writing.md): A markdown rewrite of the Technical Writing page from Extreme Sarcasm.
 * [ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md](wordpress/ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md): Ultimate Guide to Bitwarden: Securing Your Digital Life Across Every Device.
+* [pinggy-sarcastic-review.md](wordpress/pinggy-sarcastic-review.md): An extremely sarcastic review of the Pinggy tunneling tool.
+
 
 ### 📊 Mermaid JS Examples (`/wordpress/mermaid-examples`)
 * [flowchart.md](wordpress/mermaid-examples/flowchart.md): An example of a basic user registration flowchart.
@@ -65,6 +67,7 @@ scripts-public/
 * [state.md](wordpress/mermaid-examples/state.md): An example of an e-commerce shopping cart state diagram.
 
 ### 📁 Projects (`/projects`)
+* [ssh-key-deployer.sh](projects/Deploy-PublicKeyToHost/ssh-key-deployer.sh): A production-grade, interactive Bash script designed to securely generate an Ed25519 keypair, deploy the public key to a remote host, configure permissions, and verify the connection.
 * [provision_vms.sh](projects/kvm-provisioning/provision_vms.sh): A bash script to automatically provision Windows 11 and Ubuntu VMs using virt-install (KVM/QEMU).
 * [client.py](projects/stftp/client.py): A Python client script implementing STFTP (Simple Trivial File Transfer Protocol).
 * [client2.py](projects/stftp/client2.py): An alternative Python STFTP client with modified configuration options.

@@ -48,7 +48,9 @@ STATUS_COMMAND="${BOLD}${FG_MUTED}[ COMMAND ]${NC}"
 
 # UI helper functions
 print_banner() {
-    clear
+    if [[ -n "${TERM:-}" ]]; then
+        clear
+    fi
     echo -e "${FG_PURPLE}┌──────────────────────────────────────────────────────────────────────────┐${NC}"
     echo -e "${FG_PURPLE}│${NC}  ${BOLD}${FG_CYAN}🛡️  SSH KEYGEN & REMOTE DEPLOYER${NC}                                        ${FG_PURPLE}│${NC}"
     echo -e "${FG_PURPLE}│${NC}  ${FG_MUTED}Generates secure Ed25519 keypairs and installs them on remote hosts. ${FG_PURPLE}│${NC}"

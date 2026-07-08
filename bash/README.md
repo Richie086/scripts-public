@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+=======
+# bash
+
+This folder contains Bash-based administration and automation scripts.
+Each script now lives in its own subfolder and includes a local README with:
+- What the script is intended to do
+- Example usage commands
+- Safety warnings for potentially destructive or system-level actions
+
+>>>>>>> origin/main
 <!-- AUTO-GENERATED MERMAID START -->
 <!-- This Mermaid diagram is auto-generated. Do not edit directly. -->
 
@@ -15,7 +26,10 @@ graph TD
 	root["bash"]:::root --> n5("remove_user"):::folder
 	root["bash"]:::root --> n6["README.md"]:::file-md
 	root["bash"]:::root --> n7["apt-get-tui.sh"]:::file-sh
+<<<<<<< HEAD
 	root["bash"]:::root --> n8["ai-devbox-init.sh"]:::file-sh
+=======
+>>>>>>> origin/main
 	n1 --> n1_2["README.md<br>script-public-merge.sh"]:::file-bundle
 	n2 --> n2_2["README.md<br>user_manager.sh"]:::file-bundle
 	n3 --> n3_2["README.md<br>apache-proxy-wizard.sh"]:::file-bundle
@@ -32,6 +46,7 @@ classDef file-sh fill:#ccfbf1,stroke:#0d9488,stroke-width:1px,color:#134e4a;
 
 <!-- AUTO-GENERATED MERMAID END -->
 
+<<<<<<< HEAD
 # AI Devbox Init Script
 
 This directory contains `ai-devbox-init.sh`, an interactive Ubuntu/Debian bootstrap script for building a modern development environment quickly and consistently.
@@ -130,3 +145,6 @@ Behavior:
 ```bash
 source ~/ai_dev_env/bin/activate
 ```
+=======
+Auto-generated directory structure for this folder.
+>>>>>>> origin/main

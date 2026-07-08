@@ -28,11 +28,19 @@ graph TD
 	n2 --> n2_3("apache-proxy-wizard"):::folder
 	n2 --> n2_4("openssl-certtool"):::folder
 	n2 --> n2_5("remove_user"):::folder
+<<<<<<< HEAD
 	n1 --> n1_8["suggest_aliases.py<br>README.md<br>fetch_agent.py<br>search_scripts.py<br>extract_conv.py<br>requirements.txt<br>generate_mermaid_readmes.py<br>list_keys.py"]:::file-bundle
 	n3 --> n3_1("apache-reverse-proxy"):::folder
 	n2 --> n2_8["README.md<br>apt-get-tui.sh<br>ai-devbox-init.sh"]:::file-bundle
 	n3 --> n3_2["README.md"]:::file-md
 	n4 --> n4_2["README.md<br>suggest_aliases.md"]:::file-md
+=======
+	n1 --> n1_7["README.md<br>fetch_agent.py<br>search_scripts.py<br>extract_conv.py<br>requirements.txt<br>generate_mermaid_readmes.py<br>list_keys.py"]:::file-bundle
+	n3 --> n3_1("apache-reverse-proxy"):::folder
+	n2 --> n2_7["README.md<br>apt-get-tui.sh"]:::file-bundle
+	n3 --> n3_2["README.md"]:::file-md
+	n4 --> n4_1["README.md"]:::file-md
+>>>>>>> origin/main
 	n6 --> n6_1("mermaid-examples"):::folder
 	n5 --> n5_1["README.md"]:::file-md
 	n7 --> n7_1("recovery-partition"):::folder
@@ -112,7 +120,11 @@ scripts-public/
 
 ### 📄 Repository Root (`/`)
 * [.agents/](.agents/): .agents
+<<<<<<< HEAD
 * [bash/](bash/): AI Devbox Init Script
+=======
+* [bash/](bash/): This folder contains Bash-based administration and automation scripts.
+>>>>>>> origin/main
 * [markdown/](markdown/): markdown
 * [markup/](markup/): markup
 * [PowerShell/](PowerShell/): PowerShell
@@ -148,6 +160,7 @@ scripts-public/
 * [user_manager/](bash/user_manager/): user_manager.sh
   * [README.md](bash/user_manager/README.md): user_manager.sh
   * [user_manager.sh](bash/user_manager/user_manager.sh): Script Name: user_manager.sh Description: Advanced Linux user account manager for Ubuntu. Supports interactive and CLI mode, audit logging, and dry-runs.
+<<<<<<< HEAD
 * [ai-devbox-init.sh](bash/ai-devbox-init.sh): Modern AI Development Environment Setup Script Powered by 'gum' for a beautiful, colorful CLI experience.
 * [apt-get-tui.sh](bash/apt-get-tui.sh): apt-get-tui.sh - A Text User Interface (TUI) for apt / apt-get on Ubuntu/Debian. Every common apt-get / apt-cache / apt-mark function is reachable from a menu. Package name fields for install/remove/etc. support TAB auto-completion:
 * [README.md](bash/README.md): AI Devbox Init Script
@@ -155,6 +168,13 @@ scripts-public/
 ### 📝 Markdown (`/markdown`)
 * [README.md](markdown/README.md): markdown
 * [suggest_aliases.md](markdown/suggest_aliases.md): Shell Alias & Function Suggester
+=======
+* [apt-get-tui.sh](bash/apt-get-tui.sh): apt-get-tui.sh - A Text User Interface (TUI) for apt / apt-get on Ubuntu/Debian. Every common apt-get / apt-cache / apt-mark function is reachable from a menu. Package name fields for install/remove/etc. support TAB auto-completion:
+* [README.md](bash/README.md): bash
+
+### 📝 Markdown (`/markdown`)
+* [README.md](markdown/README.md): markdown
+>>>>>>> origin/main
 
 ### 📄 Markup (`/markup`)
 * [html/](markup/html/): html
@@ -208,7 +228,10 @@ scripts-public/
 * [README.md](python/README.md): python
 * [requirements.txt](python/requirements.txt): text/config file (67 bytes)
 * [search_scripts.py](python/search_scripts.py): text/config file (566 bytes)
+<<<<<<< HEAD
 * [suggest_aliases.py](python/suggest_aliases.py): text/config file (29642 bytes)
+=======
+>>>>>>> origin/main
 
 ### 🌐 Web (`/web`)
 * [apache-reverse-proxy/](web/apache-reverse-proxy/): apache-reverse-proxy

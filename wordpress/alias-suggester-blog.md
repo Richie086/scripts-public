@@ -4,7 +4,7 @@ Oh, developers. We are a special breed. We will happily spend six hours writing,
 
 Which brings me to my latest achievement in productivity optimization (or extreme laziness, depending on how you look at it): **`suggest_aliases.py`**.
 
-If you've spent years in the terminal, you probably have a `.bashrc` or `.bash_aliases` file that is a absolute graveyard of half-remembered shortcuts. But are they the *right* shortcuts? Do they match what you *actually* type every day, or are they just artifacts of whatever project you were obsessed with back in 2024?
+If you've spent years in the terminal, you probably have a `.bashrc` or `.bash_aliases` file that is an absolute graveyard of half-remembered shortcuts. But are they the *right* shortcuts? Do they match what you *actually* type every day, or are they just artifacts of whatever project you were obsessed with back in 2024?
 
 Instead of guessing, I built a Python utility that performs statistical frequency analysis on your shell history, weighs your commands by recency, and automatically suggests the exact aliases and custom shell functions you should add to save your precious keystrokes.
 

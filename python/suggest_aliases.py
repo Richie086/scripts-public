@@ -194,45 +194,66 @@ class ServiceInteraction:
         self.count = 0.0
 
 def detect_service_interactions(commands: List[str]) -> Dict[str, ServiceInteraction]:
-    """Scans history for systemctl and journalctl commands and groups by service."""
+    """Scans history for systemctl and journalctl commands and groups by service.
+    
+    This function parses shell commands to identify systemctl and journalctl service
+    invocations. Instead of strict regex, it uses a hybrid token-based parser for systemctl
+    to gracefully handle variable argument ordering and flag configurations (e.g. --user, -q).
+    """
     services = {}
     total_cmds = len(commands)
     
+    # Define the set of standard systemctl actions to look for. This helps us
+    # locate the action within a potentially complex argument list.
     systemctl_actions = {
         'start', 'stop', 'restart', 'status', 'enable', 'disable',
         'reload', 'force-reload', 'mask', 'unmask', 'try-restart', 'condrestart'
     }
     
-    # Matches: [sudo] journalctl ... -u [service] ...
+    # Matches journalctl service unit parameters.
+    # Group 1 captures the service name. We allow spacing or '=' between the flag and value.
+    # We escape the hyphen and dot inside the character class to be safe and avoid regex errors.
     journalctl_pat = re.compile(r"\bjournalctl\b.*?(?:-u\s+|--unit(?:=|\s+))([a-zA-Z0-9_\.\-]+)")
     
     for idx, cmd in enumerate(commands):
+        # Calculate a weight based on when the command was run in the history sequence.
+        # This gives higher priority/weight to more recently executed service calls.
         weight = get_recency_weight(idx, total_cmds)
+        
+        # Clean whitespaces for consistent token splitting.
         cmd_clean = re.sub(r'\s+', ' ', cmd).strip()
+        
+        # Track whether the user ran this service command as superuser (sudo),
+        # which determines if the recommended aliases should prefix 'sudo '.
         has_sudo = "sudo " in cmd_clean or cmd_clean.startswith("sudo")
         
-        # 1. Check systemctl
+        # 1. Parse systemctl commands
         if "systemctl" in cmd_clean:
             words = cmd_clean.split(' ')
             try:
                 sys_idx = words.index("systemctl")
             except ValueError:
+                # systemctl was not found as a standalone word (e.g. part of another string)
                 continue
             
             action = None
             service = None
+            # Scan tokens after 'systemctl' to locate the action verb and service name
             for i in range(sys_idx + 1, len(words)):
                 word = words[i]
                 if word in systemctl_actions:
                     action = word
-                    # Find the service name (first non-flag word after action)
+                    # Once the action verb is found, the service name is typically the next
+                    # non-flag argument (i.e. does not start with '-').
                     for j in range(i + 1, len(words)):
                         if not words[j].startswith("-"):
                             service = words[j]
                             break
-                    break
+                    break  # Stop parsing once action/service resolution is attempted
             
+            # If a service name was successfully extracted, aggregate it
             if service:
+                # Normalize the name by stripping any trailing '.service' extension
                 service_clean = service.replace(".service", "")
                 if service_clean not in services:
                     services[service_clean] = ServiceInteraction(service_clean)
@@ -241,11 +262,12 @@ def detect_service_interactions(commands: List[str]) -> Dict[str, ServiceInterac
                     services[service_clean].uses_sudo = True
             continue
             
-        # 2. Check journalctl
+        # 2. Parse journalctl commands
         if "journalctl" in cmd_clean:
             jour_m = journalctl_pat.search(cmd_clean)
             if jour_m:
                 service = jour_m.group(1)
+                # Normalize by stripping any trailing '.service' extension
                 service_clean = service.replace(".service", "")
                 if service_clean not in services:
                     services[service_clean] = ServiceInteraction(service_clean)
@@ -467,10 +489,13 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
         print("-" * 50)
         return
         
+    # Import subprocess here for launching copy/read/write fallback operations using sudo
     import subprocess
-    use_sudo = False
+    use_sudo = False  # Track if we need to escalate actions using sudo
     
     # 1. Try to create backup
+    # Create a unique timestamped file path for backup configuration (e.g. .bash_aliases.bak.20260709130000)
+    # This prevents irreversible config loss if something goes wrong during modifications.
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     backup = dest_file.with_suffix(f".bak.{timestamp}")
     
@@ -479,6 +504,8 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
         try:
             shutil.copy(dest_file, backup)
         except PermissionError:
+            # If shutil fails with PermissionError (e.g., trying to write to /etc/ or system file),
+            # prompt the user immediately for permission to proceed using sudo commands.
             print(f"{YELLOW}[!] Permission denied backing up to {backup}.{RESET}")
             try:
                 confirm = input("Would you like to try backing up and writing using sudo? [y/N]: ").strip().lower()
@@ -487,6 +514,7 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
             if confirm == 'y':
                 use_sudo = True
                 try:
+                    # Run sudo cp in subprocess to write the backup securely as root
                     subprocess.run(['sudo', 'cp', str(dest_file), str(backup)], check=True)
                 except Exception as e:
                     print(f"{RED}[ERROR] Failed to backup with sudo: {e}{RESET}", file=sys.stderr)
@@ -498,12 +526,15 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
             sys.exit(1)
             
     # 2. Read existing content
+    # We must load the existing content to look for any prior BASHRC ALIAS SUGGESTER block
+    # so we can cleanly update/replace it instead of appending multiple blocks.
     content = ""
     if dest_file.exists():
         try:
             with open(dest_file, 'r', errors='ignore') as f:
                 content = f.read()
         except PermissionError:
+            # If reading is blocked, and we haven't already escalated to sudo, ask user
             if not use_sudo:
                 print(f"{YELLOW}[!] Permission denied reading {dest_file}.{RESET}")
                 try:
@@ -515,6 +546,7 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
                 else:
                     sys.exit(1)
             
+            # Use 'sudo cat' to retrieve content from files requiring admin privileges
             if use_sudo:
                 try:
                     proc = subprocess.run(['sudo', 'cat', str(dest_file)], capture_output=True, text=True, check=True)
@@ -527,6 +559,8 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
             sys.exit(1)
             
     # 3. Calculate updated content
+    # If the block already exists, replace it inline via regex sub to prevent cluttering the configuration file.
+    # Otherwise, append the new alias block to the end of the file.
     pattern = r"# >>> BASHRC ALIAS SUGGESTER >>>.*# <<< BASHRC ALIAS SUGGESTER <<<\n?"
     if re.search(pattern, content, re.DOTALL):
         updated_content = re.sub(pattern, block_content, content, flags=re.DOTALL)
@@ -538,6 +572,8 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
         print(f"[+] Appending ALIAS SUGGESTER block to {dest_file}...")
         
     # 4. Write content
+    # Write the updated text to the target file.
+    # If using sudo, we pipe the text into 'sudo tee' to handle elevated write permissions cleanly.
     try:
         if use_sudo:
             proc = subprocess.Popen(['sudo', 'tee', str(dest_file)], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -549,6 +585,7 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
                 f.write(updated_content)
         print(f"{GREEN}[SUCCESS] Successfully wrote {len(selections_to_write)} items to {dest_file}!{RESET}")
     except PermissionError:
+        # Prompt user to fallback to writing via sudo if normal file open/write permissions fail
         print(f"{YELLOW}[!] Permission denied writing to {dest_file}.{RESET}")
         try:
             confirm = input("Would you like to try writing using sudo? [y/N]: ").strip().lower()

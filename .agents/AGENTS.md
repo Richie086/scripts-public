@@ -2,6 +2,14 @@
 
 These rules apply to any agent working inside the `scripts-public` repository.
 
+## 📂 File Organization
+When creating or moving files in the `scripts-public` repository, always sort them based on their file extension:
+- Bash (`.sh`) scripts must be placed in the `bash/` directory.
+- Python (`.py`) scripts must be placed in the `python/` directory.
+- Markdown (`.md`) documentation files must be placed in the `markdown/` directory.
+- PowerShell (`.ps1`) scripts must be placed in the `powershell/` directory.
+- Avoid placing new scripts or documents in the root directory unless they are repository-wide configurations.
+
 ## 📝 Documenting Changes
 - **Enforce Documentation Updates**: Any changes, additions, or removals of scripts/files in this repository must be reflected and documented in the README.md file.
 - **Maintain Catalog Alignment**: Ensure the documentation links and structural references remain accurate.

@@ -22,7 +22,9 @@ graph TD
 	root["bash"]:::root --> n4("openssl-certtool"):::folder
 	root["bash"]:::root --> n5("remove_user"):::folder
 	root["bash"]:::root --> n6["README.md"]:::file-md
-	root["bash"]:::root --> n7["apt-get-tui.sh"]:::file-sh
+	root["bash"]:::root --> n7["setup_ssh_key.sh"]:::file-sh
+	root["bash"]:::root --> n8["apt-get-tui.sh"]:::file-sh
+	root["bash"]:::root --> n9["setup_ssh_key.md"]:::file-md
 	n1 --> n1_2["README.md<br>script-public-merge.sh"]:::file-bundle
 	n2 --> n2_2["README.md<br>user_manager.sh"]:::file-bundle
 	n3 --> n3_2["README.md<br>apache-proxy-wizard.sh"]:::file-bundle

@@ -19,20 +19,22 @@ graph TD
 	root["scripts-public"]:::root --> n9("markup"):::folder
 	root["scripts-public"]:::root --> n10[".agents"]:::file-other
 	root["scripts-public"]:::root --> n11["README.md"]:::file-md
-	root["scripts-public"]:::root --> n12[".agent.md"]:::file-md
-	root["scripts-public"]:::root --> n13[".gitattributes"]:::file-git
-	root["scripts-public"]:::root --> n14["SECURITY.md"]:::file-md
-	root["scripts-public"]:::root --> n15[".gitignore"]:::file-git
+	root["scripts-public"]:::root --> n12["scripts-public.code-workspace"]:::file-other
+	root["scripts-public"]:::root --> n13[".agent.md"]:::file-md
+	root["scripts-public"]:::root --> n14[".gitattributes"]:::file-git
+	root["scripts-public"]:::root --> n15["my-antigravity-experience.md"]:::file-md
+	root["scripts-public"]:::root --> n16["SECURITY.md"]:::file-md
+	root["scripts-public"]:::root --> n17[".gitignore"]:::file-git
 	n2 --> n2_1("script-public-merge"):::folder
 	n2 --> n2_2("user_manager"):::folder
 	n2 --> n2_3("apache-proxy-wizard"):::folder
 	n2 --> n2_4("openssl-certtool"):::folder
 	n2 --> n2_5("remove_user"):::folder
-	n1 --> n1_7["README.md<br>fetch_agent.py<br>search_scripts.py<br>extract_conv.py<br>requirements.txt<br>generate_mermaid_readmes.py<br>list_keys.py"]:::file-bundle
+	n1 --> n1_8["suggest_aliases.py<br>README.md<br>fetch_agent.py<br>search_scripts.py<br>extract_conv.py<br>requirements.txt<br>generate_mermaid_readmes.py<br>list_keys.py"]:::file-bundle
 	n3 --> n3_1("apache-reverse-proxy"):::folder
-	n2 --> n2_7["README.md<br>apt-get-tui.sh"]:::file-bundle
+	n2 --> n2_9["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_ssh_key.md"]:::file-bundle
 	n3 --> n3_2["README.md"]:::file-md
-	n4 --> n4_1["README.md"]:::file-md
+	n4 --> n4_2["README.md<br>suggest_aliases.md"]:::file-md
 	n6 --> n6_1("mermaid-examples"):::folder
 	n5 --> n5_1["README.md"]:::file-md
 	n7 --> n7_1("recovery-partition"):::folder
@@ -124,7 +126,9 @@ scripts-public/
 * [.agent.md](.agent.md): name: readme-tree-diagram
 * [.gitattributes](.gitattributes): file (170 bytes)
 * [.gitignore](.gitignore): file (256 bytes)
+* [my-antigravity-experience.md](my-antigravity-experience.md): My Experience Using Antigravity to Set Up Automated SSH Keys & Fix MCP Issues
 * [README.md](README.md): Public Scripts (`scripts-public`)
+* [scripts-public.code-workspace](scripts-public.code-workspace): file (43 bytes)
 * [SECURITY.md](SECURITY.md): Security Policy
 
 ### ⚙️ Agent Guidelines (`/.agents`)
@@ -150,9 +154,12 @@ scripts-public/
   * [user_manager.sh](bash/user_manager/user_manager.sh): Script Name: user_manager.sh Description: Advanced Linux user account manager for Ubuntu. Supports interactive and CLI mode, audit logging, and dry-runs.
 * [apt-get-tui.sh](bash/apt-get-tui.sh): apt-get-tui.sh - A Text User Interface (TUI) for apt / apt-get on Ubuntu/Debian. Every common apt-get / apt-cache / apt-mark function is reachable from a menu. Package name fields for install/remove/etc. support TAB auto-completion:
 * [README.md](bash/README.md): bash
+* [setup_ssh_key.md](bash/setup_ssh_key.md): SSH Key Generator & Remote Deployment Tool (`setup_ssh_key.sh`)
+* [setup_ssh_key.sh](bash/setup_ssh_key.sh): Interactive SSH Key Generator & Remote Installer (Modern Theme) This script guides the user through the process of: 1. Prompting for remote server details (username, host, port).
 
 ### 📝 Markdown (`/markdown`)
 * [README.md](markdown/README.md): markdown
+* [suggest_aliases.md](markdown/suggest_aliases.md): Shell Alias & Function Suggester
 
 ### 📄 Markup (`/markup`)
 * [html/](markup/html/): html
@@ -206,6 +213,7 @@ scripts-public/
 * [README.md](python/README.md): python
 * [requirements.txt](python/requirements.txt): text/config file (67 bytes)
 * [search_scripts.py](python/search_scripts.py): text/config file (566 bytes)
+* [suggest_aliases.py](python/suggest_aliases.py): text/config file (29642 bytes)
 
 ### 🌐 Web (`/web`)
 * [apache-reverse-proxy/](web/apache-reverse-proxy/): apache-reverse-proxy

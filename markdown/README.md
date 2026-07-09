@@ -11,6 +11,7 @@
 ```mermaid
 graph TD
 	root["markdown"]:::root --> n1["README.md"]:::file-md
+	root["markdown"]:::root --> n2["suggest_aliases.md"]:::file-md
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
 classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;

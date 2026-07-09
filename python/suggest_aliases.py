@@ -198,45 +198,60 @@ def detect_service_interactions(commands: List[str]) -> Dict[str, ServiceInterac
     services = {}
     total_cmds = len(commands)
     
-    # Matches: [sudo] systemctl [action] [service]
-    systemctl_pat = re.compile(r"^\s*(sudo\s+)?systemctl\s+([a-zA-Z_-]+)\s+([a-zA-Z0-9_\.-]+)\s*$")
+    systemctl_actions = {
+        'start', 'stop', 'restart', 'status', 'enable', 'disable',
+        'reload', 'force-reload', 'mask', 'unmask', 'try-restart', 'condrestart'
+    }
+    
     # Matches: [sudo] journalctl ... -u [service] ...
-    journalctl_pat = re.compile(r"^\s*(sudo\s+)?journalctl\s+.*(?:-u|--unit(?:=|\s+))([a-zA-Z0-9_\.-]+)(?:\s+.*)?$")
+    journalctl_pat = re.compile(r"\bjournalctl\b.*?(?:-u\s+|--unit(?:=|\s+))([a-zA-Z0-9_\.\-]+)")
     
     for idx, cmd in enumerate(commands):
         weight = get_recency_weight(idx, total_cmds)
         cmd_clean = re.sub(r'\s+', ' ', cmd).strip()
+        has_sudo = "sudo " in cmd_clean or cmd_clean.startswith("sudo")
         
         # 1. Check systemctl
-        sys_m = systemctl_pat.match(cmd_clean)
-        if sys_m:
-            has_sudo = bool(sys_m.group(1))
-            action = sys_m.group(2)
-            service = sys_m.group(3)
-            
-            if action in ['daemon-reload', 'list-units', 'list-unit-files', 'show-environment']:
+        if "systemctl" in cmd_clean:
+            words = cmd_clean.split(' ')
+            try:
+                sys_idx = words.index("systemctl")
+            except ValueError:
                 continue
-                
-            service_clean = service.replace(".service", "")
-            if service_clean not in services:
-                services[service_clean] = ServiceInteraction(service_clean)
-            services[service_clean].count += weight
-            if has_sudo:
-                services[service_clean].uses_sudo = True
+            
+            action = None
+            service = None
+            for i in range(sys_idx + 1, len(words)):
+                word = words[i]
+                if word in systemctl_actions:
+                    action = word
+                    # Find the service name (first non-flag word after action)
+                    for j in range(i + 1, len(words)):
+                        if not words[j].startswith("-"):
+                            service = words[j]
+                            break
+                    break
+            
+            if service:
+                service_clean = service.replace(".service", "")
+                if service_clean not in services:
+                    services[service_clean] = ServiceInteraction(service_clean)
+                services[service_clean].count += weight
+                if has_sudo:
+                    services[service_clean].uses_sudo = True
             continue
             
         # 2. Check journalctl
-        jour_m = journalctl_pat.match(cmd_clean)
-        if jour_m:
-            has_sudo = bool(jour_m.group(1))
-            service = jour_m.group(2)
-            
-            service_clean = service.replace(".service", "")
-            if service_clean not in services:
-                services[service_clean] = ServiceInteraction(service_clean)
-            services[service_clean].count += weight
-            if has_sudo:
-                services[service_clean].uses_sudo = True
+        if "journalctl" in cmd_clean:
+            jour_m = journalctl_pat.search(cmd_clean)
+            if jour_m:
+                service = jour_m.group(1)
+                service_clean = service.replace(".service", "")
+                if service_clean not in services:
+                    services[service_clean] = ServiceInteraction(service_clean)
+                services[service_clean].count += weight
+                if has_sudo:
+                    services[service_clean].uses_sudo = True
                 
     return services
 

@@ -467,25 +467,66 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
         print("-" * 50)
         return
         
+    import subprocess
+    use_sudo = False
+    
+    # 1. Try to create backup
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    backup = dest_file.with_suffix(f".bak.{timestamp}")
+    
     if dest_file.exists():
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        backup = dest_file.with_suffix(f".bak.{timestamp}")
         print(f"[+] Creating backup of {dest_file} at {backup}...")
         try:
             shutil.copy(dest_file, backup)
+        except PermissionError:
+            print(f"{YELLOW}[!] Permission denied backing up to {backup}.{RESET}")
+            try:
+                confirm = input("Would you like to try backing up and writing using sudo? [y/N]: ").strip().lower()
+            except (KeyboardInterrupt, EOFError):
+                confirm = 'n'
+            if confirm == 'y':
+                use_sudo = True
+                try:
+                    subprocess.run(['sudo', 'cp', str(dest_file), str(backup)], check=True)
+                except Exception as e:
+                    print(f"{RED}[ERROR] Failed to backup with sudo: {e}{RESET}", file=sys.stderr)
+                    sys.exit(1)
+            else:
+                sys.exit(1)
         except Exception as e:
             print(f"{RED}[ERROR] Failed to back up configuration: {e}{RESET}", file=sys.stderr)
             sys.exit(1)
             
+    # 2. Read existing content
     content = ""
     if dest_file.exists():
         try:
             with open(dest_file, 'r', errors='ignore') as f:
                 content = f.read()
+        except PermissionError:
+            if not use_sudo:
+                print(f"{YELLOW}[!] Permission denied reading {dest_file}.{RESET}")
+                try:
+                    confirm = input("Would you like to try reading and writing using sudo? [y/N]: ").strip().lower()
+                except (KeyboardInterrupt, EOFError):
+                    confirm = 'n'
+                if confirm == 'y':
+                    use_sudo = True
+                else:
+                    sys.exit(1)
+            
+            if use_sudo:
+                try:
+                    proc = subprocess.run(['sudo', 'cat', str(dest_file)], capture_output=True, text=True, check=True)
+                    content = proc.stdout
+                except Exception as e:
+                    print(f"{RED}[ERROR] Failed to read with sudo: {e}{RESET}", file=sys.stderr)
+                    sys.exit(1)
         except Exception as e:
             print(f"{RED}[ERROR] Failed to read {dest_file}: {e}{RESET}", file=sys.stderr)
             sys.exit(1)
             
+    # 3. Calculate updated content
     pattern = r"# >>> BASHRC ALIAS SUGGESTER >>>.*# <<< BASHRC ALIAS SUGGESTER <<<\n?"
     if re.search(pattern, content, re.DOTALL):
         updated_content = re.sub(pattern, block_content, content, flags=re.DOTALL)
@@ -496,36 +537,65 @@ def write_aliases(selections_to_write: List[Tuple[str, str, str]], dest_file: Pa
         updated_content = content + block_content
         print(f"[+] Appending ALIAS SUGGESTER block to {dest_file}...")
         
+    # 4. Write content
     try:
-        with open(dest_file, 'w') as f:
-            f.write(updated_content)
+        if use_sudo:
+            proc = subprocess.Popen(['sudo', 'tee', str(dest_file)], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            stdout, stderr = proc.communicate(input=updated_content)
+            if proc.returncode != 0:
+                raise Exception(stderr.strip())
+        else:
+            with open(dest_file, 'w') as f:
+                f.write(updated_content)
         print(f"{GREEN}[SUCCESS] Successfully wrote {len(selections_to_write)} items to {dest_file}!{RESET}")
-        
-        # Verify sourcing if written to ~/.bash_aliases
-        if dest_file.name == ".bash_aliases":
-            bashrc_path = Path.home() / ".bashrc"
-            if bashrc_path.exists():
+    except PermissionError:
+        print(f"{YELLOW}[!] Permission denied writing to {dest_file}.{RESET}")
+        try:
+            confirm = input("Would you like to try writing using sudo? [y/N]: ").strip().lower()
+        except (KeyboardInterrupt, EOFError):
+            confirm = 'n'
+        if confirm == 'y':
+            try:
+                proc = subprocess.Popen(['sudo', 'tee', str(dest_file)], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                stdout, stderr = proc.communicate(input=updated_content)
+                if proc.returncode != 0:
+                    raise Exception(stderr.strip())
+                print(f"{GREEN}[SUCCESS] Successfully wrote {len(selections_to_write)} items to {dest_file} using sudo!{RESET}")
+            except Exception as sudo_err:
+                print(f"{RED}[ERROR] Failed to write using sudo: {sudo_err}{RESET}", file=sys.stderr)
+                sys.exit(1)
+        else:
+            sys.exit(1)
+    except Exception as e:
+        print(f"{RED}[ERROR] Failed to write to {dest_file}: {e}{RESET}", file=sys.stderr)
+        sys.exit(1)
+
+    # 5. Verify sourcing if written to ~/.bash_aliases
+    if dest_file.name == ".bash_aliases":
+        bashrc_path = Path.home() / ".bashrc"
+        if bashrc_path.exists():
+            try:
                 with open(bashrc_path, 'r', errors='ignore') as f:
                     bashrc_content = f.read()
-                if ".bash_aliases" not in bashrc_content:
-                    print(f"\n{YELLOW}[NOTE] ~/.bash_aliases is not sourced in your ~/.bashrc.{RESET}")
+            except Exception:
+                bashrc_content = ""
+            if ".bash_aliases" not in bashrc_content:
+                print(f"\n{YELLOW}[NOTE] ~/.bash_aliases is not sourced in your ~/.bashrc.{RESET}")
+                try:
+                    confirm = input(f"Would you like to automatically add the sourcing block to {bashrc_path}? [y/N]: ").strip().lower()
+                except (KeyboardInterrupt, EOFError):
+                    confirm = 'n'
+                if confirm == 'y':
+                    bashrc_backup = bashrc_path.with_suffix(f".bak.{timestamp}")
+                    print(f"[+] Creating backup of {bashrc_path} at {bashrc_backup}...")
                     try:
-                        confirm = input(f"Would you like to automatically add the sourcing block to {bashrc_path}? [y/N]: ").strip().lower()
-                    except (KeyboardInterrupt, EOFError):
-                        confirm = 'n'
-                    if confirm == 'y':
-                        # Back up ~/.bashrc first
-                        bashrc_backup = bashrc_path.with_suffix(f".bak.{timestamp}")
-                        print(f"[+] Creating backup of {bashrc_path} at {bashrc_backup}...")
                         shutil.copy(bashrc_path, bashrc_backup)
-                        
                         source_snippet = "\n# Source custom aliases\nif [ -f ~/.bash_aliases ]; then\n    . ~/.bash_aliases\nfi\n"
                         with open(bashrc_path, 'a') as f_br:
                             f_br.write(source_snippet)
                         print(f"{GREEN}[SUCCESS] Sourcing block appended to {bashrc_path}!{RESET}")
-    except Exception as e:
-        print(f"{RED}[ERROR] Failed to write to {dest_file}: {e}{RESET}", file=sys.stderr)
-        sys.exit(1)
+                    except Exception as e:
+                        print(f"{RED}[ERROR] Failed to source ~/.bash_aliases: {e}{RESET}", file=sys.stderr)
 
 
 def main():

@@ -12,19 +12,18 @@ graph TD
 	root["scripts-public"]:::root --> n2("bash"):::folder
 	root["scripts-public"]:::root --> n3("web"):::folder
 	root["scripts-public"]:::root --> n4("markdown"):::folder
-	root["scripts-public"]:::root --> n5("PowerShell"):::folder
-	root["scripts-public"]:::root --> n6("wordpress"):::folder
-	root["scripts-public"]:::root --> n7("powershell"):::folder
-	root["scripts-public"]:::root --> n8("projects"):::folder
-	root["scripts-public"]:::root --> n9("markup"):::folder
-	root["scripts-public"]:::root --> n10[".agents"]:::file-other
-	root["scripts-public"]:::root --> n11["README.md"]:::file-md
-	root["scripts-public"]:::root --> n12["scripts-public.code-workspace"]:::file-other
-	root["scripts-public"]:::root --> n13[".agent.md"]:::file-md
-	root["scripts-public"]:::root --> n14[".gitattributes"]:::file-git
-	root["scripts-public"]:::root --> n15["my-antigravity-experience.md"]:::file-md
-	root["scripts-public"]:::root --> n16["SECURITY.md"]:::file-md
-	root["scripts-public"]:::root --> n17[".gitignore"]:::file-git
+	root["scripts-public"]:::root --> n5("wordpress"):::folder
+	root["scripts-public"]:::root --> n6("powershell"):::folder
+	root["scripts-public"]:::root --> n7("projects"):::folder
+	root["scripts-public"]:::root --> n8("markup"):::folder
+	root["scripts-public"]:::root --> n9[".agents"]:::file-other
+	root["scripts-public"]:::root --> n10["README.md"]:::file-md
+	root["scripts-public"]:::root --> n11["scripts-public.code-workspace"]:::file-other
+	root["scripts-public"]:::root --> n12[".agent.md"]:::file-md
+	root["scripts-public"]:::root --> n13[".gitattributes"]:::file-git
+	root["scripts-public"]:::root --> n14["my-antigravity-experience.md"]:::file-md
+	root["scripts-public"]:::root --> n15["SECURITY.md"]:::file-md
+	root["scripts-public"]:::root --> n16[".gitignore"]:::file-git
 	n2 --> n2_1("script-public-merge"):::folder
 	n2 --> n2_2("user_manager"):::folder
 	n2 --> n2_3("apache-proxy-wizard"):::folder
@@ -34,35 +33,34 @@ graph TD
 	n3 --> n3_1("apache-reverse-proxy"):::folder
 	n2 --> n2_9["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_ssh_key.md"]:::file-bundle
 	n3 --> n3_2["README.md"]:::file-md
+	n5 --> n5_1("mermaid-examples"):::folder
 	n4 --> n4_2["README.md<br>suggest_aliases.md"]:::file-md
-	n6 --> n6_1("mermaid-examples"):::folder
-	n5 --> n5_1["README.md"]:::file-md
-	n7 --> n7_1("recovery-partition"):::folder
-	n6 --> n6_23["extremely-sarcastic-mcp-docker.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md<br>aws-ec2-antigravity-blog.md<br>how_to_use_antigravity.md<br>ai-automation.md<br>... +15 more"]:::file-md
-	n8 --> n8_1("openssl-output-generator"):::folder
-	n8 --> n8_2("kvm-provisioning"):::folder
-	n8 --> n8_3("stftp"):::folder
-	n7 --> n7_6["README.md<br>Publish-WordPressPost.ps1<br>check_mtu.ps1<br>openssl-certtool.ps1<br>Calculate-FolderStats.ps1"]:::file-bundle
-	n9 --> n9_1("html"):::folder
-	n8 --> n8_4["README.md"]:::file-md
-	n9 --> n9_2["README.md"]:::file-md
-	n10 --> n10_2["README.md<br>AGENTS.md"]:::file-md
+	n6 --> n6_1("recovery-partition"):::folder
+	n5 --> n5_24["extremely-sarcastic-mcp-docker.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>gmail-labeling-blog.md<br>how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md<br>aws-ec2-antigravity-blog.md<br>how_to_use_antigravity.md<br>... +16 more"]:::file-md
+	n7 --> n7_1("openssl-output-generator"):::folder
+	n7 --> n7_2("kvm-provisioning"):::folder
+	n7 --> n7_3("stftp"):::folder
+	n6 --> n6_6["README.md<br>Publish-WordPressPost.ps1<br>check_mtu.ps1<br>openssl-certtool.ps1<br>Calculate-FolderStats.ps1"]:::file-bundle
+	n8 --> n8_1("html"):::folder
+	n7 --> n7_4["README.md"]:::file-md
+	n8 --> n8_2["README.md"]:::file-md
+	n9 --> n9_2["README.md<br>AGENTS.md"]:::file-md
 	n2_1 --> n2_1_2["README.md<br>script-public-merge.sh"]:::file-bundle
 	n2_2 --> n2_2_2["README.md<br>user_manager.sh"]:::file-bundle
 	n2_3 --> n2_3_2["README.md<br>apache-proxy-wizard.sh"]:::file-bundle
 	n2_4 --> n2_4_2["openssl-certtool.sh<br>README.md"]:::file-bundle
 	n2_5 --> n2_5_3["remove_user.md<br>README.md<br>remove_user.sh"]:::file-bundle
 	n3_1 --> n3_1_2["README.md<br>disclaimer.html"]:::file-bundle
-	n6_1 --> n6_1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
-	n7_1 --> n7_1_6["README.md<br>Create-RecoveryPartition2.ps1<br>Remove-RecoveryPartition.ps1<br>Create-RecoveryPartition.ps1<br>Create-RecoveryPartition3.ps1<br>RecoveryPartitionManager.ps1"]:::file-bundle
-	n8_1 --> n8_1_1["README.md"]:::file-md
-	n8_3 --> n8_3_1("data"):::folder
-	n8_2 --> n8_2_2["README.md<br>provision_vms.sh"]:::file-bundle
-	n8_3 --> n8_3_8["client.py<br>README.md<br>test.txt<br>server2.py<br>server.py<br>client2.py<br>.gitignore"]:::file-bundle
-	n9_1 --> n9_1_2["README.md<br>bash-readme.html"]:::file-bundle
-	n8_3_1 --> n8_3_1_1("stftpupload"):::folder
-	n8_3_1 --> n8_3_1_2["README.md"]:::file-md
-	n8_3_1_1 --> n8_3_1_1_2["README.md<br>test.txt"]:::file-bundle
+	n5_1 --> n5_1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
+	n6_1 --> n6_1_6["README.md<br>Create-RecoveryPartition2.ps1<br>Remove-RecoveryPartition.ps1<br>Create-RecoveryPartition.ps1<br>Create-RecoveryPartition3.ps1<br>RecoveryPartitionManager.ps1"]:::file-bundle
+	n7_1 --> n7_1_1["README.md"]:::file-md
+	n7_3 --> n7_3_1("data"):::folder
+	n7_2 --> n7_2_2["README.md<br>provision_vms.sh"]:::file-bundle
+	n7_3 --> n7_3_8["client.py<br>README.md<br>test.txt<br>server2.py<br>server.py<br>client2.py<br>.gitignore"]:::file-bundle
+	n8_1 --> n8_1_2["README.md<br>bash-readme.html"]:::file-bundle
+	n7_3_1 --> n7_3_1_1("stftpupload"):::folder
+	n7_3_1 --> n7_3_1_2["README.md"]:::file-md
+	n7_3_1_1 --> n7_3_1_1_2["README.md<br>test.txt"]:::file-bundle
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
 classDef file-bundle fill:#e2e8f0,stroke:#64748b,stroke-width:1px,color:#334155;
@@ -117,7 +115,6 @@ scripts-public/
 * [bash/](bash/): This folder contains Bash-based administration and automation scripts.
 * [markdown/](markdown/): markdown
 * [markup/](markup/): markup
-* [PowerShell/](PowerShell/): PowerShell
 * [powershell/](powershell/): A Windows PowerShell version of the OpenSSL certificate utility.
 * [projects/](projects/): projects
 * [python/](python/): python
@@ -167,9 +164,6 @@ scripts-public/
   * [README.md](markup/html/README.md): html
 * [README.md](markup/README.md): markup
 
-### 🔷 PowerShell (`/PowerShell`)
-* [README.md](PowerShell/README.md): PowerShell
-
 ### 🔷 Windows PowerShell (`/powershell`)
 * [recovery-partition/](powershell/recovery-partition/): recovery-partition
   * [Create-RecoveryPartition.ps1](powershell/recovery-partition/Create-RecoveryPartition.ps1): text/config file (2821 bytes)
@@ -211,7 +205,7 @@ scripts-public/
 * [generate_mermaid_readmes.py](python/generate_mermaid_readmes.py): Find the git repository root by searching for .git directory.
 * [list_keys.py](python/list_keys.py): text/config file (767 bytes)
 * [README.md](python/README.md): python
-* [requirements.txt](python/requirements.txt): text/config file (67 bytes)
+* [requirements.txt](python/requirements.txt): text/config file (126 bytes)
 * [search_scripts.py](python/search_scripts.py): text/config file (566 bytes)
 * [suggest_aliases.py](python/suggest_aliases.py): suggest_aliases.py Suggests aliases and shell functions to add to your .bashrc / .bash_aliases based on command history. Features: - Service Suite Detection: Proposes complete systemd/journalctl service aliases (e.g. apache-start). - Rec...
 * [update_commit_log.py](python/update_commit_log.py): text/config file (1573 bytes)
@@ -239,6 +233,7 @@ scripts-public/
 * [conquering-docker-permissions-and-antigravity-ui-crashes.md](wordpress/conquering-docker-permissions-and-antigravity-ui-crashes.md): How I Conquered Docker Permissions and Antigravity UI Crashes for MCP Servers
 * [directory_stats.md](wordpress/directory_stats.md): Directory Statistics Report
 * [extremely-sarcastic-mcp-docker.md](wordpress/extremely-sarcastic-mcp-docker.md): The Absolute Joy of Modern Dev Tools: How I Spent My Weekend Begging Docker and Antigravity to Talk to Each Other
+* [gmail-labeling-blog.md](wordpress/gmail-labeling-blog.md): Managing a busy Gmail inbox is a chore that hasn't changed much in twenty years. Standard email filters are still stuck in the early 2000s: they rely on rigid, keyword-based rules or sender matches. If an email from a coworker changes su...
 * [how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md](wordpress/how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md): ![Duplicate widgets appearing in the sidebar of the Terminal theme](./images/duplicate-widgets.png)
 * [how-to-update-rust-desk-pro-self-hosted-docker.md](wordpress/how-to-update-rust-desk-pro-self-hosted-docker.md): How to Update Rust Desk Pro Self Hosted - Docker
 * [how_to_use_antigravity.md](wordpress/how_to_use_antigravity.md): Getting Started with Google Antigravity

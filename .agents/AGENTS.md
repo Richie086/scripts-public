@@ -9,6 +9,12 @@ When creating or moving files in the `scripts-public` repository, always sort th
 - Markdown (`.md`) documentation files must be placed in the `markdown/` directory.
 - PowerShell (`.ps1`) scripts must be placed in the `powershell/` directory.
 - Avoid placing new scripts or documents in the root directory unless they are repository-wide configurations.
+## 🪵 Commit Log Automation
+- **Commit Log in README**: Every user commit and branch merge must be automatically logged at the bottom of the root `README.md` file between the `<!-- AUTO-GENERATED COMMITS START -->` and `<!-- AUTO-GENERATED COMMITS END -->` markers.
+- **Commit Details**: The commit log must contain the commit message, commit ID (abbreviated hash), and commit date (formatted as `%Y-%m-%d %H:%M:%S`).
+- **History Length**: Only the last 5 user commits must be saved in the list.
+- **Hook Automation**: This is implemented via git `post-commit` and `post-merge` hooks, calling `python3 python/update_commit_log.py`.
+- **Recursion Prevention**: Automated documentation commits must include the label `[auto-doc]` in their commit message and use the `--no-verify` flag to avoid triggering infinite commit loops.
 
 ## 📝 Documenting Changes
 - **Enforce Documentation Updates**: Any changes, additions, or removals of scripts/files in this repository must be reflected and documented in the README.md file.

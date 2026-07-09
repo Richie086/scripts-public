@@ -8,7 +8,7 @@ def get_git_log() -> str:
     # %h: abbreviated commit hash
     # %cd: commit date (respects --date option)
     # %s: subject (commit message)
-    cmd = ["git", "log", "-n", "5", "--pretty=format:- **%h** - %cd - %s", "--date=format:%Y-%m-%d %H:%M:%S"]
+    cmd = ["git", "log", "-n", "5", "--invert-grep", "--grep=auto-doc", "--pretty=format:- **%h** - %cd - %s", "--date=format:%Y-%m-%d %H:%M:%S"]
     res = subprocess.run(cmd, capture_output=True, text=True, check=True)
     return res.stdout.strip()
 

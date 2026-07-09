@@ -76,7 +76,7 @@ By leveraging LLMs to understand the semantic meaning of our messages, we can mo
 Use a Custom HTML block in WordPress and paste this wrapper before your post content to render with a GitHub-like style:
 
 ```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css">
+<link rel="stylesheet" href="https&#58;//cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css">
 <style>
 	.markdown-body {
 		box-sizing: border-box;

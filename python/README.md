@@ -12,12 +12,13 @@
 graph TD
 	root["python"]:::root --> n1["suggest_aliases.py"]:::file-py
 	root["python"]:::root --> n2["README.md"]:::file-md
-	root["python"]:::root --> n3["fetch_agent.py"]:::file-py
-	root["python"]:::root --> n4["search_scripts.py"]:::file-py
-	root["python"]:::root --> n5["extract_conv.py"]:::file-py
-	root["python"]:::root --> n6["requirements.txt"]:::file-text
-	root["python"]:::root --> n7["generate_mermaid_readmes.py"]:::file-py
-	root["python"]:::root --> n8["list_keys.py"]:::file-py
+	root["python"]:::root --> n3["update_commit_log.py"]:::file-py
+	root["python"]:::root --> n4["fetch_agent.py"]:::file-py
+	root["python"]:::root --> n5["search_scripts.py"]:::file-py
+	root["python"]:::root --> n6["extract_conv.py"]:::file-py
+	root["python"]:::root --> n7["requirements.txt"]:::file-text
+	root["python"]:::root --> n8["generate_mermaid_readmes.py"]:::file-py
+	root["python"]:::root --> n9["list_keys.py"]:::file-py
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
 classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;

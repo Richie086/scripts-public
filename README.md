@@ -30,7 +30,7 @@ graph TD
 	n2 --> n2_3("apache-proxy-wizard"):::folder
 	n2 --> n2_4("openssl-certtool"):::folder
 	n2 --> n2_5("remove_user"):::folder
-	n1 --> n1_8["suggest_aliases.py<br>README.md<br>fetch_agent.py<br>search_scripts.py<br>extract_conv.py<br>requirements.txt<br>generate_mermaid_readmes.py<br>list_keys.py"]:::file-bundle
+	n1 --> n1_9["suggest_aliases.py<br>README.md<br>update_commit_log.py<br>fetch_agent.py<br>search_scripts.py<br>extract_conv.py<br>requirements.txt<br>... +2 more"]:::file-bundle
 	n3 --> n3_1("apache-reverse-proxy"):::folder
 	n2 --> n2_9["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_ssh_key.md"]:::file-bundle
 	n3 --> n3_2["README.md"]:::file-md
@@ -38,7 +38,7 @@ graph TD
 	n6 --> n6_1("mermaid-examples"):::folder
 	n5 --> n5_1["README.md"]:::file-md
 	n7 --> n7_1("recovery-partition"):::folder
-	n6 --> n6_22["extremely-sarcastic-mcp-docker.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md<br>aws-ec2-antigravity-blog.md<br>how_to_use_antigravity.md<br>ai-automation.md<br>... +14 more"]:::file-md
+	n6 --> n6_23["extremely-sarcastic-mcp-docker.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md<br>aws-ec2-antigravity-blog.md<br>how_to_use_antigravity.md<br>ai-automation.md<br>... +15 more"]:::file-md
 	n8 --> n8_1("openssl-output-generator"):::folder
 	n8 --> n8_2("kvm-provisioning"):::folder
 	n8 --> n8_3("stftp"):::folder
@@ -214,6 +214,7 @@ scripts-public/
 * [requirements.txt](python/requirements.txt): text/config file (67 bytes)
 * [search_scripts.py](python/search_scripts.py): text/config file (566 bytes)
 * [suggest_aliases.py](python/suggest_aliases.py): suggest_aliases.py Suggests aliases and shell functions to add to your .bashrc / .bash_aliases based on command history. Features: - Service Suite Detection: Proposes complete systemd/journalctl service aliases (e.g. apache-start). - Rec...
+* [update_commit_log.py](python/update_commit_log.py): text/config file (1573 bytes)
 
 ### 🌐 Web (`/web`)
 * [apache-reverse-proxy/](web/apache-reverse-proxy/): apache-reverse-proxy
@@ -230,6 +231,7 @@ scripts-public/
   * [state.md](wordpress/mermaid-examples/state.md): Mermaid JS State Diagram Example
 * [about.md](wordpress/about.md): Hi, I’m Richard. I’m an IT professional and network engineer with over two decades of experience designing, building, and securing enterprise networks and server infrastructure.
 * [ai-automation.md](wordpress/ai-automation.md): Embracing the Future: Why AI and Gemini Are Game-Changers in IT
+* [alias-suggester-blog.md](wordpress/alias-suggester-blog.md): Stop Typing the Same Command 50 Times: Introducing the Alias & Function Suggester
 * [antigravity_blog_post.md](wordpress/antigravity_blog_post.md): Agent Guidelines for `scripts-public` Workspace
 * [automating-wordpress-antigravity.md](wordpress/automating-wordpress-antigravity.md): Automating WordPress Workflows with Google Antigravity: A Practical DevOps Use Case
 * [aws-ec2-antigravity-blog.md](wordpress/aws-ec2-antigravity-blog.md): Welcome to the future of AI-first development! Google Antigravity (AGY) is a powerful platform that supercharges your coding workflows. Sure, you *could* try running it locally on that machine Microsoft insists on updating right when you...

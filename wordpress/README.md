@@ -23,15 +23,16 @@ graph TD
 	root["wordpress"]:::root --> n11["about.md"]:::file-md
 	root["wordpress"]:::root --> n12["how-to-update-rust-desk-pro-self-hosted-docker.md"]:::file-md
 	root["wordpress"]:::root --> n13["mermaid-markup-language-guide.md"]:::file-md
-	root["wordpress"]:::root --> n14["openssl-bash-wrapper.md"]:::file-md
-	root["wordpress"]:::root --> n15["technical-writing.md"]:::file-md
-	root["wordpress"]:::root --> n16["directory_stats.md"]:::file-md
-	root["wordpress"]:::root --> n17["blog_post_wordpress.md"]:::file-md
-	root["wordpress"]:::root --> n18["conquering-docker-permissions-and-antigravity-ui-crashes.md"]:::file-md
-	root["wordpress"]:::root --> n19["scripts_catalog.md"]:::file-md
-	root["wordpress"]:::root --> n20["antigravity_blog_post.md"]:::file-md
-	root["wordpress"]:::root --> n21["installing-vscode.md"]:::file-md
-	root["wordpress"]:::root --> n22["installing-vscode.html"]:::file-html
+	root["wordpress"]:::root --> n14["alias-suggester-blog.md"]:::file-md
+	root["wordpress"]:::root --> n15["openssl-bash-wrapper.md"]:::file-md
+	root["wordpress"]:::root --> n16["technical-writing.md"]:::file-md
+	root["wordpress"]:::root --> n17["directory_stats.md"]:::file-md
+	root["wordpress"]:::root --> n18["blog_post_wordpress.md"]:::file-md
+	root["wordpress"]:::root --> n19["conquering-docker-permissions-and-antigravity-ui-crashes.md"]:::file-md
+	root["wordpress"]:::root --> n20["scripts_catalog.md"]:::file-md
+	root["wordpress"]:::root --> n21["antigravity_blog_post.md"]:::file-md
+	root["wordpress"]:::root --> n22["installing-vscode.md"]:::file-md
+	root["wordpress"]:::root --> n23["installing-vscode.html"]:::file-html
 	n1 --> n1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;

@@ -452,10 +452,10 @@ def get_python_description(filepath: Path) -> str | None:
     except OSError:
         return None
 
-    match = re.search(r'^"""(.*?)"""', content, re.DOTALL)
+    match = re.search(r'"""(.*?)"""', content, re.DOTALL)
     if match:
         return truncate_description(match.group(1))
-    match = re.search(r"^'''(.*?)'''", content, re.DOTALL)
+    match = re.search(r"'''(.*?)'''", content, re.DOTALL)
     if match:
         return truncate_description(match.group(1))
     return None

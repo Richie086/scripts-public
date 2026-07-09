@@ -198,22 +198,22 @@ scripts-public/
     * [README.md](projects/stftp/data/README.md): data
   * [.gitignore](projects/stftp/.gitignore): file (18 bytes)
   * [client.py](projects/stftp/client.py): text/config file (1122 bytes)
-  * [client2.py](projects/stftp/client2.py): text/config file (4944 bytes)
+  * [client2.py](projects/stftp/client2.py): Creates an SSL context that trusts our self-signed cert for local testing.
   * [README.md](projects/stftp/README.md): stftp
   * [server.py](projects/stftp/server.py): text/config file (2429 bytes)
-  * [server2.py](projects/stftp/server2.py): text/config file (3949 bytes)
+  * [server2.py](projects/stftp/server2.py): Handles an individual client connection, wrapped in TLS.
   * [test.txt](projects/stftp/test.txt): text/config file (25165824 bytes)
 * [README.md](projects/README.md): projects
 
 ### 🐍 Python (`/python`)
 * [extract_conv.py](python/extract_conv.py): text/config file (1763 bytes)
 * [fetch_agent.py](python/fetch_agent.py): text/config file (1602 bytes)
-* [generate_mermaid_readmes.py](python/generate_mermaid_readmes.py): text/config file (23925 bytes)
+* [generate_mermaid_readmes.py](python/generate_mermaid_readmes.py): Find the git repository root by searching for .git directory.
 * [list_keys.py](python/list_keys.py): text/config file (767 bytes)
 * [README.md](python/README.md): python
 * [requirements.txt](python/requirements.txt): text/config file (67 bytes)
 * [search_scripts.py](python/search_scripts.py): text/config file (566 bytes)
-* [suggest_aliases.py](python/suggest_aliases.py): text/config file (29642 bytes)
+* [suggest_aliases.py](python/suggest_aliases.py): suggest_aliases.py Suggests aliases and shell functions to add to your .bashrc / .bash_aliases based on command history. Features: - Service Suite Detection: Proposes complete systemd/journalctl service aliases (e.g. apache-start). - Rec...
 
 ### 🌐 Web (`/web`)
 * [apache-reverse-proxy/](web/apache-reverse-proxy/): apache-reverse-proxy

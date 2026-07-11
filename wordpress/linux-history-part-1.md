@@ -88,9 +88,7 @@ According to Torvalds, Linux began gaining real importance in **1992** after **[
 
 ### The POSIX Hunt and the SunOS Cheat Sheet
 
-The July 1991 POSIX documentation hunt is a perfect origin detail: Linus was not inventing interfaces from vibes alone. He wanted standards-shaped behavior, failed to get the official docs, and did what every student since time immemorial has done — used whatever documentation the university already paid for. SunOS and MINIX course materials became the Rosetta Stone.
-
-That is how real systems get built: ambition, hardware in your lap, incomplete standards paperwork, and the audacity to ship anyway.
+The July 1991 standards hunt is my favorite part of this. Linus couldn't get the official POSIX docs because they were too expensive, so he just grabbed SunOS manuals and MINIX coursework that the university had already paid for. It's the classic student move: use whatever is free and figure the rest out as you go.
 
 ---
 
@@ -221,11 +219,7 @@ Microsoft had previously called Linux a **“cancer”** and **“communist.”*
 
 In **May 2023**, Microsoft publicly released **Azure Linux**.
 
-The arc of history bends toward `./configure && make`.
-
-### A Note on “Linux Is a Cancer”
-
-Microsoft’s earlier rhetoric — Linux as **cancer**, **communist**, existential threat — did not age gracefully. What aged fine: GPL enforcement still works, enterprises still run Linux, and Microsoft now ships Linux kernels, contributes driver code, tunes Azure images with SUSE, and publishes **Azure Linux**. The [Halloween documents](https://en.wikipedia.org/wiki/Halloween_documents) were never love letters, but the ending is stranger than the fanfic.
+Anyway, Microsoft now ships its own Linux kernel because that is how the economics worked out. The Halloween documents are a fun historical footnote, but money talks.
 
 ---
 
@@ -257,41 +251,7 @@ You can still name your distro “MyLinux.” You probably should not name your 
 
 ---
 
-## Chronology Highlights: The Wikipedia Bullet List, Narrated
-
-Wikipedia’s chronology section is the spine of Part 1. Here is what those years actually mean in human terms — not just “kernel version went up,” but “the world rearranged itself again.”
-
-| Year | What happened | Why it mattered |
-|------|---------------|-----------------|
-| **1991** | Kernel announced 25 Aug; 0.01 released 17 Sep | The starting gun |
-| **1992** | GPL relicensing; first distros; X11 port | Legally compatible + installable + graphical |
-| **1993** | 100+ kernel devs; Slackware + Debian | Scale + packaging culture begins |
-| **1994** | Kernel 1.0; Red Hat + SUSE 1.0; XFree86 GUI | “Mature” kernel + commercial distro market |
-| **1995** | Alpha + SPARC ports | Not just PC toy anymore |
-| **1996** | Kernel 2.0 + SMP; Tux mascot | Serious server contender + branding |
-| **1998** | IBM/Compaq/Oracle support; KDE; TOP500; Cathedral & Bazaar | Enterprise legitimacy + desktop race + cultural manifesto |
-| **1999** | GNOME begins; kernel 2.2; IBM Linux push | Free desktop alternative to proprietary Qt era |
-| **2000** | Dell full-line Linux; OSDL founded | Hardware OEMs + paid kernel infrastructure |
-| **2001** | Kernel 2.4 | Major kernel era for years of production use |
-| **2002** | “Microsoft killed Dell Linux” headlines | Platform politics as spectator sport |
-| **2003** | Kernel 2.6; SCO lawsuit | Long-lived kernel branch + legal circus |
-| **2004** | X.Org; Get the Facts; first distros mature further | Faster graphics stack + vendor FUD wars |
-| **2005** | openSUSE; OpenDocument in OpenOffice 2.0 | Community SUSE + document standards side quest |
-| **2006** | Oracle’s RHEL clone; Novell-Microsoft deal | Enterprise cloning + controversial peace treaty |
-| **2007** | Linux Foundation; Dell Ubuntu laptops | Institutional home + consumer-ish OEM shipping |
-| **2009** | Red Hat market cap ≈ Sun; MS kernel code | Symbolic economic shift + GPL enforcement win |
-| **2011** | Kernel 3.0 | Version number theater with real engineering underneath |
-| **2012** | Linux server revenue > rest of Unix | Economic victory lap in the datacenter |
-| **2013** | Android 75% smartphone shipments | Linux kernel in pockets at scale |
-| **2014** | Ubuntu claims 22M users | Desktop niche still loudly alive |
-| **2015** | Kernel 4.0 | Continued evolution |
-| **2017** | 100% TOP500; Unity dies | Supercomputer monopoly + Canonical UI retreat |
-| **2019** | Kernel 5.0 | Still going |
-| **2022** | Kernel 6.0 | Still going |
-| **2023** | Azure Linux GA | Microsoft ships its own Linux distro anyway |
-| **2026** | Kernel 7.0 | Wikipedia’s chronology marches on |
-
-If you are reading this in the future and kernel 8.0 has already dropped while your LTS box is still compiling Firefox: welcome to the club.
+Looking back at the timeline, the 90s were about survival and validation—getting X11 to run, porting to Alpha architectures, and adding SMP support. The 2000s were when the suits arrived: the Linux Foundation was formed, Dell started shipping Ubuntu laptops, and Microsoft launched its "Get the Facts" campaign. The 2010s were just about cloud domination and Android taking over mobile, while we all pretended the desktop wars were still the main event.
 
 ---
 

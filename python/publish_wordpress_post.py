@@ -67,17 +67,16 @@ def main():
     if args.post_id:
         params["post_id"] = args.post_id
 
-    query_string = urllib.parse.urlencode(params)
-    separator = "&" if "?" in webhook_url else "?"
-    full_url = f"{webhook_url}{separator}{query_string}"
+    data = urllib.parse.urlencode(params).encode("utf-8")
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "Content-Type": "application/x-www-form-urlencoded"
     }
 
     try:
-        print(f"Triggering WordPress Webhook for post '{args.title}'...")
-        req = urllib.request.Request(full_url, headers=headers)
+        print(f"Triggering WordPress Webhook (POST) for post '{args.title}'...")
+        req = urllib.request.Request(webhook_url, data=data, headers=headers, method="POST")
         with urllib.request.urlopen(req) as response:
             res_data = response.read().decode("utf-8")
             print("Webhook triggered successfully!")

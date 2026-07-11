@@ -29,22 +29,23 @@ graph TD
 	n2 --> n2_3("apache-proxy-wizard"):::folder
 	n2 --> n2_4("openssl-certtool"):::folder
 	n2 --> n2_5("remove_user"):::folder
-	n1 --> n1_9["suggest_aliases.py<br>README.md<br>update_commit_log.py<br>fetch_agent.py<br>search_scripts.py<br>extract_conv.py<br>requirements.txt<br>... +2 more"]:::file-bundle
+	n1 --> n1_11["suggest_aliases.py<br>publish_wordpress_post.py<br>README.md<br>update_commit_log.py<br>test_suggest_aliases.py<br>fetch_agent.py<br>search_scripts.py<br>... +4 more"]:::file-bundle
 	n3 --> n3_1("apache-reverse-proxy"):::folder
 	n2 --> n2_9["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_ssh_key.md"]:::file-bundle
 	n3 --> n3_2["README.md"]:::file-md
 	n5 --> n5_1("mermaid-examples"):::folder
 	n4 --> n4_2["README.md<br>suggest_aliases.md"]:::file-md
 	n6 --> n6_1("recovery-partition"):::folder
-	n5 --> n5_24["extremely-sarcastic-mcp-docker.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>gmail-labeling-blog.md<br>how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md<br>aws-ec2-antigravity-blog.md<br>how_to_use_antigravity.md<br>... +16 more"]:::file-md
+	n5 --> n5_26["extremely-sarcastic-mcp-docker.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>gmail-labeling-blog.md<br>how-to-fix-duplicate-widgets-in-terminal-wordpress-theme.md<br>aws-ec2-antigravity-blog.md<br>how_to_use_antigravity.md<br>... +18 more"]:::file-md
 	n7 --> n7_1("openssl-output-generator"):::folder
 	n7 --> n7_2("kvm-provisioning"):::folder
 	n7 --> n7_3("stftp"):::folder
 	n6 --> n6_6["README.md<br>Publish-WordPressPost.ps1<br>check_mtu.ps1<br>openssl-certtool.ps1<br>Calculate-FolderStats.ps1"]:::file-bundle
 	n8 --> n8_1("html"):::folder
-	n7 --> n7_4["README.md"]:::file-md
+	n7 --> n7_6["README.md<br>deploy-mailserver-debian.md<br>deploy-mailserver-debian.sh"]:::file-bundle
+	n9 --> n9_1("skills"):::folder
 	n8 --> n8_2["README.md"]:::file-md
-	n9 --> n9_2["README.md<br>AGENTS.md"]:::file-md
+	n9 --> n9_3["README.md<br>AGENTS.md"]:::file-md
 	n2_1 --> n2_1_2["README.md<br>script-public-merge.sh"]:::file-bundle
 	n2_2 --> n2_2_2["README.md<br>user_manager.sh"]:::file-bundle
 	n2_3 --> n2_3_2["README.md<br>apache-proxy-wizard.sh"]:::file-bundle
@@ -57,9 +58,10 @@ graph TD
 	n7_3 --> n7_3_1("data"):::folder
 	n7_2 --> n7_2_2["README.md<br>provision_vms.sh"]:::file-bundle
 	n7_3 --> n7_3_8["client.py<br>README.md<br>test.txt<br>server2.py<br>server.py<br>client2.py<br>.gitignore"]:::file-bundle
-	n8_1 --> n8_1_2["README.md<br>bash-readme.html"]:::file-bundle
+	n9_1 --> n9_1_1("post-to-pastebin"):::folder
 	n7_3_1 --> n7_3_1_1("stftpupload"):::folder
 	n7_3_1 --> n7_3_1_2["README.md"]:::file-md
+	n9_1_1 --> n9_1_1_1["SKILL.md"]:::file-md
 	n7_3_1_1 --> n7_3_1_1_2["README.md<br>test.txt"]:::file-bundle
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
@@ -129,6 +131,11 @@ scripts-public/
 * [SECURITY.md](SECURITY.md): Security Policy
 
 ### ⚙️ Agent Guidelines (`/.agents`)
+* [skills/](.agents/skills/): skills
+  * [post-to-pastebin/](.agents/skills/post-to-pastebin/): post-to-pastebin
+    * [README.md](.agents/skills/post-to-pastebin/README.md): post-to-pastebin
+    * [SKILL.md](.agents/skills/post-to-pastebin/SKILL.md): Post to Pastebin
+  * [README.md](.agents/skills/README.md): skills
 * [AGENTS.md](.agents/AGENTS.md): Agent Guidelines for `scripts-public` Workspace
 * [README.md](.agents/README.md): .agents
 
@@ -197,6 +204,8 @@ scripts-public/
   * [server.py](projects/stftp/server.py): text/config file (2429 bytes)
   * [server2.py](projects/stftp/server2.py): Handles an individual client connection, wrapped in TLS.
   * [test.txt](projects/stftp/test.txt): text/config file (25165824 bytes)
+* [deploy-mailserver-debian.md](projects/deploy-mailserver-debian.md): Debian 13 (Trixie) Mail Server Deployment Script
+* [deploy-mailserver-debian.sh](projects/deploy-mailserver-debian.sh): deploy-postfix-mailserver.sh Automates deployment of a Postfix-based mail server on Debian 13 (trixie), using Dovecot for SASL auth and IMAP. Also sets up TLS (self-signed or
 * [README.md](projects/README.md): projects
 
 ### 🐍 Python (`/python`)
@@ -204,10 +213,12 @@ scripts-public/
 * [fetch_agent.py](python/fetch_agent.py): text/config file (1602 bytes)
 * [generate_mermaid_readmes.py](python/generate_mermaid_readmes.py): Find the git repository root by searching for .git directory.
 * [list_keys.py](python/list_keys.py): text/config file (767 bytes)
+* [publish_wordpress_post.py](python/publish_wordpress_post.py): text/config file (2062 bytes)
 * [README.md](python/README.md): python
 * [requirements.txt](python/requirements.txt): text/config file (126 bytes)
 * [search_scripts.py](python/search_scripts.py): text/config file (566 bytes)
 * [suggest_aliases.py](python/suggest_aliases.py): suggest_aliases.py Suggests aliases and shell functions to add to your .bashrc / .bash_aliases based on command history. Features: - Service Suite Detection: Proposes complete systemd/journalctl service aliases (e.g. apache-start). - Rec...
+* [test_suggest_aliases.py](python/test_suggest_aliases.py): test_suggest_aliases.py Unit tests for suggest_aliases.py using the standard unittest library.
 * [update_commit_log.py](python/update_commit_log.py): text/config file (1573 bytes)
 
 ### 🌐 Web (`/web`)
@@ -231,6 +242,7 @@ scripts-public/
 * [aws-ec2-antigravity-blog.md](wordpress/aws-ec2-antigravity-blog.md): Welcome to the future of AI-first development! Google Antigravity (AGY) is a powerful platform that supercharges your coding workflows. Sure, you *could* try running it locally on that machine Microsoft insists on updating right when you...
 * [blog_post_wordpress.md](wordpress/blog_post_wordpress.md): Automating My GitHub Scripts Catalog with an AI Agent (And Preventing "Dumb" Commits)
 * [conquering-docker-permissions-and-antigravity-ui-crashes.md](wordpress/conquering-docker-permissions-and-antigravity-ui-crashes.md): How I Conquered Docker Permissions and Antigravity UI Crashes for MCP Servers
+* [deploy-mailserver-debian-blog.md](wordpress/deploy-mailserver-debian-blog.md): This utility script came about due to someone posting on Facebook asking if anyone out there could help build out a Debian 13 system with Postfix, Dovecot, Let's Encrypt, a firewall—everything you will need to get a mail server up and ru...
 * [directory_stats.md](wordpress/directory_stats.md): Directory Statistics Report
 * [extremely-sarcastic-mcp-docker.md](wordpress/extremely-sarcastic-mcp-docker.md): The Absolute Joy of Modern Dev Tools: How I Spent My Weekend Begging Docker and Antigravity to Talk to Each Other
 * [gmail-labeling-blog.md](wordpress/gmail-labeling-blog.md): Managing a busy Gmail inbox is a chore that hasn't changed much in twenty years. Standard email filters are still stuck in the early 2000s: they rely on rigid, keyword-based rules or sender matches. If an email from a coworker changes su...
@@ -239,6 +251,7 @@ scripts-public/
 * [how_to_use_antigravity.md](wordpress/how_to_use_antigravity.md): Getting Started with Google Antigravity
 * [installing-vscode.html](wordpress/installing-vscode.html): Installing Visual Studio Code
 * [installing-vscode.md](wordpress/installing-vscode.md): Visual Studio Code (VSCode) has become the go-to code editor for developers worldwide. It's lightweight, incredibly customizable, and supports a massive ecosystem of extensions. Whether you are a seasoned software engineer or just starti...
+* [linux-history-distros-and-package-managers.md](wordpress/linux-history-distros-and-package-managers.md): Linux: A Love Story Featuring Finns, Free Software Zealots, and Package Managers That Will Ruin Your Weekend
 * [mermaid-markup-language-guide.md](wordpress/mermaid-markup-language-guide.md): If you’ve ever found yourself struggling to maintain diagrams alongside your code, you’re not alone. Visio, Lucidchart, and other drag-and-drop tools are great, but they decouple your architecture from your repository. Enter **Mermaid**...
 * [openssl-bash-wrapper.md](wordpress/openssl-bash-wrapper.md): The Ultimate OpenSSL Output Generator
 * [README.md](wordpress/README.md): wordpress

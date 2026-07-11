@@ -24,16 +24,18 @@ graph TD
 	root["wordpress"]:::root --> n12["about.md"]:::file-md
 	root["wordpress"]:::root --> n13["how-to-update-rust-desk-pro-self-hosted-docker.md"]:::file-md
 	root["wordpress"]:::root --> n14["mermaid-markup-language-guide.md"]:::file-md
-	root["wordpress"]:::root --> n15["alias-suggester-blog.md"]:::file-md
-	root["wordpress"]:::root --> n16["openssl-bash-wrapper.md"]:::file-md
-	root["wordpress"]:::root --> n17["technical-writing.md"]:::file-md
-	root["wordpress"]:::root --> n18["directory_stats.md"]:::file-md
-	root["wordpress"]:::root --> n19["blog_post_wordpress.md"]:::file-md
-	root["wordpress"]:::root --> n20["conquering-docker-permissions-and-antigravity-ui-crashes.md"]:::file-md
-	root["wordpress"]:::root --> n21["scripts_catalog.md"]:::file-md
-	root["wordpress"]:::root --> n22["antigravity_blog_post.md"]:::file-md
-	root["wordpress"]:::root --> n23["installing-vscode.md"]:::file-md
-	root["wordpress"]:::root --> n24["installing-vscode.html"]:::file-html
+	root["wordpress"]:::root --> n15["deploy-mailserver-debian-blog.md"]:::file-md
+	root["wordpress"]:::root --> n16["linux-history-distros-and-package-managers.md"]:::file-md
+	root["wordpress"]:::root --> n17["alias-suggester-blog.md"]:::file-md
+	root["wordpress"]:::root --> n18["openssl-bash-wrapper.md"]:::file-md
+	root["wordpress"]:::root --> n19["technical-writing.md"]:::file-md
+	root["wordpress"]:::root --> n20["directory_stats.md"]:::file-md
+	root["wordpress"]:::root --> n21["blog_post_wordpress.md"]:::file-md
+	root["wordpress"]:::root --> n22["conquering-docker-permissions-and-antigravity-ui-crashes.md"]:::file-md
+	root["wordpress"]:::root --> n23["scripts_catalog.md"]:::file-md
+	root["wordpress"]:::root --> n24["antigravity_blog_post.md"]:::file-md
+	root["wordpress"]:::root --> n25["installing-vscode.md"]:::file-md
+	root["wordpress"]:::root --> n26["installing-vscode.html"]:::file-html
 	n1 --> n1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;

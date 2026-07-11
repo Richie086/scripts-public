@@ -41,9 +41,7 @@ When creating or moving files in the `scripts-public` repository, always sort th
 - **Automatic Shortcode Generation**: Every time the user asks to create a WordPress blog post, you must:
   1. Save it as a markdown file in the `wordpress` folder of this repository. **Always remove the first H1 element** (e.g. the main title `# Title`) from the markdown file (as the title is handled by WordPress), but do not touch other H1 elements if any exist.
   2. Follow the standard push workflow to push it to GitHub.
-  3. After a successful push, always provide the user with the permalink to the markdown file enclosed in the following shortcode format:
-     `[git-github-markdown url="insert permalink url to markdown file in github"]`
-  4. Automatically invoke `powershell/Publish-WordPressPost.ps1` to create a draft post on your WordPress instance containing the generated shortcode block, using the markdown filename (or a requested title) as the post title.
+  3. Automatically invoke `python/publish_wordpress_post.py` to create a draft post on your WordPress instance, passing the raw contents of the markdown file directly instead of a shortcode link.
 
 ## 📥 Script Download Instructions in Blog Posts
 - **Include Download Links**: Whenever you create a blog post that mentions a script available for download, you must always include a working permalink to the script with a `curl` command to allow the reader to easily download it, as well as a blurb showing how to clone the entire repository.
@@ -68,3 +66,4 @@ When creating or moving files in the `scripts-public` repository, always sort th
 
 # User Preferences
 - The user is not a software developer. If asked to do something that violates security best practices, or if there is a more efficient, secure, maintainable, scalable, faster, or better way to accomplish a task, STOP the user, explain the issue, and suggest a better alternative implementation.
+- **Preferred Language**: The user prefers Python (`.py`) scripts over PowerShell (`.ps1`) scripts. Avoid assuming PowerShell is available or preferred, and write tools/scripts in Python by default.

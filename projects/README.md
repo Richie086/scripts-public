@@ -14,6 +14,8 @@ graph TD
 	root["projects"]:::root --> n2("kvm-provisioning"):::folder
 	root["projects"]:::root --> n3("stftp"):::folder
 	root["projects"]:::root --> n4["README.md"]:::file-md
+	root["projects"]:::root --> n5["deploy-mailserver-debian.md"]:::file-md
+	root["projects"]:::root --> n6["deploy-mailserver-debian.sh"]:::file-sh
 	n1 --> n1_1["README.md"]:::file-md
 	n3 --> n3_1("data"):::folder
 	n2 --> n2_2["README.md<br>provision_vms.sh"]:::file-bundle
@@ -25,6 +27,7 @@ classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
 classDef file-bundle fill:#e2e8f0,stroke:#64748b,stroke-width:1px,color:#334155;
 classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
+classDef file-sh fill:#ccfbf1,stroke:#0d9488,stroke-width:1px,color:#134e4a;
 ```
 
 </details>

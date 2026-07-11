@@ -32,3 +32,8 @@ This skill guides the agent through scanning a text or markdown document for fac
      - **Unverified Claims**: Claims in the article that were not found on Wikipedia.
      - **Accurate Claims**: A table or list of validated claims with their Wikipedia page links as references.
    - Conclude with a brief summary of the overall accuracy score (e.g., "18 of 20 claims verified correct, 2 discrepancies found").
+
+4. **Inject Hyperlinks and References to Blog Post**:
+   - Ensure all verified claims within the article or the report contain direct inline hyperlinks to their source pages (e.g., `[Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds)`).
+   - **Footer Reference Insertion**: Append a `## References` section to the very end of the blog post containing all the specific Wikipedia URLs referenced during fact-checking (e.g., in a numbered list format).
+   - Perform a direct WordPress REST API update to save the modified post content containing the footer references.

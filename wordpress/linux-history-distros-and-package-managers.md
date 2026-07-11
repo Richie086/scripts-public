@@ -23,7 +23,7 @@ Before we dive into the glorious historical dumpster fire, let’s clear up the 
 When people say **Linux**, they might mean:
 
 1. **The Linux kernel** — the actual software Linus Torvalds started writing in 1991. It’s the traffic cop between hardware and everything else. Alone, it does about as much for you as a steering wheel without a car.
-2. **A GNU/Linux system** — the kernel plus the GNU userland (compilers, shells, core utilities, libc, and the philosophical commitment to Freedom with a capital F). This is the “complete OS” argument Richard Stallman will remind you about until the heat death of the universe.
+2. **A GNU/Linux system** — the kernel plus the GNU userland (compilers, shells, core utilities, libc, and the philosophical commitment to Freedom with a capital F). This is the “complete OS” argument [Richard Stallman](https://en.wikipedia.org/wiki/Richard_Stallman) will remind you about until the heat death of the universe.
 3. **A Linux distribution** — a curated pile of kernel + userland + installer + desktop environment + package repositories + opinions, wrapped in a logo and a Reddit community that will fight you about init systems.
 
 Linus originally used “Linux” to mean the **kernel only**. The kernel was almost immediately paired with GNU software, which quickly became the most popular adoption of GNU’s work. Debian started calling its product **Debian GNU/Linux** in 1994. Stallman briefly pushed **Lignux** in Emacs 19.31 (May 1996) before settling on **GNU/Linux**. GNU and Debian still use that name. Everyone else says “Linux” and keeps walking.
@@ -40,7 +40,7 @@ Linux did not appear in a vacuum. It appeared because Unix was influential, prop
 
 ### Unix: Elegant, Portable, and Not Yours
 
-After AT&T dropped out of the **Multics** project, **Ken Thompson** and **Dennis Ritchie** at Bell Labs conceived and implemented **Unix** in 1969, first releasing it in 1970. They later rewrote it in **C** to make it portable. Unix spread through academia and business because portability and modularity were genuinely good ideas, not because vendors enjoyed sharing.
+After AT&T dropped out of the **[Multics](https://en.wikipedia.org/wiki/Multics)** project, **[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson)** and **[Dennis Ritchie](https://en.wikipedia.org/wiki/Dennis_Ritchie)** at Bell Labs conceived and implemented **Unix** in 1969, first releasing it in 1970. They later rewrote it in **C** to make it portable. Unix spread through academia and business because portability and modularity were genuinely good ideas, not because vendors enjoyed sharing.
 
 ### BSD: The Cousin Who Got Sued at Thanksgiving
 
@@ -58,9 +58,9 @@ In **1983**, **Richard Stallman** started the **GNU Project** to create a free U
 
 ### The 386, the Textbook, and MINIX
 
-In **1985**, Intel released the **80386** — the first x86 CPU with a 32-bit instruction set, paging, and serious memory management. In **1986**, Maurice J. Bach published *The Design of the UNIX Operating System*, the definitive System V/BSD-era kernel description many students learned from.
+In **1985**, Intel released the **[Intel 80386](https://en.wikipedia.org/wiki/Intel_80386)** — the first x86 CPU with a 32-bit instruction set, paging, and serious memory management. In **1986**, Maurice J. Bach published *The Design of the UNIX Operating System*, the definitive System V/BSD-era kernel description many students learned from.
 
-In **1987**, **Andrew S. Tanenbaum** released **MINIX** for academic use alongside his textbook *Operating Systems: Design and Implementation*. MINIX source was available, but modification and redistribution were restricted. Its **16-bit design** was a poor fit for the increasingly cheap and popular **386** PCs. Commercial Unix for 386 machines was too expensive for private users.
+In **1987**, **[Andrew S. Tanenbaum](https://en.wikipedia.org/wiki/Andrew_S._Tanenbaum)** released **MINIX** for academic use alongside his textbook *Operating Systems: Design and Implementation*. MINIX source was available, but modification and redistribution were restricted. Its **16-bit design** was a poor fit for the increasingly cheap and popular **386** PCs. Commercial Unix for 386 machines was too expensive for private users.
 
 ### The Missing Kernel Problem
 
@@ -84,7 +84,7 @@ Narrator voice: it became portable, professional-adjacent, and then the substrat
 
 **Version 0.01** was released publicly on **17 September 1991**.
 
-According to Torvalds, Linux began gaining real importance in **1992** after **Orest Zborowski** ported the **X Window System** to Linux — giving the kernel its first GUI path. Suddenly “hobby kernel” could mean “thing with windows,” which is how you recruit humans who do not enjoy reading `printk` output for fun.
+According to Torvalds, Linux began gaining real importance in **1992** after **[Orest Zborowski](https://en.wikipedia.org/wiki/Orest_Zborowski)** ported the **X Window System** to Linux — giving the kernel its first GUI path. Suddenly “hobby kernel” could mean “thing with windows,” which is how you recruit humans who do not enjoy reading `printk` output for fun.
 
 ### The POSIX Hunt and the SunOS Cheat Sheet
 
@@ -94,7 +94,7 @@ That is how real systems get built: ambition, hardware in your lap, incomplete s
 
 ---
 
-## Naming: From “Freax” to “Linux” (Thanks, Ari Lemmke)
+## Naming: From “Freax” to “Linux” (Thanks, [Ari Lemmke](https://en.wikipedia.org/wiki/Ari_Lemmke))
 
 Linus wanted to call it **Freax** — a portmanteau of “free,” “freak,” and “x” (Unix homage). He stored files under “Freax” for about six months. He considered “Linux” but initially rejected it as too egotistical.
 
@@ -136,11 +136,11 @@ Kernel developers’ GPLv3 objections (summarized from their 2006 position paper
 
 ---
 
-## Tux: Because Every Serious Project Needs a Flightless Bird in Formalwear
+## [Tux](https://en.wikipedia.org/wiki/Tux_(mascot)): Because Every Serious Project Needs a Flightless Bird in Formalwear
 
 In **1996**, Torvalds announced Linux would have a mascot: a **penguin**. Inspiration: he was bitten by a little penguin (*Eudyptula minor*) at the National Zoo & Aquarium in Canberra, Australia.
 
-**Larry Ewing** drafted the famous Tux image. **James Hughes** suggested the name **Tux** — Torvalds’ UniX, plus tuxedo. Marketing had discovered cute flightless birds. The rest is sticker and conference swag history.
+**[Larry Ewing](https://en.wikipedia.org/wiki/Larry_Ewing)** drafted the famous Tux image. **[James Hughes](https://en.wikipedia.org/wiki/James_Hughes)** suggested the name **Tux** — Torvalds’ UniX, plus tuxedo. Marketing had discovered cute flightless birds. The rest is sticker and conference swag history.
 
 ---
 
@@ -183,7 +183,7 @@ Dell, IBM, HP, Red Hat (now part of IBM), SUSE, and others invest heavily in Lin
 
 Free kernel. Paid civilization around it. Capitalism, meet hydra.
 
-### Eric S. Raymond and the Cathedral/Bazaar Moment
+### [Eric S. Raymond](https://en.wikipedia.org/wiki/Eric_S._Raymond) and the Cathedral/Bazaar Moment
 
 In **1998**, Raymond published **The Cathedral and the Bazaar** — first as essay, later as book. **Netscape** cited it when open-sourcing Navigator, which put Linux’s development model in front of the mainstream technical press. Whether you treat the essay as scripture or snackable mythology, it gave managers vocabulary to say “open collaboration” without admitting they still feared production `make menuconfig`.
 
@@ -205,7 +205,7 @@ If you wanted one desktop to rule them all, Linux said: “Here are six, plus fo
 
 ## Microsoft: From Halloween Documents to Azure Linux
 
-Between **1997 and 2001**, Microsoft and Linux had antagonistic interactions. In **1998**, Eric S. Raymond publicized the first **Halloween document** — a Microsoft developer essay on free software threats and counter-strategies. Microsoft published **“Linux Myths”** comparisons in **October 1999**.
+Between **1997 and 2001**, Microsoft and Linux had antagonistic interactions. In **1998**, Eric S. Raymond publicized the first **[Halloween documents](https://en.wikipedia.org/wiki/Halloween_documents)** — a Microsoft developer essay on free software threats and counter-strategies. Microsoft published **“Linux Myths”** comparisons in **October 1999**.
 
 In **2004**, Microsoft’s **“Get the Facts”** campaign claimed Windows beat Linux on reliability, security, and TCO. **Novell** responded with **“Unbending the truth.”** **IBM** published competitive studies. **Red Hat** ran **“Truth Happens.”**
 
@@ -225,13 +225,13 @@ The arc of history bends toward `./configure && make`.
 
 ### A Note on “Linux Is a Cancer”
 
-Microsoft’s earlier rhetoric — Linux as **cancer**, **communist**, existential threat — did not age gracefully. What aged fine: GPL enforcement still works, enterprises still run Linux, and Microsoft now ships Linux kernels, contributes driver code, tunes Azure images with SUSE, and publishes **Azure Linux**. The Halloween documents were never love letters, but the ending is stranger than the fanfic.
+Microsoft’s earlier rhetoric — Linux as **cancer**, **communist**, existential threat — did not age gracefully. What aged fine: GPL enforcement still works, enterprises still run Linux, and Microsoft now ships Linux kernels, contributes driver code, tunes Azure images with SUSE, and publishes **Azure Linux**. The [Halloween documents](https://en.wikipedia.org/wiki/Halloween_documents) were never love letters, but the ending is stranger than the fanfic.
 
 ---
 
 ## SCO: When Legal Theater Tried to Tax Reality
 
-In **March 2003**, **SCO Group** accused **IBM** of violating Unix copyrights by transferring code to Linux. SCO sold Linux licenses to nervous users. **Novell** also claimed Unix copyrights and sued SCO.
+In **March 2003**, **[SCO Group](https://en.wikipedia.org/wiki/SCO_Group%2C_Inc._v._International_Business_Machines_Corp.)** accused **IBM** of violating Unix copyrights by transferring code to Linux. SCO sold Linux licenses to nervous users. **Novell** also claimed Unix copyrights and sued SCO.
 
 In **2007**, SCO specified only **326 lines** of alleged infringement — not the million lines originally claimed. In **August 2007**, a court ruled SCO did **not** hold Unix copyrights. Appeals followed; a **30 March 2010** jury verdict favored **Novell**.
 
@@ -451,7 +451,7 @@ flowchart TB
 
 #### Debian and Friends: Stability Theater with Actual Stability
 
-**Debian** (1993, Ian Murdock) became the “do it properly” distribution — community governance, careful packaging, policy documents dense enough to stop a tank. Today it is the largest community distribution.
+**Debian** (1993, [Ian Murdock](https://en.wikipedia.org/wiki/Ian_Murdock)) became the “do it properly” distribution — community governance, careful packaging, policy documents dense enough to stop a tank. Today it is the largest community distribution.
 
 **Ubuntu** (2004, Canonical) took Debian’s `.deb` excellence and added predictable releases, desktop focus, and marketing that reached humans who did not want to read a constitution first.
 
@@ -721,7 +721,7 @@ History is not lone geniuses in caves. It is lone geniuses plus mailing lists pl
 | **Larry Ewing / James Hughes** | Tux artwork and naming |
 | **Ian Murdock** | Founded Debian (1993) |
 | **Eric S. Raymond** | Published Halloween documents; Cathedral & Bazaar |
-| **Greg Kroah-Hartman** | Accepted Microsoft’s 2009 driver code as kernel maintainer |
+| **[Greg Kroah-Hartman](https://en.wikipedia.org/wiki/Greg_Kroah-Hartman)** | Accepted Microsoft’s 2009 driver code as kernel maintainer |
 
 The thousands of unnamed contributors remain the actual engine. The famous names are just the ones your conference badge printer knows.
 
@@ -863,3 +863,20 @@ Welcome to Linux. Check your `/etc`, update your indexes, and try not to install
 ---
 
 *If this article helped you understand Linux, great. If it only made you more sarcastic about package managers, also great — you’re ready.*
+
+---
+
+## References
+1. [Ken Thompson - Wikipedia](https://en.wikipedia.org/wiki/Ken_Thompson)
+2. [Dennis Ritchie - Wikipedia](https://en.wikipedia.org/wiki/Dennis_Ritchie)
+3. [Richard Stallman - Wikipedia](https://en.wikipedia.org/wiki/Richard_Stallman)
+4. [History of Linux - Wikipedia](https://en.wikipedia.org/wiki/History_of_Linux)
+5. [Debian - Wikipedia](https://en.wikipedia.org/wiki/Debian)
+6. [Slackware - Wikipedia](https://en.wikipedia.org/wiki/Slackware)
+7. [Berkeley Software Distribution (BSD) - Wikipedia](https://en.wikipedia.org/wiki/Berkeley_Software_Distribution)
+8. [SCO-Linux Disputes - Wikipedia](https://en.wikipedia.org/wiki/SCO%E2%80%93Linux_disputes)
+9. [Tanenbaum-Torvalds Debate - Wikipedia](https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate)
+10. [Tux Mascot - Wikipedia](https://en.wikipedia.org/wiki/Tux_(mascot))
+11. [Intel 80386 - Wikipedia](https://en.wikipedia.org/wiki/Intel_80386)
+12. [GNU Project - Wikipedia](https://en.wikipedia.org/wiki/GNU_Project)
+13. [Linux Distribution - Wikipedia](https://en.wikipedia.org/wiki/Linux_distribution)

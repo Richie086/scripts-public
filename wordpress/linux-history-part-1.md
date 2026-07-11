@@ -315,7 +315,9 @@ timeline
 
 If that timeline feels incomplete: good. Linux history is less a straight line and more a hydra that grows new heads whenever someone says “this packaging format will unify everyone.”
 
----
+***
+
+**Next Up:** [Linux: A Love Story (Part 2 - Distros & Package Managers)](https://extremesarcasm.org/?p=724)
 
 ---
 

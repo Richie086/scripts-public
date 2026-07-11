@@ -1,5 +1,3 @@
-# Linux: A Love Story Featuring Finns, Free Software Zealots, and Package Managers That Will Ruin Your Weekend
-
 Oh, Linux. What a time to be alive.
 
 Somewhere between “I just want my printer to work” and “I recompiled my kernel because the internet dared me,” sits the operating system that powers most of the internet, most of the cloud, most of your phone’s cousin (Android), and approximately zero of the desktops your relatives will willingly touch without supervision.

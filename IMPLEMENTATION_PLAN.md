@@ -8,7 +8,7 @@ Harden one tool per session until every script/web app meets `PROMPT.md`.
 
 ### Root / wrapper
 - [x] `bash/ai-devbox-init.sh`
-- [ ] `scripts/apply-cursor-credit-savings.sh`
+- [x] `scripts/apply-cursor-credit-savings.sh`
 - [ ] `deploy-mailserver-debian.sh`
 
 ### Nested `scripts-public/` bash
@@ -45,10 +45,11 @@ Do **not** run, harden, or test anything under `scripts-public/python/`. Out of 
 ## Done
 
 - `bash/ai-devbox-init.sh` — fixed help script name; flag/help tests in `bash/test-ai-devbox-init-flags.sh` (14 green); README documents flags + test command.
+- `scripts/apply-cursor-credit-savings.sh` — added `--help`, `--dry-run`, and `--database` options; flag and logic tests in `scripts/test-apply-cursor-credit-savings.sh` (16 green); updated documentation in `reduce-cursor-credits.md` and `blog-reduce-cursor-credits.md`.
 
 ## Next
 
-`scripts/apply-cursor-credit-savings.sh` — next hardening pass.
+`deploy-mailserver-debian.sh` — next hardening pass.
 
 ## Open issues
 

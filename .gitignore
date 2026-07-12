@@ -1,0 +1,6 @@
+scripts-public/
+.venv/
+.test_tmp/
+*.backup-*
+*.vscdb.backup-*
+*.db.backup-*

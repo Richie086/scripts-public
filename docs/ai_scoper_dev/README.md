@@ -8,14 +8,14 @@ This document serves as a central index linking all generated design plans, back
 
 The following specifications are versioned inside the public repository:
 
-| Document Title | Description | Local File Link | Browser Render Link | GitHub Repository Link |
-|---|---|---|---|---|
-| **1. Implementation Plan** | Full system design, UI features, and verification checklist. | [ai_scoper_app_plan.md](file:///home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/ai_scoper_app_plan.md) | [http://localhost:5070/api/docs/ai_scoper_app_plan](http://localhost:5070/api/docs/ai_scoper_app_plan) | [GitHub Link](https://github.com/Richie086/scripts-public/blob/master/docs/ai_scoper_dev/ai_scoper_app_plan.md) |
-| **2. Atlassian Plugin Plan** | System architecture for hybrid Jira/Bitbucket/Confluence integration plugin. | [jira_ai_plugin_plan.md](file:///home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/jira_ai_plugin_plan.md) | [http://localhost:5070/api/docs/jira_ai_plugin_plan](http://localhost:5070/api/docs/jira_ai_plugin_plan) | [GitHub Link](https://github.com/Richie086/scripts-public/blob/master/docs/ai_scoper_dev/jira_ai_plugin_plan.md) |
-| **3. Jira Task Backlog** | Epic, Story, and Subtask task breakdown for project execution. | [jira_task_breakdown.md](file:///home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/jira_task_breakdown.md) | [http://localhost:5070/api/docs/jira_task_breakdown](http://localhost:5070/api/docs/jira_task_breakdown) | [GitHub Link](https://github.com/Richie086/scripts-public/blob/master/docs/ai_scoper_dev/jira_task_breakdown.md) |
-| **4. Jira API Token Guide** | Tutorial on generating secure credentials for script authentication. | [jira_token_guide.md](file:///home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/jira_token_guide.md) | [http://localhost:5070/api/docs/jira_token_guide](http://localhost:5070/api/docs/jira_token_guide) | [GitHub Link](https://github.com/Richie086/scripts-public/blob/master/docs/ai_scoper_dev/jira_token_guide.md) |
-| **5. Master Prompt Template** | Single-file blueprint prompt to replicate the entire workspace build. | [master_prompt_template.md](file:///home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/master_prompt_template.md) | [http://localhost:5070/api/docs/master_prompt_template](http://localhost:5070/api/docs/master_prompt_template) | [GitHub Link](https://github.com/Richie086/scripts-public/blob/master/docs/ai_scoper_dev/master_prompt_template.md) |
-| **6. Walkthrough & Validation** | Log of automated Jest test suites and manual REST endpoint validations. | [walkthrough.md](file:///home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/walkthrough.md) | [http://localhost:5070/api/docs/walkthrough](http://localhost:5070/api/docs/walkthrough) | [GitHub Link](https://github.com/Richie086/scripts-public/blob/master/docs/ai_scoper_dev/walkthrough.md) |
+| Document Title | Description | Local / GitHub File Link | Browser Render Link |
+|---|---|---|---|
+| **1. Implementation Plan** | Full system design, UI features, and verification checklist. | [ai_scoper_app_plan.md](./ai_scoper_app_plan.md) | [http://localhost:5070/api/docs/ai_scoper_app_plan](http://localhost:5070/api/docs/ai_scoper_app_plan) |
+| **2. Atlassian Plugin Plan** | System architecture for hybrid Jira/Bitbucket/Confluence integration plugin. | [jira_ai_plugin_plan.md](./jira_ai_plugin_plan.md) | [http://localhost:5070/api/docs/jira_ai_plugin_plan](http://localhost:5070/api/docs/jira_ai_plugin_plan) |
+| **3. Jira Task Backlog** | Epic, Story, and Subtask task breakdown for project execution. | [jira_task_breakdown.md](./jira_task_breakdown.md) | [http://localhost:5070/api/docs/jira_task_breakdown](http://localhost:5070/api/docs/jira_task_breakdown) |
+| **4. Jira API Token Guide** | Tutorial on generating secure credentials for script authentication. | [jira_token_guide.md](./jira_token_guide.md) | [http://localhost:5070/api/docs/jira_token_guide](http://localhost:5070/api/docs/jira_token_guide) |
+| **5. Master Prompt Template** | Single-file blueprint prompt to replicate the entire workspace build. | [master_prompt_template.md](./master_prompt_template.md) | [http://localhost:5070/api/docs/master_prompt_template](http://localhost:5070/api/docs/master_prompt_template) |
+| **6. Walkthrough & Verification** | Log of automated Jest test suites and manual REST endpoint validations. | [walkthrough.md](./walkthrough.md) | [http://localhost:5070/api/docs/walkthrough](http://localhost:5070/api/docs/walkthrough) |
 
 ---
 

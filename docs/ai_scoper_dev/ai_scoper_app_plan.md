@@ -110,6 +110,7 @@ An Express server implementing the following modules and REST endpoints:
 
 ### Table of Contents Documentation ([NEW] README.md)
 * **Goal**: Create a central `README.md` index file linking all 6 generated project files together with descriptions of each specification and direct links.
+* **Relative Links**: Update the TOC links to use relative paths (e.g. `./ai_scoper_app_plan.md`) to resolve natively on the GitHub web UI.
 
 ---
 
@@ -156,3 +157,4 @@ An Express server implementing the following modules and REST endpoints:
 13. **Git Release Verification**: Run `git status` in both `/home/rtroiano/repositories/scripts` and `/home/rtroiano/repositories/scripts-public` directories to confirm working directories are clean, and verify git logs for successful remote pushes.
 14. **Public File URL Verification**: Verify that the generated links correctly resolve to their corresponding local files and public GitHub repository paths.
 15. **General Docs Endpoint Verification**: Verify that navigating to `http://localhost:5070/api/docs/walkthrough` and `http://localhost:5070/api/docs/jira_task_breakdown` successfully renders the corresponding HTML-formatted markdown files in the browser.
+16. **Relative Link Verification**: Verify that links inside `README.md` use relative paths and correctly navigate between documentation files.

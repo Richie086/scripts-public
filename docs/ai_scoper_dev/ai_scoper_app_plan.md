@@ -77,6 +77,7 @@ An Express server implementing the following modules and REST endpoints:
   * `POST /api/syntax/check`: Performs compile-check assertions on pasted code snippets.
   * `POST /api/export`: Packages the generated scoping documents and compiles a **Jira CSV Import file** (mapping `Summary`, `Description`, `Issue Type`, `Parent ID`, `Labels`) for seamless direct import.
   * `GET /api/plan`: Serves the HTML-rendered implementation plan (`ai_scoper_app_plan.md`) directly in the user's web browser.
+  * `GET /api/docs/:filename`: Serves any HTML-rendered markdown file (e.g. `walkthrough`, `jira_task_breakdown`, `jira_token_guide`) dynamically in the browser.
 
 ### Frontend App (`projects/ai-scoper-app/public/index.html` & `style.css` & `app.js`)
 * **LLM Config Drawer**: Sidebar dropdowns to select the active provider (Gemini, ChatGPT, Claude, Grok, or Custom Internal LLM) and input custom API keys, model endpoints, and baseURL headers.
@@ -100,6 +101,15 @@ An Express server implementing the following modules and REST endpoints:
 
 ### Document Publishing Deployment
 * **Goal**: Copy all 6 project markdown specification and guide files (including plans, walkthroughs, backlogs, prompt templates, and token guides) from the session's artifact directory to `/home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/` for public versioning.
+
+### Git Release & Push Deployment
+* **Goal**: Perform local repository staging, commit the files with descriptive commit logs, and push modifications to their remote origins in both `/home/rtroiano/repositories/scripts` and `/home/rtroiano/repositories/scripts-public` workspaces.
+
+### Public File URL Mapping
+* **Goal**: Document and map the exact local paths and public GitHub repository links for all 6 generated project files inside the `scripts-public` repository.
+
+### Table of Contents Documentation ([NEW] README.md)
+* **Goal**: Create a central `README.md` index file linking all 6 generated project files together with descriptions of each specification and direct links.
 
 ---
 
@@ -143,3 +153,6 @@ An Express server implementing the following modules and REST endpoints:
 10. **Color Scheme Switching Test**: Select each of the 5 themes (Dracula, Nord, Gruvbox, One Dark, Solarized) in the dropdown. Verify body class updates, colors render properly, and the theme choice persists in LocalStorage upon browser reload.
 11. **Jira Task Uploader Test**: Run the Python uploader script in dry-run mode or check that it handles missing environment variables securely and outputs parsing validation logs for all Epics, Tasks, and Subtasks.
 12. **Documentation Publishing Verification**: Run `ls -la /home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/` and verify that all 6 project markdown files exist and contain appropriate metadata structures.
+13. **Git Release Verification**: Run `git status` in both `/home/rtroiano/repositories/scripts` and `/home/rtroiano/repositories/scripts-public` directories to confirm working directories are clean, and verify git logs for successful remote pushes.
+14. **Public File URL Verification**: Verify that the generated links correctly resolve to their corresponding local files and public GitHub repository paths.
+15. **General Docs Endpoint Verification**: Verify that navigating to `http://localhost:5070/api/docs/walkthrough` and `http://localhost:5070/api/docs/jira_task_breakdown` successfully renders the corresponding HTML-formatted markdown files in the browser.

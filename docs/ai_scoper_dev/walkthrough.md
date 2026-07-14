@@ -79,7 +79,8 @@ PASS tests/securityScanner.test.js
 8. **Jira Task Backlog**: Created the [jira_task_breakdown.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/5bac2cd3-828d-42f1-a375-cc94a3a19bcf/jira_task_breakdown.md) backlog listing all Epics, Tasks, and Subtasks required to complete, test, and deploy the application.
 9. **Jira Task Uploader**: Implemented and compiled [upload_jira_tasks.py](file:///home/rtroiano/repositories/scripts/python/upload_jira_tasks.py), successfully verifying dry-run parsing of all 5 Epics, 15 Tasks, and nested Subtasks.
 10. **Jira API Token Guide**: Generated the step-by-step [jira_token_guide.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/5bac2cd3-828d-42f1-a375-cc94a3a19bcf/jira_token_guide.md) guide file outlining token credentials setup.
-11. **Documentation Publishing**: Verified that all 6 project markdown specs, plans, and walkthrough files have been successfully copied to the public documentation directory `/home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/`.
+11. **Documentation Publishing**: Verified that all 7 project markdown specs, plans, indices, and walkthrough files have been successfully copied to the public documentation directory `/home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/`.
 12. **Git Release & Remote Push**: Verified staging, commits, and pushes to remote origins:
     - Public repo (`scripts-public`): Pushed code and docs to branch `master`.
     - Private repo (`scripts`): Pushed all application changes to feature branch `cursor/idea-tracker-1f3c`.
+13. **Documentation Table of Contents**: Created the central [README.md](file:///home/rtroiano/repositories/scripts-public/docs/ai_scoper_dev/README.md) index file linking all 6 markdown files, and verified that navigating to `http://localhost:5070/api/docs/walkthrough` and other documents dynamically renders them inside the browser.

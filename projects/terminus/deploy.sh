@@ -1,5 +1,5 @@
-#!/bin/bash
-# TERMINUS Automated Deployment Script
+#!/usr/bin/env bash
+# TERMINUS Automated Deployment Script (Pure Python 3)
 # Strict shell options for safety and reliability
 set -euo pipefail
 
@@ -12,24 +12,25 @@ echo "============================================="
 echo "Starting Terminus Deployment on ${DEV_HOST}"
 echo "============================================="
 
-# 1. Compile locally with relaxed security flag (-r)
-echo "[1/6] Compiling local terminus.sh..."
+# 1. Validate python script locally
+echo "[1/5] Validating local terminus.py..."
 ./build.sh
 
 # 2. Ensure target folders exist on remote server
-echo "[2/6] Setting up remote target directory..."
+echo "[2/5] Setting up remote target directory..."
 ssh -i "${SSH_KEY}" "${DEV_HOST}" "sudo mkdir -p /home/webserver/terminus && sudo chown -R webserver:webserver /home/webserver/terminus"
 
-# 3. Transfer source and compiled C files
-echo "[3/6] Syncing files to remote server..."
-scp -i "${SSH_KEY}" terminus.sh terminus.sh.x.c "${DEV_HOST}":/home/webserver/terminus/
+# 3. Transfer source python script
+echo "[3/5] Syncing files to remote server..."
+scp -i "${SSH_KEY}" terminus.py "${DEV_HOST}":/home/webserver/terminus/
+ssh -i "${SSH_KEY}" "${DEV_HOST}" "chmod +x /home/webserver/terminus/terminus.py"
 
-# 4. Compile directly on remote server to bypass yama/ptrace_scope restrictions
-echo "[4/6] Compiling binary on remote host..."
-ssh -i "${SSH_KEY}" "${DEV_HOST}" "gcc -O2 /home/webserver/terminus/terminus.sh.x.c -o /home/webserver/terminus/terminus && chmod +x /home/webserver/terminus/terminus"
+# Clean up legacy compiled binaries and old files on remote
+echo "Cleaning up legacy compiled C binary and shell files on remote..."
+ssh -i "${SSH_KEY}" "${DEV_HOST}" "rm -f /home/webserver/terminus/terminus /home/webserver/terminus/terminus.sh /home/webserver/terminus/terminus.sh.x.c /home/webserver/terminus/config_manager.py" || true
 
-# 5. Provision credentials and Nginx configuration
-echo "[5/6] Configuring Nginx reverse proxy..."
+# 4. Provision credentials and Nginx configuration
+echo "[4/5] Configuring Nginx reverse proxy..."
 
 # Check if htpasswd file exists on target server
 if ! ssh -i "${SSH_KEY}" "${DEV_HOST}" "[ -f /etc/nginx/.terminus_htpasswd ]"; then
@@ -105,21 +106,18 @@ scp -i "${SSH_KEY}" /tmp/nginx_terminus_default "${DEV_HOST}":/tmp/nginx_terminu
 ssh -i "${SSH_KEY}" "${DEV_HOST}" "sudo cp /tmp/nginx_terminus_default /etc/nginx/sites-available/default && sudo nginx -t && sudo systemctl reload nginx"
 rm -f /tmp/nginx_terminus_default
 
-# 6. Configure and enable systemd service files
-echo "[6/6] Setting up Systemd services..."
-
-# Clean up any old legacy netmon services first to prevent conflicts
-ssh -i "${SSH_KEY}" "${DEV_HOST}" "sudo systemctl stop netmon-daemon netmon-web || true; sudo systemctl disable netmon-daemon netmon-web || true; sudo rm -f /etc/systemd/system/netmon-daemon.service /etc/systemd/system/netmon-web.service || true"
+# 5. Configure and enable systemd service files
+echo "[5/5] Setting up Systemd services..."
 
 cat <<EOF > /tmp/terminus-daemon.service
 [Unit]
-Description=Terminus Parallel Sweep Daemon
+Description=Terminus Parallel Sweep Daemon (Python)
 After=network.target
 
 [Service]
 Type=simple
 User=webserver
-ExecStart=/home/webserver/terminus/terminus --daemon
+ExecStart=/usr/bin/python3 /home/webserver/terminus/terminus.py --daemon
 Restart=always
 RestartSec=10
 TimeoutStopSec=5
@@ -130,14 +128,14 @@ EOF
 
 cat <<EOF > /tmp/terminus-web.service
 [Unit]
-Description=Terminus HTTP Configuration Server
+Description=Terminus HTTP Configuration Server (Python)
 After=network.target
 
 [Service]
 Type=simple
 User=webserver
 Environment="TERMINUS_PORT=${TERMINUS_PORT}"
-ExecStart=/home/webserver/terminus/terminus --web
+ExecStart=/usr/bin/python3 /home/webserver/terminus/terminus.py --web
 Restart=always
 RestartSec=10
 TimeoutStopSec=5
@@ -154,7 +152,7 @@ rm -f /tmp/terminus-daemon.service /tmp/terminus-web.service
 ssh -i "${SSH_KEY}" "${DEV_HOST}" "rm -f /tmp/terminus-daemon.service /tmp/terminus-web.service /tmp/nginx_terminus_default"
 
 echo "============================================="
-echo "Deployment Complete! Terminus is running."
+echo "Deployment Complete! Terminus is running under Python 3."
 echo "Access links:"
 echo "- Web UI: http://192.168.1.80/"
 echo "- Nginx Status: http://192.168.1.80/nginx_status"

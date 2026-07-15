@@ -1,6 +1,6 @@
 # Walkthrough - Terminus Master Prompt, IDE Workflow Guide, Blog Post & Voiceover
 
-We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE** to build and deploy to **production environments** (Linux, macOS, and Windows with WSL), published a deep-dive technical article directly to `extremesarcasm.org` containing the full text, generated a high-quality voiceover of the workflow guide using ElevenLabs, and cross-linked both resources while reframing the text for non-developers.
+We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE** to build and deploy to **production environments** (Linux, macOS, and Windows with WSL), published a deep-dive technical article directly to `extremesarcasm.org` containing the full text, generated a high-quality voiceover of the workflow guide using ElevenLabs, cross-linked both resources while reframing the text for non-developers, and embedded visual screenshots of both the TUI and Web dashboard interfaces.
 
 ---
 
@@ -20,6 +20,8 @@ We have successfully created a master prompt that will allow another assistant o
     - Audio Source: Linked using GitHub raw CDN for absolute resolution.
   - Cross-linked to the extremesarcasm.org blog post in the introduction.
   - Replaced "developers" with "non-developers" where applicable.
+  - Embedded raw GitHub CDN link to the Console TUI screenshot at the end of Step 6.
+  - Embedded raw GitHub CDN link to the Web Dashboard screenshot at the end of Step 7.
 - **Saved Files to Repository**:
   - Created a new directory `/home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/`.
   - Copied `master_prompt.md`, `implementation_plan.md`, `walkthrough.md`, and `dev_workflow_guide.md` to this repository folder.
@@ -28,6 +30,8 @@ We have successfully created a master prompt that will allow another assistant o
   - Linked to the actual [Terminus Development Walkthrough on GitHub](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/walkthrough.md) in the text.
   - Linked to the companion [Antigravity Cross-Platform Development Workflow Guide on GitHub](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/dev_workflow_guide.md) in the introduction.
   - Replaced all instances of "developer" with "non-developer" to frame the article for a non-technical audience.
+  - Embedded raw GitHub CDN link to the Console TUI screenshot at the end of Section 7.
+  - Embedded raw GitHub CDN link to the Web Dashboard screenshot at the end of Section 9.
   - Executed the taxonomy suggester to extract categories and tags.
   - Staged, diff-scanned, committed, and merged the file locally.
   - Pushed the `main` branch to the remote repository on GitHub.
@@ -57,9 +61,9 @@ The generated prompt covers:
 We verified that the files were committed and pushed successfully:
 ```bash
 $ git log -n 4 --oneline
-7b1088d (HEAD -> main, origin/main) docs: Cross link guide and blog post, update developer references to non-developer [auto-doc]
+82536ef (HEAD -> main, origin/main) docs: Embed TUI and Web interface mockup screenshots [auto-doc]
+7b1088d docs: Cross link guide and blog post, update developer references to non-developer [auto-doc]
 86e69eb docs: Update guide and blog post to be fully cross-platform [auto-doc]
-57df54a Update README.md
 ```
 
 We verified that the WordPress webhook returned success:

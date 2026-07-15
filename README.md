@@ -270,9 +270,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **86c2c33** - 2026-07-15 10:49:48 - feat(terminus): Align TUI features 1:1 with Web UI (sparklines, specs, config menu)
 - **c598560** - 2026-07-15 06:59:13 - feat(terminus): Centralize node management (add/delete) on admin settings page
 - **371cf7a** - 2026-07-15 06:51:38 - feat(terminus): Migrate compiled Bash script to pure Python 3 codebase
 - **3c666a8** - 2026-07-15 06:45:48 - feat(terminus): Migrate to unified YAML configuration system
 - **49839b4** - 2026-07-15 06:26:22 - feat(terminus): Update default admin credentials to admin / admin
-- **6c78397** - 2026-07-15 06:16:22 - feat(terminus): Add Terminus network operations monitor codebase and deploy scripts
 <!-- AUTO-GENERATED COMMITS END -->

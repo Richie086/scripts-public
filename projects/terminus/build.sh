@@ -1,16 +1,16 @@
 #!/bin/bash
-# NETMON V3 Compiler Helper Script
+# TERMINUS Compiler Helper Script
 # Strict shell options for safety and reliability
 set -euo pipefail
 
-echo "Compiling netmon.sh to binary executable netmon..."
+echo "Compiling terminus.sh to binary executable terminus..."
 # Compile script using shc (Shell Script Compiler) with relaxed security for compatibility
-shc -r -f netmon.sh -o netmon
+shc -r -f terminus.sh -o terminus
 
 echo "Making sure binary is executable..."
-chmod +x netmon
+chmod +x terminus
 
 echo "Verification: checking built binary details..."
-file ./netmon
+file ./terminus
 echo "Checking binary version/help output:"
-./netmon --help || true
+./terminus --help || true

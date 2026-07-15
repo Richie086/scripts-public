@@ -11,8 +11,6 @@ FIFO_PATH="${CONFIG_DIR}/web_fifo"
 
 # Configuration variables
 PORT="${TERMINUS_PORT:-8080}"
-SETTINGS_FILE="${CONFIG_DIR}/settings.conf"
-DEVICE_TYPES_FILE="${CONFIG_DIR}/device_types.conf"
 
 load_settings() {
     # Default settings
@@ -25,75 +23,211 @@ load_settings() {
     ROOM_NAME="Server Room B"
     PHYSICAL_ADDRESS="456 Enterprise Way"
     COMPANY_NAME="General Corp"
+    DEVICE_TYPES=("Server" "Router" "Switch" "Firewall" "Gateway" "Other")
     
-    if [[ -f "${SETTINGS_FILE}" ]]; then
-        while IFS='=' read -r key val || [[ -n "$key" ]]; do
-            [[ -z "$key" || "$key" =~ ^# ]] && continue
-            key=$(echo "$key" | xargs)
-            val=$(echo "$val" | xargs)
-            case "$key" in
-                PING_COUNT) PING_COUNT="$val" ;;
-                PING_INTERVAL) PING_INTERVAL="$val" ;;
-                SWEEP_FREQUENCY) SWEEP_FREQUENCY="$val" ;;
-                ENV_1) ENV_1="$val" ;;
-                ENV_2) ENV_2="$val" ;;
-                ENV_3) ENV_3="$val" ;;
-                ROOM_NAME) ROOM_NAME="$val" ;;
-                PHYSICAL_ADDRESS) PHYSICAL_ADDRESS="$val" ;;
-                COMPANY_NAME) COMPANY_NAME="$val" ;;
-            esac
-        done < "${SETTINGS_FILE}"
-    else
-        mkdir -p "${CONFIG_DIR}"
-        cat <<EOF > "${SETTINGS_FILE}"
-PING_COUNT=5
-PING_INTERVAL=0.2
-SWEEP_FREQUENCY=60
-ENV_1=Tenant A
-ENV_2=Tenant B
-ENV_3=Tenant C
-ROOM_NAME=Server Room B
-PHYSICAL_ADDRESS=456 Enterprise Way
-COMPANY_NAME=General Corp
-EOF
+    # Generate python config_manager.py if missing
+    init_dirs_and_configs
+    
+    if [[ -f "${CONFIG_DIR}/config_manager.py" ]]; then
+        eval "$(python3 "${CONFIG_DIR}/config_manager.py" export 2>/dev/null)" || true
     fi
-    
     ENVIRONMENTS=("${ENV_1}" "${ENV_2}" "${ENV_3}")
 }
 
 load_device_types() {
-    DEVICE_TYPES=()
-    if [[ -f "${DEVICE_TYPES_FILE}" ]]; then
-        while read -r line || [[ -n "$line" ]]; do
-            [[ -z "$line" || "$line" =~ ^# ]] && continue
-            DEVICE_TYPES+=("$line")
-        done < "${DEVICE_TYPES_FILE}"
-    else
-        # Seed default device types
-        DEVICE_TYPES=("Server" "Router" "Switch" "Firewall" "Gateway" "Other")
-        mkdir -p "${CONFIG_DIR}"
-        for t in "${DEVICE_TYPES[@]}"; do
-            echo "$t" >> "${DEVICE_TYPES_FILE}"
-        done
-    fi
+    # No-op because load_settings loads both settings and device types array
+    :
 }
-
-load_settings
-load_device_types
 
 # Initialize config paths and seed initial nodes if files do not exist
 init_dirs_and_configs() {
     mkdir -p "${CONFIG_DIR}" "${STATUS_DIR}" "${PID_DIR}"
     
-    for env in "${ENVIRONMENTS[@]}"; do
-        local lower_env="${env,,}"
-        local file_name="${lower_env// /_}.conf"
-        local file_path="${CONFIG_DIR}/${file_name}"
-        if [[ ! -f "${file_path}" ]]; then
-            touch "${file_path}"
-        fi
-    done
+    local py_script="${CONFIG_DIR}/config_manager.py"
+    if [[ ! -f "${py_script}" ]]; then
+        cat << 'EOF' > "${py_script}"
+import sys
+import os
+import yaml
+import json
+
+CONFIG_DIR = os.path.expanduser("~/.config/terminus")
+YAML_PATH = os.path.join(CONFIG_DIR, "config.yaml")
+
+DEFAULT_CONFIG = {
+    "settings": {
+        "sweep_frequency": 60,
+        "ping_count": 5,
+        "ping_interval": 0.2,
+        "room_name": "Server Room B",
+        "physical_address": "456 Enterprise Way",
+        "company_name": "General Corp",
+        "env_1": "Tenant A",
+        "env_2": "Tenant B",
+        "env_3": "Tenant C"
+    },
+    "device_types": ["Server", "Router", "Switch", "Firewall", "Gateway", "Other"],
+    "environments": {
+        "Tenant A": [],
+        "Tenant B": [],
+        "Tenant C": []
+    }
 }
+
+def load_yaml():
+    os.makedirs(CONFIG_DIR, exist_ok=True)
+    if not os.path.exists(YAML_PATH):
+        save_yaml(DEFAULT_CONFIG)
+        return DEFAULT_CONFIG
+    try:
+        with open(YAML_PATH, "r") as f:
+            data = yaml.safe_load(f)
+            if not data or not isinstance(data, dict):
+                return DEFAULT_CONFIG
+            for key in DEFAULT_CONFIG:
+                if key not in data:
+                    data[key] = DEFAULT_CONFIG[key]
+            return data
+    except Exception:
+        return DEFAULT_CONFIG
+
+def save_yaml(data):
+    os.makedirs(CONFIG_DIR, exist_ok=True)
+    with open(YAML_PATH, "w") as f:
+        yaml.safe_dump(data, f, default_flow_style=False, sort_keys=False)
+
+def export_bash():
+    data = load_yaml()
+    settings = data.get("settings", {})
+    for k, v in settings.items():
+        safe_val = str(v).replace("'", "'\\''")
+        print(f"{k.upper()}='{safe_val}'")
+    
+    env_1 = settings.get("env_1", "Tenant A").replace("'", "'\\''")
+    env_2 = settings.get("env_2", "Tenant B").replace("'", "'\\''")
+    env_3 = settings.get("env_3", "Tenant C").replace("'", "'\\''")
+    print(f"ENVIRONMENTS=('{env_1}' '{env_2}' '{env_3}')")
+    
+    types = data.get("device_types", [])
+    safe_types = [t.replace("'", "'\\''") for t in types]
+    types_str = " ".join(f"'{t}'" for t in safe_types)
+    print(f"DEVICE_TYPES=({types_str})")
+
+def get_nodes(env):
+    data = load_yaml()
+    envs = data.get("environments", {})
+    nodes = envs.get(env, [])
+    for n in nodes:
+        nid = n.get("id", "")
+        name = n.get("name", "")
+        addr = n.get("addr", "")
+        dev_type = n.get("dev_type", "Server")
+        fqdn = n.get("fqdn", "")
+        print(f"{nid}|{name}|{addr}|{dev_type}|{fqdn}")
+
+def add_node(env, name, addr, dev_type, fqdn):
+    data = load_yaml()
+    envs = data.setdefault("environments", {})
+    nodes = envs.setdefault(env, [])
+    
+    max_id = 0
+    for n in nodes:
+        try:
+            nid = int(n.get("id", 0))
+            if nid > max_id:
+                max_id = nid
+        except ValueError:
+            pass
+    next_id = max_id + 1
+    
+    nodes.append({
+        "id": next_id,
+        "name": name,
+        "addr": addr,
+        "dev_type": dev_type,
+        "fqdn": fqdn
+    })
+    save_yaml(data)
+    print(next_id)
+
+def del_node(env, nid):
+    data = load_yaml()
+    envs = data.setdefault("environments", {})
+    nodes = envs.get(env, [])
+    
+    new_nodes = []
+    for n in nodes:
+        if str(n.get("id")) != str(nid):
+            new_nodes.append(n)
+    
+    envs[env] = new_nodes
+    save_yaml(data)
+
+def save_settings(settings_json):
+    data = load_yaml()
+    new_settings = json.loads(settings_json)
+    
+    settings = data.setdefault("settings", {})
+    for k, v in new_settings.items():
+        settings[k] = v
+        
+    envs = data.setdefault("environments", {})
+    old_envs = list(envs.keys())
+    new_envs = [new_settings.get("env_1", "Tenant A"), new_settings.get("env_2", "Tenant B"), new_settings.get("env_3", "Tenant C")]
+    
+    updated_envs = {}
+    for i, new_name in enumerate(new_envs):
+        old_name = old_envs[i] if i < len(old_envs) else new_name
+        updated_envs[new_name] = envs.get(old_name, [])
+        
+    data["environments"] = updated_envs
+    save_yaml(data)
+
+def add_type(t_name):
+    data = load_yaml()
+    types = data.setdefault("device_types", [])
+    if t_name not in types:
+        types.append(t_name)
+    save_yaml(data)
+
+def del_type(t_name):
+    data = load_yaml()
+    types = data.setdefault("device_types", [])
+    if t_name in types:
+        types.remove(t_name)
+    save_yaml(data)
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        sys.exit(1)
+        
+    cmd = sys.argv[1]
+    if cmd == "export":
+        export_bash()
+    elif cmd == "get_nodes":
+        if len(sys.argv) >= 3:
+            get_nodes(sys.argv[2])
+    elif cmd == "add_node":
+        if len(sys.argv) >= 7:
+            add_node(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+    elif cmd == "del_node":
+        if len(sys.argv) >= 4:
+            del_node(sys.argv[2], sys.argv[3])
+    elif cmd == "save_settings":
+        if len(sys.argv) >= 3:
+            save_settings(sys.argv[2])
+    elif cmd == "add_type":
+        if len(sys.argv) >= 3:
+            add_type(sys.argv[2])
+    elif cmd == "del_type":
+        if len(sys.argv) >= 3:
+            del_type(sys.argv[2])
+EOF
+        chmod +x "${py_script}"
+    fi
+}
+
+load_settings
 
 # DNS Lookup Engine
 # If IP is supplied without name, runs reverse PTR lookup.
@@ -119,36 +253,12 @@ resolve_dns() {
     fi
 }
 
-# Get next unique ID for an environment config file
-get_next_id() {
-    local file="$1"
-    if [[ ! -f "$file" ]]; then
-        echo 1
-        return
-    fi
-    local max_id=0
-    while IFS='|' read -r nid name addr dev_type fqdn || [[ -n "$nid" ]]; do
-        [[ -z "$nid" ]] && continue
-        # strip non-digits to verify numeric ID
-        local clean_id
-        clean_id=$(echo "$nid" | tr -cd '0-9')
-        if [[ -n "$clean_id" && "$clean_id" -gt "$max_id" ]]; then
-            max_id="$clean_id"
-        fi
-    done < "$file"
-    echo $((max_id + 1))
-}
-
 # Add a node to an environment
 add_node() {
     local env="$1"
     local name="$2"
     local addr="$3"
     local dev_type="${4:-Server}"
-    
-    local lower_env="${env,,}"
-    local file_name="${lower_env// /_}.conf"
-    local file_path="${CONFIG_DIR}/${file_name}"
     
     # Resolve fallback DNS if fields are blank
     if [[ -z "$name" && -n "$addr" ]]; then
@@ -190,8 +300,7 @@ add_node() {
     fi
     
     local nid
-    nid=$(get_next_id "$file_path")
-    echo "${nid}|${name}|${addr}|${dev_type}|${fqdn}" >> "$file_path"
+    nid=$(python3 "${CONFIG_DIR}/config_manager.py" add_node "${env}" "${name}" "${addr}" "${dev_type}" "${fqdn}")
     
     # Quick initial status sweep
     update_status_for_node "$env" "$nid" "$name" "$addr" &
@@ -223,16 +332,11 @@ delete_node() {
     local env="$1"
     local nid="$2"
     
+    python3 "${CONFIG_DIR}/config_manager.py" del_node "${env}" "${nid}"
+    
     local lower_env="${env,,}"
     local file_name="${lower_env// /_}"
-    local conf_path="${CONFIG_DIR}/${file_name}.conf"
     local status_path="${STATUS_DIR}/${file_name}.status"
-    
-    [[ ! -f "$conf_path" ]] && return
-    
-    local tmp_conf="${conf_path}.tmp"
-    grep -v "^${nid}|" "$conf_path" > "$tmp_conf" || true
-    mv "$tmp_conf" "$conf_path"
     
     if [[ -f "$status_path" ]]; then
         local tmp_status="${status_path}.tmp"
@@ -262,11 +366,8 @@ run_daemon() {
         for env in "${ENVIRONMENTS[@]}"; do
             local lower_env="${env,,}"
             local file_name="${lower_env// /_}"
-            local conf_file="${CONFIG_DIR}/${file_name}.conf"
             local status_file="${STATUS_DIR}/${file_name}.status"
             local tmp_status_file="${status_file}.tmp"
-            
-            [[ ! -f "${conf_file}" ]] && continue
             
             # Read previous statuses and histories into memory
             declare -A prev_status=()
@@ -320,7 +421,7 @@ run_daemon() {
                     fi
                 ) > "/tmp/terminus_ping_${file_name}_${nid}.res" 2>&1 &
                 pids["$nid"]=$!
-            done < "${conf_file}"
+            done < <(python3 "${CONFIG_DIR}/config_manager.py" get_nodes "${env}")
             
             # Wait for parallel sweeps to complete
             for nid in "${!pids[@]}"; do
@@ -346,7 +447,7 @@ run_daemon() {
                     local new_h="${prev_h:1}0"
                     echo "${nid}|DOWN|N/A|$(date +%H:%M:%S)|${new_h}" >> "${tmp_status_file}"
                 fi
-            done < "${conf_file}"
+            done < <(python3 "${CONFIG_DIR}/config_manager.py" get_nodes "${env}")
             
             mv "${tmp_status_file}" "${status_file}"
         done
@@ -365,7 +466,6 @@ send_html_response() {
     
     local lower_env="${active_env,,}"
     local file_name="${lower_env// /_}"
-    local conf_file="${CONFIG_DIR}/${file_name}.conf"
     local status_file="${STATUS_DIR}/${file_name}.status"
     
     local table_rows=""
@@ -384,72 +484,70 @@ send_html_response() {
         done < "${status_file}"
     fi
     
-    if [[ -f "${conf_file}" ]]; then
-        while IFS='|' read -r nid name addr dev_type fqdn || [[ -n "$nid" ]]; do
-            [[ -z "$nid" ]] && continue
-            local stat="${statuses[$nid]:-PENDING}"
-            local lat="${latencies[$nid]:-N/A}"
-            local dsince="${down_sinces[$nid]:-}"
-            
-            local status_badge=""
-            if [[ "$stat" == "UP" ]]; then
-                status_badge="<span class=\"status-badge status-online\">ONLINE</span>"
-            elif [[ "$stat" == "DOWN" ]]; then
-                status_badge="<span class=\"status-badge status-alert\">ALERT</span>"
+    while IFS='|' read -r nid name addr dev_type fqdn || [[ -n "$nid" ]]; do
+        [[ -z "$nid" ]] && continue
+        local stat="${statuses[$nid]:-PENDING}"
+        local lat="${latencies[$nid]:-N/A}"
+        local dsince="${down_sinces[$nid]:-}"
+        
+        local status_badge=""
+        if [[ "$stat" == "UP" ]]; then
+            status_badge="<span class=\"status-badge status-online\">ONLINE</span>"
+        elif [[ "$stat" == "DOWN" ]]; then
+            status_badge="<span class=\"status-badge status-alert\">ALERT</span>"
+        else
+            status_badge="<span class=\"status-badge status-pending\">PENDING</span>"
+        fi
+        
+        local detail_str=""
+        if [[ "$stat" == "DOWN" ]]; then
+            detail_str="Since: ${dsince}"
+        else
+            detail_str="${lat}"
+        fi
+        
+        local fqdn_val="${fqdn:-}"
+        local addr_html
+        if [[ -n "$fqdn_val" ]]; then
+            addr_html="<code>${addr}</code><br><span style=\"font-size: 0.75rem; color: var(--fg-dim); font-family: inherit;\">${fqdn_val}</span>"
+        else
+            addr_html="<code>${addr}</code>"
+        fi
+        
+        local hist="${histories[$nid]:-........................}"
+        if [[ ${#hist} -lt 24 ]]; then
+            local pad_len=$(( 24 - ${#hist} ))
+            local padding
+            padding=$(printf '%*s' "$pad_len" "" | tr ' ' '.')
+            hist="${padding}${hist}"
+        fi
+        
+        local spark_html=""
+        for (( i=0; i<24; i++ )); do
+            local char="${hist:$i:1}"
+            if [[ "$char" == "1" ]]; then
+                spark_html="${spark_html}<span style=\"color: var(--green); font-size: 1.15rem; line-height: 1; letter-spacing: -2px; margin-right: 1px;\" title=\"Sweep $((i+1)): UP\">■</span>"
+            elif [[ "$char" == "0" ]]; then
+                spark_html="${spark_html}<span style=\"color: var(--red); font-size: 1.15rem; line-height: 1; letter-spacing: -2px; margin-right: 1px;\" title=\"Sweep $((i+1)): DOWN\">■</span>"
             else
-                status_badge="<span class=\"status-badge status-pending\">PENDING</span>"
+                spark_html="${spark_html}<span style=\"color: var(--fg-dim); font-size: 1.15rem; line-height: 1; letter-spacing: -2px; margin-right: 1px;\" title=\"Sweep $((i+1)): PENDING\">·</span>"
             fi
-            
-            local detail_str=""
-            if [[ "$stat" == "DOWN" ]]; then
-                detail_str="Since: ${dsince}"
-            else
-                detail_str="${lat}"
-            fi
-            
-            local fqdn_val="${fqdn:-}"
-            local addr_html
-            if [[ -n "$fqdn_val" ]]; then
-                addr_html="<code>${addr}</code><br><span style=\"font-size: 0.75rem; color: var(--fg-dim); font-family: inherit;\">${fqdn_val}</span>"
-            else
-                addr_html="<code>${addr}</code>"
-            fi
-            
-            local hist="${histories[$nid]:-........................}"
-            if [[ ${#hist} -lt 24 ]]; then
-                local pad_len=$(( 24 - ${#hist} ))
-                local padding
-                padding=$(printf '%*s' "$pad_len" "" | tr ' ' '.')
-                hist="${padding}${hist}"
-            fi
-            
-            local spark_html=""
-            for (( i=0; i<24; i++ )); do
-                local char="${hist:$i:1}"
-                if [[ "$char" == "1" ]]; then
-                    spark_html="${spark_html}<span style=\"color: var(--green); font-size: 1.15rem; line-height: 1; letter-spacing: -2px; margin-right: 1px;\" title=\"Sweep $((i+1)): UP\">■</span>"
-                elif [[ "$char" == "0" ]]; then
-                    spark_html="${spark_html}<span style=\"color: var(--red); font-size: 1.15rem; line-height: 1; letter-spacing: -2px; margin-right: 1px;\" title=\"Sweep $((i+1)): DOWN\">■</span>"
-                else
-                    spark_html="${spark_html}<span style=\"color: var(--fg-dim); font-size: 1.15rem; line-height: 1; letter-spacing: -2px; margin-right: 1px;\" title=\"Sweep $((i+1)): PENDING\">·</span>"
-                fi
-            done
-            
-            table_rows="${table_rows}
-            <tr>
-                <td>${nid}</td>
-                <td>${dev_type:-Server}</td>
-                <td><strong>${name}</strong></td>
-                <td>${addr_html}</td>
-                <td>${status_badge}</td>
-                <td>${detail_str}</td>
-                <td style=\"white-space: nowrap;\">${spark_html}</td>
-                <td>
-                    <a href=\"/delete?env=${active_env// /+}&id=${nid}\" class=\"btn btn-danger\">[Delete]</a>
-                </td>
-            </tr>"
-        done < "${conf_file}"
-    fi
+        done
+        
+        table_rows="${table_rows}
+        <tr>
+            <td>${nid}</td>
+            <td>${dev_type:-Server}</td>
+            <td><strong>${name}</strong></td>
+            <td>${addr_html}</td>
+            <td>${status_badge}</td>
+            <td>${detail_str}</td>
+            <td style=\"white-space: nowrap;\">${spark_html}</td>
+            <td>
+                <a href=\"/delete?env=${active_env// /+}&id=${nid}\" class=\"btn btn-danger\">[Delete]</a>
+            </td>
+        </tr>"
+    done < <(python3 "${CONFIG_DIR}/config_manager.py" get_nodes "${active_env}")
     
     if [[ -z "$table_rows" ]]; then
         table_rows="<tr><td colspan=\"8\" style=\"text-align: center; color: var(--fg-dim); padding: 40px;\">No nodes configured in this environment.</td></tr>"
@@ -856,9 +954,6 @@ rename_env_files() {
     local new_lower="${new_name,,}"
     local new_file="${new_lower// /_}"
     
-    if [[ -f "${CONFIG_DIR}/${old_file}.conf" ]]; then
-        mv "${CONFIG_DIR}/${old_file}.conf" "${CONFIG_DIR}/${new_file}.conf"
-    fi
     if [[ -f "${STATUS_DIR}/${old_file}.status" ]]; then
         mv "${STATUS_DIR}/${old_file}.status" "${STATUS_DIR}/${new_file}.status"
     fi
@@ -1526,17 +1621,9 @@ handle_http_request() {
         rename_env_files "${ENVIRONMENTS[1]}" "$env2"
         rename_env_files "${ENVIRONMENTS[2]}" "$env3"
         
-        cat <<EOF > "${SETTINGS_FILE}"
-PING_COUNT=${PING_COUNT}
-PING_INTERVAL=${PING_INTERVAL}
-SWEEP_FREQUENCY=${SWEEP_FREQUENCY}
-ENV_1=${env1}
-ENV_2=${env2}
-ENV_3=${env3}
-ROOM_NAME=${ROOM_NAME}
-PHYSICAL_ADDRESS=${PHYSICAL_ADDRESS}
-COMPANY_NAME=${COMPANY_NAME}
-EOF
+        local json_str="{\"env_1\": \"$env1\", \"env_2\": \"$env2\", \"env_3\": \"$env3\"}"
+        python3 "${CONFIG_DIR}/config_manager.py" save_settings "$json_str"
+        load_settings
         
         echo -e "HTTP/1.1 302 Found\r"
         echo -e "Location: /admin?success=1\r"
@@ -1553,17 +1640,9 @@ EOF
         [[ -z "$pinterval" ]] && pinterval=0.2
         [[ -z "$pfrequency" ]] && pfrequency=60
         
-        cat <<EOF > "${SETTINGS_FILE}"
-PING_COUNT=${pcount}
-PING_INTERVAL=${pinterval}
-SWEEP_FREQUENCY=${pfrequency}
-ENV_1=${ENVIRONMENTS[0]}
-ENV_2=${ENVIRONMENTS[1]}
-ENV_3=${ENVIRONMENTS[2]}
-ROOM_NAME=${ROOM_NAME}
-PHYSICAL_ADDRESS=${PHYSICAL_ADDRESS}
-COMPANY_NAME=${COMPANY_NAME}
-EOF
+        local json_str="{\"ping_count\": $pcount, \"ping_interval\": $pinterval, \"sweep_frequency\": $pfrequency}"
+        python3 "${CONFIG_DIR}/config_manager.py" save_settings "$json_str"
+        load_settings
         
         echo -e "HTTP/1.1 302 Found\r"
         echo -e "Location: /admin?success=2\r"
@@ -1580,17 +1659,9 @@ EOF
         [[ -z "$address" ]] && address="456 Enterprise Way"
         [[ -z "$company" ]] && company="General Corp"
         
-        cat <<EOF > "${SETTINGS_FILE}"
-PING_COUNT=${PING_COUNT}
-PING_INTERVAL=${PING_INTERVAL}
-SWEEP_FREQUENCY=${SWEEP_FREQUENCY}
-ENV_1=${ENVIRONMENTS[0]}
-ENV_2=${ENVIRONMENTS[1]}
-ENV_3=${ENVIRONMENTS[2]}
-ROOM_NAME=${room}
-PHYSICAL_ADDRESS=${address}
-COMPANY_NAME=${company}
-EOF
+        local json_str="{\"room_name\": \"$room\", \"physical_address\": \"$address\", \"company_name\": \"$company\"}"
+        python3 "${CONFIG_DIR}/config_manager.py" save_settings "$json_str"
+        load_settings
         
         echo -e "HTTP/1.1 302 Found\r"
         echo -e "Location: /admin?success=5\r"
@@ -1601,17 +1672,8 @@ EOF
         local new_type
         new_type=$(decode_val "$(echo "$query" | grep -oE 'type=[^&]*' | cut -d= -f2 || true)")
         if [[ -n "$new_type" ]]; then
-            local found=0
-            for t in "${DEVICE_TYPES[@]}"; do
-                if [[ "$t" == "$new_type" ]]; then
-                    found=1
-                    break
-                fi
-            done
-            if [[ $found -eq 0 ]]; then
-                echo "$new_type" >> "${DEVICE_TYPES_FILE}"
-                load_device_types
-            fi
+            python3 "${CONFIG_DIR}/config_manager.py" add_type "$new_type"
+            load_settings
         fi
         
         echo -e "HTTP/1.1 302 Found\r"
@@ -1623,10 +1685,8 @@ EOF
         local del_type
         del_type=$(decode_val "$(echo "$query" | grep -oE 'type=[^&]*' | cut -d= -f2 || true)")
         if [[ -n "$del_type" ]]; then
-            local escaped_type
-            escaped_type=$(echo "$del_type" | sed 's/[^^$*.[\]\\]/\\&/g')
-            sed -i "/^${escaped_type}$/d" "${DEVICE_TYPES_FILE}"
-            load_device_types
+            python3 "${CONFIG_DIR}/config_manager.py" del_type "$del_type"
+            load_settings
         fi
         
         echo -e "HTTP/1.1 302 Found\r"
@@ -1677,14 +1737,9 @@ run_webserver() {
     done
 }
 
-# Get node count for a configuration file
 get_node_count() {
     local env="$1"
-    local lower_env="${env,,}"
-    local file_name="${lower_env// /_}.conf"
-    local file_path="${CONFIG_DIR}/${file_name}"
-    [[ ! -f "${file_path}" ]] && echo 0 && return
-    grep -c '^' "${file_path}" || echo 0
+    python3 "${CONFIG_DIR}/config_manager.py" get_nodes "${env}" | grep -c '^' || echo 0
 }
 
 # Truncate strings to fit columns
@@ -1806,8 +1861,6 @@ redraw_tui() {
     # Populate Rows from configurations and statuses
     local env_name="${ENVIRONMENTS[$active_idx]}"
     local lower_env_name="${env_name,,}"
-    local file_name="${lower_env_name// /_}"
-    local conf_file="${CONFIG_DIR}/${file_name}.conf"
     local status_file="${STATUS_DIR}/${file_name}.status"
     
     declare -A statuses=()
@@ -1825,61 +1878,59 @@ redraw_tui() {
     local idx=0
     local has_rows=0
     
-    if [[ -f "${conf_file}" ]]; then
-        while IFS='|' read -r nid name addr dev_type fqdn || [[ -n "$nid" ]]; do
-            [[ -z "$nid" ]] && continue
-            has_rows=1
-            local stat="${statuses[$nid]:-PENDING}"
-            local lat="${latencies[$nid]:-N/A}"
-            local dsince="${down_sinces[$nid]:-}"
-            
-            local status_color=""
-            local status_str=""
-            if [[ "$stat" == "UP" ]]; then
-                status_color="\e[1;32m"
-                status_str="ONLINE"
-            elif [[ "$stat" == "DOWN" ]]; then
-                status_color="\e[1;31m"
-                status_str="ALERT"
-            else
-                status_color="\e[1;33m"
-                status_str="PENDING"
+    while IFS='|' read -r nid name addr dev_type fqdn || [[ -n "$nid" ]]; do
+        [[ -z "$nid" ]] && continue
+        has_rows=1
+        local stat="${statuses[$nid]:-PENDING}"
+        local lat="${latencies[$nid]:-N/A}"
+        local dsince="${down_sinces[$nid]:-}"
+        
+        local status_color=""
+        local status_str=""
+        if [[ "$stat" == "UP" ]]; then
+            status_color="\e[1;32m"
+            status_str="ONLINE"
+        elif [[ "$stat" == "DOWN" ]]; then
+            status_color="\e[1;31m"
+            status_str="ALERT"
+        else
+            status_color="\e[1;33m"
+            status_str="PENDING"
+        fi
+        
+        local r_id
+        r_id=$(trunc "$nid" $w_id)
+        local r_type
+        r_type=$(trunc "${dev_type:-Server}" $w_type)
+        local r_name
+        r_name=$(trunc "$name" $w_name)
+        local r_addr
+        r_addr=$(trunc "$addr" $w_addr)
+        local r_stat
+        r_stat=$(trunc "$status_str" $w_stat)
+        local r_lat
+        r_lat=$(trunc "$lat" $w_lat)
+        local r_dsince
+        r_dsince=$(trunc "$dsince" $w_dsince)
+        
+        # Print row with overlay highlight if selected (no vertical borders)
+        if [[ $idx -eq $sel_row ]]; then
+            local ptr_pad_str="$t_pad_str"
+            if [[ ${#t_pad_str} -gt 2 ]]; then
+                ptr_pad_str="${t_pad_str:0:-2}▶ "
             fi
-            
-            local r_id
-            r_id=$(trunc "$nid" $w_id)
-            local r_type
-            r_type=$(trunc "${dev_type:-Server}" $w_type)
-            local r_name
-            r_name=$(trunc "$name" $w_name)
-            local r_addr
-            r_addr=$(trunc "$addr" $w_addr)
-            local r_stat
-            r_stat=$(trunc "$status_str" $w_stat)
-            local r_lat
-            r_lat=$(trunc "$lat" $w_lat)
-            local r_dsince
-            r_dsince=$(trunc "$dsince" $w_dsince)
-            
-            # Print row with overlay highlight if selected (no vertical borders)
-            if [[ $idx -eq $sel_row ]]; then
-                local ptr_pad_str="$t_pad_str"
-                if [[ ${#t_pad_str} -gt 2 ]]; then
-                    ptr_pad_str="${t_pad_str:0:-2}▶ "
-                fi
-                echo -n "$ptr_pad_str"
-                printf '\e[7m  %-*s   %-*s   %-*s   %-*s   \e[0m%b\e[7m%-*s\e[0m\e[7m   %-*s   %-*s  \e[0m\n' \
-                    $((w_id-1)) "$r_id" $((w_type-1)) "$r_type" $((w_name-1)) "$r_name" $((w_addr-1)) "$r_addr" \
-                    "$status_color" $((w_stat-1)) "$r_stat" $((w_lat-1)) "$r_lat" $((w_dsince-1)) "$r_dsince"
-            else
-                echo -n "$t_pad_str"
-                printf '  %-*s   %-*s   %-*s   %-*s   %b%-*s\e[0m   %-*s   %-*s  \n' \
-                    $((w_id-1)) "$r_id" $((w_type-1)) "$r_type" $((w_name-1)) "$r_name" $((w_addr-1)) "$r_addr" \
-                    "$status_color" $((w_stat-1)) "$r_stat" $((w_lat-1)) "$r_lat" $((w_dsince-1)) "$r_dsince"
-            fi
-            idx=$((idx + 1))
-        done < "${conf_file}"
-    fi
+            echo -n "$ptr_pad_str"
+            printf '\e[7m  %-*s   %-*s   %-*s   %-*s   \e[0m%b\e[7m%-*s\e[0m\e[7m   %-*s   %-*s  \e[0m\n' \
+                $((w_id-1)) "$r_id" $((w_type-1)) "$r_type" $((w_name-1)) "$r_name" $((w_addr-1)) "$r_addr" \
+                "$status_color" $((w_stat-1)) "$r_stat" $((w_lat-1)) "$r_lat" $((w_dsince-1)) "$r_dsince"
+        else
+            echo -n "$t_pad_str"
+            printf '  %-*s   %-*s   %-*s   %-*s   %b%-*s\e[0m   %-*s   %-*s  \n' \
+                $((w_id-1)) "$r_id" $((w_type-1)) "$r_type" $((w_name-1)) "$r_name" $((w_addr-1)) "$r_addr" \
+                "$status_color" $((w_stat-1)) "$r_stat" $((w_lat-1)) "$r_lat" $((w_dsince-1)) "$r_dsince"
+        fi
+        idx=$((idx + 1))
+    done < <(python3 "${CONFIG_DIR}/config_manager.py" get_nodes "${env_name}")
     
     if [[ $has_rows -eq 0 ]]; then
         echo -n "$t_pad_str"
@@ -1959,16 +2010,10 @@ tui_delete_node() {
     local env="$1"
     local sel_row="$2"
     
-    local lower_env="${env,,}"
-    local file_name="${lower_env// /_}"
-    local conf_file="${CONFIG_DIR}/${file_name}.conf"
-    
-    [[ ! -f "${conf_file}" ]] && return
-    
     local target_id=""
     local target_name=""
     local idx=0
-    while IFS='|' read -r nid name addr dev_type || [[ -n "$nid" ]]; do
+    while IFS='|' read -r nid name addr dev_type fqdn || [[ -n "$nid" ]]; do
         [[ -z "$nid" ]] && continue
         if [[ $idx -eq $sel_row ]]; then
             target_id="$nid"
@@ -1976,7 +2021,7 @@ tui_delete_node() {
             break
         fi
         idx=$((idx + 1))
-    done < "${conf_file}"
+    done < <(python3 "${CONFIG_DIR}/config_manager.py" get_nodes "${env}")
     
     [[ -z "$target_id" ]] && return
     
@@ -2009,11 +2054,8 @@ tui_sweep_now() {
     
     local lower_env="${env,,}"
     local file_name="${lower_env// /_}"
-    local conf_file="${CONFIG_DIR}/${file_name}.conf"
     local status_file="${STATUS_DIR}/${file_name}.status"
     local tmp_status_file="${status_file}.tmp"
-    
-    [[ ! -f "${conf_file}" ]] && return
     
     declare -A prev_status=()
     declare -A prev_down_since=()
@@ -2063,7 +2105,7 @@ tui_sweep_now() {
             fi
         ) > "/tmp/terminus_ping_${file_name}_${nid}.res" 2>&1 &
         pids["$nid"]=$!
-    done < "${conf_file}"
+    done < <(python3 "${CONFIG_DIR}/config_manager.py" get_nodes "${env}")
     
     for nid in "${!pids[@]}"; do
         wait "${pids[$nid]}" 2>/dev/null || true
@@ -2087,7 +2129,7 @@ tui_sweep_now() {
             local new_h="${prev_h:1}0"
             echo "${nid}|DOWN|N/A|$(date +%H:%M:%S)|${new_h}" >> "${tmp_status_file}"
         fi
-    done < "${conf_file}"
+    done < <(python3 "${CONFIG_DIR}/config_manager.py" get_nodes "${env}")
     
     mv "${tmp_status_file}" "${status_file}"
 }

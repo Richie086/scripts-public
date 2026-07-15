@@ -7,9 +7,11 @@
 > <audio controls><source src="https://raw.githubusercontent.com/Richie086/scripts-public/main/projects/terminus/build-from-scratch/dev_workflow_guide.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
 > 
 > Alternatively, you can [download/play the audio file directly](https://raw.githubusercontent.com/Richie086/scripts-public/main/projects/terminus/build-from-scratch/dev_workflow_guide.mp3).
+>
+> *This guide is a companion to the deep-dive technical article: [The Rise of the Agentic Architect: Building Full-Scale Operations Tooling via AI Cohorts on extremesarcasm.org](https://extremesarcasm.org/the-rise-of-the-agentic-architect-building-full-scale-operations-tooling-via-ai-cohorts).*
 
 > [!IMPORTANT]
-> **The Future of IT & Technology**: The integration of agentic planning commands like `/plan` and `/grill-me` represents a fundamental paradigm shift in software engineering. By partnering with an AI agent, developers can take any conceptual idea and translate it into a production-ready, highly optimized, and robust asset—whether it is a complex web application, a local bash script, a PowerShell automation, Python backend logic, Ruby scripts, Go binaries, or Terraform configurations. **With this workflow, literally anything is possible.**
+> **The Future of IT & Technology**: The integration of agentic planning commands like `/plan` and `/grill-me` represents a fundamental paradigm shift in software engineering. By partnering with an AI agent, non-developers can take any conceptual idea and translate it into a production-ready, highly optimized, and robust asset—whether it is a complex web application, a local bash script, a PowerShell automation, Python backend logic, Ruby scripts, Go binaries, or Terraform configurations. **With this workflow, literally anything is possible.**
 
 ---
 

@@ -1,8 +1,8 @@
-The landscape of Information Technology and software engineering is undergoing its most radical transformation since the invention of the compiler. We are leaving behind the era of the solo developer typing out logic line-by-line, fighting IDE configurations, and digging through outdated forum answers. Instead, we are entering the era of the **Agentic Cohort**—a collaborative partnership between human intent and autonomous AI agents. 
+The landscape of Information Technology and software engineering is undergoing its most radical transformation since the invention of the compiler. We are leaving behind the era of the solo non-developer typing out logic line-by-line, fighting IDE configurations, and digging through outdated forum answers. Instead, we are entering the era of the **Agentic Cohort**—a collaborative partnership between human intent and autonomous AI agents. 
 
-By leveraging agentic tools like Google's Antigravity IDE, developers can take any conceptual spark and turn it into a production-grade, highly optimized, and robust software product. This is not limited to simple scripts. Whether you are building an enterprise web dashboard, a high-concurrency monitoring daemon, a complex PowerShell automation, bash utility scripts, Python backend logic, Ruby scraping programs, Go binaries, or Terraform configurations, the combination of interactive planning and structural scaffolding makes **literally anything possible**.
+By leveraging agentic tools like Google's Antigravity IDE, non-developers can take any conceptual spark and turn it into a production-grade, highly optimized, and robust software product. This is not limited to simple scripts. Whether you are building an enterprise web dashboard, a high-concurrency monitoring daemon, a complex PowerShell automation, bash utility scripts, Python backend logic, Ruby scraping programs, Go binaries, or Terraform configurations, the combination of interactive planning and structural scaffolding makes **literally anything possible**.
 
-This article walks through the complete lifecycle of developing and deploying a standalone network monitor—codenamed **Terminus**—onto a production deployment environment (targeting Linux, macOS, and Windows with WSL). We will explore each phase of this journey in deep detail, illustrating the cross-platform interactions with Antigravity IDE, to demonstrate why this represents the future of IT.
+This article walks through the complete lifecycle of developing and deploying a standalone network monitor—codenamed **Terminus**—onto a production deployment environment (targeting Linux, macOS, and Windows with WSL). We will explore each phase of this journey in deep detail, illustrating the cross-platform interactions with Antigravity IDE, to demonstrate why this represents the future of IT. (For a step-by-step developer guide showing exactly how to execute this cross-platform workflow in the IDE, see the companion [Antigravity Cross-Platform Development Workflow Guide on GitHub](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/dev_workflow_guide.md)).
 
 ---
 
@@ -14,7 +14,7 @@ As networks grew, configuration management systems (Ansible, Puppet, Chef, Terra
 
 Generative AI changed this by writing code snippets. However, simple code generators suffer from "hallucinations" and a lack of local context. They do not know what files are open in your IDE, whether your local port 8085 is blocked, or if your Ubuntu kernel has security restrictions like `ptrace_scope` enabled.
 
-**Agentic Engineering** solves this. The AI is no longer a passive autocomplete assistant. It is an active agent that runs in your workspace, inspects your local environment, executes test scripts to verify its own code, reads log files to diagnose crashes, and updates documentation in real-time. The developer transitions from a line-by-line coder to an **Architect**, managing the agent's plans, constraints, and operational goals.
+**Agentic Engineering** solves this. The AI is no longer a passive autocomplete assistant. It is an active agent that runs in your workspace, inspects your local environment, executes test scripts to verify its own code, reads log files to diagnose crashes, and updates documentation in real-time. The non-developer transitions from a line-by-line coder to an **Architect**, managing the agent's plans, constraints, and operational goals.
 
 ---
 
@@ -106,7 +106,7 @@ graph TD
     B -->|Reads status| F
 ```
 
-The plan is rendered in the IDE's Auxiliary Pane. Once the developer reviews the file additions and clicks **Proceed**, the agent begins executing the steps.
+The plan is rendered in the IDE's Auxiliary Pane. Once the non-developer reviews the file additions and clicks **Proceed**, the agent begins executing the steps.
 
 ---
 
@@ -955,7 +955,7 @@ When deploying to Linux, macOS, or WSL environments, you may encounter the follo
 
 The development of the Terminus Operations Monitor demonstrates the immense power of agentic workflows. By integrating planning commands like `/grill-me` and `/plan` at the start of your project, you eliminate structural errors and lay the foundation for **AI self-documentation**.
 
-With this approach, developers are no longer constrained by the syntax of a specific language or the complexity of a target system. You can build advanced automations in Bash, PowerShell, Python, Ruby, or Go. **Anything is possible.** The AI handles the syntax and scaffolding, while you direct the architecture and goals. 
+With this approach, non-developers are no longer constrained by the syntax of a specific language or the complexity of a target system. You can build advanced automations in Bash, PowerShell, Python, Ruby, or Go. **Anything is possible.** The AI handles the syntax and scaffolding, while you direct the architecture and goals. 
 
 Standardizing on this collaborative workflow helps prevent tribal knowledge by ensuring that the AI does the documentation natively in the repository. It bridges the gap between development and operations (DevOps alignment), reduces setup onboarding cycles for new team members, and alters the speed of continuous integration and continuous delivery (CI/CD) pipelines. By incorporating this strategy, software engineering teams can accelerate development timelines by a factor of 10 while improving documentation coverage, testing reliability, and security practices across all systems. This translates into tangible business advantages, reduced development costs, and highly reliable, resilient infrastructures.
 

@@ -270,9 +270,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **e56fa7b** - 2026-07-15 11:09:03 - docs(terminus): Refactor dev guide to focus on Windows Antigravity IDE and WSL
 - **36f19f9** - 2026-07-15 11:06:27 - docs(terminus): Add step-by-step development and deployment guide
 - **d4d50b3** - 2026-07-15 11:01:53 - feat(terminus): Add build-from-scratch master prompt and documentation
 - **86c2c33** - 2026-07-15 10:49:48 - feat(terminus): Align TUI features 1:1 with Web UI (sparklines, specs, config menu)
 - **c598560** - 2026-07-15 06:59:13 - feat(terminus): Centralize node management (add/delete) on admin settings page
-- **371cf7a** - 2026-07-15 06:51:38 - feat(terminus): Migrate compiled Bash script to pure Python 3 codebase
 <!-- AUTO-GENERATED COMMITS END -->

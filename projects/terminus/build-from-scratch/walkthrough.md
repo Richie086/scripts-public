@@ -1,6 +1,6 @@
 # Walkthrough - Terminus Master Prompt, IDE Workflow Guide, Blog Post & Voiceover
 
-We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE** to build and deploy to **production environments** (Linux, macOS, and Windows with WSL), published a deep-dive technical article directly to `extremesarcasm.org` containing the full text, generated a high-quality voiceover of the workflow guide using ElevenLabs, cross-linked both resources while reframing the text for non-developers, embedded visual screenshots of both the TUI and Web dashboard interfaces, and regenerated the audio voiceover to match these changes.
+We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE** to build and deploy to **production environments** (Linux, macOS, and Windows with WSL), published a deep-dive technical article directly to `extremesarcasm.org` containing the full text, generated a high-quality voiceover of the workflow guide using ElevenLabs, cross-linked both resources while reframing the text for non-developers, embedded visual screenshots of both the TUI and Web dashboard interfaces, and published the article to WordPress with a status of `draft`.
 
 ---
 
@@ -35,7 +35,7 @@ We have successfully created a master prompt that will allow another assistant o
   - Executed the taxonomy suggester to extract categories and tags.
   - Staged, diff-scanned, committed, and merged the file locally.
   - Pushed the `main` branch to the remote repository on GitHub.
-  - Successfully triggered the WordPress webhook with the complete markdown content body.
+  - Successfully triggered the WordPress webhook with the complete markdown content body with status set to `draft`.
 - **Created ElevenLabs Voiceover**:
   - Queried ElevenLabs accounts voices list to fetch active cloned voices, matching the Voice ID `hh2saMRyaXl8c0mhWN6p` (custom voice 'Richard').
   - Developed a zero-dependency script at [generate_voiceover.py](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/generate_voiceover.py) that reads `dev_workflow_guide.md`, cleans markdown formatting, skips complex code segments and diagrams, and queries ElevenLabs API in chunks.
@@ -61,9 +61,9 @@ The generated prompt covers:
 We verified that the files were committed and pushed successfully:
 ```bash
 $ git log -n 4 --oneline
-b7f19f5 (HEAD -> main, origin/main) docs(terminus): Regenerate voiceover audio to match cross-platform guide updates [auto-doc]
+26e9993 (HEAD -> main, origin/main) docs(terminus): Sync walkthrough with regenerated audio changes [auto-doc]
+b7f19f5 docs(terminus): Regenerate voiceover audio to match cross-platform guide updates [auto-doc]
 0236466 docs(terminus): Sync walkthrough with screenshot integrations [auto-doc]
-82536ef docs: Embed TUI and Web interface mockup screenshots [auto-doc]
 ```
 
 We verified that the WordPress webhook returned success:

@@ -1,6 +1,6 @@
 # Walkthrough - Terminus Master Prompt, IDE Workflow Guide, Blog Post & Voiceover
 
-We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE on Windows** to build and deploy to **WSL Ubuntu**, published a deep-dive technical article to `extremesarcasm.org` detailing this agentic lifecycle, and generated a high-quality voiceover of the workflow guide using ElevenLabs.
+We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE on Windows** to build and deploy to **WSL Ubuntu**, published a deep-dive technical article directly to `extremesarcasm.org` containing the full text, and generated a high-quality voiceover of the workflow guide using ElevenLabs.
 
 ---
 
@@ -19,10 +19,11 @@ We have successfully created a master prompt that will allow another assistant o
   - Copied `master_prompt.md`, `implementation_plan.md`, `walkthrough.md`, and `dev_workflow_guide.md` to this repository folder.
 - **Published WordPress Blog Post on extremesarcasm.org**:
   - Drafted a 5,000+ word deep-dive article detailing the entire development process (covering planning commands, self-documentation bootstraps, TUI input parsing, parallel ping daemon threads, and Nginx settings) inside [ai-web-app-development-process.md](file:///home/rtroiano/repositories/scripts-public/scripts-public/wordpress/ai-web-app-development-process.md).
+  - Linked to the actual [Terminus Development Walkthrough on GitHub](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/walkthrough.md) in the text.
   - Executed the taxonomy suggester to extract categories and tags.
   - Staged, diff-scanned, committed, and merged the file locally.
   - Pushed the `main` branch to the remote repository on GitHub.
-  - Successfully triggered the WordPress webhook using `publish_wordpress_post.py`.
+  - Successfully triggered the WordPress webhook with the complete markdown content body (no shortcodes used).
 - **Created ElevenLabs Voiceover**:
   - Queried ElevenLabs accounts voices list to fetch active cloned voices, matching the Voice ID `hh2saMRyaXl8c0mhWN6p` (custom voice 'Richard').
   - Developed a zero-dependency script at [generate_voiceover.py](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/generate_voiceover.py) that reads `dev_workflow_guide.md`, cleans markdown formatting, skips complex code segments and diagrams, and queries ElevenLabs API in chunks.
@@ -48,9 +49,9 @@ The generated prompt covers:
 We verified that the files were committed and pushed successfully:
 ```bash
 $ git log -n 4 --oneline
-2e6ff3f (HEAD -> main, origin/main) Add generate_voiceover script and dev_workflow_guide voiceover audio [auto-doc]
-785a974 docs(terminus): Update walkthrough documentation [auto-doc]
-0b00351 Add wordpress blog post: ai-web-app-development-process [auto-doc]
+a5dac1e (HEAD -> main, origin/main) docs(blog): Link walkthrough file in Section 2 [auto-doc]
+0f04052 docs(terminus): Sync walkthrough with voiceover changes [auto-doc]
+2e6ff3f Add generate_voiceover script and dev_workflow_guide voiceover audio [auto-doc]
 ```
 
 We verified that the WordPress webhook returned success:

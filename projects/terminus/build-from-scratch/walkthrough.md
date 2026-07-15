@@ -1,6 +1,6 @@
-# Walkthrough - Terminus Master Prompt, IDE Workflow Guide & Blog Post
+# Walkthrough - Terminus Master Prompt, IDE Workflow Guide, Blog Post & Voiceover
 
-We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE on Windows** to build and deploy to **WSL Ubuntu**, and published a deep-dive technical article to `extremesarcasm.org` detailing this agentic lifecycle.
+We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE on Windows** to build and deploy to **WSL Ubuntu**, published a deep-dive technical article to `extremesarcasm.org` detailing this agentic lifecycle, and generated a high-quality voiceover of the workflow guide using ElevenLabs.
 
 ---
 
@@ -11,7 +11,7 @@ We have successfully created a master prompt that will allow another assistant o
   - Analyzed Nginx reverse-proxy setup, Basic Authentication overrides, and metrics page routing `/nginx_status_raw`.
   - Analyzed systemd service requirements and helper files.
   - Examined the local `build.sh` script and the automated `deploy.sh` script.
-- **Created Implementation Plans**: Documented goals and verification steps in [implementation_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/implementation_plan.md), [dev_guide_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/dev_guide_plan.md), [guide_update_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/guide_update_plan.md), [manifesto_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/manifesto_plan.md), and [blog_post_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/blog_post_plan.md).
+- **Created Implementation Plans**: Documented goals and verification steps in [implementation_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/implementation_plan.md), [dev_guide_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/dev_guide_plan.md), [guide_update_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/guide_update_plan.md), [manifesto_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/manifesto_plan.md), [blog_post_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/blog_post_plan.md), and [voiceover_plan.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/voiceover_plan.md).
 - **Generated Master Prompt**: Compiled all instructions, structures, parameters, UI layouts, colors, configurations, and scripts into a master copy-paste prompt file at [master_prompt.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/master_prompt.md).
 - **Wrote Windows Antigravity IDE Workflow Guide**: Created a comprehensive guide explaining the software development cycle (Ideation, Design, Scaffolding, Code Iteration, Testing, Security Config, WSL/Ubuntu Deployment) from the perspective of using the Antigravity IDE on Windows, emphasizing planning slash commands and self-documenting workflows at [dev_workflow_guide.md](file:///home/rtroiano/.gemini/antigravity-cli/brain/509504ec-575a-4da1-a4c7-73c81352d869/dev_workflow_guide.md).
 - **Saved Files to Repository**:
@@ -23,6 +23,11 @@ We have successfully created a master prompt that will allow another assistant o
   - Staged, diff-scanned, committed, and merged the file locally.
   - Pushed the `main` branch to the remote repository on GitHub.
   - Successfully triggered the WordPress webhook using `publish_wordpress_post.py`.
+- **Created ElevenLabs Voiceover**:
+  - Queried ElevenLabs accounts voices list to fetch active cloned voices, matching the Voice ID `hh2saMRyaXl8c0mhWN6p` (custom voice 'Richard').
+  - Developed a zero-dependency script at [generate_voiceover.py](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/generate_voiceover.py) that reads `dev_workflow_guide.md`, cleans markdown formatting, skips complex code segments and diagrams, and queries ElevenLabs API in chunks.
+  - Executed the script to generate [dev_workflow_guide.mp3](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/dev_workflow_guide.mp3) (6.3MB, fully synthesized voiceover).
+  - Committed and pushed the voiceover script and binary audio file to GitHub (`origin/main`).
 
 ---
 
@@ -43,8 +48,9 @@ The generated prompt covers:
 We verified that the files were committed and pushed successfully:
 ```bash
 $ git log -n 4 --oneline
-0b00351 (HEAD -> main, origin/main) Add wordpress blog post: ai-web-app-development-process [auto-doc]
-20ebe7f docs: update commit log in README [auto-doc]
+2e6ff3f (HEAD -> main, origin/main) Add generate_voiceover script and dev_workflow_guide voiceover audio [auto-doc]
+785a974 docs(terminus): Update walkthrough documentation [auto-doc]
+0b00351 Add wordpress blog post: ai-web-app-development-process [auto-doc]
 ```
 
 We verified that the WordPress webhook returned success:

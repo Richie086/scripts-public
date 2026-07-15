@@ -2,7 +2,7 @@ The landscape of Information Technology and software engineering is undergoing i
 
 By leveraging agentic tools like Google's Antigravity IDE, developers can take any conceptual spark and turn it into a production-grade, highly optimized, and robust software product. This is not limited to simple scripts. Whether you are building an enterprise web dashboard, a high-concurrency monitoring daemon, a complex PowerShell automation, bash utility scripts, Python backend logic, Ruby scraping programs, Go binaries, or Terraform configurations, the combination of interactive planning and structural scaffolding makes **literally anything possible**.
 
-This article walks through the complete lifecycle of developing and deploying a standalone network monitor—codenamed **Terminus**—onto a WSL Ubuntu environment. We will explore each phase of this journey in deep detail, illustrating the specific interactions with Antigravity IDE, to demonstrate why this represents the future of IT.
+This article walks through the complete lifecycle of developing and deploying a standalone network monitor—codenamed **Terminus**—onto a production deployment environment (targeting Linux, macOS, and Windows with WSL). We will explore each phase of this journey in deep detail, illustrating the cross-platform interactions with Antigravity IDE, to demonstrate why this represents the future of IT.
 
 ---
 
@@ -38,7 +38,7 @@ Here is a recommended template for the initial `implementation_plan.md`:
 ## 2. Technical Constraints
 - Language: Python 3 / Bash / PowerShell
 - Dependency Rules: No external packages
-- OS Target: WSL Ubuntu 22.04
+- OS Target: Linux (Ubuntu/Debian), macOS, or Windows (via WSL/PowerShell)
 
 ## 3. Proposed Changes
 - [File A]: [Purpose]
@@ -825,19 +825,21 @@ proxy_buffering off;
 ```
 This forces Nginx to immediately send responses to the client as soon as they are received from the Python web server, enabling real-time terminal output rendering.
 
-### B. Systemd Daemonization & WSL Port Forwarding
-Because WSL Ubuntu is a lightweight subsystem, it runs inside a virtual network. However, WSL automatically forwards loopback binds (`127.0.0.1`) to the Windows host.
-When you run the web server on `127.0.0.1:8085` inside WSL and proxy it via Nginx on port `80`, you can access the application on Windows by navigating to `http://localhost/`.
+### B. Daemonization & Port Forwarding
+For production deployments, the background daemon and web services are run as persistent services. On Linux and WSL, this is managed via systemd.
 
-If Systemd is not enabled in your WSL configuration, edit `/etc/wsl.conf`:
-```ini
-[boot]
-systemd=true
-```
-Then restart WSL in PowerShell:
-```powershell
-wsl --shutdown
-```
+> [!NOTE]
+> **WSL Port Forwarding & Services**: Because WSL is a lightweight subsystem running in a virtual network, it automatically forwards loopback binds (`127.0.0.1`) to the Windows host. When you run the web server on `127.0.0.1:8085` inside WSL and proxy it via Nginx on port `80`, you can access the application on Windows by navigating to `http://localhost/`.
+>
+> If systemd is not enabled in your WSL configuration, edit `/etc/wsl.conf`:
+> ```ini
+> [boot]
+> systemd=true
+> ```
+> Then restart WSL from Windows PowerShell:
+> ```powershell
+> wsl --shutdown
+> ```
 
 ---
 
@@ -938,7 +940,7 @@ echo "============================================="
 
 ## 12. Troubleshooting Guide
 
-When deploying to WSL Ubuntu, you may encounter the following common issues:
+When deploying to Linux, macOS, or WSL environments, you may encounter the following common issues:
 
 | Issue | Root Cause | Solution |
 | :--- | :--- | :--- |

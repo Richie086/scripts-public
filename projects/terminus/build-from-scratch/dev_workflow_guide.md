@@ -1,5 +1,5 @@
-# Development Workflow Guide: Idea to WSL Ubuntu Deployment
-*A step by step guide for non developers - Building literally anything with Google Antigravity*
+# Cross-Platform Development Workflow Guide: Idea to Production Deployment
+*A step-by-step guide for non-developers - Building literally anything with Google Antigravity on Linux, macOS, and Windows*
 
 > [!NOTE]
 > **Hey, want to hear something terrifying?** Here is a recording of me reading this document. Is it me? Is it AI? How hard was this to do? Did you spend hours writing complex Python and Bash scripts to do this?
@@ -69,7 +69,10 @@ Once the constraints are clear, the `/plan` command turns your answers into a co
 
 ## Step 4: Building the Scaffolding
 
-Set up your repository structure. Connect your Windows Antigravity IDE to WSL (`File > Open Folder...` and enter `\\wsl$\Ubuntu\home\username\projects\terminus`).
+Set up your repository structure. Open your project folder in the Antigravity IDE (`File > Open Folder...`).
+
+> [!NOTE]
+> **Cross-Platform Scaffolding Note**: If you are developing on Windows and targeting a local WSL environment, you can open the directory using the WSL network path (e.g., `\\wsl$\Ubuntu\home\username\projects\terminus`). On Linux and macOS, simply open the local workspace directory directly.
 
 The agent will automatically configure the scaffolding files:
 - `terminus.py` (CLI entry point, web server mapping, and TUI loop).
@@ -84,10 +87,10 @@ Use Antigravity's rich editing modalities to build out logic in your chosen lang
 
 ### 1. Visual Diff Overlays
 When the agent writes logic, the editor will display code changes in red and green.
-- **Windows Shortcut**: Hover over the diff and click **Checkmark (Accept)** or **X (Reject)**.
+- **Diff Actions**: Hover over the visual diff overlay and click the checkmark button to accept or the cross button to reject. Keyboard shortcut: `Alt + A` (or `Option + A` on macOS) to accept, and `Alt + R` (or `Option + R` on macOS) to reject.
 
-### 2. Inline Commands (`Ctrl` + `I` on Windows)
-Highlight any block of code and press `Ctrl` + `I` to make targeted changes.
+### 2. Inline Commands (`Ctrl + I` or `Cmd + I` on macOS)
+Highlight any block of code and press `Ctrl + I` (`Cmd + I` on macOS) to make targeted changes.
 - **Use Case (PowerShell/Python/Bash)**: Highlight a function and type: `Add standard logger.info hooks and trace exception blocks.`
 
 ### 3. Inline Code Lenses
@@ -95,16 +98,16 @@ Click **[Write Tests]** appearing directly above code symbols (classes, function
 
 ### 4. Passive Autocomplete (Tab Completion)
 - Press <kbd>Tab</kbd> to accept predictive autocomplete blocks.
-- Press <kbd>Ctrl</kbd> + <kbd>→</kbd> to accept predictions word-by-word.
+- Press <kbd>Ctrl + →</kbd> (or <kbd>Cmd + →</kbd> on macOS) to accept predictions word-by-word.
 
 ---
 
 ## Step 6: Testing & Diagnostic Auto-Fix
 
-Verify execution in your integrated WSL Ubuntu terminal panel (accessible via <kbd>Ctrl</kbd> + <kbd>`</kbd>).
+Verify execution in your integrated terminal panel (accessible via <kbd>Ctrl + `</kbd> or <kbd>Cmd + `</kbd> on macOS).
 
 ### 1. Compile Checks
-Run your validation scripts inside the WSL bash shell:
+Run your validation scripts inside your shell (e.g. Bash on Linux/macOS/WSL, or PowerShell/cmd on Windows):
 ```bash
 ./build.sh
 ```
@@ -117,11 +120,11 @@ If any syntax, type-check, or test error occurs, it will appear in the IDE **Pro
 
 ## Step 7: Production Configuration & Deployment
 
-Deploy your tool directly to WSL Ubuntu or your target remote server.
+Deploy your tool directly to your local development environment or a target remote server.
 
 ### 1. Provisioning Services
 The agent will write:
-- **Systemd service configurations** to run background sweeper daemons.
+- **Service configurations** (e.g. Systemd units on Linux/WSL, or Launchd daemons on macOS) to run background sweeper daemons.
 - **Nginx configuration blocks** mapping proxy locations and password protection.
 
 ### 2. Running the Deployment
@@ -130,9 +133,12 @@ In the terminal, run your deploy script:
 ./deploy.sh
 ```
 
-### 3. Verification from Windows
-1. Open a web browser on Windows.
+### 3. Verification
+1. Open a web browser.
 2. Navigate to `http://localhost/` (public dashboard) and `http://localhost/admin` (which will trigger Nginx Basic Authentication prompts).
+
+> [!NOTE]
+> **Cross-Platform Verification Note**: If you are using a local VM or remote server, replace `localhost` with the server's IP address or domain name. If you are developing on Windows using WSL, WSL automatically forwards loopback bindings (`127.0.0.1`) so that `localhost` works natively in your Windows web browser.
 3. Monitor your active processes directly inside the IDE's **Background Tasks** and **Auxiliary Pane** tabs.
 4. Stream logs from the service unit to diagnose binding failures:
    ```bash

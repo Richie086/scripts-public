@@ -1,252 +1,155 @@
-# Software Development Workflow Guide: Idea to WSL Ubuntu Deployment
-*Case Study: Terminus Network Operations Monitor*
+# Development Workflow Guide: Idea to WSL Ubuntu Deployment
+*A Developer's Manual for Google Antigravity IDE on Windows*
 
-This guide walks a developer through the entire software development lifecycle—from a raw concept to an automated, production-grade deployment on a WSL Ubuntu or Linux server. We will use the **Terminus Network Operations Monitor** (a zero-dependency, parallel ping sweeper with a TUI, Web Dashboard, and Admin settings) as our blueprint.
+This guide walks through the complete lifecycle of developing and deploying a standalone network monitor (**Terminus**) to a WSL Ubuntu environment. It is written specifically from the perspective of a developer working inside the **Google Antigravity IDE on Windows**, showing how to interact with the AI assistant at each stage.
 
 ---
 
 ```mermaid
 graph TD
-    A[Phase 1: Idea & Concept] --> B[Phase 2: Architectural Design]
-    B --> C[Phase 3: Scaffolding & Setup]
-    C --> D[Phase 4: Iterative Code Development]
-    D --> E[Phase 5: Local Testing & Validation]
-    E --> F[Phase 6: Infrastructure & Security Config]
-    F --> G[Phase 7: Automated Deployment to WSL/Ubuntu]
+    A[Phase 1: Setting up Workspace & Ideation] -->|Sidebar Chat & @ Mentions| B[Phase 2: Collaborative Planning]
+    B -->|Slash Commands: /plan & /grill-me| C[Phase 3: Scaffolding & Setup]
+    C -->|Visual Diffs & Tab Autocomplete| D[Phase 4: Iterative Development]
+    D -->|Inline Commands Ctrl+I & Code Lenses| E[Phase 5: Local Testing & Auto-Fix]
+    E -->|Diagnostic Auto-Fix & WSL Terminal| F[Phase 6: Infrastructure & Security Config]
+    F -->|Systemd & Nginx Provisioning| G[Phase 7: WSL Ubuntu Verification]
 ```
 
 ---
 
-## Phase 1: Conceptualization & Ideation
+## Phase 1: Setting up Workspace & Ideation
 
-Before writing any code, clearly define **what** you are building, **who** it is for, and **why** it needs to exist. 
+Before starting, map your development workspace so the Windows-based Antigravity IDE can communicate directly with your WSL Ubuntu subsystem.
 
-### 1. Identify the Problem
-System administrators need to monitor network devices (servers, routers, switches) across multiple network environments (e.g. Tenants/VLANs) without installing heavy agent-based software or setting up complex enterprise suites like Prometheus/Grafana.
+### 1. Connect Windows IDE to WSL
+1. Start your WSL Ubuntu instance on Windows.
+2. Open **Antigravity IDE** on Windows.
+3. Click **File > Open Folder...** and navigate to your WSL mount path (e.g. `\\wsl$\Ubuntu\home\username\projects\terminus`). 
+4. The Antigravity IDE will load the folder. Since it's built on VS Code, it will automatically connect its terminal shell to the WSL Ubuntu bash instance.
 
-### 2. Define Features & Design Goals
-- **Zero-Dependency**: Run on a standard Python 3 interpreter without requiring external PyPI packages.
-- **Multimodal Interface**:
-  - **Daemon**: Runs constantly in the background doing fast sweeps.
-  - **TUI (Terminal User Interface)**: For sysadmins working inside ssh consoles.
-  - **Web Dashboard**: A styled operations GUI accessible via browser.
-- **Decoupled Architecture**: Let the background daemon write logs to disk, and the web/TUI interfaces read logs independently. This prevents web page loads from blocking pings.
+### 2. Conceptualization in the Sidebar Chat
+1. Open the **Sidebar Chat** on the left side of the IDE.
+2. Formulate your concept and pass it to the agent.
+3. **How to Interact**:
+   - Ask: `"I want to build a standalone network monitor called Terminus that does parallel ping sweeps across environments. What architecture should we use?"`
+   - Use **@ Mentions**: If you have reference scripts or rules, type `@` in the chat input. Select `@Files` and choose files from your workspace (e.g. `@README.md` or `@rules.txt`) to attach them directly as context.
 
 ---
 
-## Phase 2: Architectural Design & Planning
+## Phase 2: Collaborative Planning
 
-Plan your technical layers, data models, IPC (inter-process communication), and security configurations.
+Use Antigravity's structured planning workflows to map out components and file paths.
 
-### 1. Data Models & Serialization
-Where and how will node configuration and status be saved?
-- **Configuration (`config.yaml`)**: Save parameters (tab names, sweep speeds, device lists) in YAML.
-- **Status Files (`.status`)**: Track ping success. Use a simple, space-efficient, flat text file:
-  `NodeID | Status (UP/DOWN) | Avg RTT | Down Since Time | 24-Point History Sparkline`
-  Example: `1|UP|4.2 ms||.......................1`
+### 1. Trigger Planning Mode
+1. In the Sidebar Chat, type `/plan` followed by your request:
+   `/plan Outline the modules, configuration formats, and database-less storage we need for Terminus.`
+2. The agent will analyze your workspace and generate an **Implementation Plan** as a markdown artifact (`implementation_plan.md`).
+3. You can also type `/grill-me` if you want the agent to run an interactive interview to align on design decisions (e.g. choosing YAML over JSON, defining thread pools).
 
-### 2. Inter-Process Communication (IPC)
-Since we want the Web UI, TUI, and Daemon to run as separate processes without an active database:
-- State is synchronized purely through **filesystem files** (`~/.config/terminus/`).
-- To make updates safe, write status updates to `.tmp` files first, then execute an atomic rename (`os.replace()`) to avoid reading partially written data.
-- Manage service lifecycles via flat `.pid` files (`daemon.pid`, `web.pid`).
-
-### 3. Concurrency
-Pinging dozens of hosts sequentially is slow. We must run pings concurrently using a Python `ThreadPoolExecutor` targeting a pool of workers.
+### 2. Reviewing the Artifact in the IDE
+- The plan will render inside the IDE's **Auxiliary Pane** (or HTML pane).
+- You can review the proposed file changes, mermaid diagrams, and step-by-step goals.
+- Click **Proceed** or approve the plan in chat to unlock file creation permissions for the agent.
 
 ---
 
 ## Phase 3: Building the Scaffolding
 
-Set up your repository structure. Scaffolding ensures your project starts organized and provides immediate syntactical feedback.
+Let the agent prepare the folder layout and basic scripting wrappers.
 
-### 1. Directory Scaffolding
-Create the directory structure:
-```bash
-mkdir -p my-app/{projects,scripts,docs}
-cd my-app
-```
+### 1. File Provisioning via Agent
+The agent will automatically create the directories and files:
+- `terminus.py` (empty script template with argument parser)
+- `build.sh` (strict bash options syntax checker)
+- `.agents/rules.txt` (local prompt variables for this workspace)
 
-### 2. Entrypoint Skeleton (`terminus.py`)
-Start with a skeletal Python script that parses flags:
-```python
-#!/usr/bin/env python3
-import sys
-
-def run_daemon():
-    print("Running sweeper daemon...")
-
-def run_web():
-    print("Running web server...")
-
-def run_tui():
-    print("Running interactive TUI...")
-
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        arg = sys.argv[1]
-        if arg == "--daemon": run_daemon()
-        elif arg == "--web": run_web()
-        else: print("Unknown argument.")
-    else:
-        run_tui()
-```
-
-### 3. Validation Scaffolding (`build.sh`)
-Create a validation script to compile the syntax and set execution rights:
-```bash
-#!/usr/bin/env bash
-# Strict shell rules
-set -euo pipefail
-
-echo "Checking Python syntax..."
-python3 -m py_compile terminus.py
-chmod +x terminus.py
-```
+### 2. Reviewing File Changes
+- As the agent creates files, the **Files Changed** section in the IDE sidebar will show the file list.
+- Click on any file name to view the diff in the editor canvas.
 
 ---
 
-## Phase 4: Iterative Code Development
+## Phase 4: Iterative Development & AI Modalities
 
-Build the components in logical, dependency-first order.
+Work collaboratively with the AI to implement core logic. The Antigravity IDE provides multiple modalities to speed up coding:
 
-### Step 1: Storage Layer
-Write functions to read/write `config.yaml` and the flat status log files. Always provide default fallbacks if configuration files do not exist or are corrupted.
+### 1. Agent Mode (Sidebar) for Core Logic
+Ask the sidebar agent to generate the main components:
+- `"Implement the load_yaml and save_yaml functions using pyyaml."`
+- `"Add the run_sweeper_daemon loop using ThreadPoolExecutor to run ping commands in parallel."`
 
-### Step 2: The Sweeper Daemon
-Implement the background pinger loop.
-1. Run a loop that fetches settings (ping count, frequency).
-2. Execute a standard OS shell ping via `subprocess.run(["ping", "-c", "5", ...], capture_output=True)`.
-3. Use regular expressions to extract the average latency from the stdout.
-4. Read the previous status history string, shift it left, append `1` (success) or `0` (failure), and write the updated state.
-5. Sleep for the configured interval.
+As the agent writes code:
+- **Visual Diff Overlays**: The IDE will show proposed code insertions in green and deletions in red.
+- **Accepting Changes**: Hover over the diff in the editor canvas and click the **Checkmark (Accept)** button to merge, or **X (Reject)** to revert.
 
-### Step 3: The HTML Web Server
-Implement the HTTP server using Python's built-in `http.server.BaseHTTPRequestHandler`.
-1. **Routing**: Parse `self.path`. Bind `/` to the public dashboard, `/admin` to settings, and `/add`/`/delete` to settings updates.
-2. **HTML Templates**: Return multi-line f-strings containing HTML/CSS.
-3. **Dracula/Nord Theme**: Style using rich CSS variables directly inside `<style>` tags. Avoid raw standard browser components. Use rounded corners, beveled panels, and custom statuses badges.
-4. **Sparkline rendering**: Iterate over the 24-character status history string and output colored blocks (`■` for green/online, `■` for red/alert) using inline styles.
+### 2. Inline Commands (`Ctrl` + `I` on Windows)
+For quick, local edits, highlight a block of code and press `Ctrl` + `I`.
+- **Use Case**: Highlight a function and type: `Add error handling for socket.gaierror and log it.`
+- A floating window will open at your cursor, apply the change, and present a diff inline for immediate review.
 
-### Step 4: The Terminal User Interface (TUI)
-Create a console TUI without external dependencies like `curses` to keep it pure and lightweight.
-1. **ANSI Escape Codes**: Use `\033[H\033[J` to clear the terminal and position the cursor. Use escape codes for coloring.
-2. **Raw Keyboard Input**: Use `termios` and `tty` to configure standard input to raw mode, and check keys with `select.select([sys.stdin], ...)` to read arrow keys and keystrokes instantly without needing the Enter key.
-3. **Layout Rendering**: Draw boxes and borders using block line characters. Display dynamic host metrics pulled directly from `/proc/cpuinfo` and `/proc/meminfo`.
+### 3. Inline Code Lenses
+- Look at the top of your classes or functions. Action lenses like **[Refactor]**, **[Write Tests]**, and **[Explain]** will appear.
+- Click **[Write Tests]** above your helper functions to let the agent auto-generate unit tests in a test file.
+
+### 4. Passive Autocomplete (Tab Completion)
+- While typing inside `terminus.py`, Antigravity will suggest code blocks in grey text.
+- Press <kbd>Tab</kbd> to accept the suggestion.
+- Press <kbd>Ctrl</kbd> + <kbd>→</kbd> to accept suggestions word-by-word.
+- If you use a new module (like `import yaml`), the IDE will prompt **Tab to Import** to automatically insert the import statement at the top of the file.
 
 ---
 
-## Phase 5: Local Testing & Validation
+## Phase 5: Local Testing & Auto-Fix
 
-Test components incrementally on your local development machine (e.g. WSL Ubuntu shell).
+Run verification steps inside WSL Ubuntu and let the IDE resolve any errors.
 
-### 1. Syntactic Verification
-Run the compiler validator:
-```bash
-./build.sh
-```
+### 1. Integrated Terminal
+1. Press <kbd>Ctrl</kbd> + <kbd>`</kbd> to open the integrated WSL Ubuntu terminal panel in the IDE.
+2. Execute the validation script:
+   ```bash
+   ./build.sh
+   ```
 
-### 2. Manual CLI Verification
-Test adding and deleting nodes directly from the CLI shell:
-```bash
-./terminus.py --add "Tenant A" "Web Gateway" "127.0.0.1" "Gateway"
-./terminus.py --daemon
-# Verify that status files are written to ~/.config/terminus/status/
-```
-
-### 3. Interactive TUI Execution
-Launch the program in your shell:
-```bash
-./terminus.py
-```
-- Verify that Tab cycles active tabs.
-- Verify that the selection bar responds to Arrow Keys.
-- Exit using `Q`. Check that the background processes spawned are cleaned up.
+### 2. Diagnostic Auto-Fix
+- If there are syntax or compiler errors, they will appear in the **Problems** tab at the bottom of the IDE.
+- Antigravity places an **Auto-Fix with Agent** action next to each error.
+- Click the button; the agent will inspect the warning and automatically generate a code fix, presenting a diff overlay.
 
 ---
 
 ## Phase 6: Infrastructure & Security Configuration
 
-To run the application reliably in production, you must declare how the hosting environment configures proxy traffic, access control, and background processes.
+Configure the Ubuntu services and Nginx reverse proxy.
 
-### 1. Reverse Proxy Configuration (Nginx)
-Configure Nginx as a front-end server to receive traffic on standard web port 80 and forward it to Python's internal port `8085`.
-- **Public access**: Allow standard GET requests on the root path `/` to see the dashboard.
-- **Access control (Basic Auth)**: Restrict paths like `/admin`, `/add`, and `/delete` using an `.htpasswd` credential list so public users cannot tamper with your target configurations.
-- **Nginx performance page**: Expose Nginx metrics locally on `/nginx_status_raw` for our Python server to query.
+### 1. Declaring Services
+Instruct the agent to write configuration templates:
+- `"Generate the systemd service files for our daemon and web server."`
+- `"Generate the Nginx default site configuration with Basic Auth for admin paths."`
 
-*Example Nginx Server Configuration:*
-```nginx
-server {
-    listen 80;
-    server_name _;
-
-    location ~ ^/(admin|delete|add) {
-        auth_basic "Restricted Access";
-        auth_basic_user_file /etc/nginx/.terminus_htpasswd;
-        proxy_pass http://127.0.0.1:8085;
-    }
-
-    location / {
-        proxy_pass http://127.0.0.1:8085;
-    }
-}
-```
-
-### 2. System Service Configuration (Systemd)
-To ensure the Web dashboard and Sweeper daemon recover from system reboots or script crashes, declare them as systemd units.
-- Create `/etc/systemd/system/terminus-daemon.service` to boot the sweeper.
-- Create `/etc/systemd/system/terminus-web.service` to boot the web server.
+### 2. Generating Authentication Hash
+In the terminal, compile the credentials database. Antigravity can assist with generating the hash securely without writing cleartext passwords to logs.
 
 ---
 
-## Phase 7: Automated Deployment to WSL/Ubuntu
+## Phase 7: WSL Ubuntu Verification
 
-Automate the installation. Write a bash script (`deploy.sh`) to provision files, secure passwords, configure Nginx, and manage services.
+Run the automated installer and verify execution from your Windows environment.
 
-### 1. Deployment Script Layout (`deploy.sh`)
-Your deployment script should be automated and handle the following:
+### 1. Run the Installer in WSL
+In the IDE terminal, execute the deployment script:
 ```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# 1. local checks
-./build.sh
-
-# 2. Setup remote / target directories
-sudo mkdir -p /home/webserver/terminus
-sudo chown -R webserver:webserver /home/webserver/terminus
-
-# 3. Securely generate Basic Auth credentials if missing
-if [ ! -f /etc/nginx/.terminus_htpasswd ]; then
-    read -p "Create Admin Username: " ADMIN_USER
-    read -s -p "Create Admin Password: " ADMIN_PASS
-    PASS_HASH=$(openssl passwd -apr1 "${ADMIN_PASS}")
-    echo "${ADMIN_USER}:${PASS_HASH}" | sudo tee /etc/nginx/.terminus_htpasswd > /dev/null
-    sudo chmod 640 /etc/nginx/.terminus_htpasswd
-fi
-
-# 4. Copy Nginx block configs
-sudo cp nginx_default_config /etc/nginx/sites-available/default
-sudo nginx -t
-sudo systemctl reload nginx
-
-# 5. Copy Systemd services and reboot daemon
-sudo cp terminus-*.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable terminus-daemon terminus-web
-sudo systemctl restart terminus-daemon terminus-web
+./deploy.sh
 ```
+- This will prompt you for an Admin username/password (which gets hashed via openssl).
+- It will copy files, configure Nginx, and activate the Systemd units on your WSL instance.
 
-### 2. Troubleshooting & Operations
-Once deployed to WSL/Ubuntu, use standard Linux operations commands to monitor health:
-```bash
-# Check if services are active and running
-sudo systemctl status terminus-daemon terminus-web
+### 2. Cross-Subsystem Verification
+1. Since WSL Ubuntu forwards its loopback ports to Windows, open a web browser on Windows.
+2. Navigate to `http://localhost/` to view the public dashboard.
+3. Navigate to `http://localhost/admin`. Ensure the browser prompts you for Nginx Basic Authentication. Input the username and password you defined in `deploy.sh`.
+4. Navigate to `http://localhost/nginx_status` and verify Nginx metric parsing.
 
-# Stream logs in real-time to debug errors
-sudo journalctl -u terminus-web -f
-
-# Force restart services after updating configurations
-sudo systemctl restart terminus-daemon terminus-web
-```
+### 3. Monitoring Processes in the IDE
+- You can monitor the background tasks in the **Background Tasks** section of the Antigravity Auxiliary Pane.
+- If the sweeper daemon encounters issues, run `journalctl -u terminus-daemon -f` in the integrated terminal to stream live logs.
+- You can mention the log output to the agent (`@terminal`) and ask: `"Why is this service failing to bind?"` to get an instant diagnostic fix.

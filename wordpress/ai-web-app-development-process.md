@@ -61,7 +61,7 @@ And the companion `walkthrough.md` template:
 - [Date/Time] - Runtime test: SUCCESS
 ```
 
-Furthermore, by keeping these logs in markdown format at the root of your repository, the AI can read them natively during workspace indexing. This eliminates the need for the human to repeat instructions or copy-paste terminal history, allowing a seamless continuation of the work loop even across multiple IDE reboots.
+Furthermore, by keeping these logs in markdown format at the root of your repository, the AI can read them natively during workspace indexing. This eliminates the need for the human to repeat instructions or copy-paste terminal history, allowing a seamless continuation of the work loop even across multiple IDE reboots. (For a real-world example of this in action, you can explore the actual [Terminus Development Walkthrough on GitHub](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/walkthrough.md) generated during this process).
 
 ---
 

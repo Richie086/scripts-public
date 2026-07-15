@@ -1,6 +1,6 @@
 # Walkthrough - Terminus Master Prompt, IDE Workflow Guide, Blog Post & Voiceover
 
-We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE** to build and deploy to **production environments** (Linux, macOS, and Windows with WSL), published a deep-dive technical article directly to `extremesarcasm.org` containing the full text, generated a high-quality voiceover of the workflow guide using ElevenLabs, cross-linked both resources while reframing the text for non-developers, and embedded visual screenshots of both the TUI and Web dashboard interfaces.
+We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE** to build and deploy to **production environments** (Linux, macOS, and Windows with WSL), published a deep-dive technical article directly to `extremesarcasm.org` containing the full text, generated a high-quality voiceover of the workflow guide using ElevenLabs, cross-linked both resources while reframing the text for non-developers, embedded visual screenshots of both the TUI and Web dashboard interfaces, and regenerated the audio voiceover to match these changes.
 
 ---
 
@@ -39,7 +39,7 @@ We have successfully created a master prompt that will allow another assistant o
 - **Created ElevenLabs Voiceover**:
   - Queried ElevenLabs accounts voices list to fetch active cloned voices, matching the Voice ID `hh2saMRyaXl8c0mhWN6p` (custom voice 'Richard').
   - Developed a zero-dependency script at [generate_voiceover.py](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/generate_voiceover.py) that reads `dev_workflow_guide.md`, cleans markdown formatting, skips complex code segments and diagrams, and queries ElevenLabs API in chunks.
-  - Executed the script to generate [dev_workflow_guide.mp3](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/dev_workflow_guide.mp3) (6.3MB, fully synthesized voiceover).
+  - Executed the script to generate [dev_workflow_guide.mp3](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/dev_workflow_guide.mp3) (8.3MB, fully synthesized voiceover updated with cross-platform changes).
   - Committed and pushed the voiceover script and binary audio file to GitHub (`origin/main`).
 
 ---
@@ -61,9 +61,9 @@ The generated prompt covers:
 We verified that the files were committed and pushed successfully:
 ```bash
 $ git log -n 4 --oneline
-82536ef (HEAD -> main, origin/main) docs: Embed TUI and Web interface mockup screenshots [auto-doc]
-7b1088d docs: Cross link guide and blog post, update developer references to non-developer [auto-doc]
-86e69eb docs: Update guide and blog post to be fully cross-platform [auto-doc]
+b7f19f5 (HEAD -> main, origin/main) docs(terminus): Regenerate voiceover audio to match cross-platform guide updates [auto-doc]
+0236466 docs(terminus): Sync walkthrough with screenshot integrations [auto-doc]
+82536ef docs: Embed TUI and Web interface mockup screenshots [auto-doc]
 ```
 
 We verified that the WordPress webhook returned success:

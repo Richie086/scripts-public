@@ -321,6 +321,34 @@ def run_sweeper_daemon():
         except OSError:
             pass
 
+def rename_status_file(old_name, new_name):
+    if old_name == new_name:
+        return
+    old_file = os.path.join(STATUS_DIR, f"{old_name.lower().replace(' ', '_')}.status")
+    new_file = os.path.join(STATUS_DIR, f"{new_name.lower().replace(' ', '_')}.status")
+    if os.path.exists(old_file):
+        try:
+            os.rename(old_file, new_file)
+        except Exception:
+            pass
+
+def save_settings_dict(new_settings):
+    reload_config()
+    config["settings"] = new_settings
+    
+    # Remap environments dict keys to prevent data loss
+    envs = config.setdefault("environments", {})
+    old_keys = list(envs.keys())
+    new_keys = [new_settings.get("env_1"), new_settings.get("env_2"), new_settings.get("env_3")]
+    
+    updated_envs = {}
+    for i, new_k in enumerate(new_keys):
+        old_k = old_keys[i] if i < len(old_keys) else new_k
+        updated_envs[new_k] = envs.get(old_k, [])
+        
+    config["environments"] = updated_envs
+    save_yaml(config)
+
 # HTTP Server request handler
 class TerminusHTTPHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
@@ -388,9 +416,9 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
             env3 = query.get("env3", ["Tenant C"])[0]
             
             # Rename status files if modified
-            self.rename_status_file(environments[0], env1)
-            self.rename_status_file(environments[1], env2)
-            self.rename_status_file(environments[2], env3)
+            rename_status_file(environments[0], env1)
+            rename_status_file(environments[1], env2)
+            rename_status_file(environments[2], env3)
             
             # Save settings JSON via YAML helper
             new_set = {
@@ -404,7 +432,7 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
                 "ping_count": settings.get("ping_count", 5),
                 "ping_interval": settings.get("ping_interval", 0.2)
             }
-            self.save_settings_dict(new_set)
+            save_settings_dict(new_set)
             
             self.send_response(302)
             self.send_header("Location", "/admin?success=1")
@@ -427,7 +455,7 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
                 "ping_count": int(pcount),
                 "ping_interval": float(pinterval)
             }
-            self.save_settings_dict(new_set)
+            save_settings_dict(new_set)
             
             self.send_response(302)
             self.send_header("Location", "/admin?success=2")
@@ -450,7 +478,7 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
                 "ping_count": settings.get("ping_count", 5),
                 "ping_interval": settings.get("ping_interval", 0.2)
             }
-            self.save_settings_dict(new_set)
+            save_settings_dict(new_set)
             
             self.send_response(302)
             self.send_header("Location", "/admin?success=5")
@@ -497,33 +525,7 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(b"404 Not Found")
 
-    def rename_status_file(self, old_name, new_name):
-        if old_name == new_name:
-            return
-        old_file = os.path.join(STATUS_DIR, f"{old_name.lower().replace(' ', '_')}.status")
-        new_file = os.path.join(STATUS_DIR, f"{new_name.lower().replace(' ', '_')}.status")
-        if os.path.exists(old_file):
-            try:
-                os.rename(old_file, new_file)
-            except Exception:
-                pass
 
-    def save_settings_dict(self, new_settings):
-        reload_config()
-        config["settings"] = new_settings
-        
-        # Remap environments dict keys to prevent data loss
-        envs = config.setdefault("environments", {})
-        old_keys = list(envs.keys())
-        new_keys = [new_settings.get("env_1"), new_settings.get("env_2"), new_settings.get("env_3")]
-        
-        updated_envs = {}
-        for i, new_k in enumerate(new_keys):
-            old_k = old_keys[i] if i < len(old_keys) else new_k
-            updated_envs[new_k] = envs.get(old_k, [])
-            
-        config["environments"] = updated_envs
-        save_yaml(config)
 
     def render_dashboard(self, active_env):
         settings = get_settings()
@@ -1676,13 +1678,10 @@ def redraw_tui(active_tab_idx, selected_row):
     print(f"\033[1;35m├{'─' * (cols - 2)}┤\033[0m")
     
     # Table headers widths
-    w_id, w_type, w_name, w_addr, w_stat, w_lat, w_dsince = 6, 12, 18, 18, 10, 10, 10
-    total_w = w_id + w_type + w_name + w_addr + w_stat + w_lat + w_dsince + 20
+    w_id, w_type, w_name, w_addr, w_stat, w_lat, w_dsince = 4, 10, 16, 16, 8, 8, 9
     
-    print(f"  \033[1;36m%-*s   %-*s   %-*s   %-*s   %-*s   %-*s   %-*s\033[0m" % (
-        w_id, "ID", w_type, "DEVICE", w_name, "NAME", w_addr, "TARGET IP", w_stat, "STATUS", w_lat, "LATENCY", w_dsince, "DOWNTIME"
-    ))
-    print(f"  {'-' * (total_w)}")
+    print(f"  \033[1;36m{ 'ID':<{w_id}}   { 'DEVICE':<{w_type}}   { 'NAME':<{w_name}}   { 'TARGET IP':<{w_addr}}   { 'STATUS':<{w_stat}}   { 'LATENCY':<{w_lat}}   { 'DOWNTIME':<{w_dsince}}   UPTIME HISTORY\033[0m")
+    print(f"  {'-' * (cols - 4)}")
     
     envs_data = config.get("environments", {})
     nodes = envs_data.get(active_env, [])
@@ -1694,11 +1693,24 @@ def redraw_tui(active_tab_idx, selected_row):
         name = node.get("name")
         addr = node.get("addr")
         
-        stat_info = statuses.get(nid, {"status": "PENDING", "latency": "N/A", "down_since": ""})
+        stat_info = statuses.get(nid, {"status": "PENDING", "latency": "N/A", "down_since": "", "history": "." * 24})
         stat = stat_info["status"]
         lat = stat_info["latency"]
         dsince = stat_info["down_since"]
+        hist = stat_info["history"]
         
+        if len(hist) < 24:
+            hist = "." * (24 - len(hist)) + hist
+            
+        spark_tui = ""
+        for char in hist:
+            if char == "1":
+                spark_tui += "\033[1;32m■\033[0m"
+            elif char == "0":
+                spark_tui += "\033[1;31m■\033[0m"
+            else:
+                spark_tui += "\033[1;30m·\033[0m"
+                
         if stat == "UP":
             stat_color = "\033[1;32m"
             stat_str = "ONLINE"
@@ -1717,13 +1729,11 @@ def redraw_tui(active_tab_idx, selected_row):
         r_lat = trunc(lat, w_lat).strip()
         r_dsince = trunc(dsince, w_dsince).strip()
         
-        row_str = "  %-*s   %-*s   %-*s   %-*s   %b%-*s\033[0m   %-*s   %-*s" % (
-            w_id, r_id, w_type, r_type, w_name, r_name, w_addr, r_addr, stat_color.encode(), w_stat, r_stat, w_lat, r_lat, w_dsince, r_dsince
-        )
+        row_str = f"  {r_id:<{w_id}}   {r_type:<{w_type}}   {r_name:<{w_name}}   {r_addr:<{w_addr}}   {stat_color}{r_stat:<{w_stat}}\033[0m   {r_lat:<{w_lat}}   {r_dsince:<{w_dsince}}   {spark_tui}"
         
         if idx == selected_row:
-            # Highlight selected row (reverse video)
-            print(f"\033[7m{row_str:<{total_w + 10}}\033[0m")
+            # Highlight selected row (reverse video) but keep background transparent for sparkline
+            print(f"\033[7m  {r_id:<{w_id}}   {r_type:<{w_type}}   {r_name:<{w_name}}   {r_addr:<{w_addr}}   {r_stat:<{w_stat}}   {r_lat:<{w_lat}}   {r_dsince:<{w_dsince}}   \033[0m{spark_tui}")
         else:
             print(row_str)
             
@@ -1731,6 +1741,59 @@ def redraw_tui(active_tab_idx, selected_row):
         print(f"\n  \033[1;30mNo nodes configured. Press 'A' to add one.\033[0m\n")
         
     print(f"\033[1;35m└{'─' * (cols - 2)}┘\033[0m")
+    
+    # Host Specs Panel
+    settings = get_settings()
+    room = settings.get("room_name", "Server Room B")
+    address = settings.get("physical_address", "456 Enterprise Way")
+    company = settings.get("company_name", "General Corp")
+    hostname = socket.gethostname()
+    
+    os_running = "Linux"
+    try:
+        with open("/etc/os-release", "r") as f:
+            for line in f:
+                if line.startswith("PRETTY_NAME="):
+                    os_running = line.split("=")[1].strip().strip('"')
+                    break
+    except Exception:
+        pass
+        
+    ram_total = "N/A"
+    try:
+        with open("/proc/meminfo", "r") as f:
+            for line in f:
+                if line.startswith("MemTotal:"):
+                    kb = int(line.split()[1])
+                    ram_total = f"{kb / (1024*1024):.1f}Gi"
+                    break
+    except Exception:
+        pass
+        
+    cpu_model = "N/A"
+    try:
+        with open("/proc/cpuinfo", "r") as f:
+            for line in f:
+                if line.startswith("model name"):
+                    cpu_model = line.split(":")[1].strip()
+                    break
+    except Exception:
+        pass
+    
+    cpu_model = cpu_model[:30]
+    
+    box_title = " Host System Specs "
+    line_top = f"┌──{box_title}{'─' * (cols - 4 - len(box_title))}┐"
+    print(f"\033[1;35m{line_top}\033[0m")
+    
+    specs_row1 = f" Host: {hostname} | OS: {os_running} | RAM: {ram_total} | CPU: {cpu_model}"
+    print(f"│ {specs_row1:<{cols-4}} │")
+    
+    specs_row2 = f" Room: {room} | Address: {address} | Company: {company}"
+    print(f"│ {specs_row2:<{cols-4}} │")
+    
+    line_bottom = f"└{'─' * (cols - 2)}┘"
+    print(f"\033[1;35m{line_bottom}\033[0m")
     
     # Process Status Bars
     dpid = ""
@@ -1750,7 +1813,7 @@ def redraw_tui(active_tab_idx, selected_row):
     print(f"  Daemon: {d_run}   |   Web Server: {w_run}")
     
     # Command Bar
-    cmd_bar = " [TAB] Switch Env  |  [▲/▼] Select  |  [A] Add Node  |  [D] Delete  |  [R] Sweep  |  [Q] Quit "
+    cmd_bar = " [TAB] Switch Env  |  [A] Add Node  |  [D] Delete  |  [C] Config  |  [R] Sweep  |  [Q] Quit "
     print(f"\033[1;37;48;5;236m{cmd_bar:^{cols-2}}\033[0m")
 
 def get_key_tui():
@@ -1876,6 +1939,153 @@ def tui_sweep_now(env):
     except Exception:
         pass
 
+def run_tui_config_menu():
+    import termios
+    import sys
+    import os
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    
+    try:
+        # Restore normal stdin settings for typing
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        
+        while True:
+            try:
+                rows, cols = os.get_terminal_size()
+            except Exception:
+                rows, cols = 24, 80
+                
+            print("\033[H\033[J", end="") # Clear screen
+            box_title = " Terminus Settings Menu "
+            line_top = f"┌──{box_title}{'─' * (cols - 4 - len(box_title))}┐"
+            print(f"\033[1;35m{line_top}\033[0m")
+            
+            print("│" + " " * (cols - 2) + "│")
+            opt1 = "  1. Edit Tab Names (env_1, env_2, env_3)"
+            print(f"│{opt1:<{cols-2}}│")
+            opt2 = "  2. Edit Sweep & Ping Config (Interval, Count, Frequency)"
+            print(f"│{opt2:<{cols-2}}│")
+            opt3 = "  3. Edit Host System Specs (Room, Address, Company)"
+            print(f"│{opt3:<{cols-2}}│")
+            opt4 = "  4. Manage Device Types"
+            print(f"│{opt4:<{cols-2}}│")
+            opt5 = "  5. Return to Dashboard"
+            print(f"│{opt5:<{cols-2}}│")
+            print("│" + " " * (cols - 2) + "│")
+            
+            line_bottom = f"└{'─' * (cols - 2)}┘"
+            print(f"\033[1;35m{line_bottom}\033[0m")
+            
+            choice = input("\033[1;33mSelect an option (1-5): \033[0m").strip()
+            
+            if choice == "1":
+                settings = get_settings()
+                e1 = input(f"Enter Tab 1 Name [{settings.get('env_1')}]: ").strip() or settings.get('env_1')
+                e2 = input(f"Enter Tab 2 Name [{settings.get('env_2')}]: ").strip() or settings.get('env_2')
+                e3 = input(f"Enter Tab 3 Name [{settings.get('env_3')}]: ").strip() or settings.get('env_3')
+                
+                # Rename status files if modified
+                rename_status_file(settings.get('env_1'), e1)
+                rename_status_file(settings.get('env_2'), e2)
+                rename_status_file(settings.get('env_3'), e3)
+                
+                new_settings = {
+                    "env_1": e1,
+                    "env_2": e2,
+                    "env_3": e3,
+                    "room_name": settings.get("room_name"),
+                    "physical_address": settings.get("physical_address"),
+                    "company_name": settings.get("company_name"),
+                    "sweep_frequency": settings.get("sweep_frequency"),
+                    "ping_count": settings.get("ping_count"),
+                    "ping_interval": settings.get("ping_interval")
+                }
+                save_settings_dict(new_settings)
+                input("\nSettings saved. Press Enter to continue...")
+                
+            elif choice == "2":
+                settings = get_settings()
+                freq = input(f"Enter Sweep Frequency (seconds) [{settings.get('sweep_frequency')}]: ").strip() or settings.get('sweep_frequency')
+                pcount = input(f"Enter Ping Count [{settings.get('ping_count')}]: ").strip() or settings.get('ping_count')
+                pinterval = input(f"Enter Ping Interval (seconds) [{settings.get('ping_interval')}]: ").strip() or settings.get('ping_interval')
+                
+                try:
+                    freq = int(freq)
+                    pcount = int(pcount)
+                    pinterval = float(pinterval)
+                except ValueError:
+                    print("\n\033[1;31mInvalid numeric input. Settings not changed.\033[0m")
+                    input("Press Enter to continue...")
+                    continue
+                    
+                new_settings = {
+                    "env_1": settings.get("env_1"),
+                    "env_2": settings.get("env_2"),
+                    "env_3": settings.get("env_3"),
+                    "room_name": settings.get("room_name"),
+                    "physical_address": settings.get("physical_address"),
+                    "company_name": settings.get("company_name"),
+                    "sweep_frequency": freq,
+                    "ping_count": pcount,
+                    "ping_interval": pinterval
+                }
+                save_settings_dict(new_settings)
+                input("\nSettings saved. Press Enter to continue...")
+                
+            elif choice == "3":
+                settings = get_settings()
+                room = input(f"Enter Physical Room Location [{settings.get('room_name')}]: ").strip() or settings.get('room_name')
+                address = input(f"Enter Physical Address [{settings.get('physical_address')}]: ").strip() or settings.get('physical_address')
+                company = input(f"Enter Company Name [{settings.get('company_name')}]: ").strip() or settings.get('company_name')
+                
+                new_settings = {
+                    "env_1": settings.get("env_1"),
+                    "env_2": settings.get("env_2"),
+                    "env_3": settings.get("env_3"),
+                    "room_name": room,
+                    "physical_address": address,
+                    "company_name": company,
+                    "sweep_frequency": settings.get("sweep_frequency"),
+                    "ping_count": settings.get("ping_count"),
+                    "ping_interval": settings.get("ping_interval")
+                }
+                save_settings_dict(new_settings)
+                input("\nSettings saved. Press Enter to continue...")
+                
+            elif choice == "4":
+                while True:
+                    reload_config()
+                    types = get_device_types()
+                    print("\n\033[1;36mCurrent Device Types:\033[0m")
+                    for idx, t in enumerate(types):
+                        print(f"  {idx + 1}. {t}")
+                    print("\nOptions: [A] Add Type  |  [D] Delete Type  |  [B] Back")
+                    action = input("Select an option (a/d/b): ").strip().lower()
+                    if action == "a":
+                        new_t = input("Enter new device type name: ").strip()
+                        if new_t and new_t not in types:
+                            types.append(new_t)
+                            config["device_types"] = types
+                            save_yaml(config)
+                    elif action == "d":
+                        del_idx = input("Enter the number of the type to delete: ").strip()
+                        try:
+                            idx = int(del_idx) - 1
+                            if 0 <= idx < len(types):
+                                types.pop(idx)
+                                config["device_types"] = types
+                                save_yaml(config)
+                        except ValueError:
+                            pass
+                    elif action == "b":
+                        break
+                        
+            elif choice == "5":
+                break
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+
 def run_tui_loop():
     active_tab = 0
     sel_row = 0
@@ -1910,6 +2120,11 @@ def run_tui_loop():
                 tui_add_node(active_env)
             elif key in ("d", "D"):
                 tui_delete_node(active_env, sel_row)
+            elif key in ("c", "C"):
+                # Temporarily show cursor and clean screen, then run TUI config
+                print("\033[?25h", end="")
+                run_tui_config_menu()
+                print("\033[?25l", end="")
             elif key in ("r", "R"):
                 tui_sweep_now(active_env)
             elif key in ("q", "Q"):

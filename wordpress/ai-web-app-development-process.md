@@ -969,3 +969,18 @@ Standardizing on this collaborative workflow helps prevent tribal knowledge by e
 As we look towards the next decade of technology, the line between software engineering and system architecture will continue to blur, and those who master these agentic workflows will lead the industry forward. Partnering with an agentic cohort is no longer just an advantage—it is a requirement.
 
 This is the future of IT engineering. Welcome to the cohort.
+
+---
+
+## 14. Project Source Files and Resources
+
+To review or download the complete technical templates, prompt blueprints, cross-platform guides, scripts, and logs used in the creation and execution of this project, explore the following resources on GitHub:
+
+- **Core Application Script**: [terminus.py (Network Monitor)](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/terminus.py)
+- **Deployment Orchestrator**: [deploy.sh (Automated Deployer)](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/deploy.sh)
+- **Technical Blueprint**: [master_prompt.md (Rebuilding Blueprint)](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/master_prompt.md)
+- **Cross-Platform Guide**: [dev_workflow_guide.md (Antigravity IDE Guide)](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/dev_workflow_guide.md)
+- **Uptime Voiceover**: [dev_workflow_guide.mp3 (Synthesized Audio)](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/dev_workflow_guide.mp3)
+- **Voiceover Compiler**: [generate_voiceover.py (ElevenLabs Generator)](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/generate_voiceover.py)
+- **Implementation Plan**: [implementation_plan.md (Engineering Plan)](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/implementation_plan.md)
+- **Development History Log**: [walkthrough.md (Operations Log)](https://github.com/Richie086/scripts-public/blob/main/projects/terminus/build-from-scratch/walkthrough.md)

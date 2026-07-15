@@ -349,20 +349,28 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
             name = query.get("name", [""])[0]
             addr = query.get("addr", [""])[0]
             dtype = query.get("dev_type", ["Server"])[0]
+            from_p = query.get("from", [""])[0]
             
             add_node(env, name, addr, dtype)
             self.send_response(302)
-            self.send_header("Location", f"/?env={env.replace(' ', '+')}")
+            if from_p == "admin":
+                self.send_header("Location", "/admin?success=6")
+            else:
+                self.send_header("Location", f"/?env={env.replace(' ', '+')}")
             self.send_header("Connection", "close")
             self.end_headers()
             
         elif path == "/delete":
             env = query.get("env", [""])[0]
             nid = query.get("id", [""])[0]
+            from_p = query.get("from", [""])[0]
             
             delete_node(env, nid)
             self.send_response(302)
-            self.send_header("Location", f"/?env={env.replace(' ', '+')}")
+            if from_p == "admin":
+                self.send_header("Location", "/admin?success=7")
+            else:
+                self.send_header("Location", f"/?env={env.replace(' ', '+')}")
             self.send_header("Connection", "close")
             self.end_headers()
             
@@ -579,13 +587,10 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
                 <td>{status_badge}</td>
                 <td>{detail_str}</td>
                 <td style="white-space: nowrap;">{spark_html}</td>
-                <td>
-                    <a href="/delete?env={active_env.replace(' ', '+')}&id={nid}" class="btn btn-danger">[Delete]</a>
-                </td>
             </tr>"""
             
         if not table_rows:
-            table_rows = '<tr><td colspan="8" style="text-align: center; color: var(--fg-dim); padding: 40px;">No nodes configured in this environment.</td></tr>'
+            table_rows = '<tr><td colspan="7" style="text-align: center; color: var(--fg-dim); padding: 40px;">No nodes configured in this environment.</td></tr>'
             
         device_options = "".join(f'<option value="{t}">{t}</option>' for t in device_types)
         
@@ -896,7 +901,6 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
                             <th>Status</th>
                             <th>Performance Details</th>
                             <th>Uptime History (Last 24 Sweeps)</th>
-                            <th style="width: 80px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -905,31 +909,7 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
                 </table>
             </div>
 
-            <div class="card">
-                <div class="section-title">&gt;_ Add Node Configuration</div>
-                <form action="/add" method="GET">
-                    <input type="hidden" name="env" value="{active_env}">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="name">Node Name</label>
-                            <input type="text" id="name" name="name" placeholder="e.g. Gateway" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="addr">IP / Hostname</label>
-                            <input type="text" id="addr" name="addr" placeholder="e.g. 192.168.1.1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="dev_type">Device Type</label>
-                            <select id="dev_type" name="dev_type">
-                                {device_options}
-                            </select>
-                        </div>
-                        <button type="submit" class="btn">Add Node</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="prompt-line" style="margin-top: 30px;">
+            <div class="prompt-line">
                 <span class="prompt-symbol">rtroiano@{hostname_running}</span>:<span class="prompt-path">~/terminus</span>$ <span class="command-text">terminus --show-host-info</span>
             </div>
 
@@ -1007,6 +987,10 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
             success_msg = '<div class="alert alert-success">Device Type Deleted!</div>'
         elif success_code == "5":
             success_msg = '<div class="alert alert-success">Host System Configurations Saved!</div>'
+        elif success_code == "6":
+            success_msg = '<div class="alert alert-success">Node Added Successfully!</div>'
+        elif success_code == "7":
+            success_msg = '<div class="alert alert-success">Node Deleted Successfully!</div>'
             
         error_msg = ""
         
@@ -1018,6 +1002,52 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
                 <a href="/admin/del_type?type={t}" style="color: #ff5555; text-decoration: none;">[Delete]</a>
             </div>"""
             
+        device_options = "".join(f'<option value="{t}">{t}</option>' for t in device_types)
+        env_options = "".join(f'<option value="{e}">{e}</option>' for e in environments)
+        
+        envs_data = config.get("environments", {})
+        nodes_html = ""
+        for env in environments:
+            nodes = envs_data.get(env, [])
+            rows_html = ""
+            for n in nodes:
+                nid = n.get("id")
+                name = n.get("name")
+                addr = n.get("addr")
+                dtype = n.get("dev_type", "Server")
+                
+                rows_html += f"""
+                <tr>
+                    <td style="padding: 6px; border-bottom: 1px dashed #44475a;">{nid}</td>
+                    <td style="padding: 6px; border-bottom: 1px dashed #44475a;"><strong>{name}</strong></td>
+                    <td style="padding: 6px; border-bottom: 1px dashed #44475a;"><code>{addr}</code></td>
+                    <td style="padding: 6px; border-bottom: 1px dashed #44475a;">{dtype}</td>
+                    <td style="padding: 6px; border-bottom: 1px dashed #44475a; text-align: right;">
+                        <a href="/delete?env={env.replace(' ', '+')}&id={nid}&from=admin" style="color: var(--red); text-decoration: none; font-weight: bold;">[Delete]</a>
+                    </td>
+                </tr>"""
+            if not rows_html:
+                rows_html = '<tr><td colspan="5" style="text-align: center; color: var(--fg-dim); padding: 15px;">No nodes configured.</td></tr>'
+                
+            nodes_html += f"""
+            <div style="flex: 1; min-width: 280px; background-color: rgba(0, 0, 0, 0.15); border: 1px solid var(--border); border-radius: 6px; padding: 15px;">
+                <h3 style="color: var(--cyan); margin-top: 0; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px;">&gt;_ {env}</h3>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                    <thead>
+                        <tr style="text-align: left; color: var(--purple);">
+                            <th style="padding: 6px; border-bottom: 1px solid var(--border); width: 30px;">ID</th>
+                            <th style="padding: 6px; border-bottom: 1px solid var(--border);">Name</th>
+                            <th style="padding: 6px; border-bottom: 1px solid var(--border);">Host/IP</th>
+                            <th style="padding: 6px; border-bottom: 1px solid var(--border);">Type</th>
+                            <th style="padding: 6px; border-bottom: 1px solid var(--border); text-align: right; width: 60px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows_html}
+                    </tbody>
+                </table>
+            </div>"""
+
         hostname_running = socket.gethostname()
         
         return f"""<!DOCTYPE html>
@@ -1225,7 +1255,42 @@ class TerminusHTTPHandler(BaseHTTPRequestHandler):
             {success_msg}
             {error_msg}
             
+            <div class="card" style="margin-bottom: 25px;">
+                <div class="card-title">&gt;_ Environment Nodes Manager</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    {nodes_html}
+                </div>
+            </div>
+            
             <div class="grid">
+                <div class="card">
+                    <div class="card-title">&gt;_ Add New Node</div>
+                    <form action="/add" method="GET">
+                        <input type="hidden" name="from" value="admin">
+                        <div class="form-group">
+                            <label>Target Environment</label>
+                            <select name="env" style="background-color: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 4px; color: var(--fg-base); padding: 8px 12px; font-family: inherit; font-size: 0.95rem; outline: none; width: 100%;">
+                                {env_options}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Node Name</label>
+                            <input type="text" name="name" placeholder="e.g. Gateway" required style="width: 100%;">
+                        </div>
+                        <div class="form-group">
+                            <label>IP / Hostname</label>
+                            <input type="text" name="addr" placeholder="e.g. 192.168.1.1" required style="width: 100%;">
+                        </div>
+                        <div class="form-group">
+                            <label>Device Type</label>
+                            <select name="dev_type" style="background-color: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 4px; color: var(--fg-base); padding: 8px 12px; font-family: inherit; font-size: 0.95rem; outline: none; width: 100%;">
+                                {device_options}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn">Add Node</button>
+                    </form>
+                </div>
+
                 <div class="card">
                     <div class="card-title">&gt;_ Tab Name Editor</div>
                     <form action="/admin/save_tabs" method="GET">

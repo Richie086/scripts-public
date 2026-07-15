@@ -1,6 +1,6 @@
 # Walkthrough - Terminus Master Prompt, IDE Workflow Guide, Blog Post & Voiceover
 
-We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE** to build and deploy to **production environments** (Linux, macOS, and Windows with WSL), published a deep-dive technical article directly to `extremesarcasm.org` using the WordPress REST API, generated a high-quality voiceover of the workflow guide using ElevenLabs, cross-linked both resources while reframing the text for non-developers, and embedded visual screenshots of both the TUI and Web dashboard interfaces.
+We have successfully created a master prompt that will allow another assistant or developer to rebuild the **Terminus Standalone Network Operations Monitor** from scratch, wrote a detailed developer guide centered on using **Antigravity IDE** to build and deploy to **production environments** (Linux, macOS, and Windows with WSL), published a deep-dive technical article directly to `extremesarcasm.org` using the WordPress REST API, generated a high-quality voiceover of the workflow guide using ElevenLabs, cross-linked both resources while reframing the text for non-developers, embedded visual screenshots of both the TUI and Web dashboard interfaces, appended all project files and resources to the bottom of the published post, and updated the publishing scripts.
 
 ---
 
@@ -32,10 +32,14 @@ We have successfully created a master prompt that will allow another assistant o
   - Replaced all instances of "developer" with "non-developer" to frame the article for a non-technical audience.
   - Embedded raw GitHub CDN link to the Console TUI screenshot at the end of Section 7.
   - Embedded raw GitHub CDN link to the Web Dashboard screenshot at the end of Section 9.
+  - Appended Section 14 containing direct links to all repository plan, script, audio, and log files.
   - Executed the taxonomy suggester to extract categories and tags.
   - Staged, diff-scanned, committed, and merged the file locally.
   - Pushed the `main` branch to the remote repository on GitHub.
-  - Successfully created the WordPress post using the direct **WordPress REST API** (Post ID: `764`).
+  - Successfully published the WordPress post directly using the **WordPress REST API** (Post ID: `764`, Status: `publish`).
+- **Updated Publishing Scripts**:
+  - Modified `/home/rtroiano/repositories/scripts/python/wp_create_post.py` to support updates via a `--post-id` argument.
+  - Committed and pushed this script update to the `scripts` repository.
 - **Created ElevenLabs Voiceover**:
   - Queried ElevenLabs accounts voices list to fetch active cloned voices, matching the Voice ID `hh2saMRyaXl8c0mhWN6p` (custom voice 'Richard').
   - Developed a zero-dependency script at [generate_voiceover.py](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/terminus/build-from-scratch/generate_voiceover.py) that reads `dev_workflow_guide.md`, cleans markdown formatting, skips complex code segments and diagrams, and queries ElevenLabs API in chunks.
@@ -61,16 +65,15 @@ The generated prompt covers:
 We verified that the files were committed and pushed successfully:
 ```bash
 $ git log -n 4 --oneline
-da44747 (HEAD -> main, origin/main) Update walkthrough with draft status [auto-doc]
-26e9993 docs(terminus): Sync walkthrough with regenerated audio changes [auto-doc]
-b7f19f5 docs(terminus): Regenerate voiceover audio to match cross-platform guide updates [auto-doc]
+17b81a7 (HEAD -> main, origin/main) docs(wordpress): Add section 14 (Project Source Files and Resources) [auto-doc]
+c2448a0 docs(terminus): Sync walkthrough with direct WordPress REST API post [auto-doc]
 ```
 
-We verified that the WordPress REST API post creation was successful:
+We verified that the WordPress REST API post creation and update were successful:
 ```json
 {
     "id": 764,
-    "status": "draft",
-    "link": "https://extremesarcasm.org/?p=764"
+    "status": "publish",
+    "link": "https://extremesarcasm.org/the-rise-of-the-agentic-architect-building-full-scale-operations-tooling-via-ai-cohorts/"
 }
 ```

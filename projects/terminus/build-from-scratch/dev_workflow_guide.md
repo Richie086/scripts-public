@@ -1,5 +1,5 @@
 # Development Workflow Guide: Idea to WSL Ubuntu Deployment
-*A step by step guide for non developers Manual for building literally anything with Google Antigravity*
+*A step by step guide for non developers - Building literally anything with Google Antigravity*
 
 > [!NOTE]
 > **Hey, want to hear something terrifying?** Here is a recording of me reading this document. Is it me? Is it AI? How hard was this to do? Did you spend hours writing complex Python and Bash scripts to do this?

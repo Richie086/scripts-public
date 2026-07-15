@@ -270,9 +270,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **3c666a8** - 2026-07-15 06:45:48 - feat(terminus): Migrate to unified YAML configuration system
 - **49839b4** - 2026-07-15 06:26:22 - feat(terminus): Update default admin credentials to admin / admin
 - **6c78397** - 2026-07-15 06:16:22 - feat(terminus): Add Terminus network operations monitor codebase and deploy scripts
 - **dedbb02** - 2026-07-12 15:06:28 - added script to install guest addtions for linux easily
 - **2d3d367** - 2026-07-09 13:32:45 - docs: heavily comment suggest_aliases.py logic to align with commenting standard
-- **7731b8b** - 2026-07-09 13:29:00 - feat: prompt to use sudo if writing/backing up configuration file fails due to permissions
 <!-- AUTO-GENERATED COMMITS END -->

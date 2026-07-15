@@ -611,8 +611,11 @@ def render_nginx_status(self):
             </div>
         </div>
     </div>
-    """
 ```
+
+Here is a visual screenshot of the generated Console TUI rendering:
+
+![Terminus TUI Screenshot](https://raw.githubusercontent.com/Richie086/scripts-public/main/projects/terminus/build-from-scratch/images/terminus_tui_mockup.jpg)
 
 ---
 
@@ -813,6 +816,10 @@ body {
 ```
 
 This Dracula CSS framework creates clear hierarchy. The top border highlight (`rgba(255,255,255,0.08)`) and darker bottom border create a 3D beveled appearance, ensuring a modern look.
+
+Here is the resulting Web dashboard styling in action:
+
+![Terminus Web Screenshot](https://raw.githubusercontent.com/Richie086/scripts-public/main/projects/terminus/build-from-scratch/images/terminus_web_mockup.jpg)
 
 ---
 

@@ -118,6 +118,11 @@ Run your validation scripts inside your shell (e.g. Bash on Linux/macOS/WSL, or 
 If any syntax, type-check, or test error occurs, it will appear in the IDE **Problems** pane.
 - Click **Auto-Fix with Agent** next to the problem. The agent will inspect the code, consult the context, and apply a drop-in correction.
 
+### 3. Console TUI Mockup
+Here is the Terminus Console TUI interface rendering active node sweeps, latencies, and host load statistics:
+
+![Terminus TUI Screenshot](https://raw.githubusercontent.com/Richie086/scripts-public/main/projects/terminus/build-from-scratch/images/terminus_tui_mockup.jpg)
+
 ---
 
 ## Step 7: Production Configuration & Deployment
@@ -147,3 +152,8 @@ In the terminal, run your deploy script:
    sudo journalctl -u terminus-daemon -f
    ```
    If a crash occurs, you can mention the log directly in chat (`@terminal`) and let the agent fix it.
+
+### 4. Web Dashboard Mockup
+Here is the live Web Operations Control dashboard rendering active hosts, sparklines, and latency graphs proxy-linked via Nginx:
+
+![Terminus Web Screenshot](https://raw.githubusercontent.com/Richie086/scripts-public/main/projects/terminus/build-from-scratch/images/terminus_web_mockup.jpg)

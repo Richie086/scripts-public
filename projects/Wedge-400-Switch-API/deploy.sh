@@ -80,17 +80,44 @@ echo "[5/6] Injecting Nginx configuration location block..."
 
 # Write the python injector script locally
 cat <<'EOF' > /tmp/nginx_injector_local.py
+import re
 import sys
 
 nginx_config_path = "/etc/nginx/sites-available/default"
 with open(nginx_config_path, "r") as f:
     content = f.read()
 
+# 1. Clean out any pre-existing Wedge API location blocks to prevent duplicates/conflicts
+clean_content = re.sub(
+    r"\s*# Wedge 400 Switch API.*?(?=location / {)",
+    "\n",
+    content,
+    flags=re.DOTALL
+)
+clean_content = re.sub(
+    r"\s*location\s+~?\s*\"?\^?/projects/wedge-switch-400-api.*?\n\s*}\s*\n",
+    "\n",
+    clean_content,
+    flags=re.DOTALL
+)
+
 target_block = """
-    # Wedge 400 Switch API location block
-    location /projects/wedge-switch-400-api {
-        auth_basic "Wedge 400 Switch Control";
+    # Wedge 400 Switch API Swagger docs block (protected by Nginx Basic Auth)
+    location ~ ^/projects/wedge-switch-400-api/(docs|openapi.json) {
+        auth_basic "Wedge 400 Switch Control Docs";
         auth_basic_user_file /etc/nginx/.wedge_htpasswd;
+        rewrite ^/projects/wedge-switch-400-api/(.*)$ /$1 break;
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+    }
+
+    # Wedge 400 Switch API Console and APIs (secured by App-level AD Auth)
+    location /projects/wedge-switch-400-api {
+        auth_basic off;
         rewrite ^/projects/wedge-switch-400-api/(.*)$ /$1 break;
         proxy_pass http://127.0.0.1:8000;
         proxy_set_header Host $host;
@@ -101,18 +128,15 @@ target_block = """
     }
 """
 
-if "/projects/wedge-switch-400-api" not in content:
-    idx = content.find("location / {")
-    if idx != -1:
-        updated_content = content[:idx] + target_block + "\n" + content[idx:]
-        with open(nginx_config_path, "w") as f:
-            f.write(updated_content)
-        print("Successfully injected Nginx location block for Wedge 400 API.")
-    else:
-        print("Error: Could not locate 'location / {' block in Nginx config.")
-        sys.exit(1)
+idx = clean_content.find("location / {")
+if idx != -1:
+    updated_content = clean_content[:idx] + target_block + "\n" + clean_content[idx:]
+    with open(nginx_config_path, "w") as f:
+        f.write(updated_content)
+    print("Successfully injected and updated Nginx location blocks for Wedge 400 API.")
 else:
-    print("Nginx location block for Wedge 400 API already exists. Skipping injection.")
+    print("Error: Could not locate 'location / {' block in Nginx config.")
+    sys.exit(1)
 EOF
 
 # Copy to remote and execute

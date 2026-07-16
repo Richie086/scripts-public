@@ -270,9 +270,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **592cb6a** - 2026-07-16 06:44:08 - feat: add /dashboard and /projects custom slash commands for Antigravity TUI
 - **13fccd5** - 2026-07-16 06:40:49 - Merge branch 'BMC-API-Crawler'
 - **023c224** - 2026-07-16 06:40:33 - feat: implement standalone API Crawler ingestion engine
 - **8473d4a** - 2026-07-16 06:40:23 - feat: implement Wedge 400 Switch API with SQLite persistence and glassy theme
 - **57df54a** - 2026-07-15 12:53:40 - Update guide description for clarity
-- **0ac8928** - 2026-07-15 12:52:55 - Revise title for clarity on guide's content
 <!-- AUTO-GENERATED COMMITS END -->

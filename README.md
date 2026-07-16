@@ -270,9 +270,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **8473d4a** - 2026-07-16 06:40:23 - feat: implement Wedge 400 Switch API with SQLite persistence and glassy theme
+- **57df54a** - 2026-07-15 12:53:40 - Update guide description for clarity
+- **0ac8928** - 2026-07-15 12:52:55 - Revise title for clarity on guide's content
+- **0f70b67** - 2026-07-15 12:51:43 - Revise subtitle in development workflow guide
 - **129c016** - 2026-07-15 11:16:17 - docs(terminus): Emphasize /plan, /grill-me, and AI self-documentation in dev guide
-- **e56fa7b** - 2026-07-15 11:09:03 - docs(terminus): Refactor dev guide to focus on Windows Antigravity IDE and WSL
-- **36f19f9** - 2026-07-15 11:06:27 - docs(terminus): Add step-by-step development and deployment guide
-- **d4d50b3** - 2026-07-15 11:01:53 - feat(terminus): Add build-from-scratch master prompt and documentation
-- **86c2c33** - 2026-07-15 10:49:48 - feat(terminus): Align TUI features 1:1 with Web UI (sparklines, specs, config menu)
 <!-- AUTO-GENERATED COMMITS END -->

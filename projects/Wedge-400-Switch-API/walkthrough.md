@@ -14,6 +14,13 @@ Ongoing log of accomplishments, test validations, and features implemented.
   - Updated the Web UI to show a clean **Dynamic Routes** list dashboard to check, search, and run query checks on registered endpoints.
   - Pytest validation: 10 tests passing cleanly.
   - Deployed to `192.168.1.80` on port `8000` (Nginx: `/projects/wedge-switch-400-api`).
+  - **Active Directory Integration**:
+    - Integrated `ldap3` library for authenticating domain logins with support for live search queries of `memberOf` group attributes.
+    - Implemented secure JWT-based HTTP-only session cookies.
+    - Added an AD Simulation Mode allowing local offline verification using preconfigured mock accounts (`ad_admin` / `AdminPass123`, `ad_operator` / `OperatorPass123`, `ad_viewer` / `ViewerPass123`).
+    - Added a Dracula login screen overlay and an admin-only AD Settings Configuration dashboard tab.
+    - Restrained switch telemetry modification endpoints (ASIC reset, port configuration, and VLAN creation) using role-based permissions (`admin`, `operator`, `viewer`).
+    - Expanded Pytest validation to 16 unit tests passing cleanly.
 - **API-Crawler** (Ingester & Orchestrator):
   - Created a new FastAPI application crawling repository URLs or doc pages on-the-fly.
   - Automatically filters static paths, constructs structured mock payloads (versions, power specs, cpu statuses, etc.), and POSTs route packages directly onto the switch database.
@@ -29,8 +36,9 @@ Ongoing log of accomplishments, test validations, and features implemented.
 ### Pytest Validation
 - **Wedge-400-Switch-API**:
   ```text
-  tests/test_api.py ..........                                             [100%]
-  ======================== 10 passed, 3 warnings in 0.59s ========================
+  tests/test_api.py ..........                                             [ 62%]
+  tests/test_auth.py ......                                                [100%]
+  ======================= 16 passed, 15 warnings in 0.88s ========================
   ```
 - **API-Crawler**:
   ```text

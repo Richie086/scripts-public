@@ -520,9 +520,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **8a2d8c5** - 2026-07-16 09:52:20 - fix(wedge-api): use unique remote file name in deploy.sh Nginx injector copy
 - **26e06b2** - 2026-07-16 09:51:43 - feat(wedge-api): update deploy.sh to support Nginx split auth location blocks
 - **9325451** - 2026-07-16 09:50:13 - feat(wedge-api): implement Active Directory integration with LDAP simulation and role-based access control
 - **3d5bc54** - 2026-07-16 08:10:19 - feat: keep index.html outside dist and copy it during build
 - **27b2e8e** - 2026-07-16 08:08:41 - feat: implement Wedge 400 API, BMC Crawler, dashboard TUI skills, and config exporter web app
-- **57df54a** - 2026-07-15 12:53:40 - Update guide description for clarity
 <!-- AUTO-GENERATED COMMITS END -->

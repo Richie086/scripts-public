@@ -18,7 +18,7 @@
             --purple: #bd93f9;
             --red: #ff5555;
             --yellow: #f1fa8c;
-            --radius: 4px;
+            --radius: 12px;
             --shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
         }
 
@@ -35,7 +35,40 @@
             --purple: #81a1c1;
             --red: #bf616a;
             --yellow: #ebcb8b;
+            --radius: 12px;
             --shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Login screen overlay */
+        .login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(40, 42, 54, 0.95);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        body.light-mode .login-overlay {
+            background: rgba(229, 233, 240, 0.95);
+        }
+
+        .login-box {
+            width: 400px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 1px solid rgba(255, 255, 255, 0.04);
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+        }
+        body.light-mode .login-box {
+            border-top: 1px solid rgba(255, 255, 255, 0.85);
+            border-left: 1px solid rgba(255, 255, 255, 0.55);
+            border-right: 1px solid rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -548,12 +581,37 @@
 </head>
 <body>
 
+    <!-- Active Directory Login Overlay -->
+    <div class="login-overlay" id="login-overlay" style="display: none;">
+        <div class="login-box">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 25px; font-weight: 800; font-size: 1.25rem; color: var(--purple); text-transform: uppercase;">
+                🔑 Wedge <span>400</span> Login
+            </div>
+            <div id="login-error-msg" style="display: none; background: rgba(255, 85, 85, 0.15); border: 1px solid var(--red); color: var(--red); padding: 10px; border-radius: var(--radius); font-size: 0.85rem; margin-bottom: 20px; font-weight: 500;">
+                Invalid credentials.
+            </div>
+            <form onsubmit="submitLogin(event)">
+                <div class="form-group">
+                    <label for="login-username">Domain Username</label>
+                    <input type="text" id="login-username" required placeholder="e.g. ad_admin">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; margin-top: 10px;">
+                    Log In
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Sidebar Menu -->
     <div class="sidebar">
         <div class="brand">
             WEDGE <span>400</span> Console
         </div>
-        <ul class="nav-menu">
+        <ul class="nav-menu" style="flex: 1;">
             <li class="nav-item active" onclick="switchTab('dashboard')">
                 <i>📊</i> Dashboard
             </li>
@@ -566,7 +624,21 @@
             <li class="nav-item" onclick="switchTab('crawlers')">
                 <i>🔀</i> Dynamic Routes
             </li>
+            <li class="nav-item" id="nav-ad-settings" style="display: none;" onclick="switchTab('ad-settings')">
+                <i>⚙️</i> AD Settings
+            </li>
         </ul>
+        
+        <!-- User Profile Info -->
+        <div id="user-profile-section" style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; margin-top: auto; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                    <div id="user-display-name" style="font-weight: 700; font-size: 0.95rem; color: var(--purple);">User</div>
+                    <div id="user-display-role" style="font-size: 0.75rem; color: var(--comment); text-transform: uppercase;">Role</div>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="logout()" style="padding: 4px 8px; font-size: 0.75rem;">Logout</button>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content Panel -->
@@ -771,6 +843,78 @@
                 </div>
             </div>
         </div>
+
+        <!-- AD SETTINGS TAB -->
+        <div id="tab-ad-settings" class="tab-panel">
+            <div class="grid-container">
+                <!-- AD / LDAP Settings Form -->
+                <div class="card">
+                    <div class="card-title">Active Directory Integration Parameters</div>
+                    <form id="ad-config-form" onsubmit="saveADConfig(event)">
+                        <div class="form-group">
+                            <label for="ad-server">LDAP Server URL (e.g. ldaps://dc.domain.com:636)</label>
+                            <input type="text" id="ad-server" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-domain">AD Domain Name (e.g. domain.com)</label>
+                            <input type="text" id="ad-domain" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-base-dn">User Search Base DN (e.g. dc=domain,dc=com)</label>
+                            <input type="text" id="ad-base-dn" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-bind-dn">Bind User DN (Optional, for queries)</label>
+                            <input type="text" id="ad-bind-dn" placeholder="cn=QueryUser,cn=Users,dc=domain,dc=com">
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-bind-password">Bind Password (Optional)</label>
+                            <input type="password" id="ad-bind-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-simulate">Simulate Active Directory Connection</label>
+                            <select id="ad-simulate">
+                                <option value="true">Simulation Mode Enabled (Offline Testing)</option>
+                                <option value="false">Live Active Directory Server</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn">Save Config</button>
+                            <button type="button" class="btn btn-secondary" onclick="testADConnection()">Test LDAP Connection</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Group Mapper Card -->
+                <div class="card">
+                    <div class="card-title">AD Group to Console Role Mapper</div>
+                    <div class="form-group">
+                        <label for="ad-group-admin">AD Group name for Administrator Role</label>
+                        <input type="text" id="ad-group-admin" required>
+                        <small style="color: var(--comment); font-size: 0.8rem; display: block; margin-top: 4px;">Maps to full switch read/write control + system admin settings.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="ad-group-operator">AD Group name for Operator Role</label>
+                        <input type="text" id="ad-group-operator" required>
+                        <small style="color: var(--comment); font-size: 0.8rem; display: block; margin-top: 4px;">Maps to telemetry monitoring, port configuration, and VLAN creation.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="ad-group-viewer">AD Group name for Viewer Role</label>
+                        <input type="text" id="ad-group-viewer" required>
+                        <small style="color: var(--comment); font-size: 0.8rem; display: block; margin-top: 4px;">Maps to read-only telemetry. Restricts all configuration updates.</small>
+                    </div>
+                    
+                    <div class="card" style="margin-top: 20px; background: rgba(0, 0, 0, 0.2); border-top: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 1px solid rgba(0, 0, 0, 0.45); padding: 15px;">
+                        <div style="font-weight: 700; color: var(--purple); font-size: 0.9rem; margin-bottom: 8px;">Active Directory Simulation Users:</div>
+                        <ul style="color: var(--comment); font-size: 0.85rem; padding-left: 20px; display: flex; flex-direction: column; gap: 4px;">
+                            <li>Admin: <span style="font-family: monospace; color: var(--cyan);">ad_admin</span> / <span style="font-family: monospace; color: var(--yellow);">AdminPass123</span></li>
+                            <li>Operator: <span style="font-family: monospace; color: var(--cyan);">ad_operator</span> / <span style="font-family: monospace; color: var(--yellow);">OperatorPass123</span></li>
+                            <li>Viewer: <span style="font-family: monospace; color: var(--cyan);">ad_viewer</span> / <span style="font-family: monospace; color: var(--yellow);">ViewerPass123</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Interface Config Modal -->
@@ -814,9 +958,32 @@
         // App state
         let portsList = [];
         let portsViewMode = 'grid'; // 'grid' or 'table'
+        let currentUser = null;
+
+        // Intercept standard fetch calls to handle auth errors globally
+        const originalFetch = window.fetch;
+        window.fetch = async function(...args) {
+            try {
+                const response = await originalFetch(...args);
+                if (response.status === 401) {
+                    const isSessionReq = typeof args[0] === 'string' && args[0].includes('/api/auth/session');
+                    const isLoginReq = typeof args[0] === 'string' && args[0].includes('/api/auth/login');
+                    if (!isSessionReq && !isLoginReq) {
+                        showLoginScreen();
+                    }
+                } else if (response.status === 403) {
+                    logConsole("Access denied: Insufficient privileges.", "error");
+                    alert("Permission Denied: Insufficient privileges.");
+                }
+                return response;
+            } catch (err) {
+                throw err;
+            }
+        };
 
         function logConsole(msg, type = "info") {
             const container = document.getElementById("console-logs");
+            if (!container) return;
             const entry = document.createElement("div");
             entry.className = `log-entry log-${type}`;
             const time = new Date().toLocaleTimeString();
@@ -843,6 +1010,120 @@
         }
         updateThemeButton();
 
+        // --- AUTHENTICATION FLOWS ---
+        async function checkAuthSession() {
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/session`);
+                if (res.ok) {
+                    currentUser = await res.json();
+                    document.getElementById("login-overlay").style.display = "none";
+                    updateUIForRole();
+                    logConsole(`Authenticated as ${currentUser.username} (Role: ${currentUser.role})`, "success");
+                    return true;
+                } else {
+                    showLoginScreen();
+                    return false;
+                }
+            } catch (err) {
+                showLoginScreen();
+                return false;
+            }
+        }
+
+        function showLoginScreen() {
+            currentUser = null;
+            document.getElementById("login-overlay").style.display = "flex";
+            document.getElementById("login-error-msg").style.display = "none";
+        }
+
+        async function submitLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById("login-username").value;
+            const password = document.getElementById("login-password").value;
+            const errorDiv = document.getElementById("login-error-msg");
+            errorDiv.style.display = "none";
+
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    currentUser = { username: data.username, role: data.role };
+                    document.getElementById("login-overlay").style.display = "none";
+                    updateUIForRole();
+                    
+                    // Trigger data refresh and switch to dashboard
+                    switchTab('dashboard');
+                    logConsole(`Login successful: Welcome ${data.username}!`, "success");
+                } else {
+                    const data = await res.json();
+                    errorDiv.innerText = data.detail || "Authentication failed.";
+                    errorDiv.style.display = "block";
+                }
+            } catch (err) {
+                errorDiv.innerText = "Error communicating with server.";
+                errorDiv.style.display = "block";
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch(`${API_BASE}/api/auth/logout`, { method: "POST" });
+                logConsole("Logged out successfully.", "info");
+                showLoginScreen();
+            } catch (err) {
+                alert("Error during logout.");
+            }
+        }
+
+        function updateUIForRole() {
+            if (!currentUser) return;
+            
+            // Set User Display details
+            document.getElementById("user-display-name").innerText = currentUser.username;
+            document.getElementById("user-display-role").innerText = currentUser.role;
+
+            // AD Settings navigation is admin-only
+            const adNavItem = document.getElementById("nav-ad-settings");
+            if (currentUser.role === 'admin') {
+                adNavItem.style.display = "flex";
+            } else {
+                adNavItem.style.display = "none";
+            }
+
+            // Enforce RBAC restrictions in UI
+            const isViewer = currentUser.role === 'viewer';
+            
+            // Port Modal save button
+            const saveBtn = document.querySelector("#port-form button[type='submit']");
+            if (saveBtn) {
+                saveBtn.disabled = isViewer;
+                saveBtn.style.opacity = isViewer ? "0.5" : "1";
+                saveBtn.style.cursor = isViewer ? "not-allowed" : "pointer";
+            }
+
+            // Switch Reset Button
+            const resetBtn = document.querySelector("#tab-dashboard button.btn[onclick='triggerReset()']");
+            if (resetBtn) {
+                const isAdmin = currentUser.role === 'admin';
+                resetBtn.disabled = !isAdmin;
+                resetBtn.style.opacity = isAdmin ? "1" : "0.5";
+                resetBtn.style.cursor = isAdmin ? "pointer" : "not-allowed";
+            }
+
+            // VLAN Create Button
+            const createVlanBtn = document.querySelector("#vlan-form button[type='submit']");
+            if (createVlanBtn) {
+                createVlanBtn.disabled = isViewer;
+                createVlanBtn.style.opacity = isViewer ? "0.5" : "1";
+                createVlanBtn.style.cursor = isViewer ? "not-allowed" : "pointer";
+            }
+        }
+
         // --- PORTS VIEW TOGGLE MANAGER ---
         function setPortsView(viewType) {
             portsViewMode = viewType;
@@ -868,13 +1149,24 @@
 
         function switchTab(tabId) {
             document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
-            event.currentTarget.classList.add("active");
+            
+            const evt = window.event;
+            if (evt && evt.currentTarget && typeof evt.currentTarget.classList !== 'undefined') {
+                evt.currentTarget.classList.add("active");
+            } else {
+                const targetLi = Array.from(document.querySelectorAll(".nav-menu .nav-item")).find(li => {
+                    const clickAttr = li.getAttribute("onclick");
+                    return clickAttr && clickAttr.includes(`'${tabId}'`);
+                });
+                if (targetLi) targetLi.classList.add("active");
+            }
 
             const titleMap = {
                 'dashboard': 'Wedge 400 Dashboard',
                 'ports': 'Port Management',
                 'network': 'VLAN & LLDP Config',
-                'crawlers': 'Dynamic Registered Routes'
+                'crawlers': 'Dynamic Registered Routes',
+                'ad-settings': 'AD / LDAP Configuration'
             };
             document.getElementById("page-title").innerText = titleMap[tabId];
 
@@ -891,6 +1183,95 @@
                 fetchLLDP();
             } else if (tabId === 'crawlers') {
                 fetchDynamicRoutes();
+            } else if (tabId === 'ad-settings') {
+                fetchADConfig();
+            }
+        }
+
+        // --- AD CONFIGURATION FUNCTIONS ---
+        async function fetchADConfig() {
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/config`);
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById("ad-server").value = data.ad_server;
+                    document.getElementById("ad-domain").value = data.ad_domain;
+                    document.getElementById("ad-base-dn").value = data.ad_base_dn;
+                    document.getElementById("ad-bind-dn").value = data.ad_bind_dn || "";
+                    document.getElementById("ad-bind-password").value = data.ad_bind_password || "";
+                    document.getElementById("ad-simulate").value = data.ad_simulate;
+                    document.getElementById("ad-group-admin").value = data.ad_group_admin;
+                    document.getElementById("ad-group-operator").value = data.ad_group_operator;
+                    document.getElementById("ad-group-viewer").value = data.ad_group_viewer;
+                }
+            } catch (err) {
+                logConsole("Failed to fetch Active Directory configuration.", "error");
+            }
+        }
+
+        async function saveADConfig(e) {
+            e.preventDefault();
+            const config = {
+                ad_server: document.getElementById("ad-server").value,
+                ad_domain: document.getElementById("ad-domain").value,
+                ad_base_dn: document.getElementById("ad-base-dn").value,
+                ad_bind_dn: document.getElementById("ad-bind-dn").value,
+                ad_bind_password: document.getElementById("ad-bind-password").value,
+                ad_simulate: document.getElementById("ad-simulate").value,
+                ad_group_admin: document.getElementById("ad-group-admin").value,
+                ad_group_operator: document.getElementById("ad-group-operator").value,
+                ad_group_viewer: document.getElementById("ad-group-viewer").value
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/config`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(config)
+                });
+                if (res.ok) {
+                    logConsole("AD configuration updated successfully.", "success");
+                    alert("Configuration saved successfully!");
+                    fetchADConfig();
+                } else {
+                    logConsole("Failed to update AD config.", "error");
+                }
+            } catch (err) {
+                logConsole("Error updating AD config: " + err, "error");
+            }
+        }
+
+        async function testADConnection() {
+            const config = {
+                ad_server: document.getElementById("ad-server").value,
+                ad_domain: document.getElementById("ad-domain").value,
+                ad_base_dn: document.getElementById("ad-base-dn").value,
+                ad_bind_dn: document.getElementById("ad-bind-dn").value,
+                ad_bind_password: document.getElementById("ad-bind-password").value,
+                ad_simulate: document.getElementById("ad-simulate").value,
+                ad_group_admin: document.getElementById("ad-group-admin").value,
+                ad_group_operator: document.getElementById("ad-group-operator").value,
+                ad_group_viewer: document.getElementById("ad-group-viewer").value
+            };
+
+            logConsole(`Testing connection to LDAP Server: ${config.ad_server}...`, "info");
+            try {
+                const res = await fetch(`${API_BASE}/api/auth/test_connection`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(config)
+                });
+                const data = await res.json();
+                if (data.status === "success") {
+                    logConsole(data.message, "success");
+                    alert(data.message);
+                } else {
+                    logConsole(data.message, "error");
+                    alert(data.message);
+                }
+            } catch (err) {
+                logConsole(`LDAP connection test error: ${err}`, "error");
+                alert("Connection test failed.");
             }
         }
 
@@ -973,12 +1354,13 @@
 
             portsList.forEach(p => {
                 const isUp = p.admin_state === "up" && p.oper_state === "up";
+                const isViewer = currentUser && currentUser.role === "viewer";
                 tableBody.innerHTML += `
                     <tr>
                         <td style="font-weight: bold; color: var(--purple);">${p.port_id}</td>
                         <td>
                             <!-- Admin State Selector -->
-                            <select class="table-select" onchange="patchPortInline('${p.port_id}', 'admin_state', this.value)">
+                            <select class="table-select" ${isViewer ? 'disabled' : ''} onchange="patchPortInline('${p.port_id}', 'admin_state', this.value)">
                                 <option value="up" ${p.admin_state === 'up' ? 'selected' : ''}>UP</option>
                                 <option value="down" ${p.admin_state === 'down' ? 'selected' : ''}>DOWN</option>
                             </select>
@@ -989,7 +1371,7 @@
                         </td>
                         <td>
                             <!-- Speed Selector -->
-                            <select class="table-select" onchange="patchPortInline('${p.port_id}', 'speed_gbps', parseInt(this.value))">
+                            <select class="table-select" ${isViewer ? 'disabled' : ''} onchange="patchPortInline('${p.port_id}', 'speed_gbps', parseInt(this.value))">
                                 <option value="100" ${p.speed_gbps === 100 ? 'selected' : ''}>100G</option>
                                 <option value="200" ${p.speed_gbps === 200 ? 'selected' : ''}>200G</option>
                                 <option value="400" ${p.speed_gbps === 400 ? 'selected' : ''}>400G</option>
@@ -997,7 +1379,7 @@
                         </td>
                         <td>
                             <!-- MTU Input -->
-                            <input type="number" class="table-input" style="width: 80px;" value="${p.mtu}" onchange="patchPortInline('${p.port_id}', 'mtu', parseInt(this.value))" min="64" max="9216">
+                            <input type="number" class="table-input" ${isViewer ? 'disabled' : ''} style="width: 80px;" value="${p.mtu}" onchange="patchPortInline('${p.port_id}', 'mtu', parseInt(this.value))" min="64" max="9216">
                         </td>
                         <td>
                             <span style="font-size: 0.9rem; color: ${p.transceiver_present ? 'var(--green)' : 'var(--comment)'}">
@@ -1095,9 +1477,11 @@
             if (!confirm("Are you sure you want to trigger a switch reset? This will momentarily drop interfaces.")) return;
             try {
                 const res = await fetch(`${API_BASE}/api/sys/switch_reset`, { method: "POST" });
-                const data = await res.json();
-                alert(data.message);
-                fetchSensors();
+                if (res.ok) {
+                    const data = await res.json();
+                    alert(data.message);
+                    fetchSensors();
+                }
             } catch (err) {
                 alert("ASIC reset command failed");
             }
@@ -1221,9 +1605,13 @@
             }
         }
 
-        // Initialize view
-        fetchSystemInfo();
-        fetchSensors();
+        // Initialize view by checking session auth state
+        checkAuthSession().then(authenticated => {
+            if (authenticated) {
+                fetchSystemInfo();
+                fetchSensors();
+            }
+        });
     </script>
 </body>
 </html>

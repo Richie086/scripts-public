@@ -20,6 +20,7 @@ def init_db(force_recreate: bool = False):
         cursor.execute("DROP TABLE IF EXISTS ports")
         cursor.execute("DROP TABLE IF EXISTS vlans")
         cursor.execute("DROP TABLE IF EXISTS dynamic_routes")
+        cursor.execute("DROP TABLE IF EXISTS ad_config")
 
     # Create tables
     cursor.execute("""
@@ -52,7 +53,33 @@ def init_db(force_recreate: bool = False):
             payload TEXT
         )
     """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS ad_config (
+            key TEXT PRIMARY KEY,
+            value TEXT
+        )
+    """)
     conn.commit()
+
+    # Seed AD config if empty
+    cursor.execute("SELECT COUNT(*) FROM ad_config")
+    if cursor.fetchone()[0] == 0:
+        default_config = {
+            "ad_server": "ldap://ad.company.local:389",
+            "ad_domain": "company.local",
+            "ad_base_dn": "dc=company,dc=local",
+            "ad_bind_dn": "",
+            "ad_bind_password": "",
+            "ad_group_admin": "RDIT-Admin",
+            "ad_group_operator": "WedgeOperators",
+            "ad_group_viewer": "WedgeViewers",
+            "ad_simulate": "true",
+            "jwt_secret": "default_jwt_secret_key_change_me_in_production"
+        }
+        for k, v in default_config.items():
+            cursor.execute("INSERT INTO ad_config (key, value) VALUES (?, ?)", (k, v))
+        conn.commit()
 
     # Seed ports if empty
     cursor.execute("SELECT COUNT(*) FROM ports")
@@ -257,5 +284,21 @@ def add_dynamic_route(path: str, payload: Dict[str, Any]):
     cursor.execute("""
         INSERT OR REPLACE INTO dynamic_routes (path, payload) VALUES (?, ?)
     """, (path, payload_str))
+    conn.commit()
+    conn.close()
+
+def get_ad_config() -> Dict[str, str]:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM ad_config")
+    rows = cursor.fetchall()
+    conn.close()
+    return {row["key"]: row["value"] for row in rows}
+
+def update_ad_config(config: Dict[str, str]):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    for k, v in config.items():
+        cursor.execute("INSERT OR REPLACE INTO ad_config (key, value) VALUES (?, ?)", (k, v))
     conn.commit()
     conn.close()

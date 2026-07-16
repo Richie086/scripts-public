@@ -15,6 +15,8 @@ client = TestClient(app)
 def setup_test_db():
     # Initialize the test database
     init_db(force_recreate=True)
+    # Log in as admin to populate the session cookie in client for protected routes
+    client.post("/api/auth/login", json={"username": "ad_admin", "password": "AdminPass123"})
     yield
     # Clean up the test database file after running tests
     if os.path.exists("test_switch.db"):

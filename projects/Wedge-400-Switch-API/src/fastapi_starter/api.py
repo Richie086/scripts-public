@@ -1,11 +1,13 @@
 import os
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends, Response, Request
 from typing import List, Dict, Any
 from .models import (
     SensorsResponse, SensorReading, PresenceResponse, FirmwareInfo, 
-    SystemResetResponse, PortStatus, PortStateUpdate, VLANConfig, LLDPNeighbor
+    SystemResetResponse, PortStatus, PortStateUpdate, VLANConfig, LLDPNeighbor,
+    LoginRequest, ADConfigModel
 )
 from . import database as db
+from .auth import authenticate_ad, create_token, get_current_user, require_role, COOKIE_NAME
 
 router = APIRouter(prefix="/api/sys")
 
@@ -63,7 +65,7 @@ def get_firmware_info():
     return FirmwareInfo()
 
 @router.post("/switch_reset", response_model=SystemResetResponse)
-def post_switch_reset():
+def post_switch_reset(current_user: dict = Depends(require_role(["admin"]))):
     # Drop and recreate tables, seeding defaults
     db.init_db(force_recreate=True)
     return SystemResetResponse(
@@ -85,7 +87,7 @@ def get_port(port_id: str):
     return port
 
 @router.patch("/ports/{port_id:path}", response_model=PortStatus)
-def update_port(port_id: str, update: PortStateUpdate):
+def update_port(port_id: str, update: PortStateUpdate, current_user: dict = Depends(require_role(["admin", "operator"]))):
     if update.admin_state is not None:
         if update.admin_state not in ["up", "down"]:
             raise HTTPException(status_code=400, detail="Invalid admin state. Must be 'up' or 'down'")
@@ -104,7 +106,7 @@ def get_vlans():
     return db.get_vlans()
 
 @router.post("/vlans", response_model=VLANConfig)
-def create_vlan(config: VLANConfig):
+def create_vlan(config: VLANConfig, current_user: dict = Depends(require_role(["admin", "operator"]))):
     vlans = db.get_vlans()
     if any(v["vlan_id"] == config.vlan_id for v in vlans):
         raise HTTPException(status_code=400, detail=f"VLAN {config.vlan_id} already exists")
@@ -117,7 +119,7 @@ def create_vlan(config: VLANConfig):
     return db.create_vlan(config.vlan_id, config.name, config.ports)
 
 @router.post("/vlans/{vlan_id}/ports", response_model=VLANConfig)
-def add_ports_to_vlan(vlan_id: int, ports: List[str]):
+def add_ports_to_vlan(vlan_id: int, ports: List[str], current_user: dict = Depends(require_role(["admin", "operator"]))):
     ports_set = {p["port_id"] for p in db.get_ports()}
     for p in ports:
         if p not in ports_set:
@@ -148,7 +150,7 @@ def get_lldp_neighbors():
 # --- Dynamic Routes API CRUD Endpoints ---
 
 @router.post("/routes")
-def add_dynamic_route(route: Dict[str, Any]):
+def add_dynamic_route(route: Dict[str, Any], current_user: dict = Depends(require_role(["admin"]))):
     path = route.get("path")
     payload = route.get("payload")
     if not path or payload is None:
@@ -184,3 +186,75 @@ def dynamic_wildcard_route(rest_of_path: str):
         return payload
         
     raise HTTPException(status_code=404, detail=f"Endpoint '{full_path}' not found in static or dynamic routes.")
+
+# --- Authentication & AD Settings Router ---
+
+auth_router = APIRouter(prefix="/api/auth")
+
+@auth_router.post("/login")
+def login(login_req: LoginRequest, response: Response):
+    user_info = authenticate_ad(login_req.username, login_req.password)
+    if not user_info:
+        raise HTTPException(status_code=401, detail="Authentication failed: Invalid credentials")
+    
+    config = db.get_ad_config()
+    secret = config.get("jwt_secret", "default_jwt_secret_key_change_me_in_production")
+    token = create_token(user_info["username"], user_info["role"], secret)
+    
+    response.set_cookie(
+        key=COOKIE_NAME,
+        value=token,
+        httponly=True,
+        samesite="lax",
+        max_age=28800
+    )
+    return {"status": "success", "username": user_info["username"], "role": user_info["role"]}
+
+@auth_router.post("/logout")
+def logout(response: Response):
+    response.delete_cookie(key=COOKIE_NAME)
+    return {"status": "success", "message": "Successfully logged out"}
+
+@auth_router.get("/session")
+def get_session(current_user: dict = Depends(get_current_user)):
+    return current_user
+
+@auth_router.get("/config", response_model=ADConfigModel)
+def get_config(current_user: dict = Depends(require_role(["admin"]))):
+    config = db.get_ad_config()
+    if config.get("ad_bind_password"):
+        config["ad_bind_password"] = "********"
+    return ADConfigModel(**config)
+
+@auth_router.post("/config")
+def post_config(new_config: ADConfigModel, current_user: dict = Depends(require_role(["admin"]))):
+    current_config = db.get_ad_config()
+    config_dict = new_config.model_dump()
+    if config_dict["ad_bind_password"] == "********":
+        config_dict["ad_bind_password"] = current_config.get("ad_bind_password", "")
+    db.update_ad_config(config_dict)
+    return {"status": "success", "message": "AD configuration updated."}
+
+@auth_router.post("/test_connection")
+def test_connection(config: ADConfigModel, current_user: dict = Depends(require_role(["admin"]))):
+    import ldap3
+    is_simulate = config.ad_simulate.lower() == "true"
+    if is_simulate:
+        return {"status": "success", "message": "Simulation Mode: Connection check bypassed."}
+        
+    try:
+        server = ldap3.Server(config.ad_server, get_info=ldap3.ALL, connect_timeout=5)
+        user = config.ad_bind_dn if config.ad_bind_dn else None
+        password = config.ad_bind_password if config.ad_bind_dn else None
+        if user and password == "********":
+            current_config = db.get_ad_config()
+            password = current_config.get("ad_bind_password", "")
+            
+        conn = ldap3.Connection(server, user=user, password=password, authentication=ldap3.SIMPLE)
+        if conn.bind():
+            conn.unbind()
+            return {"status": "success", "message": "LDAP Connection test successful!"}
+        else:
+            return {"status": "error", "message": "LDAP Bind failed. Verify credentials."}
+    except Exception as e:
+        return {"status": "error", "message": f"LDAP Connection failed: {e}"}

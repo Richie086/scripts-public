@@ -68,3 +68,22 @@ class DynamicEndpoint(BaseModel):
     path: str
     method: str
     simulated_payload: Dict
+
+# --- Authentication and AD Settings Models ---
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class ADConfigModel(BaseModel):
+    ad_server: str
+    ad_domain: str
+    ad_base_dn: str
+    ad_bind_dn: str
+    ad_bind_password: str
+    ad_group_admin: str
+    ad_group_operator: str
+    ad_group_viewer: str
+    ad_simulate: str
+    jwt_secret: Optional[str] = None
+

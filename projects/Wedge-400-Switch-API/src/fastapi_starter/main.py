@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi_starter.api import router
+from fastapi_starter.api import router, auth_router
 from fastapi_starter.database import init_db
 
 # Load root_path from environment variable to allow dynamic proxy routing
@@ -20,6 +20,7 @@ def startup_event():
     init_db()
 
 app.include_router(router)
+app.include_router(auth_router)
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():

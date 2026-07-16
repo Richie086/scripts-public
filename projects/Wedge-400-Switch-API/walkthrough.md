@@ -74,10 +74,12 @@ Output:
 
 ---
 
-## 3. Operations and Console Links (Basic Auth `admin:admin`)
-1. **Wedge 400 Console Dashboard**:
-   👉 **[http://192.168.1.80/projects/wedge-switch-400-api](http://192.168.1.80/projects/wedge-switch-400-api)**
-2. **BMC API Crawler Console**:
+## 3. Operations and Console Links
+1. **Wedge 400 Console Dashboard** (Secured by AD login; Nginx Basic Auth bypassed):
+   👉 **[http://192.168.1.80/projects/wedge-switch-400-api/](http://192.168.1.80/projects/wedge-switch-400-api/)**
+2. **Wedge 400 API Interactive Docs** (Protected by Basic Auth `admin:admin`):
+   👉 **[http://192.168.1.80/projects/wedge-switch-400-api/docs](http://192.168.1.80/projects/wedge-switch-400-api/docs)**
+3. **BMC API Crawler Console** (Protected by Basic Auth `admin:admin`):
    👉 **[http://192.168.1.80/projects/bmc-api-crawler](http://192.168.1.80/projects/bmc-api-crawler)**
-3. **Spotify Backstage Portal**:
+4. **Spotify Backstage Portal**:
    👉 **[http://192.168.1.80:3000](http://192.168.1.80:3000)**

@@ -51,3 +51,30 @@ def test_crawl_flow(mock_post, mock_get):
     
     # Check that post was called to push routes to switch
     assert mock_post.call_count == 2
+
+def test_read_root():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "BMC API Crawler Console" in response.text
+
+@patch("httpx.get")
+def test_crawl_error_handling(mock_get):
+    # Test HTTP fetch error (non-200)
+    mock_response_get = MagicMock()
+    mock_response_get.status_code = 404
+    mock_get.return_value = mock_response_get
+
+    payload = {
+        "url": "https://raw.githubusercontent.com/invalid-file.py",
+        "switch_url": "http://127.0.0.1:8000/projects/wedge-switch-400-api"
+    }
+    response = client.post("/api/crawl", json=payload)
+    assert response.status_code == 400
+    assert "Failed to fetch doc URL" in response.json()["detail"]
+
+    # Test HTTP connection exception
+    mock_get.side_effect = Exception("Connection refused")
+    response = client.post("/api/crawl", json=payload)
+    assert response.status_code == 400
+    assert "HTTP connection error fetching doc" in response.json()["detail"]

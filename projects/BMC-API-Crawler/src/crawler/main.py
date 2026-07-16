@@ -1,6 +1,7 @@
 import os
 import re
 import httpx
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
@@ -9,15 +10,21 @@ from typing import List, Dict, Any
 # Root path prefix for Nginx proxy routing
 API_ROOT_PATH = os.getenv("API_ROOT_PATH", "/projects/bmc-api-crawler")
 
+# Global setting mapping to the target switch REST API
+SWITCH_API_URL = os.getenv("SWITCH_API_URL", "http://127.0.0.1:8000/projects/wedge-switch-400-api")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print(f"BMC API Crawler starting up. Default Target Switch: {SWITCH_API_URL}")
+    yield
+
 app = FastAPI(
     title="BMC API Crawler Service",
     version="1.0.0",
     root_path=API_ROOT_PATH,
-    description="Standalone documentation parser that extracts BMC API endpoints and registers them to a mock switch."
+    description="Standalone documentation parser that extracts BMC API endpoints and registers them to a mock switch.",
+    lifespan=lifespan
 )
-
-# Global setting mapping to the target switch REST API
-SWITCH_API_URL = os.getenv("SWITCH_API_URL", "http://127.0.0.1:8000/projects/wedge-switch-400-api")
 
 class CrawlRequest(BaseModel):
     url: str = Field(..., description="The documentation or test file URL to crawl")
@@ -25,10 +32,6 @@ class CrawlRequest(BaseModel):
 
 class SettingsUpdateRequest(BaseModel):
     switch_url: str = Field(..., description="The target switch console API base URL")
-
-@app.on_event("startup")
-def startup_event():
-    print(f"BMC API Crawler starting up. Default Target Switch: {SWITCH_API_URL}")
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():

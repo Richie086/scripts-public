@@ -21,6 +21,9 @@ Ongoing log of accomplishments, test validations, and features implemented.
   - Created a dedicated glassy **Crawler Console UI** allowing catalog navigation, raw URL crawling, and a live log tracking panel showing ingestion results.
   - Pytest validation: Mock testing completed with 3 tests passing cleanly.
   - Deployed to `192.168.1.80` on port `8001` (Nginx: `/projects/bmc-api-crawler`).
+- **Custom Antigravity Dashboard Commands**:
+  - Registered `/dashboard` and `/projects` commands inside the `.agents/commands/` directory of the `scripts-public` repository.
+  - These commands trigger the agent to display a structured markdown table summarizing all active development sites, credentials, and directories.
 
 ---
 
@@ -69,7 +72,7 @@ Output:
 ## 3. Operations and Console Links (Basic Auth `admin:admin`)
 1. **Wedge 400 Console Dashboard**:
    👉 **[http://192.168.1.80/projects/wedge-switch-400-api](http://192.168.1.80/projects/wedge-switch-400-api)**
-2. **BMC API Crawler Console**:
+2. **API Crawler Console**:
    👉 **[http://192.168.1.80/projects/bmc-api-crawler](http://192.168.1.80/projects/bmc-api-crawler)**
 3. **Spotify Backstage Portal**:
    👉 **[http://192.168.1.80:3000](http://192.168.1.80:3000)**

@@ -1,0 +1,10 @@
+pyproject.toml
+src/bmc_api_crawler.egg-info/PKG-INFO
+src/bmc_api_crawler.egg-info/SOURCES.txt
+src/bmc_api_crawler.egg-info/dependency_links.txt
+src/bmc_api_crawler.egg-info/requires.txt
+src/bmc_api_crawler.egg-info/top_level.txt
+src/crawler/__init__.py
+src/crawler/main.py
+src/crawler/templates/index.html
+tests/test_crawler.py

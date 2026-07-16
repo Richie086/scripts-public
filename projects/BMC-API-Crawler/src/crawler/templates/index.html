@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMC API Crawler Console</title>
+    <style>
+        /* Dracula theme variables */
+        :root {
+            --bg: #282a36;
+            --bg-elevated: #44475a;
+            --fg: #f8f8f2;
+            --comment: #6272a4;
+            --cyan: #8be9fd;
+            --green: #50fa7b;
+            --orange: #ffb86c;
+            --pink: #ff79c6;
+            --purple: #bd93f9;
+            --red: #ff5555;
+            --yellow: #f1fa8c;
+            --radius: 4px;
+            --shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Light mode variables - Nord */
+        body.light-mode {
+            --bg: #e5e9f0;
+            --bg-elevated: #eceff4;
+            --fg: #2e3440;
+            --comment: #4c566a;
+            --cyan: #5e81ac;
+            --green: #2e7d32;
+            --orange: #d08770;
+            --pink: #b48ead;
+            --purple: #81a1c1;
+            --red: #bf616a;
+            --yellow: #ebcb8b;
+            --shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 260px;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body.light-mode .sidebar {
+            background: rgba(255, 255, 255, 0.4);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        body.light-mode .brand {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: #4c566a;
+        }
+
+        .brand span {
+            color: var(--cyan);
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--comment);
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--fg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        body.light-mode .nav-item:hover, body.light-mode .nav-item.active {
+            background: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .nav-item.active {
+            border-left: 3px solid var(--purple);
+        }
+
+        /* Main Content Container */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+            padding: 30px;
+            background: radial-gradient(circle at top right, rgba(189, 147, 249, 0.05), transparent 60%);
+        }
+
+        body.light-mode .main-content {
+            background: radial-gradient(circle at top right, rgba(94, 129, 172, 0.05), transparent 60%);
+        }
+
+        header {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .status-badge {
+            background-color: rgba(139, 233, 253, 0.1);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Card panels - Glassy, 4px rounded bevel with hover look */
+        .card {
+            background: rgba(68, 71, 90, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            border-left: 1px solid rgba(255, 255, 255, 0.06);
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+            margin-bottom: 25px;
+        }
+
+        body.light-mode .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.85);
+            border-left: 1px solid rgba(255, 255, 255, 0.55);
+            border-right: 1px solid rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+        }
+
+        body.light-mode .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--purple);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Forms & Interactive elements */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: var(--comment);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--fg);
+            font-family: inherit;
+            transition: border-color 0.2s ease, background-color 0.3s ease;
+        }
+
+        body.light-mode input, body.light-mode select, body.light-mode textarea {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 0, 0, 0.15);
+            color: var(--fg);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--purple);
+        }
+
+        .btn {
+            background-color: var(--purple);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+            color: var(--fg);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode .btn {
+            color: #ffffff;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: #bd93f9e0;
+            transform: translateY(-1px);
+        }
+
+        body.light-mode .btn:hover {
+            background-color: #5e81ace0;
+        }
+
+        .btn-secondary {
+            background-color: var(--comment);
+        }
+
+        .btn-secondary:hover {
+            background-color: #6272a4e0;
+        }
+
+        body.light-mode .btn-secondary {
+            background-color: #4c566a;
+        }
+
+        body.light-mode .btn-secondary:hover {
+            background-color: #3b4252;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        /* Console log panel */
+        .console-panel {
+            background-color: #1e1f29;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--fg);
+            max-height: 280px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        body.light-mode .console-panel {
+            background-color: #2e3440;
+            color: #eceff4;
+        }
+
+        .log-entry {
+            margin-bottom: 4px;
+        }
+
+        .log-info { color: var(--cyan); }
+        .log-success { color: var(--green); }
+        .log-warn { color: var(--yellow); }
+        .log-error { color: var(--red); }
+
+        body.light-mode .log-info { color: #88c0d0; }
+        body.light-mode .log-success { color: #a3be8c; }
+        body.light-mode .log-warn { color: #ebcb8b; }
+        body.light-mode .log-error { color: #bf616a; }
+
+        /* Document catalog navigation */
+        .doc-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+        }
+
+        body.light-mode .doc-nav {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .doc-nav-item {
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--comment);
+        }
+
+        .doc-nav-item.active {
+            background-color: var(--bg-elevated);
+            color: var(--cyan);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <div class="brand">
+            BMC <span>Crawler</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="switchTab('crawler')">
+                <i>🕷️</i> API Crawler
+            </li>
+            <li class="nav-item" onclick="switchTab('settings')">
+                <i>⚙️</i> Ingestion Settings
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main-content">
+        <header>
+            <h1 id="page-title">OpenBMC API Document Ingester</h1>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <!-- Theme Switcher Toggle -->
+                <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" id="theme-btn">
+                    <i>☀️</i> Light Mode
+                </button>
+                <div class="status-badge" id="active-switch-badge">
+                    Switch: Loading...
+                </div>
+            </div>
+        </header>
+
+        <!-- CRAWLER TAB -->
+        <div id="tab-crawler" class="tab-panel active">
+            <div class="card">
+                <div class="card-title">OpenBMC Endpoint Crawler & Switch Loader</div>
+                <p style="color: var(--comment); margin-bottom: 20px;">Provide a target repository source or REST API test file. The crawler parses `/api/sys/...` endpoints on the fly, packages mock data schemas, and pushes them directly to the configured Wedge 400 switch.</p>
+                
+                <div class="doc-nav">
+                    <span class="doc-nav-item active" onclick="loadDocUrl('https://raw.githubusercontent.com/facebook/openbmc/refs/heads/helium/tests2/tests/wedge400/test_rest_endpoint.py', this)">OpenBMC Wedge 400 Tests</span>
+                    <span class="doc-nav-item" onclick="loadDocUrl('https://raw.githubusercontent.com/facebook/openbmc/refs/heads/helium/tests2/tests/wedge400/test_sensor.py', this)">OpenBMC Sensor Tests</span>
+                </div>
+
+                <form onsubmit="runCrawler(event)" style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <div style="flex: 1;">
+                        <input type="url" id="crawler-url" required value="https://raw.githubusercontent.com/facebook/openbmc/refs/heads/helium/tests2/tests/wedge400/test_rest_endpoint.py">
+                    </div>
+                    <button type="submit" class="btn" id="crawl-btn"><i>🕷️</i> Crawl & Load Switch</button>
+                </form>
+            </div>
+
+            <!-- Terminal output panel -->
+            <div class="card">
+                <div class="card-title">Console logs</div>
+                <div class="console-panel" id="console-logs">
+                    <div class="log-entry log-info">[info] Standalone API Ingestion Console ready.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div id="tab-settings" class="tab-panel">
+            <div class="card">
+                <div class="card-title">Configuration Settings</div>
+                <p style="color: var(--comment); margin-bottom: 20px;">Define the target mock switch REST API instance where crawled routes are posted.</p>
+                
+                <form onsubmit="saveSettings(event)">
+                    <div class="form-group">
+                        <label for="switch-url-config">Target Switch API URL Base</label>
+                        <input type="url" id="switch-url-config" required placeholder="http://192.168.1.80/projects/wedge-switch-400-api">
+                    </div>
+                    <button type="submit" class="btn">Save Configuration</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frontend Scripting Logic -->
+    <script>
+        const API_BASE = window.location.pathname.replace(/\/$/, "");
+        let targetSwitchUrl = "";
+
+        function logConsole(msg, type = "info") {
+            const container = document.getElementById("console-logs");
+            const entry = document.createElement("div");
+            entry.className = `log-entry log-${type}`;
+            const time = new Date().toLocaleTimeString();
+            entry.innerText = `[${time}] ${msg}`;
+            container.appendChild(entry);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // --- THEME STATE MANAGER ---
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle("light-mode");
+            localStorage.setItem("theme", isLight ? "light" : "dark");
+            updateThemeButton();
+        }
+
+        function updateThemeButton() {
+            const isLight = document.body.classList.contains("light-mode");
+            document.getElementById("theme-btn").innerHTML = isLight ? "<i>🌙</i> Dark Mode" : "<i>☀️</i> Light Mode";
+        }
+
+        if (localStorage.getItem("theme") === "light") {
+            document.body.classList.add("light-mode");
+        }
+        updateThemeButton();
+
+        // --- TAB SWITCHER ---
+        function switchTab(tabId) {
+            document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+            event.currentTarget.classList.add("active");
+
+            const titleMap = {
+                'crawler': 'OpenBMC API Document Ingester',
+                'settings': 'Target Config Settings'
+            };
+            document.getElementById("page-title").innerText = titleMap[tabId];
+
+            document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
+            document.getElementById(`tab-${tabId}`).classList.add("active");
+        }
+
+        // --- SETTINGS FETCH/SAVE ---
+        async function fetchSettings() {
+            try {
+                const res = await fetch(`${API_BASE}/api/settings`);
+                const data = await res.json();
+                targetSwitchUrl = data.switch_url;
+                document.getElementById("switch-url-config").value = targetSwitchUrl;
+                document.getElementById("active-switch-badge").innerText = `Switch: ${targetSwitchUrl}`;
+                logConsole(`Loaded target switch URL: ${targetSwitchUrl}`);
+            } catch (err) {
+                logConsole("Failed to fetch settings from crawler backend", "error");
+            }
+        }
+
+        async function saveSettings(e) {
+            e.preventDefault();
+            const url = document.getElementById("switch-url-config").value;
+            try {
+                const res = await fetch(`${API_BASE}/api/settings`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ switch_url: url })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    targetSwitchUrl = data.switch_url;
+                    document.getElementById("active-switch-badge").innerText = `Switch: ${targetSwitchUrl}`;
+                    logConsole(`Target switch configuration updated to: ${targetSwitchUrl}`, "success");
+                    alert("Settings saved successfully.");
+                } else {
+                    alert("Failed to save settings.");
+                }
+            } catch (err) {
+                alert("Network error updating settings.");
+            }
+        }
+
+        // --- CRAWLER LOGIC ---
+        function loadDocUrl(url, elem) {
+            document.querySelectorAll(".doc-nav-item").forEach(item => item.classList.remove("active"));
+            elem.classList.add("active");
+            document.getElementById("crawler-url").value = url;
+            logConsole(`Target document switched to: ${url}`);
+        }
+
+        async function runCrawler(e) {
+            e.preventDefault();
+            const btn = document.getElementById("crawl-btn");
+            const url = document.getElementById("crawler-url").value;
+
+            btn.disabled = true;
+            btn.innerText = "Crawling...";
+            logConsole(`Triggering crawl & ingestion for: ${url}...`);
+
+            try {
+                const res = await fetch(`${API_BASE}/api/crawl`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: url, switch_url: targetSwitchUrl })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    logConsole(`Ingestion parsed ${data.endpoints_found.length} unique paths.`, "success");
+                    
+                    data.registered.forEach(p => {
+                        logConsole(`[Success] Registered mock route on switch: ${p}`, "success");
+                    });
+                    
+                    data.failed.forEach(f => {
+                        logConsole(`[Failed] Failed to register ${f.path}: ${f.error}`, "error");
+                    });
+                    
+                    if (data.registered.length > 0) {
+                         logConsole(`Successfully loaded ${data.registered.length} routes onto switch!`, "success");
+                    }
+                } else {
+                    const data = await res.json();
+                    logConsole(`Crawl failure: ${data.detail}`, "error");
+                }
+            } catch (err) {
+                logConsole(`Connection failure parsing document: ${err}`, "error");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Crawl & Load Switch";
+            }
+        }
+
+        // Initial settings load
+        fetchSettings();
+    </script>
+</body>
+</html>

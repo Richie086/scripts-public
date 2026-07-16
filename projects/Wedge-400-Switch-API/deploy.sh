@@ -139,11 +139,12 @@ else:
     sys.exit(1)
 EOF
 
-# Copy to remote and execute
-scp -i "${SSH_KEY}" /tmp/nginx_injector_local.py "${DEV_HOST}":/tmp/nginx_injector.py
+# Copy to remote and execute using a unique filename
+temp_name="nginx_injector_wedge_$(date +%s).py"
+scp -i "${SSH_KEY}" /tmp/nginx_injector_local.py "${DEV_HOST}":/tmp/${temp_name}
 rm -f /tmp/nginx_injector_local.py
 
-ssh -i "${SSH_KEY}" "${DEV_HOST}" "sudo python3 /tmp/nginx_injector.py && rm -f /tmp/nginx_injector.py"
+ssh -i "${SSH_KEY}" "${DEV_HOST}" "sudo python3 /tmp/${temp_name} && rm -f /tmp/${temp_name}"
 ssh -i "${SSH_KEY}" "${DEV_HOST}" "sudo nginx -t && sudo systemctl reload nginx"
 echo "[✓] Nginx reloaded."
 

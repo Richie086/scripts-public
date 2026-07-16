@@ -514,9 +514,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
-- **08dbe21** - 2026-07-16 08:08:22 - security: scrub sensitive keys and tokens from exported configurations
-- **13f2632** - 2026-07-16 08:05:50 - feat: migrate legacy commands to skills and implement antigravity config exporter web app
-- **eae3eba** - 2026-07-16 07:53:02 - Update Antigravity dashboard slash commands with production Backstage URL and FastAPI Starter
-- **592cb6a** - 2026-07-16 06:44:08 - feat: add /dashboard and /projects custom slash commands for Antigravity TUI
-- **13fccd5** - 2026-07-16 06:40:49 - Merge branch 'BMC-API-Crawler'
+- **27b2e8e** - 2026-07-16 08:08:41 - feat: implement Wedge 400 API, BMC Crawler, dashboard TUI skills, and config exporter web app
+- **57df54a** - 2026-07-15 12:53:40 - Update guide description for clarity
+- **0ac8928** - 2026-07-15 12:52:55 - Revise title for clarity on guide's content
+- **0f70b67** - 2026-07-15 12:51:43 - Revise subtitle in development workflow guide
+- **129c016** - 2026-07-15 11:16:17 - docs(terminus): Emphasize /plan, /grill-me, and AI self-documentation in dev guide
 <!-- AUTO-GENERATED COMMITS END -->

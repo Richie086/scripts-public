@@ -1,6 +1,6 @@
 # Model Context Protocol (MCP) Configuration
 
-*Exported on: 2026-07-16 08:07:53*
+*Exported on: 2026-07-16 08:10:06*
 
 This file summarizes the configured MCP servers used by the Antigravity agent to connect to external tools and services.
 

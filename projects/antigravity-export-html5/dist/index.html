@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity Config Exporter & Viewer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Prism.js Tomorrow Night Theme for Code Blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    
+    <!-- Custom CSS: Glassy Dracula TUI Design -->
+    <style>
+        :root {
+            --bg-base: #181920;
+            --bg-elevated: #1e1f29;
+            --bg-card: #282a36;
+            --bg-hover: #343746;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-bottom: rgba(0, 0, 0, 0.45);
+            --fg-base: #f8f8f2;
+            --fg-muted: #6272a4;
+            --purple: #bd93f9;
+            --green: #50fa7b;
+            --cyan: #8be9fd;
+            --orange: #ffb86c;
+            --radius: 12px;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            --font-main: 'Outfit', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--fg-base);
+            font-family: var(--font-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* App Layout Grid */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: radial-gradient(circle at 10% 20%, rgba(189, 147, 249, 0.03) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(80, 250, 123, 0.02) 0%, transparent 40%);
+        }
+
+        /* Sidebar Panel */
+        aside {
+            background-color: var(--bg-elevated);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            z-index: 10;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-base);
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(189, 147, 249, 0.3);
+        }
+
+        .logo-title {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, var(--fg-base), var(--fg-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--fg-muted);
+            text-align: left;
+            padding: 14px 18px;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            color: var(--fg-base);
+            background-color: rgba(255, 255, 255, 0.03);
+            transform: translateX(4px);
+        }
+
+        .nav-btn.active {
+            color: var(--purple);
+            background-color: rgba(189, 147, 249, 0.08);
+            border-left: 3px solid var(--purple);
+            padding-left: 15px;
+        }
+
+        .footer {
+            margin-top: auto;
+            font-size: 12px;
+            color: var(--fg-muted);
+            text-align: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Main Workspace Content */
+        main {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        header {
+            height: 70px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background-color: rgba(30, 31, 41, 0.4);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .header-meta {
+            font-size: 13px;
+            color: var(--fg-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* Content Container with Beveled Card Style */
+        .content-wrapper {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .beveled-card {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-bottom);
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 48px;
+            min-height: 100%;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Markdown Elements Styling */
+        .markdown-body h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--purple);
+        }
+
+        .markdown-body h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .markdown-body h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: var(--cyan);
+        }
+
+        .markdown-body p {
+            margin-bottom: 16px;
+            line-height: 1.6;
+            color: #e2e2e9;
+        }
+
+        .markdown-body a {
+            color: var(--purple);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--purple);
+            transition: var(--transition);
+        }
+
+        .markdown-body a:hover {
+            color: var(--cyan);
+            border-bottom-color: var(--cyan);
+        }
+
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 20px;
+            padding-left: 24px;
+        }
+
+        .markdown-body li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        /* Markdown Code Highlight */
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: var(--green);
+        }
+
+        .markdown-body pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            color: inherit;
+        }
+
+        .markdown-body pre {
+            background-color: #121319 !important;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        /* Markdown Table Styling */
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .markdown-body th {
+            background-color: rgba(189, 147, 249, 0.1);
+            color: var(--purple);
+            font-weight: 600;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .markdown-body td {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            background-color: rgba(255, 255, 255, 0.01);
+        }
+
+        .markdown-body tr:nth-child(even) td {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Alert Callouts */
+        .markdown-body blockquote {
+            border-left: 4px solid var(--orange);
+            background-color: rgba(255, 184, 108, 0.05);
+            padding: 16px 20px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin-bottom: 24px;
+        }
+
+        .markdown-body blockquote p {
+            margin-bottom: 0;
+            color: #ffb86c;
+        }
+
+        /* Alerts via YAML triggers */
+        .markdown-body .alert-warning {
+            border-left: 4px solid var(--orange);
+            background-color: rgba(255, 184, 108, 0.05);
+            color: var(--orange);
+            padding: 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-hover);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--fg-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside>
+            <div class="logo-section">
+                <div class="logo-icon">▲</div>
+                <div class="logo-title">Antigravity Config</div>
+            </div>
+            
+            <nav id="sidebar-nav">
+                <button class="nav-btn active" onclick="loadContent('general_settings', this)">
+                    <span>⚙</span> General Settings
+                </button>
+                <button class="nav-btn" onclick="loadContent('mcp_servers', this)">
+                    <span>⛓</span> MCP Servers
+                </button>
+                <button class="nav-btn" onclick="loadContent('global_skills', this)">
+                    <span>🌍</span> Global Skills
+                </button>
+                <button class="nav-btn" onclick="loadContent('workspace_rules', this)">
+                    <span>📜</span> Workspace Rules
+                </button>
+                <button class="nav-btn" onclick="loadContent('workspace_skills', this)">
+                    <span>🛠</span> Workspace Skills
+                </button>
+            </nav>
+            
+            <div class="footer">
+                Antigravity Exporter v1.0
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main>
+            <header>
+                <div class="header-title" id="page-title">General Settings</div>
+                <div class="header-meta" id="page-meta">~/.gemini/antigravity-cli/settings.json</div>
+            </header>
+            
+            <div class="content-wrapper">
+                <div class="beveled-card markdown-body" id="content-pane">
+                    <!-- Config content gets loaded here dynamically -->
+                    <p style="color: var(--fg-muted);">Loading config parameters...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Marked.js Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Prism.js Core and Autoloader for Syntax Highlight -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        const metaMap = {
+            general_settings: {
+                title: "General Settings",
+                meta: "~/.gemini/antigravity-cli/settings.json",
+                file: "markdown/general_settings.md"
+            },
+            mcp_servers: {
+                title: "MCP Servers",
+                meta: "~/.gemini/config/mcp_config.json",
+                file: "markdown/mcp_servers.md"
+            },
+            global_skills: {
+                title: "Global Skills",
+                meta: "~/.gemini/skills/",
+                file: "markdown/global_skills.md"
+            },
+            workspace_rules: {
+                title: "Workspace Rules",
+                meta: "/home/rtroiano/.agents/AGENTS.md",
+                file: "markdown/workspace_rules.md"
+            },
+            workspace_skills: {
+                title: "Workspace Skills",
+                meta: "/home/rtroiano/.agents/skills/",
+                file: "markdown/workspace_skills.md"
+            }
+        };
+
+        // Render Markdown content dynamically
+        async function loadContent(key, element) {
+            const pane = document.getElementById("content-pane");
+            
+            // Set active states on buttons
+            if (element) {
+                document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+                element.classList.add("active");
+            }
+            
+            // Get route configuration
+            const route = metaMap[key];
+            if (!route) {
+                // If not in standard map, it could be a sub-file (like an individual skill)
+                if (key.startsWith("markdown/")) {
+                    document.getElementById("page-title").innerText = "Skill Details";
+                    document.getElementById("page-meta").innerText = key;
+                    await fetchAndRender(key);
+                }
+                return;
+            }
+
+            document.getElementById("page-title").innerText = route.title;
+            document.getElementById("page-meta").innerText = route.meta;
+            
+            await fetchAndRender(route.file);
+        }
+
+        async function fetchAndRender(filepath) {
+            const pane = document.getElementById("content-pane");
+            
+            // Apply a slight fade-out / slide-down animation reset
+            pane.style.animation = 'none';
+            pane.offsetHeight; // trigger reflow
+            pane.style.animation = null;
+
+            try {
+                const response = await fetch(filepath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                let markdown = await response.text();
+                
+                // Parse frontmatter if present and trim it out for readability
+                if (markdown.startsWith("---")) {
+                    const lines = markdown.split("\n");
+                    let boundaryCount = 0;
+                    let contentStartIdx = 0;
+                    for (let i = 0; i < lines.length; i++) {
+                        if (lines[i].trim() === "---") {
+                            boundaryCount++;
+                            if (boundaryCount === 2) {
+                                contentStartIdx = i + 1;
+                                break;
+                            }
+                        }
+                    }
+                    if (boundaryCount === 2) {
+                        markdown = lines.slice(contentStartIdx).join("\n");
+                    }
+                }
+
+                // Render Markdown using marked.js
+                pane.innerHTML = marked.parse(markdown);
+                
+                // Intercept links inside rendered markdown to routing logic (e.g. for skills)
+                pane.querySelectorAll("a").forEach(a => {
+                    const href = a.getAttribute("href");
+                    if (href && href.startsWith("markdown/")) {
+                        a.onclick = (e) => {
+                            e.preventDefault();
+                            loadContent(href, null);
+                        };
+                    }
+                });
+
+                // Highlight all blocks using Prism
+                Prism.highlightAllUnder(pane);
+                
+            } catch (error) {
+                pane.innerHTML = `
+                    <div class="alert-warning" style="margin-top: 20px;">
+                        <h3>Failed to Load Configuration File</h3>
+                        <p style="margin-top: 8px;">The file <code>${filepath}</code> could not be fetched or does not exist. Ensure you have run <code>python3 export.py</code> to build the configuration markdown files first.</p>
+                        <p style="margin-top: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-muted);">Error detail: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // On Load, render the first tab
+        window.addEventListener("DOMContentLoaded", () => {
+            loadContent("general_settings", document.querySelector(".nav-btn"));
+        });
+    </script>
+</body>
+</html>

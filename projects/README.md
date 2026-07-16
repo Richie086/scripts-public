@@ -31,7 +31,7 @@ graph TD
 	n6 --> n6_1("dist"):::folder
 	n5 --> n5_6["DEPLOYMENT.md<br>build.sh<br>README.md<br>terminus.py<br>deploy.sh"]:::file-bundle
 	n7 --> n7_1("tests"):::folder
-	n6 --> n6_3["README.md<br>export.py"]:::file-bundle
+	n6 --> n6_4["README.md<br>export.py<br>index.html"]:::file-bundle
 	n7 --> n7_3("src"):::folder
 	n7 --> n7_8[".pytest_cache<br>context_bootstrap.md<br>build.sh<br>README.md<br>deploy.sh<br>pyproject.toml"]:::file-bundle
 	n3_1 --> n3_1_1("stftpupload"):::folder
@@ -44,6 +44,7 @@ graph TD
 	n4_3 --> n4_3_3["wedge_400_switch_api.egg-info<br>README.md"]:::file-bundle
 	n6_1 --> n6_1_1("markdown"):::folder
 	n5_1 --> n5_1_8["dev_workflow_guide.mp3<br>README.md<br>implementation_plan.md<br>generate_voiceover.py<br>dev_workflow_guide.md<br>walkthrough.md<br>master_prompt.md"]:::file-bundle
+	n6_1 --> n6_1_2["index.html"]:::file-html
 	n4_2 --> n4_2_1("v"):::folder
 	n4_1 --> n4_1_2["test_crawler.py"]:::file-py
 	n4_3 --> n4_3_1("crawler"):::folder

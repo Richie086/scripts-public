@@ -1,6 +1,6 @@
 # Global Skills Registry
 
-*Exported on: 2026-07-16 08:07:53*
+*Exported on: 2026-07-16 08:10:06*
 
 Skills are reusable packages of knowledge or workflows that teach the agent how to perform specific tasks.
 

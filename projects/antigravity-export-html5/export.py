@@ -83,6 +83,15 @@ def export_configurations():
     # 5. Generate Workspace Skills Markdown
     generate_skills_md(md_dir / "workspace_skills.md", workspace_skills_dir, skills_out_dir, is_global=False)
 
+    # 6. Copy HTML5 Viewer index.html
+    html_src = project_dir / "index.html"
+    html_dst = dist_dir / "index.html"
+    if html_src.exists():
+        shutil.copy2(html_src, html_dst)
+        print("[INFO] Copied index.html viewer to dist/ directory.")
+    else:
+        print(f"[WARNING] index.html template not found at {html_src}")
+
     print("[SUCCESS] Configurations successfully exported to Markdown.")
 
 def read_json(path):

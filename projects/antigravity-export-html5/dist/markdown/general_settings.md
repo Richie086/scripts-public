@@ -1,6 +1,6 @@
 # General Settings Configuration
 
-*Exported on: 2026-07-16 08:07:53*
+*Exported on: 2026-07-16 08:10:06*
 
 This file contains the general configuration settings for the Antigravity CLI and the Gemini helper environments.
 

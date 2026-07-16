@@ -71,7 +71,7 @@ graph TD
 	n7_6 --> n7_6_1("dist"):::folder
 	n7_5 --> n7_5_6["DEPLOYMENT.md<br>build.sh<br>README.md<br>terminus.py<br>deploy.sh"]:::file-bundle
 	n7_7 --> n7_7_1("tests"):::folder
-	n7_6 --> n7_6_3["README.md<br>export.py"]:::file-bundle
+	n7_6 --> n7_6_4["README.md<br>export.py<br>index.html"]:::file-bundle
 	n7_7 --> n7_7_3("src"):::folder
 	n7_7 --> n7_7_8[".pytest_cache<br>context_bootstrap.md<br>build.sh<br>README.md<br>deploy.sh<br>pyproject.toml"]:::file-bundle
 	n9_1 --> n9_1_1("wordpress-taxonomy"):::folder
@@ -93,6 +93,7 @@ graph TD
 	n7_4_3 --> n7_4_3_3["wedge_400_switch_api.egg-info<br>README.md"]:::file-bundle
 	n7_6_1 --> n7_6_1_1("markdown"):::folder
 	n7_5_1 --> n7_5_1_8["dev_workflow_guide.mp3<br>README.md<br>implementation_plan.md<br>generate_voiceover.py<br>dev_workflow_guide.md<br>walkthrough.md<br>master_prompt.md"]:::file-bundle
+	n7_6_1 --> n7_6_1_2["index.html"]:::file-html
 	n7_4_2 --> n7_4_2_1("v"):::folder
 	n7_4_1 --> n7_4_1_2["test_crawler.py"]:::file-py
 	n7_4_3 --> n7_4_3_1("crawler"):::folder
@@ -323,8 +324,10 @@ scripts-public/
       * [README.md](projects/antigravity-export-html5/dist/markdown/README.md): markdown
       * [workspace_rules.md](projects/antigravity-export-html5/dist/markdown/workspace_rules.md): Workspace Guidelines and Rules
       * [workspace_skills.md](projects/antigravity-export-html5/dist/markdown/workspace_skills.md): Workspace Skills Registry
+    * [index.html](projects/antigravity-export-html5/dist/index.html): Antigravity Config Exporter & Viewer
     * [README.md](projects/antigravity-export-html5/dist/README.md): dist
   * [export.py](projects/antigravity-export-html5/export.py): # General Settings Configuration *Exported on: {now_str}* This file contains the general configuration settings for the Antigravity CLI and the Gemini helper environments. ## Antigravity CLI Settings (`settings.json`)
+  * [index.html](projects/antigravity-export-html5/index.html): Antigravity Config Exporter & Viewer
   * [README.md](projects/antigravity-export-html5/README.md): antigravity-export-html5
 * [BMC-API-Crawler/](projects/BMC-API-Crawler/): BMC-API-Crawler
   * [.pytest_cache/](projects/BMC-API-Crawler/.pytest_cache/): pytest cache directory #

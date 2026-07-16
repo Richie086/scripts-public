@@ -517,9 +517,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **9325451** - 2026-07-16 09:50:13 - feat(wedge-api): implement Active Directory integration with LDAP simulation and role-based access control
 - **3d5bc54** - 2026-07-16 08:10:19 - feat: keep index.html outside dist and copy it during build
 - **27b2e8e** - 2026-07-16 08:08:41 - feat: implement Wedge 400 API, BMC Crawler, dashboard TUI skills, and config exporter web app
 - **57df54a** - 2026-07-15 12:53:40 - Update guide description for clarity
 - **0ac8928** - 2026-07-15 12:52:55 - Revise title for clarity on guide's content
-- **0f70b67** - 2026-07-15 12:51:43 - Revise subtitle in development workflow guide
 <!-- AUTO-GENERATED COMMITS END -->

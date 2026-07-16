@@ -141,3 +141,106 @@ def test_logout():
     assert res.status_code == 200
     # The session cookie value should be deleted/removed
     assert res.cookies.get(COOKIE_NAME) is None or res.cookies.get(COOKIE_NAME) == ""
+
+
+def test_real_ldap_bind_flow_direct():
+    """Verify authenticate_ad behaves correctly with direct binds when bind_dn is empty."""
+    from unittest.mock import patch, MagicMock
+    from fastapi_starter.auth import authenticate_ad
+    from fastapi_starter.database import update_ad_config
+
+    # Enable live AD mode
+    update_ad_config({
+        "ad_simulate": "false",
+        "ad_server": "ldap://ad-test.local:389",
+        "ad_domain": "ad-test.local",
+        "ad_base_dn": "dc=ad-test,dc=local",
+        "ad_bind_dn": "",
+        "ad_bind_password": "",
+        "ad_group_admin": "RDIT-Admin"
+    })
+
+    with patch("ldap3.Connection") as mock_conn_cls:
+        mock_conn = MagicMock()
+        mock_conn_cls.return_value = mock_conn
+        
+        # 1. Bind succeeds
+        mock_conn.bind.return_value = True
+        
+        # 2. Mock search returns a user belonging to RDIT-Admin
+        mock_entry = MagicMock()
+        mock_entry.entry_dn = "cn=testuser,ou=Users,dc=ad-test,dc=local"
+        mock_entry.memberOf.value = ["cn=RDIT-Admin,ou=Groups,dc=ad-test,dc=local"]
+        mock_conn.entries = [mock_entry]
+
+        res = authenticate_ad("testuser", "testpass")
+        assert res is not None
+        assert res["username"] == "testuser"
+        assert res["role"] == "admin"
+
+        # Assert direct bind was called with testuser@ad-test.local
+        mock_conn_cls.assert_called_with(
+            mock_conn_cls.call_args[0][0],
+            user="testuser@ad-test.local",
+            password="testpass",
+            authentication=mock_conn_cls.call_args[1].get("authentication")
+        )
+
+
+def test_real_ldap_bind_flow_service_account():
+    """Verify authenticate_ad behaves correctly when a query service account bind_dn is configured."""
+    from unittest.mock import patch, MagicMock
+    from fastapi_starter.auth import authenticate_ad
+    from fastapi_starter.database import update_ad_config
+
+    # Set service bind credentials
+    update_ad_config({
+        "ad_simulate": "false",
+        "ad_server": "ldap://ad-test.local:389",
+        "ad_domain": "ad-test.local",
+        "ad_base_dn": "dc=ad-test,dc=local",
+        "ad_bind_dn": "cn=ServiceUser,cn=Users,dc=ad-test,dc=local",
+        "ad_bind_password": "service_password",
+        "ad_group_admin": "RDIT-Admin"
+    })
+
+    with patch("ldap3.Connection") as mock_conn_cls:
+        mock_service_conn = MagicMock()
+        mock_user_conn = MagicMock()
+        
+        # Connection class returns service connection, then user connection on successive calls
+        mock_conn_cls.side_effect = [mock_service_conn, mock_user_conn]
+        
+        # Service bind and user bind both succeed
+        mock_service_conn.bind.return_value = True
+        mock_user_conn.bind.return_value = True
+        
+        # Mock search returns user entry with dn and group membership
+        mock_entry = MagicMock()
+        mock_entry.entry_dn = "cn=testuser,ou=Users,dc=ad-test,dc=local"
+        mock_entry.memberOf.value = ["cn=RDIT-Admin,ou=Groups,dc=ad-test,dc=local"]
+        mock_service_conn.entries = [mock_entry]
+
+        res = authenticate_ad("testuser", "testpass")
+        assert res is not None
+        assert res["username"] == "testuser"
+        assert res["role"] == "admin"
+
+        # First connection bind was using Service account
+        mock_conn_cls.assert_any_call(
+            mock_conn_cls.call_args_list[0][0][0],
+            user="cn=ServiceUser,cn=Users,dc=ad-test,dc=local",
+            password="service_password",
+            authentication=mock_conn_cls.call_args_list[0][1].get("authentication")
+        )
+        
+        # Second connection bind was using retrieved user DN and user password
+        mock_conn_cls.assert_any_call(
+            mock_conn_cls.call_args_list[1][0][0],
+            user="cn=testuser,ou=Users,dc=ad-test,dc=local",
+            password="testpass",
+            authentication=mock_conn_cls.call_args_list[1][1].get("authentication")
+        )
+
+    # Re-enable simulation for subsequent tests
+    update_ad_config({"ad_simulate": "true"})

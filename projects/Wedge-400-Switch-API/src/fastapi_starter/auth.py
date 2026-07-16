@@ -59,58 +59,77 @@ def authenticate_ad(username: str, password: str) -> Optional[Dict[str, Any]]:
     server_url = config.get("ad_server", "ldap://ad.company.local:389")
     domain = config.get("ad_domain", "company.local")
     base_dn = config.get("ad_base_dn", "dc=company,dc=local")
-    
-    # Format user Principal Name
-    user_dn = username
-    if "@" not in username and "\\" not in username and domain:
-        user_dn = f"{username}@{domain}"
-        
+    bind_dn = config.get("ad_bind_dn", "")
+    bind_password = config.get("ad_bind_password", "")
+
     try:
         server = ldap3.Server(server_url, get_info=ldap3.ALL)
-        conn = ldap3.Connection(server, user=user_dn, password=password, authentication=ldap3.SIMPLE)
         
-        # Attempt simple LDAP bind
-        if not conn.bind():
-            return None
-            
-        # Search the user object to extract group memberships
+        # 1. Establish search connection (Service Account or Direct User)
+        if bind_dn:
+            conn = ldap3.Connection(server, user=bind_dn, password=bind_password, authentication=ldap3.SIMPLE)
+            if not conn.bind():
+                print(f"LDAP Error: Service account bind failed for {bind_dn}")
+                return None
+        else:
+            user_dn = username
+            if "@" not in username and "\\" not in username and domain:
+                user_dn = f"{username}@{domain}"
+            conn = ldap3.Connection(server, user=user_dn, password=password, authentication=ldap3.SIMPLE)
+            if not conn.bind():
+                return None
+
+        # 2. Search for the user record to extract groups and full DN
         search_filter = f"(sAMAccountName={username})"
         conn.search(search_base=base_dn, search_filter=search_filter, attributes=["memberOf"])
         
-        if not conn.entries and "@" in user_dn:
-            # Fallback search by userPrincipalName
-            search_filter = f"(userPrincipalName={user_dn})"
+        if not conn.entries and "@" not in username and domain:
+            search_filter = f"(userPrincipalName={username}@{domain})"
             conn.search(search_base=base_dn, search_filter=search_filter, attributes=["memberOf"])
-            
+
+        if not conn.entries:
+            conn.unbind()
+            return None
+
+        user_entry = conn.entries[0]
+        user_actual_dn = user_entry.entry_dn
+
+        # 3. Verify user password by attempting direct simple bind
+        if bind_dn:
+            user_conn = ldap3.Connection(server, user=user_actual_dn, password=password, authentication=ldap3.SIMPLE)
+            if not user_conn.bind():
+                conn.unbind()
+                return None
+            user_conn.unbind()
+
+        # 4. Extract groups and map roles
         role = "viewer" # default fallback
         matched_group = "None"
         
-        if conn.entries:
-            user_entry = conn.entries[0]
-            groups = user_entry.memberOf.value if hasattr(user_entry, "memberOf") else []
-            group_names = []
+        groups = user_entry.memberOf.value if hasattr(user_entry, "memberOf") else []
+        group_names = []
+        
+        for g_dn in groups:
+            try:
+                cn = g_dn.split(",")[0].split("=")[1]
+                group_names.append(cn.lower())
+            except Exception:
+                pass
+        
+        admin_group = config.get("ad_group_admin", "RDIT-Admin").lower()
+        operator_group = config.get("ad_group_operator", "WedgeOperators").lower()
+        viewer_group = config.get("ad_group_viewer", "WedgeViewers").lower()
+        
+        if admin_group in group_names:
+            role = "admin"
+            matched_group = config.get("ad_group_admin", "RDIT-Admin")
+        elif operator_group in group_names:
+            role = "operator"
+            matched_group = config.get("ad_group_operator", "WedgeOperators")
+        elif viewer_group in group_names:
+            role = "viewer"
+            matched_group = config.get("ad_group_viewer", "WedgeViewers")
             
-            for g_dn in groups:
-                try:
-                    cn = g_dn.split(",")[0].split("=")[1]
-                    group_names.append(cn.lower())
-                except Exception:
-                    pass
-            
-            admin_group = config.get("ad_group_admin", "RDIT-Admin").lower()
-            operator_group = config.get("ad_group_operator", "WedgeOperators").lower()
-            viewer_group = config.get("ad_group_viewer", "WedgeViewers").lower()
-            
-            if admin_group in group_names:
-                role = "admin"
-                matched_group = config.get("ad_group_admin", "RDIT-Admin")
-            elif operator_group in group_names:
-                role = "operator"
-                matched_group = config.get("ad_group_operator", "WedgeOperators")
-            elif viewer_group in group_names:
-                role = "viewer"
-                matched_group = config.get("ad_group_viewer", "WedgeViewers")
-                
         conn.unbind()
         return {
             "username": username,

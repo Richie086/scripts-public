@@ -19,9 +19,10 @@ graph TD
 	root["Wedge-400-Switch-API"]:::root --> n7["implementation_plan.md"]:::file-md
 	root["Wedge-400-Switch-API"]:::root --> n8["deploy.sh"]:::file-sh
 	root["Wedge-400-Switch-API"]:::root --> n9["walkthrough.md"]:::file-md
-	root["Wedge-400-Switch-API"]:::root --> n10["pyproject.toml"]:::file-config
+	root["Wedge-400-Switch-API"]:::root --> n10["test_switch.db"]:::file-other
+	root["Wedge-400-Switch-API"]:::root --> n11["pyproject.toml"]:::file-config
 	n2 --> n2_1("v"):::folder
-	n1 --> n1_2["README.md<br>test_api.py"]:::file-bundle
+	n1 --> n1_3["README.md<br>test_api.py<br>test_auth.py"]:::file-bundle
 	n2 --> n2_4["README.md<br>CACHEDIR.TAG<br>.gitignore"]:::file-bundle
 	n3 --> n3_2("fastapi_starter"):::folder
 	n3 --> n3_3["wedge_400_switch_api.egg-info<br>README.md"]:::file-bundle
@@ -30,7 +31,7 @@ graph TD
 	n3_1 --> n3_1_4("PKG-INFO"):::folder
 	n3_2 --> n3_2_1("templates"):::folder
 	n3_1 --> n3_1_6["dependency_links.txt<br>README.md<br>requires.txt<br>SOURCES.txt<br>top_level.txt"]:::file-bundle
-	n3_2 --> n3_2_7["README.md<br>main.py<br>api.py<br>__init__.py<br>models.py<br>database.py"]:::file-bundle
+	n3_2 --> n3_2_8["README.md<br>auth.py<br>main.py<br>api.py<br>__init__.py<br>models.py<br>database.py"]:::file-bundle
 	n2_1_1 --> n2_1_1_2("nodeids"):::folder
 	n2_1_1 --> n2_1_1_3("lastfailed"):::folder
 	n2_1_1 --> n2_1_1_1["README.md"]:::file-md

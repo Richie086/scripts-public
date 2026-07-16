@@ -67,7 +67,7 @@ graph TD
 	n7_3 --> n7_3_8["client.py<br>README.md<br>test.txt<br>server2.py<br>server.py<br>client2.py<br>.gitignore"]:::file-bundle
 	n7_4 --> n7_4_3("src"):::folder
 	n7_5 --> n7_5_1("build-from-scratch"):::folder
-	n7_4 --> n7_4_10[".pytest_cache<br>context_bootstrap.md<br>build.sh<br>README.md<br>implementation_plan.md<br>deploy.sh<br>walkthrough.md<br>pyproject.toml"]:::file-bundle
+	n7_4 --> n7_4_11[".pytest_cache<br>context_bootstrap.md<br>build.sh<br>README.md<br>implementation_plan.md<br>deploy.sh<br>walkthrough.md<br>... +2 more"]:::file-bundle
 	n7_6 --> n7_6_1("dist"):::folder
 	n7_5 --> n7_5_6["DEPLOYMENT.md<br>build.sh<br>README.md<br>terminus.py<br>deploy.sh"]:::file-bundle
 	n7_7 --> n7_7_1("tests"):::folder
@@ -86,14 +86,14 @@ graph TD
 	n7_3_1 --> n7_3_1_1("stftpupload"):::folder
 	n7_3_1 --> n7_3_1_2["README.md"]:::file-md
 	n7_4_2 --> n7_4_2_1("v"):::folder
-	n7_4_1 --> n7_4_1_2["README.md<br>test_api.py"]:::file-bundle
+	n7_4_1 --> n7_4_1_3["README.md<br>test_api.py<br>test_auth.py"]:::file-bundle
 	n7_4_2 --> n7_4_2_4["README.md<br>CACHEDIR.TAG<br>.gitignore"]:::file-bundle
 	n7_4_3 --> n7_4_3_2("fastapi_starter"):::folder
 	n7_5_1 --> n7_5_1_1("images"):::folder
 	n7_4_3 --> n7_4_3_3["wedge_400_switch_api.egg-info<br>README.md"]:::file-bundle
 	n7_6_1 --> n7_6_1_1("markdown"):::folder
 	n7_5_1 --> n7_5_1_8["dev_workflow_guide.mp3<br>README.md<br>implementation_plan.md<br>generate_voiceover.py<br>dev_workflow_guide.md<br>walkthrough.md<br>master_prompt.md"]:::file-bundle
-	n7_6_1 --> n7_6_1_2["index.html"]:::file-html
+	n7_6_1 --> n7_6_1_3["README.md<br>index.html"]:::file-bundle
 	n7_4_2 --> n7_4_2_1("v"):::folder
 	n7_4_1 --> n7_4_1_2["test_crawler.py"]:::file-py
 	n7_4_3 --> n7_4_3_1("crawler"):::folder
@@ -112,12 +112,12 @@ graph TD
 	n7_4_3_1 --> n7_4_3_1_4("PKG-INFO"):::folder
 	n7_4_3_2 --> n7_4_3_2_1("templates"):::folder
 	n7_4_3_1 --> n7_4_3_1_6["dependency_links.txt<br>README.md<br>requires.txt<br>SOURCES.txt<br>top_level.txt"]:::file-bundle
-	n7_4_3_2 --> n7_4_3_2_7["README.md<br>main.py<br>api.py<br>__init__.py<br>models.py<br>database.py"]:::file-bundle
+	n7_4_3_2 --> n7_4_3_2_8["README.md<br>auth.py<br>main.py<br>api.py<br>__init__.py<br>models.py<br>database.py"]:::file-bundle
 	n7_6_1_1 --> n7_6_1_1_1("skills"):::folder
 	n7_5_1_1 --> n7_5_1_1_3["README.md<br>terminus_tui_mockup.jpg<br>terminus_web_mockup.jpg"]:::file-bundle
 	n7_4_2_1 --> n7_4_2_1_1("cache"):::folder
 	n7_4_3_1 --> n7_4_3_1_1("templates"):::folder
-	n7_6_1_1 --> n7_6_1_1_6["general_settings.md<br>global_skills.md<br>mcp_servers.md<br>workspace_rules.md<br>workspace_skills.md"]:::file-md
+	n7_6_1_1 --> n7_6_1_1_7["README.md<br>general_settings.md<br>global_skills.md<br>mcp_servers.md<br>workspace_rules.md<br>workspace_skills.md"]:::file-md
 	n7_4_3_1 --> n7_4_3_1_4["main.py<br>__init__.py"]:::file-py
 	n7_4_3_2 --> n7_4_3_2_4("PKG-INFO"):::folder
 	n7_4_3_2 --> n7_4_3_2_6["dependency_links.txt<br>requires.txt<br>SOURCES.txt<br>top_level.txt"]:::file-text
@@ -125,7 +125,7 @@ graph TD
 	n7_4_2_1_1 --> n7_4_2_1_1_3("lastfailed"):::folder
 	n7_4_2_1_1 --> n7_4_2_1_1_1["README.md"]:::file-md
 	n7_4_3_2_1 --> n7_4_3_2_1_2["README.md<br>index.html"]:::file-bundle
-	n7_6_1_1_1 --> n7_6_1_1_1_36["workspace_wordpress-taxonomy.md<br>global_building-data-apps.md<br>global_accidental-data-loss-prevention.md<br>global_gcloud-auth-verification.md<br>global_gcp-composer-troubleshooting.md<br>global_gcp-pipeline-resource-provisioning.md<br>global_managing-python-dependencies.md<br>... +29 more"]:::file-md
+	n7_6_1_1_1 --> n7_6_1_1_1_37["workspace_wordpress-taxonomy.md<br>global_building-data-apps.md<br>global_accidental-data-loss-prevention.md<br>README.md<br>global_gcloud-auth-verification.md<br>global_gcp-composer-troubleshooting.md<br>global_gcp-pipeline-resource-provisioning.md<br>... +30 more"]:::file-md
 	n7_4_2_1_1 --> n7_4_2_1_1_2("nodeids"):::folder
 	n7_4_2_1_1 --> n7_4_2_1_1_3("lastfailed"):::folder
 	n7_4_2_1_1 --> n7_4_2_1_1_1["README.md"]:::file-md
@@ -405,7 +405,7 @@ scripts-public/
     * [v/](projects/Wedge-400-Switch-API/.pytest_cache/v/): v
       * [cache/](projects/Wedge-400-Switch-API/.pytest_cache/v/cache/): cache
         * [lastfailed](projects/Wedge-400-Switch-API/.pytest_cache/v/cache/lastfailed): file (2 bytes)
-        * [nodeids](projects/Wedge-400-Switch-API/.pytest_cache/v/cache/nodeids): file (493 bytes)
+        * [nodeids](projects/Wedge-400-Switch-API/.pytest_cache/v/cache/nodeids): file (771 bytes)
         * [README.md](projects/Wedge-400-Switch-API/.pytest_cache/v/cache/README.md): cache
       * [README.md](projects/Wedge-400-Switch-API/.pytest_cache/v/README.md): v
     * [.gitignore](projects/Wedge-400-Switch-API/.pytest_cache/.gitignore): file (37 bytes)
@@ -417,28 +417,31 @@ scripts-public/
         * [index.html](projects/Wedge-400-Switch-API/src/fastapi_starter/templates/index.html): Wedge 400 OpenNetwork Switch Console
         * [README.md](projects/Wedge-400-Switch-API/src/fastapi_starter/templates/README.md): templates
       * [__init__.py](projects/Wedge-400-Switch-API/src/fastapi_starter/__init__.py): text/config file (31 bytes)
-      * [api.py](projects/Wedge-400-Switch-API/src/fastapi_starter/api.py): text/config file (7238 bytes)
+      * [api.py](projects/Wedge-400-Switch-API/src/fastapi_starter/api.py): text/config file (10742 bytes)
+      * [auth.py](projects/Wedge-400-Switch-API/src/fastapi_starter/auth.py): Generate signed JWT token valid for 8 hours.
       * [database.py](projects/Wedge-400-Switch-API/src/fastapi_starter/database.py): CREATE TABLE IF NOT EXISTS ports ( port_id TEXT PRIMARY KEY, name TEXT, admin_state TEXT, oper_state TEXT, speed_gbps INTEGER, mtu INTEGER, transceiver_present INTEGER, rx_power_dbm REAL, tx_power_dbm REAL, errors_in INTEGER, errors_out...
-      * [main.py](projects/Wedge-400-Switch-API/src/fastapi_starter/main.py): text/config file (1120 bytes)
-      * [models.py](projects/Wedge-400-Switch-API/src/fastapi_starter/models.py): text/config file (2596 bytes)
+      * [main.py](projects/Wedge-400-Switch-API/src/fastapi_starter/main.py): text/config file (1165 bytes)
+      * [models.py](projects/Wedge-400-Switch-API/src/fastapi_starter/models.py): text/config file (2985 bytes)
       * [README.md](projects/Wedge-400-Switch-API/src/fastapi_starter/README.md): fastapi_starter
     * [wedge_400_switch_api.egg-info/](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/): wedge_400_switch_api.egg-info
       * [dependency_links.txt](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/dependency_links.txt): text/config file (1 bytes)
-      * [PKG-INFO](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/PKG-INFO): file (366 bytes)
+      * [PKG-INFO](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/PKG-INFO): file (406 bytes)
       * [README.md](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/README.md): wedge_400_switch_api.egg-info
-      * [requires.txt](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/requires.txt): text/config file (80 bytes)
-      * [SOURCES.txt](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/SOURCES.txt): text/config file (388 bytes)
+      * [requires.txt](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/requires.txt): text/config file (106 bytes)
+      * [SOURCES.txt](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/SOURCES.txt): text/config file (515 bytes)
       * [top_level.txt](projects/Wedge-400-Switch-API/src/wedge_400_switch_api.egg-info/top_level.txt): text/config file (16 bytes)
     * [README.md](projects/Wedge-400-Switch-API/src/README.md): src
   * [tests/](projects/Wedge-400-Switch-API/tests/): tests
     * [README.md](projects/Wedge-400-Switch-API/tests/README.md): tests
-    * [test_api.py](projects/Wedge-400-Switch-API/tests/test_api.py): text/config file (4667 bytes)
+    * [test_api.py](projects/Wedge-400-Switch-API/tests/test_api.py): text/config file (4845 bytes)
+    * [test_auth.py](projects/Wedge-400-Switch-API/tests/test_auth.py): Unauthenticated requests to protected endpoints should return 401.
   * [build.sh](projects/Wedge-400-Switch-API/build.sh): Wedge 400 Switch API Build Validation Script
   * [context_bootstrap.md](projects/Wedge-400-Switch-API/context_bootstrap.md): Context Bootstrap: Wedge 400 Switch API Mock Agent
   * [deploy.sh](projects/Wedge-400-Switch-API/deploy.sh): Wedge 400 Switch API Automated Deployment Script Strict shell options for safety and reliability
   * [implementation_plan.md](projects/Wedge-400-Switch-API/implementation_plan.md): Implementation Plan - Decoupling Wedge 400 Switch API & BMC API Crawler
-  * [pyproject.toml](projects/Wedge-400-Switch-API/pyproject.toml): text/config file (481 bytes)
+  * [pyproject.toml](projects/Wedge-400-Switch-API/pyproject.toml): text/config file (521 bytes)
   * [README.md](projects/Wedge-400-Switch-API/README.md): Wedge-400-Switch-API
+  * [test_switch.db](projects/Wedge-400-Switch-API/test_switch.db): file (32768 bytes)
   * [walkthrough.md](projects/Wedge-400-Switch-API/walkthrough.md): Walkthrough - Wedge 400 Switch API & Standalone Crawler Ingestion Engine
 * [deploy-mailserver-debian.md](projects/deploy-mailserver-debian.md): Debian 13 (Trixie) Mail Server Deployment Script
 * [deploy-mailserver-debian.sh](projects/deploy-mailserver-debian.sh): deploy-postfix-mailserver.sh Automates deployment of a Postfix-based mail server on Debian 13 (trixie), using Dovecot for SASL auth and IMAP. Also sets up TLS (self-signed or

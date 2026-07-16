@@ -16,7 +16,7 @@ graph TD
 	n1 --> n1_4("PKG-INFO"):::folder
 	n2 --> n2_1("templates"):::folder
 	n1 --> n1_6["dependency_links.txt<br>README.md<br>requires.txt<br>SOURCES.txt<br>top_level.txt"]:::file-bundle
-	n2 --> n2_7["README.md<br>main.py<br>api.py<br>__init__.py<br>models.py<br>database.py"]:::file-bundle
+	n2 --> n2_8["README.md<br>auth.py<br>main.py<br>api.py<br>__init__.py<br>models.py<br>database.py"]:::file-bundle
 	n2_1 --> n2_1_2["README.md<br>index.html"]:::file-bundle
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;

@@ -1,7 +1,10 @@
 ---
 name: projects
-description: "Show a dashboard list of all active projects, folders, and deployment URLs"
+description: Show a dashboard list of all active projects, folders, and deployment URLs
 ---
+
+# Project Status Dashboard
+
 Below is the status dashboard of your active development projects. Please review these details and display them as a beautifully formatted markdown table.
 
 ### Active Projects List:

@@ -24,11 +24,12 @@ graph TD
 	root["python"]:::root --> n12["manage_credentials.py"]:::file-py
 	root["python"]:::root --> n13["verify_credentials.py"]:::file-py
 	root["python"]:::root --> n14["generate_mermaid_readmes.py"]:::file-py
-	root["python"]:::root --> n15["generate_project_dashboard.py"]:::file-py
-	root["python"]:::root --> n16["list_keys.py"]:::file-py
-	root["python"]:::root --> n17["publish_social.py"]:::file-py
-	root["python"]:::root --> n18["wordpress_taxonomy_suggest.py"]:::file-py
-	root["python"]:::root --> n19["projects_config.json"]:::file-config
+	root["python"]:::root --> n15["sync_secrets_from_bitwarden.py"]:::file-py
+	root["python"]:::root --> n16["generate_project_dashboard.py"]:::file-py
+	root["python"]:::root --> n17["list_keys.py"]:::file-py
+	root["python"]:::root --> n18["publish_social.py"]:::file-py
+	root["python"]:::root --> n19["wordpress_taxonomy_suggest.py"]:::file-py
+	root["python"]:::root --> n20["projects_config.json"]:::file-config
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
 classDef file-config fill:#f3f4f6,stroke:#6b7280,stroke-width:1px,color:#374151;

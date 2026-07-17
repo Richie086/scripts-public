@@ -32,7 +32,7 @@ graph TD
 	n2 --> n2_3("apache-proxy-wizard"):::folder
 	n2 --> n2_4("openssl-certtool"):::folder
 	n2 --> n2_5("remove_user"):::folder
-	n1 --> n1_19["suggest_aliases.py<br>publish_wordpress_post.py<br>README.md<br>update_commit_log.py<br>test_suggest_aliases.py<br>fetch_agent.py<br>search_scripts.py<br>... +12 more"]:::file-bundle
+	n1 --> n1_20["suggest_aliases.py<br>publish_wordpress_post.py<br>README.md<br>update_commit_log.py<br>test_suggest_aliases.py<br>fetch_agent.py<br>search_scripts.py<br>... +13 more"]:::file-bundle
 	n3 --> n3_1("apache-reverse-proxy"):::folder
 	n2 --> n2_11["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_shared_dev_server.sh<br>setup_ssh_key.md<br>virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh"]:::file-bundle
 	n3 --> n3_3["README.md<br>index.html"]:::file-bundle
@@ -468,6 +468,7 @@ scripts-public/
 * [requirements.txt](python/requirements.txt): text/config file (358 bytes)
 * [search_scripts.py](python/search_scripts.py): text/config file (566 bytes)
 * [suggest_aliases.py](python/suggest_aliases.py): suggest_aliases.py Suggests aliases and shell functions to add to your .bashrc / .bash_aliases based on command history. Features: - Service Suite Detection: Proposes complete systemd/journalctl service aliases (e.g. apache-start). - Rec...
+* [sync_secrets_from_bitwarden.py](python/sync_secrets_from_bitwarden.py): text/config file (4356 bytes)
 * [test_suggest_aliases.py](python/test_suggest_aliases.py): test_suggest_aliases.py Unit tests for suggest_aliases.py using the standard unittest library.
 * [update_commit_log.py](python/update_commit_log.py): text/config file (1573 bytes)
 * [verify_credentials.py](python/verify_credentials.py): text/config file (3602 bytes)

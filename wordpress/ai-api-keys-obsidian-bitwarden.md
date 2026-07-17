@@ -65,6 +65,13 @@ This plugin mimics GitHub Copilot, giving you a chat interface right next to you
 7.  Choose your default model (e.g., `gpt-4o-mini` or `gemini-1.5-flash` for speed, or `claude-3-5-sonnet` for heavy lifting).
 8.  Close settings. A new message bubble icon will appear in your right sidebar. Click it, and start chatting with your note!
 
+**Going Off-Grid: Custom API Endpoints & Local LLMs**
+If you don't want to send your notes to third-party servers, or if you use a custom reverse proxy (like an enterprise gateway), Copilot has you covered:
+1.  In Copilot settings, set the **Provider** to **OpenAI Compatible** (or custom OpenRouter/LM Studio provider).
+2.  Find the **Base URL** field. For a local Ollama instance running Llama 3, you would enter: `http://localhost:11434/v1`. If you use a reverse proxy, enter its URL here.
+3.  In the **Model** field, type the name of the model exactly as it is registered on your server (e.g., `llama3` for Ollama).
+4.  If your proxy requires it, enter the bearer token in the API Key field. If running Ollama locally, you can usually leave this empty or enter a dummy value like `ollama`.
+
 ### 2. Smart Connections (Conversations and note linking via Embeddings)
 Smart Connections reads your entire vault and creates vector embeddings. This allows it to automatically find relevant notes, suggest connections, or let you query your entire vault.
 

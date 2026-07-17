@@ -527,9 +527,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **6ad0626** - 2026-07-17 06:19:57 - docs: add custom endpoint instructions for Obsidian Copilot in blog post
 - **38e8295** - 2026-07-17 06:19:12 - docs: expand Obsidian plugin setup steps in API keys blog post
 - **5e483e8** - 2026-07-17 06:18:18 - docs: add sarcastic blog post on AI models, Obsidian, and Bitwarden key management
 - **8c33922** - 2026-07-16 18:02:11 - Add automated project status dashboard script and markdown/html generators
 - **e731466** - 2026-07-16 18:00:50 - Add shared dev server setup script and infrastructure guide
-- **13beb5c** - 2026-07-16 09:59:09 - feat(wedge-api): implement Active Directory query-bind search lookup and user verification
 <!-- AUTO-GENERATED COMMITS END -->

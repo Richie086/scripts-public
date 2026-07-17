@@ -527,9 +527,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **5e483e8** - 2026-07-17 06:18:18 - docs: add sarcastic blog post on AI models, Obsidian, and Bitwarden key management
 - **8c33922** - 2026-07-16 18:02:11 - Add automated project status dashboard script and markdown/html generators
 - **e731466** - 2026-07-16 18:00:50 - Add shared dev server setup script and infrastructure guide
 - **13beb5c** - 2026-07-16 09:59:09 - feat(wedge-api): implement Active Directory query-bind search lookup and user verification
 - **8a2d8c5** - 2026-07-16 09:52:20 - fix(wedge-api): use unique remote file name in deploy.sh Nginx injector copy
-- **26e06b2** - 2026-07-16 09:51:43 - feat(wedge-api): update deploy.sh to support Nginx split auth location blocks
 <!-- AUTO-GENERATED COMMITS END -->

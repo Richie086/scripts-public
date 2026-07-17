@@ -19,15 +19,16 @@ graph TD
 	root["python"]:::root --> n7["search_scripts.py"]:::file-py
 	root["python"]:::root --> n8["extract_conv.py"]:::file-py
 	root["python"]:::root --> n9["requirements.txt"]:::file-text
-	root["python"]:::root --> n10["wikipedia_fact_checker.py"]:::file-py
-	root["python"]:::root --> n11["manage_credentials.py"]:::file-py
-	root["python"]:::root --> n12["verify_credentials.py"]:::file-py
-	root["python"]:::root --> n13["generate_mermaid_readmes.py"]:::file-py
-	root["python"]:::root --> n14["generate_project_dashboard.py"]:::file-py
-	root["python"]:::root --> n15["list_keys.py"]:::file-py
-	root["python"]:::root --> n16["publish_social.py"]:::file-py
-	root["python"]:::root --> n17["wordpress_taxonomy_suggest.py"]:::file-py
-	root["python"]:::root --> n18["projects_config.json"]:::file-config
+	root["python"]:::root --> n10["obsidian_backup.py"]:::file-py
+	root["python"]:::root --> n11["wikipedia_fact_checker.py"]:::file-py
+	root["python"]:::root --> n12["manage_credentials.py"]:::file-py
+	root["python"]:::root --> n13["verify_credentials.py"]:::file-py
+	root["python"]:::root --> n14["generate_mermaid_readmes.py"]:::file-py
+	root["python"]:::root --> n15["generate_project_dashboard.py"]:::file-py
+	root["python"]:::root --> n16["list_keys.py"]:::file-py
+	root["python"]:::root --> n17["publish_social.py"]:::file-py
+	root["python"]:::root --> n18["wordpress_taxonomy_suggest.py"]:::file-py
+	root["python"]:::root --> n19["projects_config.json"]:::file-config
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
 classDef file-config fill:#f3f4f6,stroke:#6b7280,stroke-width:1px,color:#374151;

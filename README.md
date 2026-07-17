@@ -12,124 +12,125 @@ graph TD
 	root["scripts-public"]:::root --> n2("bash"):::folder
 	root["scripts-public"]:::root --> n3("web"):::folder
 	root["scripts-public"]:::root --> n4("markdown"):::folder
-	root["scripts-public"]:::root --> n5("wordpress"):::folder
-	root["scripts-public"]:::root --> n6("powershell"):::folder
-	root["scripts-public"]:::root --> n7("projects"):::folder
-	root["scripts-public"]:::root --> n8("markup"):::folder
-	root["scripts-public"]:::root --> n9[".agents"]:::file-other
-	root["scripts-public"]:::root --> n10["README.md"]:::file-md
-	root["scripts-public"]:::root --> n11["scripts-public.code-workspace"]:::file-other
-	root["scripts-public"]:::root --> n12[".agent.md"]:::file-md
-	root["scripts-public"]:::root --> n13[".env.example"]:::file-other
-	root["scripts-public"]:::root --> n14[".gitattributes"]:::file-git
-	root["scripts-public"]:::root --> n15["my-antigravity-experience.md"]:::file-md
-	root["scripts-public"]:::root --> n16["SECURITY.md"]:::file-md
-	root["scripts-public"]:::root --> n17[".gitignore"]:::file-git
-	root["scripts-public"]:::root --> n18[".env"]:::file-other
+	root["scripts-public"]:::root --> n5("scratch"):::folder
+	root["scripts-public"]:::root --> n6("wordpress"):::folder
+	root["scripts-public"]:::root --> n7("powershell"):::folder
+	root["scripts-public"]:::root --> n8("projects"):::folder
+	root["scripts-public"]:::root --> n9("markup"):::folder
+	root["scripts-public"]:::root --> n10[".agents"]:::file-other
+	root["scripts-public"]:::root --> n11["README.md"]:::file-md
+	root["scripts-public"]:::root --> n12["scripts-public.code-workspace"]:::file-other
+	root["scripts-public"]:::root --> n13[".agent.md"]:::file-md
+	root["scripts-public"]:::root --> n14[".env.example"]:::file-other
+	root["scripts-public"]:::root --> n15[".gitattributes"]:::file-git
+	root["scripts-public"]:::root --> n16["my-antigravity-experience.md"]:::file-md
+	root["scripts-public"]:::root --> n17["SECURITY.md"]:::file-md
+	root["scripts-public"]:::root --> n18[".gitignore"]:::file-git
+	root["scripts-public"]:::root --> n19[".env"]:::file-other
 	n2 --> n2_1("script-public-merge"):::folder
 	n2 --> n2_2("user_manager"):::folder
 	n2 --> n2_3("apache-proxy-wizard"):::folder
 	n2 --> n2_4("openssl-certtool"):::folder
 	n2 --> n2_5("remove_user"):::folder
-	n1 --> n1_18["suggest_aliases.py<br>publish_wordpress_post.py<br>README.md<br>update_commit_log.py<br>test_suggest_aliases.py<br>fetch_agent.py<br>search_scripts.py<br>... +11 more"]:::file-bundle
+	n1 --> n1_19["suggest_aliases.py<br>publish_wordpress_post.py<br>README.md<br>update_commit_log.py<br>test_suggest_aliases.py<br>fetch_agent.py<br>search_scripts.py<br>... +12 more"]:::file-bundle
 	n3 --> n3_1("apache-reverse-proxy"):::folder
 	n2 --> n2_11["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_shared_dev_server.sh<br>setup_ssh_key.md<br>virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh"]:::file-bundle
 	n3 --> n3_3["README.md<br>index.html"]:::file-bundle
-	n5 --> n5_1("mermaid-examples"):::folder
+	n6 --> n6_1("mermaid-examples"):::folder
 	n4 --> n4_4["README.md<br>suggest_aliases.md<br>PROJECT_DASHBOARD.md<br>developer-infrastructure-setup.md"]:::file-md
-	n6 --> n6_1("recovery-partition"):::folder
-	n5 --> n5_33["extremely-sarcastic-mcp-docker.md<br>jira-csv-import-atlassian-mcp.md<br>ai-web-app-development-process.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>linux-distros-package-managers-part-2.md<br>gmail-labeling-blog.md<br>... +25 more"]:::file-md
-	n7 --> n7_1("openssl-output-generator"):::folder
-	n7 --> n7_2("kvm-provisioning"):::folder
-	n7 --> n7_3("stftp"):::folder
-	n7 --> n7_4("Wedge-400-Switch-API"):::folder
-	n7 --> n7_5("terminus"):::folder
-	n7 --> n7_6("antigravity-export-html5"):::folder
-	n7 --> n7_7("BMC-API-Crawler"):::folder
-	n6 --> n6_6["README.md<br>Publish-WordPressPost.ps1<br>check_mtu.ps1<br>openssl-certtool.ps1<br>Calculate-FolderStats.ps1"]:::file-bundle
-	n8 --> n8_1("html"):::folder
-	n7 --> n7_10["README.md<br>deploy-mailserver-debian.md<br>deploy-mailserver-debian.sh"]:::file-bundle
-	n9 --> n9_1("skills"):::folder
-	n8 --> n8_2["README.md"]:::file-md
-	n9 --> n9_3["README.md<br>AGENTS.md"]:::file-md
+	n7 --> n7_1("recovery-partition"):::folder
+	n6 --> n6_33["extremely-sarcastic-mcp-docker.md<br>jira-csv-import-atlassian-mcp.md<br>ai-web-app-development-process.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>linux-distros-package-managers-part-2.md<br>gmail-labeling-blog.md<br>... +25 more"]:::file-md
+	n8 --> n8_1("openssl-output-generator"):::folder
+	n8 --> n8_2("kvm-provisioning"):::folder
+	n8 --> n8_3("stftp"):::folder
+	n8 --> n8_4("Wedge-400-Switch-API"):::folder
+	n8 --> n8_5("terminus"):::folder
+	n8 --> n8_6("antigravity-export-html5"):::folder
+	n8 --> n8_7("BMC-API-Crawler"):::folder
+	n7 --> n7_6["README.md<br>Publish-WordPressPost.ps1<br>check_mtu.ps1<br>openssl-certtool.ps1<br>Calculate-FolderStats.ps1"]:::file-bundle
+	n9 --> n9_1("html"):::folder
+	n8 --> n8_10["README.md<br>deploy-mailserver-debian.md<br>deploy-mailserver-debian.sh"]:::file-bundle
+	n10 --> n10_1("skills"):::folder
+	n9 --> n9_2["README.md"]:::file-md
+	n10 --> n10_3["README.md<br>AGENTS.md"]:::file-md
 	n2_1 --> n2_1_2["README.md<br>script-public-merge.sh"]:::file-bundle
 	n2_2 --> n2_2_2["README.md<br>user_manager.sh"]:::file-bundle
 	n2_3 --> n2_3_2["README.md<br>apache-proxy-wizard.sh"]:::file-bundle
 	n2_4 --> n2_4_2["openssl-certtool.sh<br>README.md"]:::file-bundle
 	n2_5 --> n2_5_3["remove_user.md<br>README.md<br>remove_user.sh"]:::file-bundle
 	n3_1 --> n3_1_2["README.md<br>disclaimer.html"]:::file-bundle
-	n5_1 --> n5_1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
-	n6_1 --> n6_1_6["README.md<br>Create-RecoveryPartition2.ps1<br>Remove-RecoveryPartition.ps1<br>Create-RecoveryPartition.ps1<br>Create-RecoveryPartition3.ps1<br>RecoveryPartitionManager.ps1"]:::file-bundle
-	n7_1 --> n7_1_1["README.md"]:::file-md
-	n7_3 --> n7_3_1("data"):::folder
-	n7_2 --> n7_2_2["README.md<br>provision_vms.sh"]:::file-bundle
-	n7_4 --> n7_4_1("tests"):::folder
-	n7_3 --> n7_3_8["client.py<br>README.md<br>test.txt<br>server2.py<br>server.py<br>client2.py<br>.gitignore"]:::file-bundle
-	n7_4 --> n7_4_3("src"):::folder
-	n7_5 --> n7_5_1("build-from-scratch"):::folder
-	n7_4 --> n7_4_11[".pytest_cache<br>context_bootstrap.md<br>build.sh<br>README.md<br>implementation_plan.md<br>deploy.sh<br>walkthrough.md<br>... +2 more"]:::file-bundle
-	n7_6 --> n7_6_1("dist"):::folder
-	n7_5 --> n7_5_6["DEPLOYMENT.md<br>build.sh<br>README.md<br>terminus.py<br>deploy.sh"]:::file-bundle
-	n7_7 --> n7_7_1("tests"):::folder
-	n7_6 --> n7_6_4["README.md<br>export.py<br>index.html"]:::file-bundle
-	n7_7 --> n7_7_3("src"):::folder
-	n7_7 --> n7_7_8[".pytest_cache<br>context_bootstrap.md<br>build.sh<br>README.md<br>deploy.sh<br>pyproject.toml"]:::file-bundle
-	n9_1 --> n9_1_1("wordpress-taxonomy"):::folder
-	n9_1 --> n9_1_2("dashboard"):::folder
-	n9_1 --> n9_1_3("social-publish"):::folder
-	n9_1 --> n9_1_4("wordpress-publish"):::folder
-	n9_1 --> n9_1_5("projects"):::folder
-	n9_1 --> n9_1_6("post-to-pastebin"):::folder
-	n9_1 --> n9_1_7("wikipedia-fact-check"):::folder
-	n8_1 --> n8_1_2["README.md<br>bash-readme.html"]:::file-bundle
-	n9_1 --> n9_1_8["README.md"]:::file-md
-	n7_3_1 --> n7_3_1_1("stftpupload"):::folder
-	n7_3_1 --> n7_3_1_2["README.md"]:::file-md
-	n7_4_2 --> n7_4_2_1("v"):::folder
-	n7_4_1 --> n7_4_1_3["README.md<br>test_api.py<br>test_auth.py"]:::file-bundle
-	n7_4_2 --> n7_4_2_4["README.md<br>CACHEDIR.TAG<br>.gitignore"]:::file-bundle
-	n7_4_3 --> n7_4_3_2("fastapi_starter"):::folder
-	n7_5_1 --> n7_5_1_1("images"):::folder
-	n7_4_3 --> n7_4_3_3["wedge_400_switch_api.egg-info<br>README.md"]:::file-bundle
-	n7_6_1 --> n7_6_1_1("markdown"):::folder
-	n7_5_1 --> n7_5_1_8["dev_workflow_guide.mp3<br>README.md<br>implementation_plan.md<br>generate_voiceover.py<br>dev_workflow_guide.md<br>walkthrough.md<br>master_prompt.md"]:::file-bundle
-	n7_6_1 --> n7_6_1_3["README.md<br>index.html"]:::file-bundle
-	n7_4_2 --> n7_4_2_1("v"):::folder
-	n7_4_1 --> n7_4_1_2["test_crawler.py"]:::file-py
-	n7_4_3 --> n7_4_3_1("crawler"):::folder
-	n7_4_2 --> n7_4_2_4["CACHEDIR.TAG<br>.gitignore"]:::file-bundle
-	n7_4_3 --> n7_4_3_2["bmc_api_crawler.egg-info"]:::file-other
-	n9_1_1 --> n9_1_1_2["README.md<br>SKILL.md"]:::file-md
-	n9_1_2 --> n9_1_2_2["README.md<br>SKILL.md"]:::file-md
-	n9_1_3 --> n9_1_3_2["README.md<br>SKILL.md"]:::file-md
-	n9_1_4 --> n9_1_4_2["README.md<br>SKILL.md"]:::file-md
-	n9_1_5 --> n9_1_5_2["README.md<br>SKILL.md"]:::file-md
-	n9_1_6 --> n9_1_6_2["README.md<br>SKILL.md"]:::file-md
-	n9_1_7 --> n9_1_7_2["README.md<br>SKILL.md"]:::file-md
-	n7_4_2_1 --> n7_4_2_1_1("cache"):::folder
-	n7_3_1_1 --> n7_3_1_1_2["README.md<br>test.txt"]:::file-bundle
-	n7_4_2_1 --> n7_4_2_1_2["README.md"]:::file-md
-	n7_4_3_1 --> n7_4_3_1_4("PKG-INFO"):::folder
-	n7_4_3_2 --> n7_4_3_2_1("templates"):::folder
-	n7_4_3_1 --> n7_4_3_1_6["dependency_links.txt<br>README.md<br>requires.txt<br>SOURCES.txt<br>top_level.txt"]:::file-bundle
-	n7_4_3_2 --> n7_4_3_2_8["README.md<br>auth.py<br>main.py<br>api.py<br>__init__.py<br>models.py<br>database.py"]:::file-bundle
-	n7_6_1_1 --> n7_6_1_1_1("skills"):::folder
-	n7_5_1_1 --> n7_5_1_1_3["README.md<br>terminus_tui_mockup.jpg<br>terminus_web_mockup.jpg"]:::file-bundle
-	n7_4_2_1 --> n7_4_2_1_1("cache"):::folder
-	n7_4_3_1 --> n7_4_3_1_1("templates"):::folder
-	n7_6_1_1 --> n7_6_1_1_7["README.md<br>general_settings.md<br>global_skills.md<br>mcp_servers.md<br>workspace_rules.md<br>workspace_skills.md"]:::file-md
-	n7_4_3_1 --> n7_4_3_1_4["main.py<br>__init__.py"]:::file-py
-	n7_4_3_2 --> n7_4_3_2_4("PKG-INFO"):::folder
-	n7_4_3_2 --> n7_4_3_2_6["dependency_links.txt<br>requires.txt<br>SOURCES.txt<br>top_level.txt"]:::file-text
-	n7_4_2_1_1 --> n7_4_2_1_1_2("nodeids"):::folder
-	n7_4_2_1_1 --> n7_4_2_1_1_3("lastfailed"):::folder
-	n7_4_2_1_1 --> n7_4_2_1_1_1["README.md"]:::file-md
-	n7_4_3_2_1 --> n7_4_3_2_1_2["README.md<br>index.html"]:::file-bundle
-	n7_6_1_1_1 --> n7_6_1_1_1_37["workspace_wordpress-taxonomy.md<br>global_building-data-apps.md<br>global_accidental-data-loss-prevention.md<br>README.md<br>global_gcloud-auth-verification.md<br>global_gcp-composer-troubleshooting.md<br>global_gcp-pipeline-resource-provisioning.md<br>... +30 more"]:::file-md
-	n7_4_2_1_1 --> n7_4_2_1_1_2("nodeids"):::folder
-	n7_4_2_1_1 --> n7_4_2_1_1_3("lastfailed"):::folder
-	n7_4_2_1_1 --> n7_4_2_1_1_1["README.md"]:::file-md
-	n7_4_3_2_1 --> n7_4_3_2_1_2["index.html"]:::file-html
+	n6_1 --> n6_1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
+	n7_1 --> n7_1_6["README.md<br>Create-RecoveryPartition2.ps1<br>Remove-RecoveryPartition.ps1<br>Create-RecoveryPartition.ps1<br>Create-RecoveryPartition3.ps1<br>RecoveryPartitionManager.ps1"]:::file-bundle
+	n8_1 --> n8_1_1["README.md"]:::file-md
+	n8_3 --> n8_3_1("data"):::folder
+	n8_2 --> n8_2_2["README.md<br>provision_vms.sh"]:::file-bundle
+	n8_4 --> n8_4_1("tests"):::folder
+	n8_3 --> n8_3_8["client.py<br>README.md<br>test.txt<br>server2.py<br>server.py<br>client2.py<br>.gitignore"]:::file-bundle
+	n8_4 --> n8_4_3("src"):::folder
+	n8_5 --> n8_5_1("build-from-scratch"):::folder
+	n8_4 --> n8_4_11[".pytest_cache<br>context_bootstrap.md<br>build.sh<br>README.md<br>implementation_plan.md<br>deploy.sh<br>walkthrough.md<br>... +2 more"]:::file-bundle
+	n8_6 --> n8_6_1("dist"):::folder
+	n8_5 --> n8_5_6["DEPLOYMENT.md<br>build.sh<br>README.md<br>terminus.py<br>deploy.sh"]:::file-bundle
+	n8_7 --> n8_7_1("tests"):::folder
+	n8_6 --> n8_6_4["README.md<br>export.py<br>index.html"]:::file-bundle
+	n8_7 --> n8_7_3("src"):::folder
+	n8_7 --> n8_7_8[".pytest_cache<br>context_bootstrap.md<br>build.sh<br>README.md<br>deploy.sh<br>pyproject.toml"]:::file-bundle
+	n10_1 --> n10_1_1("wordpress-taxonomy"):::folder
+	n10_1 --> n10_1_2("dashboard"):::folder
+	n10_1 --> n10_1_3("social-publish"):::folder
+	n10_1 --> n10_1_4("wordpress-publish"):::folder
+	n10_1 --> n10_1_5("projects"):::folder
+	n10_1 --> n10_1_6("post-to-pastebin"):::folder
+	n10_1 --> n10_1_7("wikipedia-fact-check"):::folder
+	n9_1 --> n9_1_2["README.md<br>bash-readme.html"]:::file-bundle
+	n10_1 --> n10_1_8["README.md"]:::file-md
+	n8_3_1 --> n8_3_1_1("stftpupload"):::folder
+	n8_3_1 --> n8_3_1_2["README.md"]:::file-md
+	n8_4_2 --> n8_4_2_1("v"):::folder
+	n8_4_1 --> n8_4_1_3["README.md<br>test_api.py<br>test_auth.py"]:::file-bundle
+	n8_4_2 --> n8_4_2_4["README.md<br>CACHEDIR.TAG<br>.gitignore"]:::file-bundle
+	n8_4_3 --> n8_4_3_2("fastapi_starter"):::folder
+	n8_5_1 --> n8_5_1_1("images"):::folder
+	n8_4_3 --> n8_4_3_3["wedge_400_switch_api.egg-info<br>README.md"]:::file-bundle
+	n8_6_1 --> n8_6_1_1("markdown"):::folder
+	n8_5_1 --> n8_5_1_8["dev_workflow_guide.mp3<br>README.md<br>implementation_plan.md<br>generate_voiceover.py<br>dev_workflow_guide.md<br>walkthrough.md<br>master_prompt.md"]:::file-bundle
+	n8_6_1 --> n8_6_1_3["README.md<br>index.html"]:::file-bundle
+	n8_4_2 --> n8_4_2_1("v"):::folder
+	n8_4_1 --> n8_4_1_2["test_crawler.py"]:::file-py
+	n8_4_3 --> n8_4_3_1("crawler"):::folder
+	n8_4_2 --> n8_4_2_4["CACHEDIR.TAG<br>.gitignore"]:::file-bundle
+	n8_4_3 --> n8_4_3_2["bmc_api_crawler.egg-info"]:::file-other
+	n10_1_1 --> n10_1_1_2["README.md<br>SKILL.md"]:::file-md
+	n10_1_2 --> n10_1_2_2["README.md<br>SKILL.md"]:::file-md
+	n10_1_3 --> n10_1_3_2["README.md<br>SKILL.md"]:::file-md
+	n10_1_4 --> n10_1_4_2["README.md<br>SKILL.md"]:::file-md
+	n10_1_5 --> n10_1_5_2["README.md<br>SKILL.md"]:::file-md
+	n10_1_6 --> n10_1_6_2["README.md<br>SKILL.md"]:::file-md
+	n10_1_7 --> n10_1_7_2["README.md<br>SKILL.md"]:::file-md
+	n8_4_2_1 --> n8_4_2_1_1("cache"):::folder
+	n8_3_1_1 --> n8_3_1_1_2["README.md<br>test.txt"]:::file-bundle
+	n8_4_2_1 --> n8_4_2_1_2["README.md"]:::file-md
+	n8_4_3_1 --> n8_4_3_1_4("PKG-INFO"):::folder
+	n8_4_3_2 --> n8_4_3_2_1("templates"):::folder
+	n8_4_3_1 --> n8_4_3_1_6["dependency_links.txt<br>README.md<br>requires.txt<br>SOURCES.txt<br>top_level.txt"]:::file-bundle
+	n8_4_3_2 --> n8_4_3_2_8["README.md<br>auth.py<br>main.py<br>api.py<br>__init__.py<br>models.py<br>database.py"]:::file-bundle
+	n8_6_1_1 --> n8_6_1_1_1("skills"):::folder
+	n8_5_1_1 --> n8_5_1_1_3["README.md<br>terminus_tui_mockup.jpg<br>terminus_web_mockup.jpg"]:::file-bundle
+	n8_4_2_1 --> n8_4_2_1_1("cache"):::folder
+	n8_4_3_1 --> n8_4_3_1_1("templates"):::folder
+	n8_6_1_1 --> n8_6_1_1_7["README.md<br>general_settings.md<br>global_skills.md<br>mcp_servers.md<br>workspace_rules.md<br>workspace_skills.md"]:::file-md
+	n8_4_3_1 --> n8_4_3_1_4["main.py<br>__init__.py"]:::file-py
+	n8_4_3_2 --> n8_4_3_2_4("PKG-INFO"):::folder
+	n8_4_3_2 --> n8_4_3_2_6["dependency_links.txt<br>requires.txt<br>SOURCES.txt<br>top_level.txt"]:::file-text
+	n8_4_2_1_1 --> n8_4_2_1_1_2("nodeids"):::folder
+	n8_4_2_1_1 --> n8_4_2_1_1_3("lastfailed"):::folder
+	n8_4_2_1_1 --> n8_4_2_1_1_1["README.md"]:::file-md
+	n8_4_3_2_1 --> n8_4_3_2_1_2["README.md<br>index.html"]:::file-bundle
+	n8_6_1_1_1 --> n8_6_1_1_1_37["workspace_wordpress-taxonomy.md<br>global_building-data-apps.md<br>global_accidental-data-loss-prevention.md<br>README.md<br>global_gcloud-auth-verification.md<br>global_gcp-composer-troubleshooting.md<br>global_gcp-pipeline-resource-provisioning.md<br>... +30 more"]:::file-md
+	n8_4_2_1_1 --> n8_4_2_1_1_2("nodeids"):::folder
+	n8_4_2_1_1 --> n8_4_2_1_1_3("lastfailed"):::folder
+	n8_4_2_1_1 --> n8_4_2_1_1_1["README.md"]:::file-md
+	n8_4_3_2_1 --> n8_4_3_2_1_2["index.html"]:::file-html
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
 classDef file-bundle fill:#e2e8f0,stroke:#64748b,stroke-width:1px,color:#334155;
@@ -190,6 +191,7 @@ scripts-public/
 * [powershell/](powershell/): A Windows PowerShell version of the OpenSSL certificate utility.
 * [projects/](projects/): projects
 * [python/](python/): python
+* [scratch/](scratch/): scratch
 * [web/](web/): web
 * [wordpress/](wordpress/): wordpress
 * [.agent.md](.agent.md): name: readme-tree-diagram
@@ -457,6 +459,7 @@ scripts-public/
 * [generate_project_dashboard.py](python/generate_project_dashboard.py): <div class="git-details"> <p><strong>Active Branch:</strong> <span class="badge">{git['branch']}</span></p> <p><strong>Last Update:</strong> {git['date']}</p> <p><strong>Commit:</strong> <code class="commit-hash">{git['commit']}</code></...
 * [list_keys.py](python/list_keys.py): text/config file (767 bytes)
 * [manage_credentials.py](python/manage_credentials.py): text/config file (3389 bytes)
+* [obsidian_backup.py](python/obsidian_backup.py): Runs a system command, returning stdout and stderr.
 * [projects_config.json](python/projects_config.json): text/config file (1306 bytes)
 * [publish_social.py](python/publish_social.py): Loads environment variables from the parent directory's .env file.
 * [publish_wordpress_post.py](python/publish_wordpress_post.py): text/config file (3423 bytes)
@@ -469,6 +472,9 @@ scripts-public/
 * [verify_credentials.py](python/verify_credentials.py): text/config file (3602 bytes)
 * [wikipedia_fact_checker.py](python/wikipedia_fact_checker.py): text/config file (5974 bytes)
 * [wordpress_taxonomy_suggest.py](python/wordpress_taxonomy_suggest.py): text/config file (4700 bytes)
+
+### 📂 `/home/rtroiano/repositories/scripts-public/scripts-public/scratch/`
+* [README.md](scratch/README.md): scratch
 
 ### 🌐 Web (`/web`)
 * [apache-reverse-proxy/](web/apache-reverse-proxy/): apache-reverse-proxy

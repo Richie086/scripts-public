@@ -535,9 +535,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **e6610e9** - 2026-07-17 06:32:55 - docs: integrate 'god mode' local text philosophy into Obsidian AI guides
 - **68997e8** - 2026-07-17 06:26:44 - docs: split Obsidian AI guide into two separate posts
 - **2608711** - 2026-07-17 06:25:03 - feat(obsidian): add automated obsidian backup and sync script with zip rotation
 - **6ad0626** - 2026-07-17 06:19:57 - docs: add custom endpoint instructions for Obsidian Copilot in blog post
 - **38e8295** - 2026-07-17 06:19:12 - docs: expand Obsidian plugin setup steps in API keys blog post
-- **5e483e8** - 2026-07-17 06:18:18 - docs: add sarcastic blog post on AI models, Obsidian, and Bitwarden key management
 <!-- AUTO-GENERATED COMMITS END -->

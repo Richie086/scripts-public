@@ -50,13 +50,32 @@ OpenAI’s dashboard is the blueprint that every other provider copied.
 
 ## Part 3: Connecting to Obsidian (Your New Superpowers)
 
-Once you have your keys, how do you use them? Instead of paying for proprietary Obsidian sync or AI add-ons, install one of these community plugins:
+Once you have your keys, how do you use them? Instead of paying for proprietary Obsidian sync or AI add-ons, install one of these community plugins. Let’s walk through the setup for the two best options in the ecosystem:
 
-*   **Obsidian Copilot**: A stellar plugin that mimics GitHub Copilot. It gives you a chat sidebar directly in your editor.
-*   **Smart Connections**: It uses embeddings to automatically link related notes in your vault. When you open a note about "Coffee Recipes," it will silently suggest your note on "Insomnia Remedies."
-*   **Text Generator**: A highly customizable prompt runner that lets you generate text inline using custom templates.
+### 1. Obsidian Copilot (Your Sidebar Chat Assistant)
+This plugin mimics GitHub Copilot, giving you a chat interface right next to your active note. 
 
-In any of these plugins, open their settings, toggle the option to **"Use custom API key"** (or change the provider to your own API), and paste the key. Suddenly, your notes are alive, and it only costs you a fraction of a cent per query.
+**Setup Steps:**
+1.  In Obsidian, go to **Settings** (the gear icon in the bottom-left corner).
+2.  Navigate to **Community Plugins** and click **Browse**.
+3.  Search for **Copilot** (by Logan Yang) and click **Install**, then **Enable**.
+4.  Open the **Copilot** settings panel.
+5.  Look for the **Provider** dropdown. Select your chosen model provider (e.g., OpenAI, Anthropic, or Gemini).
+6.  Locate the corresponding API Key input field for that provider. Go to your password manager, grab the key, and paste it in.
+7.  Choose your default model (e.g., `gpt-4o-mini` or `gemini-1.5-flash` for speed, or `claude-3-5-sonnet` for heavy lifting).
+8.  Close settings. A new message bubble icon will appear in your right sidebar. Click it, and start chatting with your note!
+
+### 2. Smart Connections (Conversations and note linking via Embeddings)
+Smart Connections reads your entire vault and creates vector embeddings. This allows it to automatically find relevant notes, suggest connections, or let you query your entire vault.
+
+**Setup Steps:**
+1.  In Obsidian, go to **Settings > Community Plugins**, click **Browse**, and search for **Smart Connections** (by Brian Petro).
+2.  Click **Install**, then **Enable**.
+3.  Go to the **Smart Connections** settings panel.
+4.  Choose your **API Provider** (OpenAI is the most common, but Gemini and others are supported).
+5.  Paste your API key into the key field.
+6.  *Crucial Step:* Scroll down and click **"Create Embeddings"** (or toggle auto-create). The plugin will start parsing all your markdown files. Depending on how many folders of unfinished projects you have, this may take a couple of minutes.
+7.  Once indexed, open the Smart Connections pane in the right sidebar. It will show a list of "Real-time Connections" linking your current note to other relevant notes, and you can chat with your entire vault using the search prompt at the top.
 
 ---
 

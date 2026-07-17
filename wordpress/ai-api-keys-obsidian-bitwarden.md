@@ -2,32 +2,35 @@ Why pay $20 a month for a web interface that treats you like a child, puts you o
 
 Welcome to the world of API keys—the developer equivalent of bypassing the ticket booth and walking straight into the VIP lounge. 
 
-If you are using Obsidian (that lovely, local-first markdown note-taking vault that we all pretend is a "second brain" and not just a collection of half-finished todo lists), you can supercharge your notes with actual AI. No subscription required. You just pay for what you use.
+If you are looking for the perfect landing pad for these keys, look no further than **Obsidian**. It’s a local-first, plain-text markdown vault that we all pretend is our "second brain" (but is usually just a collection of unfinished to-do lists and grocery lists). By connecting Obsidian directly to AI models via APIs, you get an infinitely customizable assistant that only bills you for what you actually use.
 
-Here is how to get your keys, feed them to Obsidian, and organize them in Bitwarden so you don't end up with a digital junk drawer of active credentials.
-
----
-
-## Part 1: The Contenders (The Models You Actually Care About)
-
-Before we start printing keys, let’s talk about which AI brain you actually want to plug into your Obsidian vault:
-
-*   **Google Gemini (Gemini 1.5 Pro / Flash)**: The model with a context window so absurdly massive (up to 2 million tokens) that you could literally feed it your entire diary, your tax returns from 2018, and a full directory of scripts, and it will still have room to tell you that you write terrible bash code.
-*   **Anthropic Claude (Claude 3.5 Sonnet)**: The current darling of developers who need an AI to write recursive code or explain complex topics without sounding like a marketing press release.
-*   **OpenAI (GPT-4o / GPT-4o-mini)**: The household name. GPT-4o is smart but expensive; GPT-4o-mini is dirt cheap and perfect for basic note tagging, summarization, and autocomplete.
+Here is how to install Obsidian on any operating system, generate your API keys, and organize them in Bitwarden so you don't end up with credential chaos.
 
 ---
 
-## Part 2: Step-by-Step Key Generation (Bypassing the Gatekeepers)
+## Part 1: Installing Obsidian on Any OS
 
-To get these models to talk to Obsidian directly, you need an API key. This is a secret string of letters and numbers that tells the provider's servers to process your requests and bill your card. 
+Before we get the keys, we need the lock. Obsidian runs on virtually anything with a screen:
+
+*   **Windows & macOS**: Go to the official [Obsidian Download page](https://obsidian.md/download), grab the installer, and run it. Simple, standard, no surprises.
+*   **Linux**: If you're on Linux, you have options:
+    *   **Flatpak (Recommended)**: Run `flatpak install flathub md.obsidian.Obsidian`
+    *   **Snap**: Run `sudo snap install obsidian --classic`
+    *   **AppImage**: Download the AppImage from their site, make it executable (`chmod +x`), and run it directly.
+*   **Mobile (iOS & Android)**: Search for "Obsidian" in the Apple App Store or Google Play Store. It runs fully locally on your phone, and you can sync it using Git, iCloud, or Obsidian Sync.
+
+---
+
+## Part 2: Step-by-Step API Key Generation (Bypassing the UIs)
+
+To get these models to talk to your local applications, you need an API key. This is a secret string of text that tells the provider's servers to process your requests and bill your card. 
 
 ### 1. Google Gemini (Google AI Studio)
 Google makes this surprisingly easy (and free, within generous rate limits).
 1.  Go to [Google AI Studio](https://aistudio.google.com/).
 2.  Log in with your Google account.
-3.  Click the prominent **"Get API key"** button in the top left.
-4.  Click **"Create API key"** and choose to associate it with a new or existing Google Cloud project.
+3.  Click the **"Get API key"** button in the top left.
+4.  Click **"Create API key"** and choose to associate it with a Google Cloud project.
 5.  Copy that key immediately. (Google won't show it to you again, because security).
 
 ### 2. Anthropic Claude (Anthropic Console)
@@ -35,58 +38,20 @@ Anthropic is slightly more developer-focused, but still straightforward.
 1.  Go to the [Anthropic Console](https://console.anthropic.com/).
 2.  Create an account or sign in.
 3.  Navigate to **API Keys** on the dashboard.
-4.  Click **"Create Key"**, give it a name (e.g., "Obsidian Integration"), and copy the generated key.
-5.  *Note:* You'll need to fund your account with a minimum of $5 before the key will actually answer your prompts. 
+4.  Click **"Create Key"**, name it (e.g., "Obsidian Integration"), and copy the generated key.
+5.  *Note:* You'll need to fund your account with a minimum of $5 before the key will actually answer your prompts.
 
 ### 3. OpenAI (OpenAI Platform)
 OpenAI’s dashboard is the blueprint that every other provider copied.
 1.  Go to the [OpenAI Platform](https://platform.openai.com/).
 2.  Sign in and head to **Dashboard > API Keys** (or click the key icon on the left sidebar).
 3.  Click **"Create new secret key"**.
-4.  Name it, choose your permissions (default restricted is fine), and copy it.
-5.  Like Anthropic, you must add a billing method and load a few dollars into your balance.
+4.  Name it, choose your permissions, and copy it.
+5.  Like Anthropic, you must add a billing method and load a few dollars into your balance first.
 
 ---
 
-## Part 3: Connecting to Obsidian (Your New Superpowers)
-
-Once you have your keys, how do you use them? Instead of paying for proprietary Obsidian sync or AI add-ons, install one of these community plugins. Let’s walk through the setup for the two best options in the ecosystem:
-
-### 1. Obsidian Copilot (Your Sidebar Chat Assistant)
-This plugin mimics GitHub Copilot, giving you a chat interface right next to your active note. 
-
-**Setup Steps:**
-1.  In Obsidian, go to **Settings** (the gear icon in the bottom-left corner).
-2.  Navigate to **Community Plugins** and click **Browse**.
-3.  Search for **Copilot** (by Logan Yang) and click **Install**, then **Enable**.
-4.  Open the **Copilot** settings panel.
-5.  Look for the **Provider** dropdown. Select your chosen model provider (e.g., OpenAI, Anthropic, or Gemini).
-6.  Locate the corresponding API Key input field for that provider. Go to your password manager, grab the key, and paste it in.
-7.  Choose your default model (e.g., `gpt-4o-mini` or `gemini-1.5-flash` for speed, or `claude-3-5-sonnet` for heavy lifting).
-8.  Close settings. A new message bubble icon will appear in your right sidebar. Click it, and start chatting with your note!
-
-**Going Off-Grid: Custom API Endpoints & Local LLMs**
-If you don't want to send your notes to third-party servers, or if you use a custom reverse proxy (like an enterprise gateway), Copilot has you covered:
-1.  In Copilot settings, set the **Provider** to **OpenAI Compatible** (or custom OpenRouter/LM Studio provider).
-2.  Find the **Base URL** field. For a local Ollama instance running Llama 3, you would enter: `http://localhost:11434/v1`. If you use a reverse proxy, enter its URL here.
-3.  In the **Model** field, type the name of the model exactly as it is registered on your server (e.g., `llama3` for Ollama).
-4.  If your proxy requires it, enter the bearer token in the API Key field. If running Ollama locally, you can usually leave this empty or enter a dummy value like `ollama`.
-
-### 2. Smart Connections (Conversations and note linking via Embeddings)
-Smart Connections reads your entire vault and creates vector embeddings. This allows it to automatically find relevant notes, suggest connections, or let you query your entire vault.
-
-**Setup Steps:**
-1.  In Obsidian, go to **Settings > Community Plugins**, click **Browse**, and search for **Smart Connections** (by Brian Petro).
-2.  Click **Install**, then **Enable**.
-3.  Go to the **Smart Connections** settings panel.
-4.  Choose your **API Provider** (OpenAI is the most common, but Gemini and others are supported).
-5.  Paste your API key into the key field.
-6.  *Crucial Step:* Scroll down and click **"Create Embeddings"** (or toggle auto-create). The plugin will start parsing all your markdown files. Depending on how many folders of unfinished projects you have, this may take a couple of minutes.
-7.  Once indexed, open the Smart Connections pane in the right sidebar. It will show a list of "Real-time Connections" linking your current note to other relevant notes, and you can chat with your entire vault using the search prompt at the top.
-
----
-
-## Part 4: Managing Key Sprawl in Bitwarden (The Golden Rule)
+## Part 3: Managing Key Sprawl in Bitwarden (The Golden Rule)
 
 Here’s the catch: once you start generating API keys, they will multiply. You’ll have a key for Obsidian on your desktop, another for Obsidian on your phone, one for a Python script you ran once on a Tuesday, and another for a Discord bot you abandoned. 
 

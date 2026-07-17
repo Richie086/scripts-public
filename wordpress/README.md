@@ -43,6 +43,7 @@ graph TD
 	root["wordpress"]:::root --> n31["installing-vscode.md"]:::file-md
 	root["wordpress"]:::root --> n32["installing-vscode.html"]:::file-html
 	root["wordpress"]:::root --> n33["linux-history-part-1.md"]:::file-md
+	root["wordpress"]:::root --> n34["using-ai-in-obsidian.md"]:::file-md
 	n1 --> n1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;

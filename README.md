@@ -36,10 +36,11 @@ graph TD
 	n3 --> n3_1("apache-reverse-proxy"):::folder
 	n2 --> n2_11["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_shared_dev_server.sh<br>setup_ssh_key.md<br>virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh"]:::file-bundle
 	n3 --> n3_3["README.md<br>index.html"]:::file-bundle
-	n6 --> n6_1("mermaid-examples"):::folder
 	n4 --> n4_4["README.md<br>suggest_aliases.md<br>PROJECT_DASHBOARD.md<br>developer-infrastructure-setup.md"]:::file-md
+	n6 --> n6_1("mermaid-examples"):::folder
+	n5 --> n5_1["README.md"]:::file-md
 	n7 --> n7_1("recovery-partition"):::folder
-	n6 --> n6_33["extremely-sarcastic-mcp-docker.md<br>jira-csv-import-atlassian-mcp.md<br>ai-web-app-development-process.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>linux-distros-package-managers-part-2.md<br>gmail-labeling-blog.md<br>... +25 more"]:::file-md
+	n6 --> n6_34["extremely-sarcastic-mcp-docker.md<br>jira-csv-import-atlassian-mcp.md<br>ai-web-app-development-process.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>linux-distros-package-managers-part-2.md<br>gmail-labeling-blog.md<br>... +26 more"]:::file-md
 	n8 --> n8_1("openssl-output-generator"):::folder
 	n8 --> n8_2("kvm-provisioning"):::folder
 	n8 --> n8_3("stftp"):::folder
@@ -522,6 +523,7 @@ scripts-public/
 * [technical-writing.md](wordpress/technical-writing.md): **From Troubleshooting to Technical Writing**
 * [test_post.md](wordpress/test_post.md): Antigravity WordPress Integration Test
 * [ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md](wordpress/ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md): If you are still relying on a single, easy-to-guess password for all your accounts, or if your browser's built-in password manager is holding the keys to your entire digital kingdom, it is time for a serious upgrade. Today, we are diving...
+* [using-ai-in-obsidian.md](wordpress/using-ai-in-obsidian.md): Now that you have successfully generated your API keys and organized them inside Bitwarden, it is time to actually plug them into Obsidian.
 
 <!-- AUTO-GENERATED CATALOG END -->
 ---

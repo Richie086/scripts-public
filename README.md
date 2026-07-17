@@ -33,10 +33,10 @@ graph TD
 	n2 --> n2_5("remove_user"):::folder
 	n1 --> n1_16["suggest_aliases.py<br>publish_wordpress_post.py<br>README.md<br>update_commit_log.py<br>test_suggest_aliases.py<br>fetch_agent.py<br>search_scripts.py<br>... +9 more"]:::file-bundle
 	n3 --> n3_1("apache-reverse-proxy"):::folder
-	n2 --> n2_10["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_ssh_key.md<br>virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh"]:::file-bundle
+	n2 --> n2_11["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_shared_dev_server.sh<br>setup_ssh_key.md<br>virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh"]:::file-bundle
 	n3 --> n3_2["README.md"]:::file-md
 	n5 --> n5_1("mermaid-examples"):::folder
-	n4 --> n4_2["README.md<br>suggest_aliases.md"]:::file-md
+	n4 --> n4_3["README.md<br>suggest_aliases.md<br>developer-infrastructure-setup.md"]:::file-md
 	n6 --> n6_1("recovery-partition"):::folder
 	n5 --> n5_32["extremely-sarcastic-mcp-docker.md<br>jira-csv-import-atlassian-mcp.md<br>ai-web-app-development-process.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>linux-distros-package-managers-part-2.md<br>gmail-labeling-blog.md<br>... +24 more"]:::file-md
 	n7 --> n7_1("openssl-output-generator"):::folder
@@ -248,11 +248,13 @@ scripts-public/
   * [user_manager.sh](bash/user_manager/user_manager.sh): Script Name: user_manager.sh Description: Advanced Linux user account manager for Ubuntu. Supports interactive and CLI mode, audit logging, and dry-runs.
 * [apt-get-tui.sh](bash/apt-get-tui.sh): apt-get-tui.sh - A Text User Interface (TUI) for apt / apt-get on Ubuntu/Debian. Every common apt-get / apt-cache / apt-mark function is reachable from a menu. Package name fields for install/remove/etc. support TAB auto-completion:
 * [README.md](bash/README.md): bash
+* [setup_shared_dev_server.sh](bash/setup_shared_dev_server.sh): Script Name: setup_shared_dev_server.sh Description: Configures a shared Linux development server for multiple developers. Sets up the shared devs group, shared directory with SetGID, and
 * [setup_ssh_key.md](bash/setup_ssh_key.md): SSH Key Generator & Remote Deployment Tool (`setup_ssh_key.sh`)
 * [setup_ssh_key.sh](bash/setup_ssh_key.sh): Interactive SSH Key Generator & Remote Installer (Modern Theme) This script guides the user through the process of: 1. Prompting for remote server details (username, host, port).
 * [virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh](bash/virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh): UNIFIED VIRTUALBOX GUEST ADDITIONS AUTOMATION SCRIPT
 
 ### 📝 Markdown (`/markdown`)
+* [developer-infrastructure-setup.md](markdown/developer-infrastructure-setup.md): Cheap & Secure Shared AI Developer Infrastructure Guide
 * [README.md](markdown/README.md): markdown
 * [suggest_aliases.md](markdown/suggest_aliases.md): Shell Alias & Function Suggester
 

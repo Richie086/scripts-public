@@ -522,9 +522,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **e731466** - 2026-07-16 18:00:50 - Add shared dev server setup script and infrastructure guide
 - **13beb5c** - 2026-07-16 09:59:09 - feat(wedge-api): implement Active Directory query-bind search lookup and user verification
 - **8a2d8c5** - 2026-07-16 09:52:20 - fix(wedge-api): use unique remote file name in deploy.sh Nginx injector copy
 - **26e06b2** - 2026-07-16 09:51:43 - feat(wedge-api): update deploy.sh to support Nginx split auth location blocks
 - **9325451** - 2026-07-16 09:50:13 - feat(wedge-api): implement Active Directory integration with LDAP simulation and role-based access control
-- **3d5bc54** - 2026-07-16 08:10:19 - feat: keep index.html outside dist and copy it during build
 <!-- AUTO-GENERATED COMMITS END -->

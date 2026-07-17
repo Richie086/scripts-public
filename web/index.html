@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit Code Automations Dashboard</title>
+    <style>
+        :root {
+            --bg: #1e1e2e;
+            --bg-elevated: #252538;
+            --border: #44475a;
+            --radius: 12px;
+            --fg: #cdd6f4;
+            --fg-dim: #a6adc8;
+            --green: #a6e3a1;
+            --red: #f38ba8;
+            --blue: #89b4fa;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        h1 {
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .scan-time {
+            color: var(--fg-dim);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            background-color: var(--bg-elevated);
+            border-radius: var(--radius);
+            padding: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 1.4rem;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-online {
+            background-color: rgba(166, 227, 161, 0.15);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .status-offline {
+            background-color: rgba(243, 139, 168, 0.15);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        .description {
+            color: var(--fg-dim);
+            font-size: 0.95rem;
+            margin: 0 0 16px 0;
+            line-height: 1.5;
+        }
+
+        .path {
+            margin: 0 0 20px 0;
+            font-size: 0.85rem;
+        }
+
+        .path code {
+            background-color: rgba(0, 0, 0, 0.25);
+            padding: 6px 10px;
+            border-radius: 6px;
+            color: var(--blue);
+            display: block;
+            overflow-x: auto;
+        }
+
+        .url-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: var(--blue);
+            color: #1e1e2e;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .health-code {
+            font-size: 0.85rem;
+            color: var(--fg-dim);
+        }
+
+        .card-divider {
+            border: 0;
+            border-top: 1px solid var(--border);
+            margin: 0 0 16px 0;
+        }
+
+        .git-details {
+            font-size: 0.9rem;
+        }
+
+        .git-details p {
+            margin: 8px 0;
+            color: var(--fg-dim);
+        }
+
+        .git-details strong {
+            color: var(--fg);
+        }
+
+        .badge {
+            background-color: var(--border);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #ffffff;
+        }
+
+        .commit-hash {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--green);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Exit Code Automations</h1>
+        <p class="scan-time">System Status Dashboard • Generated at 2026-07-16 18:01:49</p>
+    </header>
+    <main class="grid">
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>Spotify Backstage</h2>
+                <span class="status-badge status-online">ONLINE</span>
+            </div>
+            <p class="description">Developer Portal for tracking company services and repositories.</p>
+            <p class="path"><code>/home/rtroiano/repositories/exitcodezero/backstage-app</code></p>
+            <div class="url-section">
+                <a href="https://backstage.exit-code.net" target="_blank" class="btn">Launch Service</a>
+                <span class="health-code">HTTP 200</span>
+            </div>
+            <hr class="card-divider">
+            
+            <div class="git-details">
+                <p><strong>Folder Status:</strong> <span class="badge">Missing Directory</span></p>
+            </div>
+            
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>Wedge 400 Switch API</h2>
+                <span class="status-badge status-online">ONLINE</span>
+            </div>
+            <p class="description">Hardware mock agent interface running SQLite database persistence.</p>
+            <p class="path"><code>/home/rtroiano/repositories/scripts-public/scripts-public/projects/Wedge-400-Switch-API</code></p>
+            <div class="url-section">
+                <a href="http://192.168.1.80/projects/wedge-switch-400-api" target="_blank" class="btn">Launch Service</a>
+                <span class="health-code">HTTP 200</span>
+            </div>
+            <hr class="card-divider">
+            
+            <div class="git-details">
+                <p><strong>Folder Status:</strong> <span class="badge">Non-Git Folder</span></p>
+            </div>
+            
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>API Crawler</h2>
+                <span class="status-badge status-online">ONLINE</span>
+            </div>
+            <p class="description">Ingestion orchestrator pulling metrics and pushing to Loopback API.</p>
+            <p class="path"><code>/home/rtroiano/repositories/scripts-public/scripts-public/projects/BMC-API-Crawler</code></p>
+            <div class="url-section">
+                <a href="http://192.168.1.80/projects/bmc-api-crawler" target="_blank" class="btn">Launch Service</a>
+                <span class="health-code">HTTP 404 (Auth/Restricted)</span>
+            </div>
+            <hr class="card-divider">
+            
+            <div class="git-details">
+                <p><strong>Folder Status:</strong> <span class="badge">Non-Git Folder</span></p>
+            </div>
+            
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>FastAPI Starter</h2>
+                <span class="status-badge status-offline">OFFLINE</span>
+            </div>
+            <p class="description">Standard boilerplate repository for building Python microservices.</p>
+            <p class="path"><code>/home/rtroiano/repositories/fastapi-starter</code></p>
+            <div class="url-section">
+                <a href="http://localhost:8002" target="_blank" class="btn">Launch Service</a>
+                <span class="health-code"><urlopen error [Errno 111] Connection refused></span>
+            </div>
+            <hr class="card-divider">
+            
+            <div class="git-details">
+                <p><strong>Active Branch:</strong> <span class="badge">chore/add-contributing</span></p>
+                <p><strong>Last Update:</strong> 2026-07-14 19:47:50</p>
+                <p><strong>Commit:</strong> <code class="commit-hash">47d46a4</code></p>
+                <p><strong>Message:</strong> <em>"Add branching/contributing conventions"</em></p>
+                <p><strong>Author:</strong> Richard</p>
+            </div>
+            
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>ExitCodeZero</h2>
+                <span class="status-badge status-online">ONLINE</span>
+            </div>
+            <p class="description">Infrastructure automation files and deployment scripts for exit-code.net.</p>
+            <p class="path"><code>/home/rtroiano/repositories/exitcodezero</code></p>
+            <div class="url-section">
+                <a href="https://exit-code.net" target="_blank" class="btn">Launch Service</a>
+                <span class="health-code">HTTP 200</span>
+            </div>
+            <hr class="card-divider">
+            
+            <div class="git-details">
+                <p><strong>Active Branch:</strong> <span class="badge">feature/faux-terminal</span></p>
+                <p><strong>Last Update:</strong> 2026-07-16 18:01:23</p>
+                <p><strong>Commit:</strong> <code class="commit-hash">063bad0</code></p>
+                <p><strong>Message:</strong> <em>"Add Hetzner Terraform and Ansible playbook for VM and password/backstage automation"</em></p>
+                <p><strong>Author:</strong> Richard</p>
+            </div>
+            
+        </div>
+        
+    </main>
+</body>
+</html>

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Spotify Backstage",
+    "description": "Developer Portal for tracking company services and repositories.",
+    "local_path": "/home/rtroiano/repositories/exitcodezero/backstage-app",
+    "url": "https://backstage.exit-code.net"
+  },
+  {
+    "name": "Wedge 400 Switch API",
+    "description": "Hardware mock agent interface running SQLite database persistence.",
+    "local_path": "/home/rtroiano/repositories/scripts-public/scripts-public/projects/Wedge-400-Switch-API",
+    "url": "http://192.168.1.80/projects/wedge-switch-400-api"
+  },
+  {
+    "name": "API Crawler",
+    "description": "Ingestion orchestrator pulling metrics and pushing to Loopback API.",
+    "local_path": "/home/rtroiano/repositories/scripts-public/scripts-public/projects/BMC-API-Crawler",
+    "url": "http://192.168.1.80/projects/bmc-api-crawler"
+  },
+  {
+    "name": "FastAPI Starter",
+    "description": "Standard boilerplate repository for building Python microservices.",
+    "local_path": "/home/rtroiano/repositories/fastapi-starter",
+    "url": "http://localhost:8002"
+  },
+  {
+    "name": "ExitCodeZero",
+    "description": "Infrastructure automation files and deployment scripts for exit-code.net.",
+    "local_path": "/home/rtroiano/repositories/exitcodezero",
+    "url": "https://exit-code.net"
+  }
+]

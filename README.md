@@ -31,12 +31,12 @@ graph TD
 	n2 --> n2_3("apache-proxy-wizard"):::folder
 	n2 --> n2_4("openssl-certtool"):::folder
 	n2 --> n2_5("remove_user"):::folder
-	n1 --> n1_16["suggest_aliases.py<br>publish_wordpress_post.py<br>README.md<br>update_commit_log.py<br>test_suggest_aliases.py<br>fetch_agent.py<br>search_scripts.py<br>... +9 more"]:::file-bundle
+	n1 --> n1_18["suggest_aliases.py<br>publish_wordpress_post.py<br>README.md<br>update_commit_log.py<br>test_suggest_aliases.py<br>fetch_agent.py<br>search_scripts.py<br>... +11 more"]:::file-bundle
 	n3 --> n3_1("apache-reverse-proxy"):::folder
 	n2 --> n2_11["README.md<br>setup_ssh_key.sh<br>apt-get-tui.sh<br>setup_shared_dev_server.sh<br>setup_ssh_key.md<br>virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh"]:::file-bundle
-	n3 --> n3_2["README.md"]:::file-md
+	n3 --> n3_3["README.md<br>index.html"]:::file-bundle
 	n5 --> n5_1("mermaid-examples"):::folder
-	n4 --> n4_3["README.md<br>suggest_aliases.md<br>developer-infrastructure-setup.md"]:::file-md
+	n4 --> n4_4["README.md<br>suggest_aliases.md<br>PROJECT_DASHBOARD.md<br>developer-infrastructure-setup.md"]:::file-md
 	n6 --> n6_1("recovery-partition"):::folder
 	n5 --> n5_32["extremely-sarcastic-mcp-docker.md<br>jira-csv-import-atlassian-mcp.md<br>ai-web-app-development-process.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>linux-distros-package-managers-part-2.md<br>gmail-labeling-blog.md<br>... +24 more"]:::file-md
 	n7 --> n7_1("openssl-output-generator"):::folder
@@ -255,6 +255,7 @@ scripts-public/
 
 ### 📝 Markdown (`/markdown`)
 * [developer-infrastructure-setup.md](markdown/developer-infrastructure-setup.md): Cheap & Secure Shared AI Developer Infrastructure Guide
+* [PROJECT_DASHBOARD.md](markdown/PROJECT_DASHBOARD.md): Exit Code Automations: Project Status Dashboard
 * [README.md](markdown/README.md): markdown
 * [suggest_aliases.md](markdown/suggest_aliases.md): Shell Alias & Function Suggester
 
@@ -453,8 +454,10 @@ scripts-public/
 * [extract_conv.py](python/extract_conv.py): text/config file (1763 bytes)
 * [fetch_agent.py](python/fetch_agent.py): text/config file (1602 bytes)
 * [generate_mermaid_readmes.py](python/generate_mermaid_readmes.py): Find the git repository root by searching for .git directory.
+* [generate_project_dashboard.py](python/generate_project_dashboard.py): <div class="git-details"> <p><strong>Active Branch:</strong> <span class="badge">{git['branch']}</span></p> <p><strong>Last Update:</strong> {git['date']}</p> <p><strong>Commit:</strong> <code class="commit-hash">{git['commit']}</code></...
 * [list_keys.py](python/list_keys.py): text/config file (767 bytes)
 * [manage_credentials.py](python/manage_credentials.py): text/config file (3389 bytes)
+* [projects_config.json](python/projects_config.json): text/config file (1306 bytes)
 * [publish_social.py](python/publish_social.py): Loads environment variables from the parent directory's .env file.
 * [publish_wordpress_post.py](python/publish_wordpress_post.py): text/config file (3423 bytes)
 * [README.md](python/README.md): python
@@ -471,6 +474,7 @@ scripts-public/
 * [apache-reverse-proxy/](web/apache-reverse-proxy/): apache-reverse-proxy
   * [disclaimer.html](web/apache-reverse-proxy/disclaimer.html): Disclaimer & Safety Warning | Richie's Scripts
   * [README.md](web/apache-reverse-proxy/README.md): apache-reverse-proxy
+* [index.html](web/index.html): Exit Code Automations Dashboard
 * [README.md](web/README.md): web
 
 ### 📝 WordPress (`/wordpress`)

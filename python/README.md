@@ -23,11 +23,14 @@ graph TD
 	root["python"]:::root --> n11["manage_credentials.py"]:::file-py
 	root["python"]:::root --> n12["verify_credentials.py"]:::file-py
 	root["python"]:::root --> n13["generate_mermaid_readmes.py"]:::file-py
-	root["python"]:::root --> n14["list_keys.py"]:::file-py
-	root["python"]:::root --> n15["publish_social.py"]:::file-py
-	root["python"]:::root --> n16["wordpress_taxonomy_suggest.py"]:::file-py
+	root["python"]:::root --> n14["generate_project_dashboard.py"]:::file-py
+	root["python"]:::root --> n15["list_keys.py"]:::file-py
+	root["python"]:::root --> n16["publish_social.py"]:::file-py
+	root["python"]:::root --> n17["wordpress_taxonomy_suggest.py"]:::file-py
+	root["python"]:::root --> n18["projects_config.json"]:::file-config
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;
+classDef file-config fill:#f3f4f6,stroke:#6b7280,stroke-width:1px,color:#374151;
 classDef file-md fill:#dbeafe,stroke:#3b82f6,stroke-width:1px,color:#1e3a8a;
 classDef file-py fill:#dcfce7,stroke:#16a34a,stroke-width:1px,color:#14532d;
 classDef file-text fill:#fafafa,stroke:#a3a3a3,stroke-width:1px,color:#404040;

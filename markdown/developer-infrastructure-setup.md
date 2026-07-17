@@ -145,3 +145,25 @@ With the shared VPS configured:
 3. Install the **Google Antigravity** extension inside the remote VS Code session.
 4. When writing code, Antigravity runs contextually within each developer's isolated user workspace on the server, respecting their remote configuration.
 5. Code is committed and pushed directly to your private GitHub repositories.
+
+---
+
+## 8. Automated Documentation & Project Dashboards
+
+To track and monitor all developer repositories, we deploy a Python-based status scanner that automatically builds:
+- A Markdown dashboard: `markdown/PROJECT_DASHBOARD.md`
+- A beautiful, beveled Dracula-themed HTML dashboard: `web/index.html`
+
+The script (`python/generate_project_dashboard.py`) runs health status pings, checks local repository directories, and extracts the branch name and last git commit hash, date, message, and author for each active project.
+
+### Automating the Dashboard via Cron
+To run this scan automatically on the server every hour:
+1. Open the crontab editor on the Dev VM:
+   ```bash
+   crontab -e
+   ```
+2. Add the following entry (adjusting the path to your cloned repository):
+   ```cron
+   0 * * * * /usr/bin/python3 /srv/projects/scripts-public/python/generate_project_dashboard.py >/dev/null 2>&1
+   ```
+This keeps your developer team wiki and portal status completely synchronized without manual updates.

@@ -38,7 +38,7 @@ graph TD
 	n5 --> n5_1("mermaid-examples"):::folder
 	n4 --> n4_4["README.md<br>suggest_aliases.md<br>PROJECT_DASHBOARD.md<br>developer-infrastructure-setup.md"]:::file-md
 	n6 --> n6_1("recovery-partition"):::folder
-	n5 --> n5_32["extremely-sarcastic-mcp-docker.md<br>jira-csv-import-atlassian-mcp.md<br>ai-web-app-development-process.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>linux-distros-package-managers-part-2.md<br>gmail-labeling-blog.md<br>... +24 more"]:::file-md
+	n5 --> n5_33["extremely-sarcastic-mcp-docker.md<br>jira-csv-import-atlassian-mcp.md<br>ai-web-app-development-process.md<br>README.md<br>ultimate-guide-to-bitwarden-securing-your-digital-life-across-every-device.md<br>linux-distros-package-managers-part-2.md<br>gmail-labeling-blog.md<br>... +25 more"]:::file-md
 	n7 --> n7_1("openssl-output-generator"):::folder
 	n7 --> n7_2("kvm-provisioning"):::folder
 	n7 --> n7_3("stftp"):::folder
@@ -485,6 +485,7 @@ scripts-public/
   * [sequence.md](wordpress/mermaid-examples/sequence.md): Mermaid JS Sequence Diagram Example
   * [state.md](wordpress/mermaid-examples/state.md): Mermaid JS State Diagram Example
 * [about.md](wordpress/about.md): Hi, I’m Richard. I’m an IT professional and network engineer with over two decades of experience designing, building, and securing enterprise networks and server infrastructure.
+* [ai-api-keys-obsidian-bitwarden.md](wordpress/ai-api-keys-obsidian-bitwarden.md): Why pay $20 a month for a web interface that treats you like a child, puts you on a timer, and hides the "real" models behind a paywall when you can just buy tokens in bulk for fractions of a penny and run them in your own local applicat...
 * [ai-automation.md](wordpress/ai-automation.md): Embracing the Future: Why AI and Gemini Are Game-Changers in IT
 * [ai-web-app-development-process.md](wordpress/ai-web-app-development-process.md): Implementation Plan - Project Name
 * [alias-suggester-blog.md](wordpress/alias-suggester-blog.md): Stop Typing the Same Command 50 Times: Introducing the Alias & Function Suggester

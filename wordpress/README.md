@@ -34,14 +34,15 @@ graph TD
 	root["wordpress"]:::root --> n22["openssl-bash-wrapper.md"]:::file-md
 	root["wordpress"]:::root --> n23["technical-writing.md"]:::file-md
 	root["wordpress"]:::root --> n24["directory_stats.md"]:::file-md
-	root["wordpress"]:::root --> n25["blog_post_wordpress.md"]:::file-md
-	root["wordpress"]:::root --> n26["reduce-cursor-credits-blog.md"]:::file-md
-	root["wordpress"]:::root --> n27["conquering-docker-permissions-and-antigravity-ui-crashes.md"]:::file-md
-	root["wordpress"]:::root --> n28["scripts_catalog.md"]:::file-md
-	root["wordpress"]:::root --> n29["antigravity_blog_post.md"]:::file-md
-	root["wordpress"]:::root --> n30["installing-vscode.md"]:::file-md
-	root["wordpress"]:::root --> n31["installing-vscode.html"]:::file-html
-	root["wordpress"]:::root --> n32["linux-history-part-1.md"]:::file-md
+	root["wordpress"]:::root --> n25["ai-api-keys-obsidian-bitwarden.md"]:::file-md
+	root["wordpress"]:::root --> n26["blog_post_wordpress.md"]:::file-md
+	root["wordpress"]:::root --> n27["reduce-cursor-credits-blog.md"]:::file-md
+	root["wordpress"]:::root --> n28["conquering-docker-permissions-and-antigravity-ui-crashes.md"]:::file-md
+	root["wordpress"]:::root --> n29["scripts_catalog.md"]:::file-md
+	root["wordpress"]:::root --> n30["antigravity_blog_post.md"]:::file-md
+	root["wordpress"]:::root --> n31["installing-vscode.md"]:::file-md
+	root["wordpress"]:::root --> n32["installing-vscode.html"]:::file-html
+	root["wordpress"]:::root --> n33["linux-history-part-1.md"]:::file-md
 	n1 --> n1_5["README.md<br>sequence.md<br>flowchart.md<br>state.md<br>gantt.md"]:::file-md
 classDef root fill:#2563eb,stroke:#1e40af,stroke-width:2px,color:#ffffff;
 classDef folder fill:#fbbf24,stroke:#d97706,stroke-width:1px,color:#451a03;

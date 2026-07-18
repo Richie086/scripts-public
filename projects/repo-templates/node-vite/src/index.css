@@ -1,0 +1,114 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Nord/Dracula Palette */
+  --bg-primary: #2e3440;
+  --bg-elevated: #3b4252;
+  --text-primary: #eceff4;
+  --text-secondary: #d8dee9;
+  --border: #4c566a;
+  --green: #a3be8c;
+  --blue: #88c0d0;
+  --radius: 12px;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+
+  color-scheme: dark;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--blue);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background-color: var(--bg-elevated);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: left;
+  box-shadow: var(--shadow);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: var(--green);
+}
+
+.btn {
+  background-color: var(--blue);
+  color: var(--bg-primary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.1s ease;
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.folder-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.folder-list li {
+  margin: 0.75rem 0;
+  font-size: 1.05rem;
+}
+
+.footer {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: auto;
+}

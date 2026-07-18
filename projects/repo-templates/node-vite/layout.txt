@@ -1,0 +1,12 @@
+src/
+  components/
+  lib/
+  main.tsx
+server.ts             # only if the app has a backend piece
+public/
+index.html
+package.json
+tsconfig.json
+vite.config.ts
+.env.example
+.gitignore            # gitignore.common + Node section (below)

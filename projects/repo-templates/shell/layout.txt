@@ -1,0 +1,6 @@
+scripts/             # each script does one thing, named verb-noun.sh
+lib/                 # shared shell functions sourced by scripts/
+docs/
+README.md
+.env.example
+.gitignore           # gitignore.common (no extra section needed)

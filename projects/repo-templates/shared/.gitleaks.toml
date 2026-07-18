@@ -1,0 +1,54 @@
+title = "richie086 gitleaks config"
+
+[extend]
+useDefault = true
+
+# --- PII rules on top of gitleaks' built-in secret rules ---
+
+[[rules]]
+id = "pii-ssn"
+description = "US Social Security Number"
+regex = '''\b\d{3}-\d{2}-\d{4}\b'''
+tags = ["pii", "ssn"]
+
+[[rules]]
+id = "pii-phone-us"
+description = "US phone number"
+regex = '''\b(\+1[-.\s]?)?\(?\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}\b'''
+tags = ["pii", "phone"]
+
+[[rules]]
+id = "pii-email"
+description = "Email address (review before allowlisting real emails)"
+regex = '''[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'''
+tags = ["pii", "email"]
+
+[[rules]]
+id = "pii-dob"
+description = "Date of birth style pattern"
+regex = '''\b(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])\b'''
+tags = ["pii", "dob"]
+
+[[rules]]
+id = "generic-credential-assignment"
+description = "Generic password/secret/token assignment"
+regex = '''(?i)(password|passwd|pwd|secret|token|api[_-]?key)\s*[:=]\s*['"][^'"\s]{6,}['"]'''
+tags = ["secret"]
+
+# --- Allowlist: reduce noise on known-safe files/paths ---
+[allowlist]
+description = "Ignore fixtures, docs examples, lockfiles"
+paths = [
+  '''.*\.lock$''',
+  '''package-lock\.json''',
+  '''.*/node_modules/.*''',
+  '''.*/\.venv/.*''',
+  '''.*/fixtures?/.*''',
+  '''.*\.example$''',
+  '''\.env\.example$''',
+]
+regexes = [
+  '''example\.com''',
+  '''test@test\.com''',
+  '''00[0-9]{2}-[0-9]{2}-0000''', # obviously fake SSNs used in fixtures
+]

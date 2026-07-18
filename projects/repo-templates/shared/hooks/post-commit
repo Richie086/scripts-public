@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Regenerates README.md's auto-generated section after each commit and folds
+# the change into that same commit via amend. Guarded against recursion.
+set -euo pipefail
+
+if [[ -n "${README_AMEND_IN_PROGRESS:-}" ]]; then
+  exit 0
+fi
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+"$REPO_ROOT/scripts/update-readme.sh"
+
+if ! git diff --cached --quiet -- README.md; then
+  README_AMEND_IN_PROGRESS=1 git commit --amend --no-edit --no-verify -q
+fi

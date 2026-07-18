@@ -1,0 +1,15 @@
+---
+description: Always enforce the standardized 4-folder structure (docs/, scripts/, frontend/, backend/) in this repository.
+globs: *
+alwaysApply: true
+---
+# Workspace Organization
+
+## Critical Rules
+- Every file created or moved must reside in one of the four main folders:
+  - `docs/`: Specifications, logs, markdown planning files, and guides.
+  - `scripts/`: Devops, utility, database, and automation scripts.
+  - `frontend/`: Web app code, assets, and UI components.
+  - `backend/`: Server APIs, business logic, and databases.
+- If a folder is empty, preserve it with a placeholder README.md explaining its purpose.
+- In utility/scripts repositories, subdirectories under `scripts/` must group files by extension (e.g. `scripts/bash/`, `scripts/python/`).

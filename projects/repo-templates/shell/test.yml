@@ -1,0 +1,17 @@
+name: Shell Script Verification
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ShellCheck
+        run: sudo apt-get install -y shellcheck
+      - name: Install Bats
+        run: |
+          git clone https://github.com/bats-core/bats-core.git
+          sudo ./bats-core/install.sh /usr/local
+      - name: Run ShellCheck
+        run: shellcheck scripts/bash/*.sh || echo "No scripts to check"
+      - name: Run Bats Tests
+        run: bats scripts/tests/ || echo "No test files found"

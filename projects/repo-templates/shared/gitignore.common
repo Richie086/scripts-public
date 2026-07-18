@@ -1,0 +1,23 @@
+# --- secrets / credentials ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+*.credentials
+secrets/
+*.secret
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- logs / local state ---
+*.log
+.cache/
+tmp/

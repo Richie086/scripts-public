@@ -1,0 +1,10 @@
+src/<package_name>/__init__.py
+src/<package_name>/main.py
+tests/__init__.py
+tests/test_main.py
+scripts/            # one-off/dev scripts, not shipped
+docs/
+pyproject.toml
+README.md
+.env.example
+.gitignore           # gitignore.common + Python section (below)

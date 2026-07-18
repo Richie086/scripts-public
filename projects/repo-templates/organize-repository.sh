@@ -1,6 +1,27 @@
 #!/usr/bin/env bash
-# Retrofit an existing repository to the standardized 4-folder blueprint.
-# Usage: ./retrofit.sh [options]
+# ==============================================================================
+# NAME: organize-repository.sh
+# DESCRIPTION: Re-organizes an existing codebase in-place into the standardized
+#              4-folder project blueprint (docs/, scripts/, frontend/, backend/).
+#              Matches structural code signatures (Python, Vite/React, Shell scripts)
+#              and moves files dynamically into target directories. Retains config
+#              and metadata files (like .env, docker-compose.yml, .gitignore, LICENSE)
+#              safely in the root directory.
+#
+# DESIGN PATHS:
+#   - Dry-Run by Default: Displays layout movements and checks before writes.
+#   - Incremental Updates: Cleans up new loose root scripts on subsequent runs.
+#   - Automated Branching: Automatically checks out and switches to a new Git
+#     branch before applying modifications.
+#   - Metadata Scaffolding: Copies missing workflows, Makefiles, and gitleaks
+#     rules to elevate project quality.
+#
+# USAGE:
+#   ./organize-repository.sh [options]
+#
+# OPTIONS:
+#   Run ./organize-repository.sh --help for all configuration flags.
+# ==============================================================================
 set -euo pipefail
 
 TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -174,7 +195,7 @@ if [[ -f package.json ]] && { [[ -f vite.config.ts ]] || [[ -f vite.config.js ]]
   HAS_VITE=true
 fi
 # Detect if there are loose shell scripts in root (excluding target scripts)
-if [[ -n "$(find . -maxdepth 1 -name "*.sh" ! -name "run.sh" ! -name "bootstrap.sh" ! -name "retrofit.sh" -print -quit 2>/dev/null)" ]]; then
+if [[ -n "$(find . -maxdepth 1 -name "*.sh" ! -name "run.sh" ! -name "setup-repository.sh" ! -name "organize-repository.sh" -print -quit 2>/dev/null)" ]]; then
   HAS_SHELL=true
 fi
 
@@ -369,9 +390,9 @@ fi
 # 4.3 Shell script layout migration
 if [[ "$HAS_SHELL" == "true" ]]; then
   log "INFO" "Migrating loose shell script layout..."
-  # Move loose shell files (except run.sh, bootstrap.sh, retrofit.sh) to scripts/
+  # Move loose shell files (except run.sh, setup-repository.sh, organize-repository.sh) to scripts/
   for f in *.sh; do
-    if [[ -f "$f" && "$f" != "run.sh" && "$f" != "bootstrap.sh" && "$f" != "retrofit.sh" ]]; then
+    if [[ -f "$f" && "$f" != "run.sh" && "$f" != "setup-repository.sh" && "$f" != "organize-repository.sh" ]]; then
       mkdir -p scripts/bash
       verbose_log "Moving loose shell script $f -> scripts/bash/"
       mv "$f" scripts/bash/

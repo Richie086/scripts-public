@@ -21,16 +21,16 @@ your-project/
 
 ---
 
-## 1. Bootstrapping New Projects (`bootstrap.sh`)
+## 1. Bootstrapping New Projects (`setup-repository.sh`)
 
-Use `bootstrap.sh` to scaffold a brand-new project under `~/repositories/projects/`.
+Use `setup-repository.sh` to scaffold a brand-new project under `~/repositories/projects/`.
 
 ### Default Safety: Dry-Run
 By default, running this script executes a **dry-run**. It checks your environment and prints out a summary of the directories and configuration files it would create without writing anything to disk.
 
 ### Usage
 ```bash
-./bootstrap.sh <project-name> <stack-type> [options]
+./setup-repository.sh <project-name> <stack-type> [options]
 ```
 
 ### Stack Types
@@ -50,26 +50,26 @@ By default, running this script executes a **dry-run**. It checks your environme
 ### Examples
 **Dry-run (Check planned actions):**
 ```bash
-./bootstrap.sh my-new-app node-vite
+./setup-repository.sh my-new-app node-vite
 ```
 
 **Live Run (Create a private React app + GitHub remote):**
 ```bash
-./bootstrap.sh my-new-app node-vite --write
+./setup-repository.sh my-new-app node-vite --write
 ```
 
 ---
 
-## 2. Retrofitting Existing Projects (`retrofit.sh`)
+## 2. Retrofitting Existing Projects (`organize-repository.sh`)
 
-Use `retrofit.sh` to reorganize an existing project repository into the standardized 4-folder blueprint.
+Use `organize-repository.sh` to reorganize an existing project repository into the standardized 4-folder blueprint.
 
 ### Default Safety: Dry-Run
-Just like `bootstrap.sh`, this script runs in **dry-run** mode by default. It scans your existing files and lists the exact layout changes it would make before applying them.
+Just like `setup-repository.sh`, this script runs in **dry-run** mode by default. It scans your existing files and lists the exact layout changes it would make before applying them.
 
 ### Usage
 ```bash
-./retrofit.sh [options]
+./organize-repository.sh [options]
 ```
 
 ### Options
@@ -90,12 +90,12 @@ Just like `bootstrap.sh`, this script runs in **dry-run** mode by default. It sc
 ### Examples
 **Dry-run (Scan current directory):**
 ```bash
-./retrofit.sh
+./organize-repository.sh
 ```
 
 **Live Run (Move files on a new Git feature branch):**
 ```bash
-./retrofit.sh -b feature/reorg --write --verbose
+./organize-repository.sh -b feature/reorg --write --verbose
 ```
 
 ---
@@ -107,7 +107,7 @@ To take full advantage of linting, testing, and secret scanning, ensure the foll
 ### 1. GitHub CLI (`gh`)
 If not installed, install it automatically via:
 ```bash
-./retrofit.sh --install-gh
+./organize-repository.sh --install-gh
 ```
 
 ### 2. Secrets & PII Scanning (`gitleaks` & `pre-commit`)

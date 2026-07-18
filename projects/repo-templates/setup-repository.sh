@@ -1,6 +1,25 @@
 #!/usr/bin/env bash
-# Scaffold a new repository with standardized 4-folder blueprint, testing suite, and GitHub integration.
-# Usage: ./bootstrap.sh <repo-name> <python|node-vite|shell> [options]
+# ==============================================================================
+# NAME: setup-repository.sh
+# DESCRIPTION: Automates scaffolding of new project repositories matching the
+#              standardized 4-folder blueprint (docs/, scripts/, frontend/, backend/).
+#              Provides support for four development stacks (Python FastAPI, Node-Vite
+#              React, Shell, and PowerShell Core), including automated Makefiles,
+#              unit test suites, Cursor rule enforcement, gitleaks secrets scanning,
+#              pre-commit validation hooks, and GitHub remote integration.
+#
+# DESIGN PATHS:
+#   - Dry-Run by Default: Safe evaluation mode showing planned modifications.
+#   - Portability: Zero hardcoded directories, personal credentials, or LAN IPs.
+#   - Automated Autodocs: Automated initial commit triggers post-commit hook
+#     scaffolding README layout graphs and commit change logs.
+#
+# USAGE:
+#   ./setup-repository.sh <repo-name> <python|node-vite|shell|powershell> [options]
+#
+# OPTIONS:
+#   Run ./setup-repository.sh --help for all configuration flags.
+# ==============================================================================
 set -euo pipefail
 
 TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

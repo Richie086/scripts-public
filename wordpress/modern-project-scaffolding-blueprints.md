@@ -1,6 +1,6 @@
 Developing software across multiple programming languages and environments can quickly lead to a chaotic mess of disorganized repositories. When every project uses a different directory layout, it becomes challenging to automate deployment pipelines, integrate linters, run unit tests, and transition between frontend and backend code. To solve this problem, we created the **Standardized 4-Folder Project Blueprint**, a structural architecture that organizes every repository into four high-level directories: `docs/`, `scripts/`, `frontend/`, and `backend/`. 
 
-To automate this workflow and retrofit existing systems, we developed two powerful shell utilities: `bootstrap.sh` (for scaffolding new projects) and `retrofit.sh` (for reorganizing existing projects). 
+To automate this workflow and retrofit existing systems, we developed two powerful shell utilities: `setup-repository.sh` (for scaffolding new projects) and `organize-repository.sh` (for reorganizing existing projects). 
 
 In this comprehensive guide, we will walk through the design philosophy, standard directories, template stacks (React, Python, Bash, and PowerShell), automated linting and unit testing suites, and the detailed implementations of these two automation utilities.
 
@@ -506,9 +506,9 @@ This ensures that running `make setup` or `make test` inside the project root wo
 
 ---
 
-## Part 5: Automated Scaffolding with `bootstrap.sh`
+## Part 5: Automated Scaffolding with `setup-repository.sh`
 
-The `bootstrap.sh` utility manages the complete initialization process for new directories.
+The `setup-repository.sh` utility manages the complete initialization process for new directories.
 
 ### Key Design Enhancements
 *   **Dry-Run Default**: The script runs in dry-run mode by default, displaying a review banner and listing all planned files. You must explicitly pass `--write` or `--apply` to write to disk.
@@ -516,11 +516,11 @@ The `bootstrap.sh` utility manages the complete initialization process for new d
 *   **Auto-update Autodoc README**: The script commits the initial boilerplate and triggers the post-commit hook to instantly create a Mermaid tree diagram inside the root `README.md`.
 *   **Interactive GitHub Remote Sync**: Automates creating public/private repositories on GitHub and pushing using SSH keys (`git@github.com:...`).
 
-#### Detailed `bootstrap.sh` Implementation
+#### Detailed `setup-repository.sh` Implementation
 ```bash
 #!/usr/bin/env bash
 # Scaffold a new repository with standardized 4-folder blueprint, testing suite, and GitHub integration.
-# Usage: ./bootstrap.sh <repo-name> <python|node-vite|shell|powershell> [options]
+# Usage: ./setup-repository.sh <repo-name> <python|node-vite|shell|powershell> [options]
 set -euo pipefail
 
 TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -913,9 +913,9 @@ echo "Done: $REPO_NAME ($STACK, $VISIBILITY)"
 
 ---
 
-## Part 6: Retrofitting Existing Repositories with `retrofit.sh`
+## Part 6: Retrofitting Existing Repositories with `organize-repository.sh`
 
-The `retrofit.sh` utility is designed to re-organize pre-existing codebases.
+The `organize-repository.sh` utility is designed to re-organize pre-existing codebases.
 
 ### Key Design Enhancements
 *   **Dry-Run by Default**: Just like the bootstrapper, running the script directly scans the folder layout and shows exactly what it would move and copy without modifying files. To execute migrations, pass `--write` or `--apply`.
@@ -925,11 +925,11 @@ The `retrofit.sh` utility is designed to re-organize pre-existing codebases.
 *   **Root Folder Exclusion Guard**: Excludes meta-configurations (like `.env`, `docker-compose.yml`, `.gitignore`, `README.md`, `LICENSE`) from moves, keeping them safely at the root level.
 *   **Auto-commit on Successful Migration**: Stages and commits re-organized files automatically with a descriptive message to immediately fire Git hooks and update the README autodocs.
 
-#### Detailed `retrofit.sh` Implementation
+#### Detailed `organize-repository.sh` Implementation
 ```bash
 #!/usr/bin/env bash
 # Retrofit an existing repository to the standardized 4-folder blueprint.
-# Usage: ./retrofit.sh [options]
+# Usage: ./organize-repository.sh [options]
 set -euo pipefail
 
 TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -1096,7 +1096,7 @@ fi
 if [[ -f package.json ]] && { [[ -f vite.config.ts ]] || [[ -f vite.config.js ]]; }; then
   HAS_VITE=true
 fi
-if [[ -n "$(find . -maxdepth 1 -name "*.sh" ! -name "run.sh" ! -name "bootstrap.sh" ! -name "retrofit.sh" -print -quit 2>/dev/null)" ]]; then
+if [[ -n "$(find . -maxdepth 1 -name "*.sh" ! -name "run.sh" ! -name "setup-repository.sh" ! -name "organize-repository.sh" -print -quit 2>/dev/null)" ]]; then
   HAS_SHELL=true
 fi
 
@@ -1253,7 +1253,7 @@ fi
 if [[ "$HAS_SHELL" == "true" ]]; then
   log "INFO" "Migrating loose shell script layout..."
   for f in *.sh; do
-    if [[ -f "$f" && "$f" != "run.sh" && "$f" != "bootstrap.sh" && "$f" != "retrofit.sh" ]]; then
+    if [[ -f "$f" && "$f" != "run.sh" && "$f" != "setup-repository.sh" && "$f" != "organize-repository.sh" ]]; then
       mkdir -p scripts/bash
       mv "$f" scripts/bash/
     fi
@@ -1301,6 +1301,6 @@ log "INFO" "Retrofit successfully applied!"
 
 ## Conclusion
 
-Standardizing repository directories ensures structural sanity across projects. By using the `bootstrap.sh` and `retrofit.sh` utilities, you can enforce the 4-folder blueprint automatically with zero manual file moves, full validation pipelines, and instant local and remote repository synchronization. 
+Standardizing repository directories ensures structural sanity across projects. By using the `setup-repository.sh` and `organize-repository.sh` utilities, you can enforce the 4-folder blueprint automatically with zero manual file moves, full validation pipelines, and instant local and remote repository synchronization. 
 
 You can checkout the latest version of these tools inside the [feature/repo-templates](https://github.com/Richie086/scripts-public/tree/feature/repo-templates/projects/repo-templates) branch of the `scripts-public` repository.

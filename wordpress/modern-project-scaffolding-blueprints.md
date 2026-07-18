@@ -519,8 +519,27 @@ The `setup-repository.sh` utility manages the complete initialization process fo
 #### Detailed `setup-repository.sh` Implementation
 ```bash
 #!/usr/bin/env bash
-# Scaffold a new repository with standardized 4-folder blueprint, testing suite, and GitHub integration.
-# Usage: ./setup-repository.sh <repo-name> <python|node-vite|shell|powershell> [options]
+# ==============================================================================
+# NAME: setup-repository.sh
+# DESCRIPTION: Automates scaffolding of new project repositories matching the
+#              standardized 4-folder blueprint (docs/, scripts/, frontend/, backend/).
+#              Provides support for four development stacks (Python FastAPI, Node-Vite
+#              React, Shell, and PowerShell Core), including automated Makefiles,
+#              unit test suites, Cursor rule enforcement, gitleaks secrets scanning,
+#              pre-commit validation hooks, and GitHub remote integration.
+#
+# DESIGN PATHS:
+#   - Dry-Run by Default: Safe evaluation mode showing planned modifications.
+#   - Portability: Zero hardcoded directories, personal credentials, or LAN IPs.
+#   - Automated Autodocs: Automated initial commit triggers post-commit hook
+#     scaffolding README layout graphs and commit change logs.
+#
+# USAGE:
+#   ./setup-repository.sh <repo-name> <python|node-vite|shell|powershell> [options]
+#
+# OPTIONS:
+#   Run ./setup-repository.sh --help for all configuration flags.
+# ==============================================================================
 set -euo pipefail
 
 TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -627,13 +646,15 @@ if [[ -e "$DEST" ]]; then
   exit 1
 fi
 
-# Resolve GitHub user dynamically
+# Resolve GitHub user dynamically (no static linking)
 GITHUB_USER="${GITHUB_USER:-$(gh api user -q .login 2>/dev/null || echo "")}"
 if [[ -z "$GITHUB_USER" ]]; then
   GITHUB_USER="$(git config user.name || echo "Owner" | tr ' ' '_')"
 fi
 
-# Review Banner
+# ==================================================
+# Environment Review Banner
+# ==================================================
 echo "=================================================="
 echo "          SCAFFOLD ENVIRONMENT SUMMARY            "
 echo "=================================================="
@@ -707,7 +728,7 @@ fi
 # Create target directories
 mkdir -p "$DEST/docs" "$DEST/scripts" "$DEST/frontend" "$DEST/backend"
 
-# Copy configurations
+# Copy shared configurations
 cp "$TEMPLATE_DIR/shared/Makefile" "$DEST/"
 cp "$TEMPLATE_DIR/shared/.gitleaks.toml" "$DEST/"
 cp "$TEMPLATE_DIR/shared/.pre-commit-config.yaml" "$DEST/"
@@ -735,18 +756,53 @@ if [[ "$VISIBILITY" == "public" ]]; then
     mit)
       cat > "$DEST/LICENSE" <<EOF
 Copyright (c) $YEAR $AUTHOR_NAME
-... [Standard MIT license body]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 EOF
       ;;
     apache2)
       cat > "$DEST/LICENSE" <<EOF
-Copyright $YEAR $AUTHOR_NAME
-... [Standard Apache 2.0 license body]
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   Copyright $YEAR $AUTHOR_NAME
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 EOF
       ;;
     gpl3|*)
       if [[ -f "$TEMPLATE_DIR/shared/LICENSE-GPL3" ]]; then
         { printf 'Copyright (C) %s %s\n\n' "$YEAR" "$AUTHOR_NAME"; cat "$TEMPLATE_DIR/shared/LICENSE-GPL3"; } > "$DEST/LICENSE"
+      else
+        echo "GPL3 source not found on disk, writing fallback notice."
+        echo "Copyright (C) $YEAR $AUTHOR_NAME (GPL-3.0 License)" > "$DEST/LICENSE"
       fi
       ;;
   esac
@@ -773,7 +829,7 @@ fi
 
 touch "$DEST/.env.example"
 
-# README auto-update script
+# README auto-update (mermaid structure diagram + recent commits)
 cp "$TEMPLATE_DIR/shared/scripts/update-readme.sh" "$DEST/scripts/"
 chmod +x "$DEST/scripts/update-readme.sh"
 
@@ -782,9 +838,13 @@ case "$STACK" in
   python)
     PKG="$(echo "$REPO_NAME" | tr '-' '_')"
     mkdir -p "$DEST/backend/src/$PKG" "$DEST/backend/tests"
+    
+    # Copy source boilerplates
     cp "$TEMPLATE_DIR/python/backend/src/main.py" "$DEST/backend/src/$PKG/main.py"
     cp "$TEMPLATE_DIR/python/backend/tests/test_main.py" "$DEST/backend/tests/test_main.py"
     touch "$DEST/backend/src/$PKG/__init__.py" "$DEST/backend/tests/__init__.py"
+    
+    # Configure pyproject and Makefile
     sed "s/__REPO_NAME__/$REPO_NAME/" "$TEMPLATE_DIR/python/pyproject.toml.tmpl" > "$DEST/backend/pyproject.toml"
     cp "$TEMPLATE_DIR/python/Makefile" "$DEST/backend/"
     cp "$TEMPLATE_DIR/python/test.yml" "$DEST/.github/workflows/test.yml"
@@ -793,8 +853,11 @@ case "$STACK" in
     cp "$TEMPLATE_DIR/shared/docs/README.md" "$DEST/docs/"
     cp "$TEMPLATE_DIR/shared/frontend/README.md" "$DEST/frontend/"
     ;;
+    
   node-vite)
     mkdir -p "$DEST/frontend/src/components" "$DEST/frontend/src/lib" "$DEST/frontend/public"
+    
+    # Copy boilerplates
     sed "s/__REPO_NAME__/$REPO_NAME/" "$TEMPLATE_DIR/node-vite/package.json.tmpl" > "$DEST/frontend/package.json"
     cp "$TEMPLATE_DIR/node-vite/tsconfig.json" "$DEST/frontend/"
     cp "$TEMPLATE_DIR/node-vite/vite.config.ts" "$DEST/frontend/"
@@ -810,8 +873,11 @@ case "$STACK" in
     cp "$TEMPLATE_DIR/shared/scripts/README.md" "$DEST/scripts/"
     cp "$TEMPLATE_DIR/shared/backend/README.md" "$DEST/backend/"
     ;;
+    
   shell)
     mkdir -p "$DEST/scripts/bash" "$DEST/scripts/python" "$DEST/scripts/tests"
+    
+    # Copy boilerplates
     cp "$TEMPLATE_DIR/shell/scripts/bash/example.sh" "$DEST/scripts/bash/example.sh"
     chmod +x "$DEST/scripts/bash/example.sh"
     cp "$TEMPLATE_DIR/shell/scripts/python/example.py" "$DEST/scripts/python/example.py"
@@ -825,8 +891,11 @@ case "$STACK" in
     cp "$TEMPLATE_DIR/shared/frontend/README.md" "$DEST/frontend/"
     cp "$TEMPLATE_DIR/shared/backend/README.md" "$DEST/backend/"
     ;;
+    
   powershell)
     mkdir -p "$DEST/scripts/powershell" "$DEST/scripts/tests"
+    
+    # Copy boilerplates
     cp "$TEMPLATE_DIR/powershell/scripts/powershell/example.ps1" "$DEST/scripts/powershell/example.ps1"
     cp "$TEMPLATE_DIR/powershell/scripts/tests/example.Tests.ps1" "$DEST/scripts/tests/example.Tests.ps1"
     cp "$TEMPLATE_DIR/powershell/Makefile" "$DEST/scripts/"
@@ -842,27 +911,35 @@ esac
 # Create base README
 cat > "$DEST/README.md" <<README_EOF
 # $REPO_NAME
+
 ## About
+
 TODO: describe this repo.
+
 <!-- AUTO-GENERATED:START -->
 <!-- AUTO-GENERATED:END -->
 README_EOF
 
-# Initialize git
+# Initialize git repository
 cd "$DEST"
 git init -q -b main
 cp "$TEMPLATE_DIR/shared/hooks/post-commit" .git/hooks/post-commit
 chmod +x .git/hooks/post-commit
 git add -A
 
+# Install pre-commit hooks locally if available
 if command -v pre-commit >/dev/null 2>&1; then
   pre-commit install -q || echo "note: pre-commit hooks installation failed."
 fi
 
+# Automated first commit to populate README autodoc structure via hook
 git commit -m "Initial scaffold of repository templates" -q
+
 echo "Local repository successfully scaffolded at $DEST"
 
+# ==================================================
 # GitHub Remote Creation
+# ==================================================
 GH_SETUP=false
 if command -v gh >/dev/null 2>&1; then
   if gh auth status >/dev/null 2>&1; then
@@ -879,6 +956,7 @@ fi
 
 if [[ "$GH_SETUP" == "true" ]]; then
   echo "Creating GitHub repository git@github.com:$GITHUB_USER/$REPO_NAME.git..."
+  # gh repo create command supports SSH url when using ssh protocol configuration or git@github.com format
   gh repo create "$GITHUB_USER/$REPO_NAME" --"$VISIBILITY" --source=. --remote=origin --push -y
   if [[ -n "$TOPIC" ]]; then
     gh repo edit "$GITHUB_USER/$REPO_NAME" --add-topic "$TOPIC" >/dev/null
@@ -890,7 +968,11 @@ else
   echo "  gh repo create $GITHUB_USER/$REPO_NAME --$VISIBILITY --source=. --remote=origin --push"
 fi
 
-if [[ "$INTERACTIVE" == "true" ]]; then
+# Run background toolchain installation
+if [[ "$INTERACTIVE" == "false" ]]; then
+  # Non-interactive mode, skip installing to speed up tests
+  echo "Skipping background dependency installations in non-interactive mode."
+else
   # Background installations
   case "$STACK" in
     python)
@@ -909,6 +991,7 @@ if [[ "$INTERACTIVE" == "true" ]]; then
 fi
 
 echo "Done: $REPO_NAME ($STACK, $VISIBILITY)"
+
 ```
 
 ---
@@ -928,8 +1011,29 @@ The `organize-repository.sh` utility is designed to re-organize pre-existing cod
 #### Detailed `organize-repository.sh` Implementation
 ```bash
 #!/usr/bin/env bash
-# Retrofit an existing repository to the standardized 4-folder blueprint.
-# Usage: ./organize-repository.sh [options]
+# ==============================================================================
+# NAME: organize-repository.sh
+# DESCRIPTION: Re-organizes an existing codebase in-place into the standardized
+#              4-folder project blueprint (docs/, scripts/, frontend/, backend/).
+#              Matches structural code signatures (Python, Vite/React, Shell scripts)
+#              and moves files dynamically into target directories. Retains config
+#              and metadata files (like .env, docker-compose.yml, .gitignore, LICENSE)
+#              safely in the root directory.
+#
+# DESIGN PATHS:
+#   - Dry-Run by Default: Displays layout movements and checks before writes.
+#   - Incremental Updates: Cleans up new loose root scripts on subsequent runs.
+#   - Automated Branching: Automatically checks out and switches to a new Git
+#     branch before applying modifications.
+#   - Metadata Scaffolding: Copies missing workflows, Makefiles, and gitleaks
+#     rules to elevate project quality.
+#
+# USAGE:
+#   ./organize-repository.sh [options]
+#
+# OPTIONS:
+#   Run ./organize-repository.sh --help for all configuration flags.
+# ==============================================================================
 set -euo pipefail
 
 TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -1004,6 +1108,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# Check if target repo positional arg is passed as fallback
 if [[ ${#POSITIONAL_ARGS[@]} -gt 0 ]]; then
   TARGET_REPO="${POSITIONAL_ARGS[0]}"
 fi
@@ -1030,6 +1135,7 @@ install_gh_client() {
   log "INFO" "Installing gh client on this system..."
   if command -v apt-get >/dev/null 2>&1; then
     log "INFO" "Using apt-get package manager..."
+    # Add official github keys and repo
     sudo mkdir -p -m 755 /etc/apt/keyrings
     wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
     sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
@@ -1050,11 +1156,13 @@ install_gh_client() {
   log "INFO" "GitHub CLI (gh) installed successfully!"
 }
 
+# 1. Execute gh install if requested
 if [[ "$INSTALL_GH" == "true" ]]; then
   install_gh_client
   exit 0
 fi
 
+# 2. Pre-flight Target Repository Checks
 TARGET_DIR="$(cd "$TARGET_REPO" && pwd)"
 if [[ ! -d "$TARGET_DIR" ]]; then
   log "ERROR" "Target directory $TARGET_REPO does not exist."
@@ -1068,10 +1176,12 @@ fi
 
 cd "$TARGET_DIR"
 
+# Cleanliness check
 IS_DIRTY=false
 if ! git diff --quiet || ! git diff --cached --quiet; then
   IS_DIRTY=true
 fi
+# Check for untracked files
 if [[ -n "$(git status --porcelain | grep -E '^\?\?')" ]]; then
   IS_DIRTY=true
 fi
@@ -1085,7 +1195,7 @@ if [[ "$IS_DIRTY" == "true" && "$DRY_RUN" == "false" && "$FORCE" == "false" ]]; 
   fi
 fi
 
-# Detect Layout
+# 3. Detect Layout type
 HAS_PYTHON=false
 HAS_VITE=false
 HAS_SHELL=false
@@ -1096,15 +1206,19 @@ fi
 if [[ -f package.json ]] && { [[ -f vite.config.ts ]] || [[ -f vite.config.js ]]; }; then
   HAS_VITE=true
 fi
+# Detect if there are loose shell scripts in root (excluding target scripts)
 if [[ -n "$(find . -maxdepth 1 -name "*.sh" ! -name "run.sh" ! -name "setup-repository.sh" ! -name "organize-repository.sh" -print -quit 2>/dev/null)" ]]; then
   HAS_SHELL=true
 fi
 
+# Fallback: if nothing is matched, default to shell stack
 if [[ "$HAS_PYTHON" == "false" && "$HAS_VITE" == "false" && "$HAS_SHELL" == "false" ]]; then
   HAS_SHELL=true
 fi
 
-# Dry Run Summary
+# ==================================================
+# Scaffolding Dry Run
+# ==================================================
 if [[ "$DRY_RUN" == "true" ]]; then
   echo "=================================================="
   echo "          RETROFIT DRY RUN SUMMARY                "
@@ -1115,7 +1229,10 @@ if [[ "$DRY_RUN" == "true" ]]; then
   echo "--------------------------------------------------"
   echo "Planned Directory Scaffolding:"
   echo "  - Create folders docs/, scripts/, frontend/, backend/ (if missing)"
+  echo "Planned Configuration Copies:"
+  echo "  - Install global Cursor rule: .cursor/rules/global-rules/workspace-organization-always.mdc"
   
+  # Metadata files
   for f in .gitleaks.toml .pre-commit-config.yaml .editorconfig SECURITY.md CONTRIBUTING.md; do
     if [[ ! -f "$f" ]]; then
       echo "  - Copy shared metadata configuration: $f"
@@ -1126,6 +1243,7 @@ if [[ "$DRY_RUN" == "true" ]]; then
     echo "  - Install post-commit hook: .git/hooks/post-commit"
   fi
   
+  # Stack specific dry-runs
   if [[ "$HAS_PYTHON" == "true" ]]; then
     echo "Planned Python migrations:"
     if [[ -d src ]]; then echo "  - Move folder: src/ -> backend/src/"; fi
@@ -1157,8 +1275,11 @@ if [[ "$DRY_RUN" == "true" ]]; then
     if [[ ! -f .github/workflows/test.yml ]]; then echo "  - Install Shell test.yml workflow"; fi
   fi
   
+  # Mixed coordination Makefile
   if [[ "$HAS_PYTHON" == "true" && "$HAS_VITE" == "true" ]]; then
-    if [[ ! -f Makefile ]]; then echo "  - Install shared coordinator Makefile in root"; fi
+    if [[ ! -f Makefile ]]; then
+      echo "  - Install shared coordinator Makefile in root"
+    fi
   fi
   
   echo "Would automatically stage and commit re-organized files."
@@ -1166,9 +1287,12 @@ if [[ "$DRY_RUN" == "true" ]]; then
   exit 0
 fi
 
-# Live execution
+# ==================================================
+# Live Re-organization execution
+# ==================================================
 log "INFO" "Applying live repository re-organization..."
 
+# 1. Feature branching
 if [[ -n "$BRANCH_NAME" ]]; then
   if git show-ref --quiet --verify "refs/heads/$BRANCH_NAME"; then
     log "WARNING" "Branch '$BRANCH_NAME' already exists. Switching to it..."
@@ -1179,8 +1303,11 @@ if [[ -n "$BRANCH_NAME" ]]; then
   fi
 fi
 
+# 2. Create the 4 folders
+verbose_log "Creating directories: docs, scripts, frontend, backend"
 mkdir -p docs scripts frontend backend
 
+# 3. Copy shared files if missing
 for f in .gitleaks.toml .pre-commit-config.yaml .editorconfig SECURITY.md CONTRIBUTING.md; do
   if [[ ! -f "$f" ]]; then
     verbose_log "Copying shared configuration: $f"
@@ -1188,103 +1315,137 @@ for f in .gitleaks.toml .pre-commit-config.yaml .editorconfig SECURITY.md CONTRI
   fi
 done
 
+# Install Cursor rule
+verbose_log "Installing global Cursor rules"
 mkdir -p .cursor/rules/global-rules
 cp "$TEMPLATE_DIR/shared/.cursor/rules/global-rules/workspace-organization-always.mdc" .cursor/rules/global-rules/
 
+# Distribute placeholder files where appropriate
 for dir in docs scripts frontend backend; do
   if [ -z "$(ls -A "$dir" | grep -v "\.mdc" || true)" ]; then
     cp "$TEMPLATE_DIR/shared/$dir/README.md" "$dir/"
+    verbose_log "Placed README placeholder in $dir/"
   fi
 done
 
-# Python Stack migration
+# 4. Perform dynamic migrations depending on layout
+# 4.1 Python Stack migration
 if [[ "$HAS_PYTHON" == "true" ]]; then
   log "INFO" "Migrating Python layout..."
   if [[ -d src ]]; then
     mkdir -p backend/src
+    verbose_log "Moving src/ contents to backend/src/"
     cp -a src/. backend/src/ && rm -rf src
   fi
   if [[ -d tests ]]; then
     mkdir -p backend/tests
+    verbose_log "Moving tests/ contents to backend/tests/"
     cp -a tests/. backend/tests/ && rm -rf tests
   fi
+  
+  # Move loose python files
   for f in *.py; do
     if [[ -f "$f" && "$f" != "scrape.py" ]]; then
+      verbose_log "Moving loose script $f -> backend/"
       mv "$f" backend/
     fi
   done
+  
+  # Move config files
   for f in pyproject.toml requirements.txt requirements-dev.txt Makefile; do
     if [[ -f "$f" ]]; then
+      verbose_log "Moving config file $f -> backend/"
       mv "$f" backend/
     fi
   done
+  
+  # Scaffold Makefile and workflow if missing
   if [[ ! -f backend/Makefile ]]; then
+    verbose_log "Installing Python Makefile in backend/"
     cp "$TEMPLATE_DIR/python/Makefile" backend/
   fi
   if [[ ! -f .github/workflows/test.yml ]]; then
+    verbose_log "Installing Python test.yml workflow"
     mkdir -p .github/workflows
     cp "$TEMPLATE_DIR/python/test.yml" .github/workflows/test.yml
   fi
 fi
 
-# Node-Vite layout migration
+# 4.2 Node-Vite layout migration
 if [[ "$HAS_VITE" == "true" ]]; then
   log "INFO" "Migrating Node-Vite layout..."
   for d in src public; do
     if [[ -d "$d" ]]; then
+      verbose_log "Moving folder $d/ -> frontend/"
       mv "$d" frontend/
     fi
   done
   for f in package.json tsconfig.json vite.config.ts vite.config.js index.html Makefile; do
     if [[ -f "$f" ]]; then
+      verbose_log "Moving config file $f -> frontend/"
       mv "$f" frontend/
     fi
   done
+  
+  # Scaffold Makefile and workflow if missing
   if [[ ! -f frontend/Makefile ]]; then
+    verbose_log "Installing Node-Vite Makefile in frontend/"
     cp "$TEMPLATE_DIR/node-vite/Makefile" frontend/
   fi
   if [[ ! -f .github/workflows/test.yml ]]; then
+    verbose_log "Installing Node-Vite test.yml workflow"
     mkdir -p .github/workflows
     cp "$TEMPLATE_DIR/node-vite/test.yml" .github/workflows/test.yml
   fi
 fi
 
-# Shell script layout migration
+# 4.3 Shell script layout migration
 if [[ "$HAS_SHELL" == "true" ]]; then
   log "INFO" "Migrating loose shell script layout..."
+  # Move loose shell files (except run.sh, setup-repository.sh, organize-repository.sh) to scripts/
   for f in *.sh; do
     if [[ -f "$f" && "$f" != "run.sh" && "$f" != "setup-repository.sh" && "$f" != "organize-repository.sh" ]]; then
       mkdir -p scripts/bash
+      verbose_log "Moving loose shell script $f -> scripts/bash/"
       mv "$f" scripts/bash/
     fi
   done
+  
+  # Scaffold Makefile and workflow if missing
   if [[ ! -f scripts/Makefile ]]; then
+    verbose_log "Installing Shell Makefile in scripts/"
     cp "$TEMPLATE_DIR/shell/Makefile" scripts/
   fi
   if [[ ! -f .github/workflows/test.yml ]]; then
+    verbose_log "Installing Shell test.yml workflow"
     mkdir -p .github/workflows
     cp "$TEMPLATE_DIR/shell/test.yml" .github/workflows/test.yml
   fi
 fi
 
-# Mixed coordinates Makefile
+# 4.4 Mixed stack orchestration Makefile
 if [[ "$HAS_PYTHON" == "true" && "$HAS_VITE" == "true" ]]; then
   if [[ ! -f Makefile ]]; then
+    verbose_log "Installing shared coordinates Makefile in root"
     cp "$TEMPLATE_DIR/shared/Makefile" ./Makefile
   fi
 fi
 
-# Git hook
+# 5. Git hook installation
 if [[ ! -f .git/hooks/post-commit ]]; then
+  verbose_log "Installing post-commit hook for auto-README update"
   cp "$TEMPLATE_DIR/shared/hooks/post-commit" .git/hooks/post-commit
   chmod +x .git/hooks/post-commit
 fi
+# Copy updater script
 if [[ ! -f scripts/update-readme.sh ]]; then
+  verbose_log "Installing update-readme.sh"
   mkdir -p scripts
   cp "$TEMPLATE_DIR/shared/scripts/update-readme.sh" scripts/
   chmod +x scripts/update-readme.sh
 fi
 
+# Stage and Auto-commit changes
 git add -A || true
 if ! git diff --cached --quiet; then
   log "INFO" "Staging and committing re-organization changes..."
@@ -1295,6 +1456,7 @@ else
 fi
 
 log "INFO" "Retrofit successfully applied!"
+
 ```
 
 ---

@@ -9,7 +9,7 @@ TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VISIBILITY="private"
 LICENSE_TYPE="gpl3"
 INTERACTIVE=true
-DRY_RUN=false
+DRY_RUN=true
 TOPIC=""
 STACK=""
 REPO_NAME=""
@@ -28,7 +28,8 @@ Arguments:
 Options:
   -h, --help       Show this help message and exit.
   -y, --yes        Non-interactive mode (auto-confirm all prompts).
-  --dry-run        Dry run mode (show environment banner and planned files without writing).
+  --write, --apply Actually execute the scaffolding (writes files and syncs GitHub).
+  --dry-run        Dry run mode (default; show planned actions without writing).
   --public         Scaffold as a public GitHub repository.
   --private        Scaffold as a private GitHub repository (default).
   --license TYPE   License for public repos: mit, gpl3, apache2 (default: gpl3).
@@ -54,6 +55,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --private)
       VISIBILITY="private"
+      shift
+      ;;
+    --write|--apply)
+      DRY_RUN=false
       shift
       ;;
     --dry-run)

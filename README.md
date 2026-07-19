@@ -536,9 +536,9 @@ Running executable scripts from the internet without checking the contents is ge
 <!-- AUTO-GENERATED COMMITS START -->
 ## Recent Commits
 
+- **b72fc58** - 2026-07-18 21:49:03 - feat: publish idea-tracker and ai-scoper-app to dev branch
 - **81acc07** - 2026-07-18 10:24:39 - Streamline blog post structure to avoid WAF block and expand content
 - **38d3dc0** - 2026-07-17 08:01:17 - feat(credentials): add Bitwarden CLI keyring syncer script
 - **e6610e9** - 2026-07-17 06:32:55 - docs: integrate 'god mode' local text philosophy into Obsidian AI guides
 - **68997e8** - 2026-07-17 06:26:44 - docs: split Obsidian AI guide into two separate posts
-- **2608711** - 2026-07-17 06:25:03 - feat(obsidian): add automated obsidian backup and sync script with zip rotation
 <!-- AUTO-GENERATED COMMITS END -->

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}New collection — Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Stacks</p>
+      <h1>New collection</h1>
+    </div>
+    <a class="btn" href="{{ url_for('collections_index') }}">Back</a>
+  </div>
+
+  <form class="entry-form" method="post">
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" type="text" name="name" required autofocus
+             value="{{ values.name }}" placeholder="Launch week">
+    </div>
+    <div class="field">
+      <label for="slug">Slug <span class="muted">(optional)</span></label>
+      <input id="slug" type="text" name="slug" value="{{ values.slug }}"
+             placeholder="auto from name">
+    </div>
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="3"
+                placeholder="Optional notes about this stack">{{ values.description }}</textarea>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Create</button>
+      <a class="btn" href="{{ url_for('collections_index') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

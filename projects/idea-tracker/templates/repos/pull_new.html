@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from "repos/_macros.html" import repo_tabs %}
+{% block title %}New PR · {{ repo.name }}{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">{{ repo.name }}</p>
+      <h1>New pull request</h1>
+    </div>
+    <a class="btn" href="{{ url_for('repo_pulls', slug=repo.slug) }}">Cancel</a>
+  </div>
+  {{ repo_tabs(repo, tab) }}
+  <form class="entry-form" method="post">
+    <div class="field">
+      <label for="title">Title</label>
+      <input id="title" name="title" required value="{{ values.title }}">
+    </div>
+    <div class="field-grid">
+      <div class="field">
+        <label for="source_branch">Source</label>
+        <select id="source_branch" name="source_branch">
+          {% for b in branches %}
+            <option value="{{ b }}" {% if values.source_branch == b %}selected{% endif %}>{{ b }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label for="target_branch">Target</label>
+        <select id="target_branch" name="target_branch">
+          {% for b in branches %}
+            <option value="{{ b }}" {% if values.target_branch == b %}selected{% endif %}>{{ b }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="body">Description</label>
+      <textarea id="body" name="body" rows="6">{{ values.body }}</textarea>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Open pull request</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% macro repo_tabs(repo, tab) %}
+  <nav class="repo-tabs">
+    <a class="{% if tab == 'files' %}is-active{% endif %}" href="{{ url_for('repo_home', slug=repo.slug) }}">Files</a>
+    {% if not repo.is_garden %}
+      <a class="{% if tab == 'pulls' %}is-active{% endif %}" href="{{ url_for('repo_pulls', slug=repo.slug) }}">
+        Pull requests{% if repo.open_pr_count %} ({{ repo.open_pr_count }}){% endif %}
+      </a>
+    {% endif %}
+  </nav>
+{% endmacro %}
+
+{% macro clone_box(repo) %}
+  <div class="clone-box">
+    <div class="field">
+      <label>HTTP</label>
+      <div class="copy-row">
+        <code class="clone-url" id="clone-http-{{ repo.slug }}">{{ repo.clone.http }}</code>
+        <button type="button" class="btn btn-tiny copy-btn" data-copy="clone-http-{{ repo.slug }}">Copy</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>SSH</label>
+      <div class="copy-row">
+        <code class="clone-url" id="clone-ssh-{{ repo.slug }}">{{ repo.clone.ssh }}</code>
+        <button type="button" class="btn btn-tiny copy-btn" data-copy="clone-ssh-{{ repo.slug }}">Copy</button>
+      </div>
+    </div>
+    {% if repo.is_garden %}
+      <p class="muted">Garden is fetch-only. Create a token under Settings, then clone with HTTP Basic (<code>git</code> + token) or SSH.</p>
+    {% else %}
+      <p class="muted">Create a token under <a href="{{ url_for('settings') }}">Settings</a> first. HTTP Basic user <code>git</code> + token password, or an SSH public key.</p>
+    {% endif %}
+  </div>
+  <script>
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', async function () {
+      const el = document.getElementById(btn.dataset.copy);
+      if (!el) return;
+      try {
+        await navigator.clipboard.writeText(el.textContent.trim());
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1200);
+      } catch (err) {
+        btn.textContent = 'Failed';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1200);
+      }
+    });
+  });
+  </script>
+{% endmacro %}
+
+{% macro ref_switcher(repo, ref, branches, tags, mode='tree', path='') %}
+  <label class="sr-only" for="ref-{{ mode }}">Ref</label>
+  <select id="ref-{{ mode }}" class="ref-switch"
+    data-slug="{{ repo.slug }}"
+    data-mode="{{ mode }}"
+    data-path="{{ path }}"
+    onchange="
+      const sel = this;
+      const ref = encodeURIComponent(sel.value);
+      const slug = sel.dataset.slug;
+      const mode = sel.dataset.mode;
+      const path = sel.dataset.path || '';
+      const encPath = path.split('/').filter(Boolean).map(encodeURIComponent).join('/');
+      if (mode === 'blob') {
+        window.location = '/repos/' + slug + '/blob/' + ref + '/' + encPath;
+      } else if (encPath) {
+        window.location = '/repos/' + slug + '/tree/' + ref + '/' + encPath;
+      } else {
+        window.location = '/repos/' + slug + '/tree/' + ref + '/';
+      }
+    ">
+    <optgroup label="Branches">
+      {% for b in branches %}
+        <option value="{{ b }}" {% if b == ref %}selected{% endif %}>{{ b }}</option>
+      {% endfor %}
+    </optgroup>
+    {% if tags %}
+      <optgroup label="Tags">
+        {% for t in tags %}
+          <option value="{{ t }}" {% if t == ref %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+      </optgroup>
+    {% endif %}
+  </select>
+{% endmacro %}

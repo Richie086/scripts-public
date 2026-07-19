@@ -1,0 +1,443 @@
+{% extends "base.html" %}
+{% block title %}Settings · Idea Forge{% endblock %}
+{% block content %}
+<style>
+  .tabs-nav {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-muted);
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    color: var(--fg-muted);
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: none !important;
+  }
+  .tab-btn:hover {
+    color: var(--fg-default);
+    border-bottom-color: var(--border-default);
+    text-decoration: none;
+  }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab-pane {
+    display: none;
+  }
+  .tab-pane.active {
+    display: block;
+    animation: fadeIn 0.25s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Password field toggle styles */
+  .password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .password-wrapper input {
+    padding-right: 40px;
+  }
+  .password-toggle-btn {
+    position: absolute;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: var(--fg-muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+  }
+  .password-toggle-btn:hover {
+    color: var(--fg-default);
+  }
+
+  /* Beveled look for provider cards */
+  .ai-provider-card {
+    background: var(--canvas-subtle);
+    border-top: 1px solid var(--border-highlight) !important;
+    border-bottom: 1px solid var(--border-dark) !important;
+    border-left: 1px solid var(--border-dark) !important;
+    border-right: 1px solid var(--border-dark) !important;
+    box-shadow: 0 4px 12px var(--shadow-resting) !important;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Validation feedback style */
+  .validation-valid {
+    color: var(--success-fg);
+  }
+  .validation-invalid {
+    color: var(--danger-fg);
+  }
+</style>
+
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Access</p>
+      <h1>Settings</h1>
+      <p class="lede">Git access tokens, SSH keys, and AI provider connections.</p>
+    </div>
+    <a class="btn" href="{{ url_for('admin_panel') }}">Admin</a>
+  </div>
+
+  {% if new_token %}
+    <div class="flash flash-ok">
+      <strong>New token (copy now):</strong>
+      <code class="clone-url">{{ new_token }}</code>
+    </div>
+  {% endif %}
+
+  <!-- Premium Tabs Navigation -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" data-target="#general-tab">General Settings</button>
+    <button class="tab-btn" data-target="#keys-tab">Security Keys</button>
+    <button class="tab-btn" data-target="#ai-tab">Integrations & AI</button>
+  </div>
+
+  <!-- Tab 1: General Settings -->
+  <div id="general-tab" class="tab-pane active">
+    <section class="subpanel" id="trackers">
+      <h2>External trackers</h2>
+      <p class="muted">Optional URL templates. Use <code>{id}</code> where the Jira / Bitbucket / GitHub ID should go.</p>
+      <form class="entry-form" method="post" action="{{ url_for('settings_save_trackers') }}">
+        <div class="field">
+          <label for="ext_jira_url">Jira URL template</label>
+          <input id="ext_jira_url" name="ext_jira_url" type="text" value="{{ ext_jira_url }}"
+                 placeholder="https://your.atlassian.net/browse/{id}">
+        </div>
+        <div class="field">
+          <label for="ext_bitbucket_url">Bitbucket URL template</label>
+          <input id="ext_bitbucket_url" name="ext_bitbucket_url" type="text" value="{{ ext_bitbucket_url }}"
+                 placeholder="https://bitbucket.org/workspace/repo/issues/{id}">
+        </div>
+        <div class="field">
+          <label for="ext_github_url">GitHub URL template</label>
+          <input id="ext_github_url" name="ext_github_url" type="text" value="{{ ext_github_url }}"
+                 placeholder="https://github.com/org/repo/issues/{id}">
+        </div>
+        <button class="btn btn-primary" type="submit">Save tracker links</button>
+      </form>
+    </section>
+
+    <section class="subpanel" id="fs-browser">
+      <h2>Path browser roots</h2>
+      <p class="muted">
+        Allowed directories for the entry form Browse… picker (one path per line).
+        Paths are on this machine — where Idea Forge is running.
+      </p>
+      <form class="entry-form" method="post" action="{{ url_for('settings_save_fs_roots') }}">
+        <div class="field">
+          <label for="fs_browser_roots">Roots</label>
+          <textarea id="fs_browser_roots" name="fs_browser_roots" rows="4"
+                    placeholder="/home/you&#10;/home/you/Projects">{{ fs_browser_roots }}</textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Save roots</button>
+      </form>
+      {% if fs_roots_resolved %}
+        <p class="muted" style="margin-top:0.75rem">Resolved:</p>
+        <ul class="commit-list">
+          {% for root in fs_roots_resolved %}
+            <li><code>{{ root }}</code></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </section>
+  </div>
+
+  <!-- Tab 2: Security Keys -->
+  <div id="keys-tab" class="tab-pane">
+    <section class="subpanel">
+      <h2>Access tokens</h2>
+      <form class="entry-form inline-form" method="post" action="{{ url_for('settings_create_token') }}">
+        <div class="field">
+          <label for="token_name">Name</label>
+          <input id="token_name" name="name" placeholder="laptop" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Create token</button>
+      </form>
+      <ul class="commit-list">
+        {% for t in tokens %}
+          <li>
+            <strong>{{ t.name }}</strong>
+            <code>{{ t.prefix }}…</code>
+            <span class="muted">created {{ t.created_at }}{% if t.last_used_at %} · last used {{ t.last_used_at }}{% endif %}</span>
+            <form method="post" action="{{ url_for('settings_revoke_token', token_id=t.id) }}" class="inline">
+              <button class="btn btn-danger" type="submit">Revoke</button>
+            </form>
+          </li>
+        {% else %}
+          <li class="muted">No tokens yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="subpanel">
+      <h2>SSH keys</h2>
+      <form class="entry-form" method="post" action="{{ url_for('settings_add_ssh_key') }}">
+        <div class="field">
+          <label for="key_name">Name</label>
+          <input id="key_name" name="name" placeholder="main laptop" required>
+        </div>
+        <div class="field">
+          <label for="public_key">Public key</label>
+          <textarea id="public_key" name="public_key" rows="3" required placeholder="ssh-ed25519 AAAA… comment"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Add key</button>
+      </form>
+      <ul class="commit-list">
+        {% for k in keys %}
+          <li>
+            <strong>{{ k.name }}</strong>
+            <code>{{ k.fingerprint }}</code>
+            <span class="muted">{{ k.created_at }}</span>
+            <form method="post" action="{{ url_for('settings_revoke_ssh_key', key_id=k.id) }}" class="inline">
+              <button class="btn btn-danger" type="submit">Remove</button>
+            </form>
+          </li>
+        {% else %}
+          <li class="muted">No SSH keys yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+
+  <!-- Tab 3: Integrations & AI -->
+  <div id="ai-tab" class="tab-pane">
+    <section class="subpanel" id="ai-providers">
+      <h2>AI providers</h2>
+      <p class="muted">
+        Connect ChatGPT, Grok, Gemini, Claude, or GitHub Models for Assist actions on entries.
+        Keys are encrypted at rest with the app secret. Copilot uses a GitHub Models / PAT token — not the VS Code extension.
+      </p>
+      {% if ai_mock %}
+        <p class="flash flash-ok">Mock mode on (<code>SEEDBANK_AI_MOCK=1</code>) — Assist returns fake drafts.</p>
+      {% endif %}
+
+      <form class="entry-form inline-form" method="post" action="{{ url_for('settings_ai_default') }}">
+        <div class="field">
+          <label for="ai_default">Default provider</label>
+          <select id="ai_default" name="provider">
+            <option value="">Auto (first enabled)</option>
+            {% for p in ai_providers %}
+              <option value="{{ p.provider_key }}" {% if ai_default_provider == p.provider_key %}selected{% endif %}>
+                {{ p.label }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <button class="btn" type="submit">Save default</button>
+      </form>
+
+      {% for p in ai_providers %}
+        <div class="ai-provider-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="margin:0;">{{ p.label }}</h3>
+            <!-- AJAX test connection button/form -->
+            <form method="post" action="{{ url_for('settings_test_ai_provider', provider_key=p.provider_key) }}" class="ajax-test-form" style="margin:0;">
+              <button class="btn" type="submit" {% if not p.has_key and not ai_mock %}disabled{% endif %}>Test connection</button>
+            </form>
+          </div>
+          {% if p.notes %}<p class="muted" style="margin-top:-0.5rem; margin-bottom:1rem;">{{ p.notes }}</p>{% endif %}
+          
+          <form class="entry-form" method="post" action="{{ url_for('settings_save_ai_provider', provider_key=p.provider_key) }}">
+            <label class="check-row">
+              <input type="checkbox" name="enabled" value="1" {% if p.enabled %}checked{% endif %}>
+              Enabled
+            </label>
+            <div class="field">
+              <label for="api_key_{{ p.provider_key }}">API key</label>
+              <div class="password-wrapper">
+                <input id="api_key_{{ p.provider_key }}" type="password" name="api_key" autocomplete="off"
+                       placeholder="{% if p.masked_key %}saved: {{ p.masked_key }}{% else %}{{ p.env_key }} or paste key{% endif %}">
+                <button class="password-toggle-btn" type="button">🔒</button>
+              </div>
+            </div>
+            <label class="check-row">
+              <input type="checkbox" name="clear_key" value="1"> Clear saved key
+            </label>
+            <div class="field-grid">
+              <div class="field">
+                <label for="base_url_{{ p.provider_key }}">Base URL <span class="muted">(optional)</span></label>
+                <input id="base_url_{{ p.provider_key }}" name="base_url" type="text"
+                       value="{{ p.base_url or '' }}" placeholder="{{ p.default_base_url }}">
+              </div>
+              <div class="field">
+                <label for="model_{{ p.provider_key }}">Model <span class="muted">(optional)</span></label>
+                <input id="model_{{ p.provider_key }}" name="model" type="text"
+                       value="{{ p.model or '' }}" placeholder="{{ p.default_model }}">
+              </div>
+            </div>
+            
+            <!-- JSON Custom Headers field -->
+            <div class="field">
+              <label for="custom_headers_{{ p.provider_key }}">Custom Headers <span class="muted">(optional JSON)</span></label>
+              <textarea id="custom_headers_{{ p.provider_key }}" name="custom_headers" class="custom-headers-textarea" rows="2" 
+                        placeholder='{"X-Custom-Header": "value"}' style="font-family: var(--font-mono); font-size: 12px;">{{ p.custom_headers or '' }}</textarea>
+              <div class="headers-validation-feedback" style="font-size:11px; margin-top:4px;"></div>
+            </div>
+
+            <label class="check-row">
+              <input type="checkbox" name="make_default" value="1"> Make default
+            </label>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      {% endfor %}
+    </section>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Tabbed Navigation Logic
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Deactivate all
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabPanes.forEach(p => p.classList.remove('active'));
+
+        // Activate selected
+        btn.classList.add('active');
+        const target = btn.getAttribute('data-target');
+        const pane = document.querySelector(target);
+        if (pane) {
+          pane.classList.add('active');
+          // Update URL hash for tab persistence
+          history.pushState(null, null, target);
+        }
+      });
+    });
+
+    // Handle hash on load
+    const hash = window.location.hash;
+    if (hash) {
+      const activeBtn = document.querySelector(`.tab-btn[data-target="${hash}"]`);
+      if (activeBtn) {
+        activeBtn.click();
+      } else if (hash === '#ai-providers') {
+        const aiBtn = document.querySelector('.tab-btn[data-target="#ai-tab"]');
+        if (aiBtn) aiBtn.click();
+      }
+    }
+
+    // 2. Password visibility toggler
+    document.querySelectorAll('.password-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const input = btn.previousElementSibling;
+        if (input.type === 'password') {
+          input.type = 'text';
+          btn.textContent = '👁';
+        } else {
+          input.type = 'password';
+          btn.textContent = '🔒';
+        }
+      });
+    });
+
+    // 3. JSON headers live validation
+    document.querySelectorAll('.custom-headers-textarea').forEach(textarea => {
+      const feedback = textarea.nextElementSibling;
+      const validate = () => {
+        const val = textarea.value.trim();
+        if (!val) {
+          feedback.textContent = '';
+          textarea.style.borderColor = '';
+          return;
+        }
+        try {
+          JSON.parse(val);
+          feedback.textContent = '✓ Valid JSON headers';
+          feedback.className = 'headers-validation-feedback validation-valid';
+          textarea.style.borderColor = 'var(--success-fg)';
+        } catch (e) {
+          feedback.textContent = '✗ Invalid JSON format';
+          feedback.className = 'headers-validation-feedback validation-invalid';
+          textarea.style.borderColor = 'var(--danger-fg)';
+        }
+      };
+      textarea.addEventListener('input', validate);
+      validate();
+    });
+
+    // 4. AJAX Connection Testing
+    document.querySelectorAll('.ajax-test-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        const origText = btn.textContent;
+        btn.textContent = 'Testing...';
+        btn.disabled = true;
+
+        const card = form.closest('.ai-provider-card');
+        let feedback = card.querySelector('.test-feedback');
+        if (!feedback) {
+          feedback = document.createElement('div');
+          feedback.className = 'test-feedback';
+          feedback.style.marginTop = '12px';
+          feedback.style.fontSize = '13px';
+          feedback.style.padding = '8px';
+          feedback.style.borderRadius = '6px';
+          feedback.style.background = 'var(--canvas-inset)';
+          card.appendChild(feedback);
+        }
+        feedback.style.color = 'var(--fg-muted)';
+        feedback.textContent = 'Connecting to provider...';
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Accept': 'application/json'
+            }
+          });
+          const data = await res.json();
+          if (data.success) {
+            feedback.textContent = '✓ ' + data.message;
+            feedback.style.color = 'var(--success-fg)';
+            feedback.style.borderColor = 'var(--success-fg)';
+          } else {
+            feedback.textContent = '✗ ' + data.message;
+            feedback.style.color = 'var(--danger-fg)';
+            feedback.style.borderColor = 'var(--danger-fg)';
+          }
+        } catch (err) {
+          feedback.textContent = '✗ Network error: ' + err.message;
+          feedback.style.color = 'var(--danger-fg)';
+        } finally {
+          btn.textContent = origText;
+          btn.disabled = false;
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

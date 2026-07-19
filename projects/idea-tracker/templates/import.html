@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Import — Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1>Import JSON</h1>
+      <p class="lede">Dry-run first, then apply. New entries are inserted; collections match by slug.</p>
+    </div>
+    <a class="btn" href="{{ url_for('export_entries_json') }}">Download export</a>
+  </div>
+
+  <form class="entry-form" method="post" enctype="multipart/form-data">
+    <div class="field">
+      <label for="file">Export file</label>
+      <input id="file" type="file" name="file" accept=".json,application/json">
+    </div>
+    <div class="field">
+      <label for="json_text">Or paste JSON</label>
+      <textarea id="json_text" name="json_text" rows="10"
+                placeholder='{"entries":[],"links":[],"collections":[],"collection_entries":[]}'>{% if raw_json is defined and raw_json %}{{ raw_json }}{% endif %}</textarea>
+    </div>
+    <div class="form-actions">
+      <button class="btn" type="submit" name="mode" value="dry-run">Dry-run</button>
+      <button class="btn btn-primary" type="submit" name="mode" value="apply"
+              onclick="return confirm('Apply this import? New entries will be created.');">Apply import</button>
+    </div>
+  </form>
+
+  {% if preview %}
+    <section class="subpanel">
+      <h2>{{ 'Dry-run report' if preview.mode != 'apply' else 'Import preview' }}</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-value">{{ preview.entries }}</span>
+          <span class="stat-label">entries</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">{{ preview.links }}</span>
+          <span class="stat-label">links</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">{{ preview.collections }}</span>
+          <span class="stat-label">collections</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">{{ preview.membership }}</span>
+          <span class="stat-label">memberships</span>
+        </div>
+      </div>
+      {% if preview.sample_titles %}
+        <h3>Sample titles</h3>
+        <ul class="commit-list">
+          {% for t in preview.sample_titles %}
+            <li>{{ t }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </section>
+  {% endif %}
+</section>
+{% endblock %}

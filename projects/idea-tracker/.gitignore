@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+data/*.db
+data/*.db-*
+data/repos/*
+!data/repos/.gitkeep
+data/garden/*
+!data/garden/.gitkeep
+data/ssh/*
+!data/ssh/.gitkeep
+data/files/*
+!data/files/.gitkeep
+data/tmp/
+.DS_Store

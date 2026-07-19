@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}{% if mode == 'edit' %}Edit{% else %}New{% endif %} · Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">{% if mode == 'edit' %}Edit entry{% else %}New entry{% endif %}</p>
+      <h1>{% if mode == 'edit' %}Update{% else %}Capture{% endif %}</h1>
+    </div>
+    <a class="btn" href="{% if mode == 'edit' %}{{ url_for('detail', entry_id=entry_id) }}{% else %}{{ url_for('index') }}{% endif %}">Cancel</a>
+  </div>
+
+  <form class="entry-form" method="post"
+        action="{% if mode == 'edit' %}{{ url_for('edit', entry_id=entry_id) }}{% else %}{{ url_for('create') }}{% endif %}">
+    <div class="field">
+      <label for="title">Title</label>
+      <input id="title" name="title" type="text" required autofocus value="{{ values.title }}" placeholder="Short name for this seed">
+    </div>
+
+    <div class="field-grid">
+      <div class="field">
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          {% for key, label in categories %}
+            <option value="{{ key }}" {% if values.category == key %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          {% for key, label in statuses %}
+            <option value="{{ key }}" {% if values.status == key %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="url">URL or path</label>
+      <div class="path-field-row">
+        <input id="url" name="url" type="text" value="{{ values.url }}"
+               placeholder="https://… or /path/to/workspace">
+        {% if admin_logged_in %}
+          <button type="button" class="btn" data-fs-browse {% if not fs_roots %}disabled title="Configure roots in Settings"{% endif %}>Browse…</button>
+        {% endif %}
+      </div>
+      {% if admin_logged_in and not fs_roots %}
+        <p class="muted field-hint">Path browse needs roots under <a href="{{ url_for('settings') }}#fs-browser">Settings</a>.</p>
+      {% endif %}
+    </div>
+
+    <div class="field-grid-3">
+      <div class="field">
+        <label for="jira_id">Jira ID</label>
+        <input id="jira_id" name="jira_id" type="text" value="{{ values.jira_id }}" placeholder="PROJ-123">
+      </div>
+      <div class="field">
+        <label for="bitbucket_id">Bitbucket ID</label>
+        <input id="bitbucket_id" name="bitbucket_id" type="text" value="{{ values.bitbucket_id }}" placeholder="42">
+      </div>
+      <div class="field">
+        <label for="github_id">GitHub ID</label>
+        <input id="github_id" name="github_id" type="text" value="{{ values.github_id }}" placeholder="123 or org/repo#123">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="tags">Tags</label>
+      <input id="tags" name="tags" type="text" value="{{ values.tags }}"
+             placeholder="comma, separated, tags">
+    </div>
+
+    <div class="field">
+      <label for="body">Notes</label>
+      {% if mode == 'create' %}
+        <p class="muted field-hint">Category templates prefill notes — edit freely.</p>
+      {% endif %}
+      <textarea id="body" name="body" rows="12" placeholder="Markdown supported — goals, prompts, instructions, links…">{{ values.body }}</textarea>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">{% if mode == 'edit' %}Save changes{% else %}Save entry{% endif %}</button>
+    </div>
+  </form>
+</section>
+
+{% if admin_logged_in %}
+<div id="fs-browser-modal" class="fs-modal" hidden>
+  <div class="fs-modal-panel" role="dialog" aria-modal="true" aria-labelledby="fs-browser-title">
+    <div class="fs-modal-head">
+      <strong id="fs-browser-title">Browse local path</strong>
+      <button type="button" class="btn btn-tiny" id="fs-browser-close">Close</button>
+    </div>
+    <div class="fs-modal-toolbar">
+      <label class="sr-only" for="fs-browser-root">Root</label>
+      <select id="fs-browser-root">
+        {% for root in fs_roots or [] %}
+          <option value="{{ root }}">{{ root }}</option>
+        {% endfor %}
+      </select>
+      <p class="muted" id="fs-browser-path" style="margin:0.5rem 0 0"></p>
+    </div>
+    <p id="fs-browser-error" class="fs-error" hidden></p>
+    <ul id="fs-browser-list" class="fs-modal-list"></ul>
+    <div class="fs-modal-foot">
+      <button type="button" class="btn" id="fs-browser-use-folder">Use this folder</button>
+      <button type="button" class="btn btn-primary" id="fs-browser-use-file">Use selected file</button>
+      <button type="button" class="btn" id="fs-browser-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if mode == 'create' %}
+<script id="category-templates" type="application/json">{{ category_templates | tojson }}</script>
+<script>
+(function () {
+  const templates = JSON.parse(document.getElementById('category-templates').textContent || '{}');
+  const category = document.getElementById('category');
+  const body = document.getElementById('body');
+  if (!category || !body) return;
+  let lastTemplate = templates[category.value] || '';
+  category.addEventListener('change', function () {
+    const next = templates[category.value] || '';
+    if (!body.value.trim() || body.value === lastTemplate) {
+      body.value = next;
+    }
+    lastTemplate = next;
+  });
+})();
+</script>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if admin_logged_in and fs_roots %}
+<script src="{{ url_for('static', filename='fs_browser.js') }}"></script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% from "repos/_macros.html" import repo_tabs, clone_box %}
+{% block title %}{{ repo.name }} · Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Repository</p>
+      <h1>{{ repo.name }}</h1>
+      {% if repo.description %}<p class="lede">{{ repo.description }}</p>{% endif %}
+    </div>
+    <div class="top-actions">
+      <a class="btn" href="{{ url_for('repo_commits', slug=repo.slug, ref=ref) }}">Commits</a>
+      {% if admin_logged_in and not repo.is_garden %}
+        <form method="post" action="{{ url_for('repo_delete', slug=repo.slug) }}"
+              onsubmit="return confirm('Delete this repository and all git data?');">
+          <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+
+  {{ repo_tabs(repo, tab) }}
+  {{ clone_box(repo) }}
+
+  <h2 class="section-title">Files on {{ ref }}</h2>
+  {% if tree %}
+    <table class="file-table">
+      <tbody>
+        {% for item in tree %}
+          <tr>
+            <td class="file-kind">{{ 'dir' if item.type == 'tree' else 'file' }}</td>
+            <td>
+              {% if item.type == 'tree' %}
+                <a href="{{ url_for('repo_tree', slug=repo.slug, ref=ref, path=item.path) }}">{{ item.name }}</a>
+              {% else %}
+                <a href="{{ url_for('repo_blob', slug=repo.slug, ref=ref, path=item.path) }}">{{ item.name }}</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="muted">No files on this branch yet.</p>
+  {% endif %}
+
+  <h2 class="section-title">Recent commits</h2>
+  {% if commits %}
+    <ul class="commit-list">
+      {% for c in commits %}
+        <li>
+          <a href="{{ url_for('repo_commit', slug=repo.slug, sha=c.sha) }}"><code>{{ c.short }}</code></a>
+          {{ c.subject }}
+          <span class="muted">{{ c.author }} · {{ c.date }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">No commits yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% from "repos/_macros.html" import repo_tabs, ref_switcher %}
+{% block title %}{{ path or '/' }} · {{ repo.name }}{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">{{ repo.name }}</p>
+      <h1>{{ path or '/' }}</h1>
+    </div>
+    {{ ref_switcher(repo, ref, branches, tags, mode='tree', path=path) }}
+  </div>
+  {{ repo_tabs(repo, tab) }}
+
+  <nav class="breadcrumbs">
+    <a href="{{ url_for('repo_tree', slug=repo.slug, ref=ref, path='') }}">{{ repo.slug }}</a>
+    {% for crumb in crumbs %}
+      <span>/</span>
+      <a href="{{ url_for('repo_tree', slug=repo.slug, ref=ref, path=crumb.path) }}">{{ crumb.name }}</a>
+    {% endfor %}
+  </nav>
+
+  <table class="file-table">
+    <tbody>
+      {% if path %}
+        {% set parent = '/'.join(path.split('/')[:-1]) %}
+        <tr>
+          <td class="file-kind">dir</td>
+          <td>
+            <a href="{% if parent %}{{ url_for('repo_tree', slug=repo.slug, ref=ref, path=parent) }}{% else %}{{ url_for('repo_tree', slug=repo.slug, ref=ref, path='') }}{% endif %}">..</a>
+          </td>
+        </tr>
+      {% endif %}
+      {% for item in tree %}
+        <tr>
+          <td class="file-kind">{{ 'dir' if item.type == 'tree' else 'file' }}</td>
+          <td>
+            {% if item.type == 'tree' %}
+              <a href="{{ url_for('repo_tree', slug=repo.slug, ref=ref, path=item.path) }}">{{ item.name }}</a>
+            {% else %}
+              <a href="{{ url_for('repo_blob', slug=repo.slug, ref=ref, path=item.path) }}">{{ item.name }}</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

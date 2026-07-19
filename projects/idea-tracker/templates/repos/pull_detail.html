@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "repos/_macros.html" import repo_tabs %}
+{% block title %}#{{ pull.number }} · {{ repo.name }}{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <div class="entry-meta">
+        <span class="status status-{{ 'active' if pull.status == 'open' else ('done' if pull.status == 'merged' else 'archived') }}">{{ pull.status }}</span>
+      </div>
+      <h1>#{{ pull.number }} {{ pull.title }}</h1>
+      <p class="muted">{{ pull.source_branch }} → {{ pull.target_branch }}</p>
+    </div>
+    <div class="top-actions">
+      {% if pull.status == 'open' and admin_logged_in %}
+        {% if can_merge %}
+          <form method="post" action="{{ url_for('repo_pull_merge', slug=repo.slug, number=pull.number) }}">
+            <button class="btn btn-primary" type="submit">Merge</button>
+          </form>
+        {% endif %}
+        <form method="post" action="{{ url_for('repo_pull_close', slug=repo.slug, number=pull.number) }}">
+          <button class="btn" type="submit">Close</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+  {{ repo_tabs(repo, tab) }}
+
+  {% if pull.body %}<div class="prose"><p>{{ pull.body }}</p></div>{% endif %}
+
+  {% if pull.status == 'open' %}
+    {% if can_merge %}
+      <p class="flash flash-ok">Ready to merge.</p>
+    {% else %}
+      <p class="flash flash-error">Not mergeable: {{ merge_msg }}</p>
+    {% endif %}
+  {% endif %}
+
+  <h2 class="section-title">Commits</h2>
+  <ul class="commit-list">
+    {% for c in commits %}
+      <li>
+        <a href="{{ url_for('repo_commit', slug=repo.slug, sha=c.sha) }}"><code>{{ c.short }}</code></a>
+        {{ c.subject }}
+      </li>
+    {% else %}
+      <li class="muted">No commits between these branches.</li>
+    {% endfor %}
+  </ul>
+
+  <h2 class="section-title">Diff</h2>
+  {% if diff_stat %}<pre class="code-block">{{ diff_stat }}</pre>{% endif %}
+  <pre class="diff-block">{{ diff_patch }}</pre>
+</section>
+{% endblock %}

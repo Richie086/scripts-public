@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}New repository · Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Repositories</p>
+      <h1>Create repository</h1>
+    </div>
+    <a class="btn" href="{{ url_for('repos_index') }}">Cancel</a>
+  </div>
+  <form class="entry-form" method="post">
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" name="name" required value="{{ values.name }}" placeholder="My project">
+    </div>
+    <div class="field">
+      <label for="slug">Slug</label>
+      <input id="slug" name="slug" value="{{ values.slug }}" placeholder="my-project">
+    </div>
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="3">{{ values.description }}</textarea>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Create</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

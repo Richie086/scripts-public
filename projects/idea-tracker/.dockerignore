@@ -1,0 +1,13 @@
+data/
+.git/
+__pycache__/
+*.pyc
+.env
+*.pem
+.venv/
+venv/
+*.md
+smoke_test.py
+deploy_*.sh
+nginx-ideaforge.conf
+idea-forge.service

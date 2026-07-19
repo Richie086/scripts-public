@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Repos · Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Local git</p>
+      <h1>Repositories</h1>
+      <p class="lede">Clone and push over HTTP token or SSH — no GitHub required.</p>
+    </div>
+    {% if admin_logged_in %}
+      <a class="btn btn-primary" href="{{ url_for('repos_new') }}">New repository</a>
+    {% endif %}
+  </div>
+
+  {% if repos %}
+    <ul class="repo-list">
+      {% for repo in repos %}
+        <li class="repo-card">
+          <a href="{{ url_for('repo_home', slug=repo.slug) }}">
+            <div class="entry-meta">
+              {% if repo.is_garden %}<span class="badge badge-idea">Garden</span>{% endif %}
+              {% if repo.open_pr_count %}<span class="status status-active">{{ repo.open_pr_count }} open PRs</span>{% endif %}
+            </div>
+            <h2>{{ repo.name }}</h2>
+            <p class="entry-url">{{ repo.slug }}</p>
+            {% if repo.description %}<p class="entry-excerpt">{{ repo.description }}</p>{% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="empty">
+      <h2>No repositories yet</h2>
+      <p>Create a bare repo to check in project work outside GitHub.</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>{% block title %}Idea Forge{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link id="gh-md-light" rel="stylesheet" href="{{ url_for('static', filename='vendor/github-markdown-light.css') }}">
+  <link id="gh-md-dark" rel="stylesheet" href="{{ url_for('static', filename='vendor/github-markdown-dark.css') }}" disabled>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("ideaforge-theme");
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">Idea Forge</span>
+      </a>
+      <nav class="nav-main" aria-label="Primary">
+        <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}is-active{% endif %}">Entries</a>
+        <a href="{{ url_for('collections_index') }}" class="{% if request.endpoint and request.endpoint.startswith('collections') %}is-active{% endif %}">Collections</a>
+        <a href="{{ url_for('repos_index') }}" class="{% if request.endpoint and request.endpoint.startswith('repo') %}is-active{% endif %}">Repos</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-toggle" data-nav-more aria-haspopup="true">More ▾</button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="{{ url_for('export_entries_json') }}">Export</a>
+            {% if admin_logged_in %}
+              <a href="{{ url_for('ingest_agents_page') }}">Ingest AGENTS.md</a>
+              <a href="{{ url_for('import_entries') }}">Import</a>
+              <a href="{{ url_for('settings') }}">Settings</a>
+              <a href="{{ url_for('admin_panel') }}">Admin</a>
+            {% else %}
+              <a href="{{ url_for('admin_login') }}">Login</a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+      <nav class="top-actions">
+        <button type="button" class="btn theme-toggle" data-theme-toggle>Dark</button>
+        <a class="btn btn-primary" href="{{ url_for('create', category=current_category if current_category is defined else 'idea') }}">New entry</a>
+        {% if admin_logged_in %}
+          <form method="post" action="{{ url_for('admin_logout') }}">
+            <button class="btn" type="submit">Logout</button>
+          </form>
+        {% endif %}
+      </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-list">
+          {% for category, message in messages %}
+            <li class="flash flash-{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <main class="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-foot" aria-label="Site credit">
+      Richard Troiano @ 2026 -
+      <a href="https://extremesarcasm.org" target="_blank" rel="noopener noreferrer">extremesarcasm.org</a>
+    </footer>
+  </div>
+  <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

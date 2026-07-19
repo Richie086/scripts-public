@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Scoper & Ideation Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- App Wrapper -->
+  <div class="app-container">
+    
+    <!-- Sidebar: LLM Configurations -->
+    <aside class="sidebar-drawer">
+      <div class="drawer-header">
+        <h2>LLM CONFIGS</h2>
+      </div>
+      
+      <div class="form-group">
+        <label for="provider-select">LLM Provider</label>
+        <select id="provider-select">
+          <option value="gemini" selected>Google Gemini</option>
+          <option value="openai">OpenAI ChatGPT</option>
+          <option value="claude">Anthropic Claude</option>
+          <option value="grok">xAI Grok</option>
+          <option value="internal">Custom/Internal LLM</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="api-key-group">
+        <label for="api-key-input">API Secret Key</label>
+        <input type="password" id="api-key-input" placeholder="Paste your key here (or leave empty for mock)">
+      </div>
+
+      <div class="form-group hidden" id="base-url-group">
+        <label for="base-url-input">Custom Base URL</label>
+        <input type="text" id="base-url-input" placeholder="e.g. http://localhost:11434/v1">
+      </div>
+
+      <div class="form-group hidden" id="custom-headers-group">
+        <label for="custom-headers-input">Custom Request Headers (JSON)</label>
+        <textarea id="custom-headers-input" style="height: 100px; resize: vertical; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;" placeholder='e.g. { "Authorization": "Bearer token" }'></textarea>
+        <div id="custom-headers-validation" style="font-size: 0.75rem; color: var(--accent-red); display: none;">Invalid JSON format</div>
+      </div>
+
+      <div class="form-group">
+        <label for="model-name-input">Model Name</label>
+        <input type="text" id="model-name-input" placeholder="e.g. gemini-1.5-pro, llama3">
+      </div>
+
+      <div class="form-group">
+        <label for="theme-select">Color Scheme</label>
+        <select id="theme-select">
+          <option value="theme-dracula" selected>Dracula (Neon)</option>
+          <option value="theme-nord">Nord (Frost)</option>
+          <option value="theme-gruvbox">Gruvbox (Warm)</option>
+          <option value="theme-onedark">One Dark (Soft)</option>
+          <option value="theme-solarized">Solarized (Contrast)</option>
+        </select>
+      </div>
+
+      <div class="git-status-section">
+        <h3>GIT CONTROL</h3>
+        <button id="git-dev-btn" class="btn btn-secondary">Initialize Dev Branch</button>
+        <div id="git-status-log" class="git-log">Status: Idle</div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport -->
+    <main class="main-content">
+      
+      <!-- Top Navigation Tabs -->
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="tab-expand">1. Jira Task Expansion</button>
+        <button class="tab-btn" data-tab="tab-interview">2. Scoping Interview</button>
+        <button class="tab-btn" data-tab="tab-security">3. Security & Alternatives</button>
+        <button class="tab-btn" data-tab="tab-syntax">4. Syntax Checker</button>
+        <button class="tab-btn" data-tab="tab-prompt">5. Prompt Tuner</button>
+      </nav>
+
+      <!-- Central Panels Container -->
+      <section class="panels-container">
+
+        <!-- Tab 1: Concept Expansion -->
+        <div id="tab-expand" class="tab-panel active">
+          <div class="editor-card">
+            <div class="card-header">
+              <h3>Ingest Concept & Specifications</h3>
+            </div>
+            
+            <!-- Universal File Dropzone -->
+            <div class="file-dropzone" id="file-dropzone">
+              <p>Drag & Drop CSV, PDF, DOCX, XML, MD, Images, or Text files here to parse, or select a file:</p>
+              <input type="file" id="file-input" class="hidden" multiple>
+              <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Browse Files</button>
+              <div id="uploaded-files-list" class="file-list"></div>
+            </div>
+
+            <textarea id="concept-textarea" class="concept-editor" placeholder="Describe your software idea or paste detailed specifications here..."></textarea>
+            
+            <!-- Sensitive Data Redaction Overlay -->
+            <div id="redaction-banner" class="alert alert-warning hidden">
+              <span id="redaction-message">Sensitive tokens detected! Scrub IP addresses, MACs, or API keys before proceeding.</span>
+              <button id="redact-all-btn" class="btn btn-warning btn-sm">Redact All</button>
+            </div>
+
+            <div class="card-actions">
+              <button id="expand-btn" class="btn btn-primary">Generate Spec Breakdown</button>
+            </div>
+          </div>
+
+          <!-- expansion output -->
+          <div class="output-card hidden" id="expand-output-card">
+            <div class="card-header">
+              <h3>Specification Review</h3>
+              <div class="edit-toolbar">
+                <button class="btn btn-sm" onclick="formatDoc('bold')">B</button>
+                <button class="btn btn-sm" onclick="formatDoc('italic')">I</button>
+                <button class="btn btn-sm" id="fix-headings-btn">Fix Headings</button>
+                <button class="btn btn-sm" id="fix-tables-btn">Fix Tables</button>
+              </div>
+            </div>
+            <div class="output-content" id="expand-output-rendered" contenteditable="true"></div>
+            <div class="change-control-actions">
+              <button id="accept-expand-btn" class="btn btn-success">Accept Specs</button>
+              <button id="regenerate-expand-btn" class="btn btn-secondary">Regenerate Alternatives</button>
+              <button id="discard-expand-btn" class="btn btn-danger">Discard</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Clarification Q&A -->
+        <div id="tab-interview" class="tab-panel">
+          <div class="editor-card">
+            <div class="card-header">
+              <h3>Interactive Interview & clarification</h3>
+            </div>
+            <p class="description">Answer these AI-generated questions to refine the functional scoping and clear up ambiguities.</p>
+            <div id="questions-container" class="q-container">
+              <p class="placeholder-text">Generate a specification breakdown in Tab 1 first to load interview questions.</p>
+            </div>
+            <div class="card-actions">
+              <button id="submit-interview-btn" class="btn btn-primary hidden">Submit Answers</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Security & Alternatives -->
+        <div id="tab-security" class="tab-panel">
+          <div class="editor-card">
+            <div class="card-header">
+              <h3>Security, Vulnerability, and Design Alternatives</h3>
+            </div>
+            <div id="security-content" class="markdown-body">
+              <p class="placeholder-text">Generate expansion analysis to view security checks and alternative architectural designs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Syntax & Code Validator -->
+        <div id="tab-syntax" class="tab-panel">
+          <div class="editor-card">
+            <div class="card-header">
+              <h3>Programming Code Syntax Checker</h3>
+            </div>
+            <p class="description">Paste code snippets in any language. The backend will execute local compilers (Python, Node/JS) or check syntax structure.</p>
+            
+            <div class="form-row">
+              <label for="syntax-lang-select">Source Language</label>
+              <select id="syntax-lang-select">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript / Node</option>
+                <option value="html">HTML</option>
+                <option value="xml">XML</option>
+              </select>
+            </div>
+
+            <textarea id="syntax-code-area" class="code-editor" placeholder="def my_function():\n    print('Hello World')"></textarea>
+            
+            <div id="syntax-result-alert" class="alert hidden"></div>
+            
+            <div class="card-actions">
+              <button id="check-syntax-btn" class="btn btn-primary">Validate Syntax</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: Prompt Tuner -->
+        <div id="tab-prompt" class="tab-panel">
+          <div class="tuner-layout">
+            <!-- Left Side: Prompt Preview -->
+            <div class="prompt-preview-pane">
+              <div class="card-header">
+                <h3>Master Coding Prompt Draft</h3>
+                <div class="export-dropdown">
+                  <select id="export-format-select">
+                    <option value="md">Markdown (.md)</option>
+                    <option value="txt">Plain Text (.txt)</option>
+                    <option value="xml">XML Document (.xml)</option>
+                    <option value="csv">CSV Rows (.csv)</option>
+                    <option value="html">HTML Web Page (.html)</option>
+                  </select>
+                  <button id="export-btn" class="btn btn-secondary btn-sm">Export</button>
+                </div>
+              </div>
+              <textarea id="prompt-workspace" class="prompt-workspace" placeholder="Generate scoping prompt first..."></textarea>
+            </div>
+
+            <!-- Right Side: AI Refinement Agent Chat -->
+            <div class="ai-refinement-pane">
+              <div class="card-header">
+                <h3>AI Tuning Chat Agent</h3>
+              </div>
+              <div class="chat-messages" id="chat-messages-container">
+                <div class="message system">
+                  Hello! I am your prompt tuning agent. Ask me to refine, expand, or adjust specific features in the prompt, and I'll update the draft.
+                </div>
+              </div>
+              <div class="chat-input-row">
+                <input type="text" id="chat-input" placeholder="e.g., add detailed database schema tables, expand AWS configs...">
+                <button id="chat-send-btn" class="btn btn-primary">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

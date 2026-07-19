@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% from "repos/_macros.html" import repo_tabs, ref_switcher %}
+{% block title %}{{ path }} · {{ repo.name }}{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">{{ repo.name }}</p>
+      <h1>{{ path.split('/')[-1] }}</h1>
+    </div>
+    {{ ref_switcher(repo, ref, branches, tags, mode='blob', path=path) }}
+  </div>
+  {{ repo_tabs(repo, tab) }}
+
+  <nav class="breadcrumbs">
+    <a href="{{ url_for('repo_tree', slug=repo.slug, ref=ref, path='') }}">{{ repo.slug }}</a>
+    {% for crumb in crumbs %}
+      <span>/</span>
+      {% if loop.last %}
+        <span>{{ crumb.name }}</span>
+      {% else %}
+        <a href="{{ url_for('repo_tree', slug=repo.slug, ref=ref, path=crumb.path) }}">{{ crumb.name }}</a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+
+  <p class="muted">{{ blob.size }} bytes{% if blob.binary %} · binary{% endif %}{% if blob.truncated %} · truncated{% endif %}</p>
+
+  {% if rendered_html %}
+    <div class="prose">{{ rendered_html | safe }}</div>
+  {% elif blob.text %}
+    <pre class="code-block">{{ blob.content }}</pre>
+  {% else %}
+    <p class="muted">Binary file cannot be displayed.</p>
+  {% endif %}
+</section>
+{% endblock %}

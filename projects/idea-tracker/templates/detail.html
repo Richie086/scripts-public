@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% block title %}{{ entry.title }} · Idea Forge{% endblock %}
+{% block content %}
+<article class="panel detail">
+  <div class="panel-head">
+    <div>
+      <div class="entry-meta">
+        {% if entry.pinned %}<span class="status status-active">Pinned</span>{% endif %}
+        <span class="badge badge-{{ entry.category }}">{{ entry.category_label }}</span>
+        <span class="status status-{{ entry.status }}">{{ entry.status_label }}</span>
+      </div>
+      <h1>{{ entry.title }}</h1>
+      {% if entry.url %}
+        <p class="detail-url">
+          {% if entry.url.startswith('http://') or entry.url.startswith('https://') %}
+            <a href="{{ entry.url }}" target="_blank" rel="noopener noreferrer">{{ entry.url }}</a>
+          {% else %}
+            <code>{{ entry.url }}</code>
+          {% endif %}
+        </p>
+      {% endif %}
+    </div>
+    <div class="top-actions">
+      <form method="post" action="{{ url_for('toggle_pin', entry_id=entry.id) }}">
+        <button class="btn" type="submit">{% if entry.pinned %}Unpin{% else %}Pin{% endif %}</button>
+      </form>
+      <a class="btn" href="{{ url_for('edit', entry_id=entry.id) }}">Edit</a>
+      <form method="post" action="{{ url_for('delete', entry_id=entry.id) }}"
+            onsubmit="return confirm('Delete this entry?');">
+        <button class="btn btn-danger" type="submit">Delete</button>
+      </form>
+    </div>
+  </div>
+
+  {% if entry.tag_list %}
+    <ul class="tag-list">
+      {% for tag in entry.tag_list %}
+        <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if entry.external_links %}
+    <div class="ext-chips">
+      {% for link in entry.external_links %}
+        <span class="ext-chip ext-{{ link.kind }}">
+          {% if link.href %}
+            <a href="{{ link.href }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+          {% else %}
+            {{ link.label }}
+          {% endif %}
+        </span>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if entry.body %}
+    <div class="markdown-body prose">
+      {{ entry.body_html | safe }}
+    </div>
+  {% else %}
+    <p class="muted">No notes yet.</p>
+  {% endif %}
+
+  {% if admin_logged_in %}
+  <section class="subpanel" id="ai-assist">
+    <h2>Assist</h2>
+    {% if ai_available %}
+      <p class="muted">Ask an AI to generate a master prompt, suggest features, create a scaffold, produce deployment scripts, or run the classic format/elaborate/security actions. Review the draft before applying.</p>
+      <div class="assist-row">
+        {% for key, spec in ai_actions.items() %}
+          <form method="post" action="{{ url_for('entry_ai_assist', entry_id=entry.id, action=key) }}" class="inline">
+            {% if ai_providers_enabled|length > 1 %}
+              <select name="provider" aria-label="Provider for {{ spec.label }}">
+                {% for p in ai_providers_enabled %}
+                  <option value="{{ p.provider_key }}" {% if ai_default_provider == p.provider_key %}selected{% endif %}>{{ p.label }}</option>
+                {% endfor %}
+              </select>
+            {% elif ai_default_provider %}
+              <input type="hidden" name="provider" value="{{ ai_default_provider }}">
+            {% endif %}
+            <button class="btn" type="submit">{{ spec.label }}</button>
+          </form>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">Configure an AI provider under <a href="{{ url_for('settings') }}#ai-providers">Settings</a> to enable Assist.</p>
+    {% endif %}
+
+    {% if ai_draft %}
+      <div class="ai-draft">
+        <h3>Draft · {{ ai_draft.action_label }}
+          <span class="muted">({{ ai_draft.provider_label }})</span>
+        </h3>
+        <pre class="ai-draft-body">{{ ai_draft.draft }}</pre>
+        <div class="form-actions">
+          <form method="post" action="{{ url_for('entry_ai_apply', entry_id=entry.id) }}" class="inline">
+            <input type="hidden" name="mode" value="replace">
+            <button class="btn btn-primary" type="submit">Replace notes</button>
+          </form>
+          <form method="post" action="{{ url_for('entry_ai_apply', entry_id=entry.id) }}" class="inline">
+            <input type="hidden" name="mode" value="append">
+            <button class="btn" type="submit">Append to notes</button>
+          </form>
+          <form method="post" action="{{ url_for('entry_ai_discard', entry_id=entry.id) }}" class="inline">
+            <button class="btn btn-danger" type="submit">Discard</button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  <section class="subpanel">
+    <h2>Media &amp; files</h2>
+    <form class="upload-form" method="post" action="{{ url_for('upload_attachment', entry_id=entry.id) }}"
+          enctype="multipart/form-data">
+      <input type="file" name="file" required accept="{{ allowed_extensions|join(',') }}">
+      <button class="btn btn-primary" type="submit">Upload</button>
+    </form>
+    <p class="muted field-hint">PDF, Word, images, audio, HTML, CSS, Markdown, markup, config (max 25MB). Click “Add to notes” to insert into this entry’s notes.</p>
+
+    {% if attachments_by_kind %}
+      {% for kind, items in attachments_by_kind.items() %}
+        <h3 class="media-kind-title">{{ media_kind_labels.get(kind, kind) }}</h3>
+        <ul class="media-list">
+          {% for att in items %}
+            <li class="media-item">
+              <div class="media-main">
+                {% if att.media_kind == 'image' %}
+                  <a href="{{ url_for('attachment_raw', entry_id=entry.id, attachment_id=att.id) }}" target="_blank" rel="noopener">
+                    <img class="media-thumb" src="{{ url_for('attachment_raw', entry_id=entry.id, attachment_id=att.id) }}" alt="{{ att.original_name }}">
+                  </a>
+                {% elif att.media_kind == 'audio' %}
+                  <audio controls preload="metadata" src="{{ url_for('attachment_raw', entry_id=entry.id, attachment_id=att.id) }}"></audio>
+                {% endif %}
+                <div>
+                  <a href="{{ url_for('attachment_raw', entry_id=entry.id, attachment_id=att.id, download=1) }}">
+                    <strong>{{ att.original_name }}</strong>
+                  </a>
+                  <p class="muted">
+                    {{ att.size_bytes }} bytes · added {{ att.created_at }} UTC
+                    {% if att.updated_at != att.created_at %} · updated {{ att.updated_at }} UTC{% endif %}
+                  </p>
+                </div>
+              </div>
+              <div class="media-actions">
+                <form method="post" action="{{ url_for('insert_attachment_into_notes', entry_id=entry.id, attachment_id=att.id) }}">
+                  <button class="btn btn-tiny" type="submit">Add to notes</button>
+                </form>
+                <form method="post" action="{{ url_for('replace_attachment', entry_id=entry.id, attachment_id=att.id) }}"
+                      enctype="multipart/form-data" class="replace-form">
+                  <label class="btn btn-tiny">
+                    Replace
+                    <input type="file" name="file" required onchange="this.form.submit()" hidden>
+                  </label>
+                </form>
+                <form method="post" action="{{ url_for('delete_attachment', entry_id=entry.id, attachment_id=att.id) }}"
+                      onsubmit="return confirm('Delete this file?');">
+                  <button class="btn btn-tiny btn-danger" type="submit">Delete</button>
+                </form>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    {% else %}
+      <p class="muted">No files attached yet.</p>
+    {% endif %}
+
+    {% if attachment_events %}
+      <h3 class="media-kind-title">File activity</h3>
+      <ul class="commit-list">
+        {% for ev in attachment_events %}
+          <li>
+            <span class="status status-{{ 'done' if ev.action == 'deleted' else ('active' if ev.action == 'added' else 'someday') }}">{{ ev.action }}</span>
+            <strong>{{ ev.original_name }}</strong>
+            <span class="muted">{{ ev.created_at }} UTC</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+
+  <section class="subpanel">
+    <h2>Collections</h2>
+    {% if entry_collections %}
+      <ul class="commit-list">
+        {% for c in entry_collections %}
+          <li>
+            <a href="{{ url_for('index', collection=c.slug) }}">{{ c.name }}</a>
+            <form method="post" action="{{ url_for('entry_remove_collection', entry_id=entry.id, collection_id=c.id) }}" class="inline">
+              <button class="btn btn-tiny" type="submit">Remove</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Not in any collection yet.</p>
+    {% endif %}
+    {% if all_collections %}
+      <form class="inline-form entry-form" method="post" action="{{ url_for('entry_add_collection', entry_id=entry.id) }}">
+        <div class="field">
+          <label for="collection_id">Add to collection</label>
+          <select id="collection_id" name="collection_id" required>
+            <option value="">Choose…</option>
+            {% for c in all_collections %}
+              <option value="{{ c.id }}">{{ c.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button class="btn" type="submit">Add</button>
+      </form>
+    {% elif admin_logged_in %}
+      <p class="muted"><a href="{{ url_for('collections_new') }}">Create a collection</a> first.</p>
+    {% endif %}
+  </section>
+
+  <section class="subpanel">
+    <h2>Related entries</h2>
+    {% if related %}
+      <ul class="commit-list">
+        {% for rel in related %}
+          <li>
+            <a href="{{ url_for('detail', entry_id=rel.id) }}">{{ rel.title }}</a>
+            <span class="badge badge-{{ rel.category }}">{{ rel.category_label }}</span>
+            <form method="post" action="{{ url_for('unlink_entry', entry_id=entry.id, other_id=rel.id) }}" class="inline">
+              <button class="btn btn-tiny" type="submit">Unlink</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">No related entries yet.</p>
+    {% endif %}
+    {% if link_candidates %}
+      <form class="inline-form entry-form" method="post" action="{{ url_for('link_entry', entry_id=entry.id) }}">
+        <div class="field">
+          <label for="to_id">Link to</label>
+          <select id="to_id" name="to_id" required>
+            <option value="">Choose an entry…</option>
+            {% for cand in link_candidates %}
+              <option value="{{ cand.id }}">{{ cand.title }} ({{ cand.category_label }})</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button class="btn" type="submit">Link</button>
+      </form>
+    {% endif %}
+  </section>
+
+  <section class="subpanel">
+    <h2>Linked repository</h2>
+    {% if linked_repo %}
+      <p><a href="{{ url_for('repo_home', slug=linked_repo.slug) }}">{{ linked_repo.name }}</a> <code>{{ linked_repo.slug }}</code></p>
+    {% elif can_link_repo and admin_logged_in %}
+      <form method="post" action="{{ url_for('create_repo_from_entry', entry_id=entry.id) }}">
+        <button class="btn btn-primary" type="submit">Create linked repo</button>
+      </form>
+    {% elif can_link_repo %}
+      <p class="muted">Log in as admin to create a linked repository.</p>
+    {% else %}
+      <p class="muted">Linking is available for projects, ideas, and VS Code workspaces.</p>
+    {% endif %}
+  </section>
+
+  {% if history %}
+    <section class="subpanel">
+      <h2>Garden history</h2>
+      <ul class="commit-list">
+        {% for c in history %}
+          <li>
+            <a href="{{ url_for('repo_commit', slug=garden_slug, sha=c.sha) }}"><code>{{ c.short }}</code></a>
+            {{ c.subject }}
+            <span class="muted">{{ c.date }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+      <p><a href="{{ url_for('repo_home', slug=garden_slug) }}">Browse garden repo</a></p>
+    </section>
+  {% endif %}
+
+  <footer class="detail-foot">
+    <span>Created {{ entry.created_at }} UTC</span>
+    <span>Updated {{ entry.updated_at }} UTC</span>
+    <a href="{{ url_for('index', category=entry.category) }}">Back to {{ entry.category_label }}</a>
+  </footer>
+</article>
+{% endblock %}

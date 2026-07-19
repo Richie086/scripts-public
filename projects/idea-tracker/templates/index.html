@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Idea Forge{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Personal capture</p>
+    <h1>Idea Forge</h1>
+    <p class="lede">Track project ideas, sites, bookmarks, agents, rulebooks, and VS Code workspaces in one place.</p>
+  </div>
+  <form class="capture-bar" method="post" action="{{ url_for('quick_capture') }}">
+    <label class="sr-only" for="capture_title">Quick capture</label>
+    <input id="capture_title" name="title" type="text" required autofocus
+           placeholder="Quick capture — title only, refine later">
+    <select name="category" aria-label="Category">
+      {% for key, label in categories %}
+        <option value="{{ key }}" {% if (current_category or 'idea') == key %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-primary" type="submit">Capture</button>
+  </form>
+  <form class="search-bar" method="get" action="{{ url_for('index') }}">
+    {% if current_category %}
+      <input type="hidden" name="category" value="{{ current_category }}">
+    {% endif %}
+    {% if current_collection %}
+      <input type="hidden" name="collection" value="{{ current_collection.slug }}">
+    {% endif %}
+    <input type="hidden" name="status" value="{{ current_status }}">
+    <label class="sr-only" for="q">Search</label>
+    <input id="q" name="q" type="search" value="{{ q }}" placeholder="Search titles, tags, notes, URLs, files…">
+    <button class="btn" type="submit">Search</button>
+  </form>
+</section>
+
+<aside class="filters">
+  <div class="filter-group">
+    <span class="filter-label">Category</span>
+    <div class="chip-row">
+      <a class="chip {% if not current_category %}is-active{% endif %}"
+         href="{{ url_for('index', status=current_status, q=q, collection=current_collection.slug if current_collection else None) }}">
+        All <span class="count">{{ total_active }}</span>
+      </a>
+      {% for key, label in categories %}
+        <a class="chip {% if current_category == key %}is-active{% endif %}"
+           href="{{ url_for('index', category=key, status=current_status, q=q, collection=current_collection.slug if current_collection else None) }}">
+          {{ label }}
+          {% if counts.get(key) %}
+            <span class="count">{{ counts[key] }}</span>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Status</span>
+    <div class="chip-row">
+      {% for key, label in statuses %}
+        <a class="chip {% if current_status == key %}is-active{% endif %}"
+           href="{{ url_for('index', category=current_category or None, status=key, q=q, collection=current_collection.slug if current_collection else None) }}">
+          {{ label }}
+        </a>
+      {% endfor %}
+      <a class="chip {% if current_status == 'all' %}is-active{% endif %}"
+         href="{{ url_for('index', category=current_category or None, status='all', q=q, collection=current_collection.slug if current_collection else None) }}">
+        All statuses
+      </a>
+    </div>
+  </div>
+  {% if collections %}
+  <div class="filter-group">
+    <span class="filter-label">Collection</span>
+    <div class="chip-row">
+      <a class="chip {% if not current_collection %}is-active{% endif %}"
+         href="{{ url_for('index', category=current_category or None, status=current_status, q=q) }}">
+        All stacks
+      </a>
+      {% for c in collections %}
+        <a class="chip {% if current_collection and current_collection.slug == c.slug %}is-active{% endif %}"
+           href="{{ url_for('index', category=current_category or None, status=current_status, q=q, collection=c.slug) }}">
+          {{ c.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</aside>
+
+{% if entries %}
+  <ul class="entry-list">
+    {% for entry in entries %}
+      <li class="entry-card {% if entry.pinned %}is-pinned{% endif %}">
+        <a class="entry-link" href="{{ url_for('detail', entry_id=entry.id) }}">
+          <div class="entry-meta">
+            {% if entry.pinned %}<span class="status status-active">Pinned</span>{% endif %}
+            <span class="badge badge-{{ entry.category }}">{{ entry.category_label }}</span>
+            <span class="status status-{{ entry.status }}">{{ entry.status_label }}</span>
+          </div>
+          <h2>{{ entry.title }}</h2>
+          {% if entry.url %}
+            <p class="entry-url">{{ entry.url }}</p>
+          {% endif %}
+          {% if entry.body %}
+            <p class="entry-excerpt">{{ entry.body[:180] }}{% if entry.body|length > 180 %}…{% endif %}</p>
+          {% endif %}
+          {% if entry.tag_list %}
+            <ul class="tag-list">
+              {% for tag in entry.tag_list %}
+                <li>{{ tag }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if entry.external_links %}
+            <div class="ext-chips">
+              {% for link in entry.external_links %}
+                <span class="ext-chip ext-{{ link.kind }}">{{ link.label }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </a>
+        <form class="pin-form" method="post" action="{{ url_for('toggle_pin', entry_id=entry.id) }}">
+          <input type="hidden" name="next" value="{{ url_for('index', category=current_category or None, status=current_status, q=q, collection=current_collection.slug if current_collection else None) }}">
+          <button class="btn btn-tiny" type="submit">{% if entry.pinned %}Unpin{% else %}Pin{% endif %}</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="empty">
+    <h2>Nothing here yet</h2>
+    <p>Capture a project idea, bookmark, agent note, or workspace path to get started.</p>
+    <a class="btn btn-primary" href="{{ url_for('create', category=current_category or 'idea') }}">Add your first entry</a>
+  </div>
+{% endif %}
+{% endblock %}

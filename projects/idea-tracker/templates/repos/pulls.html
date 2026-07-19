@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "repos/_macros.html" import repo_tabs %}
+{% block title %}Pull requests · {{ repo.name }}{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">{{ repo.name }}</p>
+      <h1>Pull requests</h1>
+    </div>
+    {% if admin_logged_in %}
+      <a class="btn btn-primary" href="{{ url_for('repo_pull_new', slug=repo.slug) }}">New pull request</a>
+    {% endif %}
+  </div>
+  {{ repo_tabs(repo, tab) }}
+
+  <div class="chip-row">
+    {% for key, label in [('open','Open'),('merged','Merged'),('closed','Closed'),('all','All')] %}
+      <a class="chip {% if status == key %}is-active{% endif %}"
+         href="{{ url_for('repo_pulls', slug=repo.slug, status=key) }}">{{ label }}</a>
+    {% endfor %}
+  </div>
+
+  <ul class="pull-list">
+    {% for pull in pulls %}
+      <li>
+        <a href="{{ url_for('repo_pull_detail', slug=repo.slug, number=pull.number) }}">
+          <strong>#{{ pull.number }} {{ pull.title }}</strong>
+        </a>
+        <span class="status status-{{ 'active' if pull.status == 'open' else ('done' if pull.status == 'merged' else 'archived') }}">{{ pull.status }}</span>
+        <span class="muted">{{ pull.source_branch }} → {{ pull.target_branch }}</span>
+      </li>
+    {% else %}
+      <li class="muted">No pull requests.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

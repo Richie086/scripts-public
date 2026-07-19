@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Ingest AGENTS.md · Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Cursor · Agents</p>
+      <h1>Ingest AGENTS.md</h1>
+      <p class="lede">
+        Create a new timestamped Agent Instruction entry from an AGENTS.md file.
+        Each import is logged and garden-versioned.
+      </p>
+    </div>
+    <a class="btn" href="{{ url_for('index', collection='agents-md-history') }}">History stack</a>
+  </div>
+
+  <form class="entry-form" method="post" enctype="multipart/form-data">
+    <div class="field">
+      <label for="path">Path on this machine</label>
+      <input id="path" name="path" type="text" list="agents-paths"
+             placeholder="/workspace/AGENTS.md">
+      <datalist id="agents-paths">
+        {% for p in discovered %}
+          <option value="{{ p }}"></option>
+        {% endfor %}
+      </datalist>
+    </div>
+    {% if discovered %}
+      <p class="muted">Discovered:</p>
+      <ul class="commit-list">
+        {% for p in discovered %}
+          <li><code>{{ p }}</code></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <div class="field">
+      <label for="file">Or upload</label>
+      <input id="file" type="file" name="file" accept=".md,.markdown,.txt,AGENTS.md">
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Ingest as new entry</button>
+    </div>
+  </form>
+
+  <section class="subpanel">
+    <h2>Ingest log</h2>
+    {% if events %}
+      <ul class="commit-list">
+        {% for ev in events %}
+          <li>
+            <span class="muted">{{ ev.created_at }}</span>
+            <strong>{{ ev.source_name or ev.source_path }}</strong>
+            {% if ev.entry_id %}
+              <a href="{{ url_for('detail', entry_id=ev.entry_id) }}">entry #{{ ev.entry_id }}</a>
+            {% endif %}
+            <code>{{ ev.content_hash[:12] }}…</code>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">No ingest events yet.</p>
+    {% endif %}
+  </section>
+
+  <section class="subpanel">
+    <h2>Cursor / CLI</h2>
+    <pre class="code-block">cd projects/idea-tracker
+python3 ingest_agents_md.py --path /workspace/AGENTS.md
+
+# or via HTTP (admin token)
+python3 ingest_agents_md.py --path AGENTS.md \
+  --http http://127.0.0.1:5050 --token sb_…</pre>
+  </section>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${PORT:-5070}:5070"
+    environment:
+      - PORT=5070

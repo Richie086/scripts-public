@@ -1,0 +1,4 @@
+ideaforge.extremesarcasm.org {
+	encode gzip
+	reverse_proxy app:5050
+}

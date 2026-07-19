@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Admin · Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Control plane</p>
+      <h1>Admin</h1>
+    </div>
+    <a class="btn" href="{{ url_for('settings') }}">Settings</a>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat"><span class="stat-value">{{ stats.entries }}</span><span class="stat-label">Entries</span></div>
+    <div class="stat"><span class="stat-value">{{ stats.repos }}</span><span class="stat-label">Repos</span></div>
+    <div class="stat"><span class="stat-value">{{ stats.tokens }}</span><span class="stat-label">Tokens</span></div>
+    <div class="stat"><span class="stat-value">{{ stats.ssh_keys }}</span><span class="stat-label">SSH keys</span></div>
+    <div class="stat"><span class="stat-value">{{ stats.open_prs }}</span><span class="stat-label">Open PRs</span></div>
+  </div>
+
+  <section class="subpanel">
+    <h2>System</h2>
+    <ul class="commit-list">
+      <li>git binary: <strong>{% if stats.git_ok %}available{% else %}missing{% endif %}</strong></li>
+      <li>SSH server: <strong>{% if stats.ssh_enabled %}enabled on {{ stats.ssh_port }}{% else %}disabled{% endif %}</strong></li>
+      <li>Data dir: <code>{{ stats.data_dir }}</code></li>
+      <li>Repos dir: <code>{{ stats.repos_dir }}</code></li>
+    </ul>
+  </section>
+
+  <section class="subpanel">
+    <h2>Change admin password</h2>
+    <form class="entry-form" method="post" action="{{ url_for('admin_change_password') }}">
+      <div class="field">
+        <label for="current_password">Current password</label>
+        <input id="current_password" name="current_password" type="password" required>
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="new_password">New password</label>
+          <input id="new_password" name="new_password" type="password" required minlength="8">
+        </div>
+        <div class="field">
+          <label for="confirm_password">Confirm</label>
+          <input id="confirm_password" name="confirm_password" type="password" required minlength="8">
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Update password</button>
+    </form>
+  </section>
+</section>
+{% endblock %}

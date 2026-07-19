@@ -1,0 +1,45 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SEEDBANK_HOST: "0.0.0.0"
+      SEEDBANK_PORT: "5050"
+      SEEDBANK_DATA: /data
+      SEEDBANK_SSH: "0"
+      SEEDBANK_DEBUG: "0"
+    volumes:
+      - ideaforge-data:/data
+    ports:
+      - "${PORT:-5050}:5050"
+    expose:
+      - "5050"
+    networks:
+      - ideaforge
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+    networks:
+      - ideaforge
+
+volumes:
+  ideaforge-data:
+  caddy-data:
+  caddy-config:
+
+networks:
+  ideaforge:
+    driver: bridge

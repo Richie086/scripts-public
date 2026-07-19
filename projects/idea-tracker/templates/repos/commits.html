@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% from "repos/_macros.html" import repo_tabs %}
+{% block title %}Commits · {{ repo.name }}{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">{{ repo.name }}</p>
+      <h1>Commits on {{ ref }}</h1>
+    </div>
+    <a class="btn" href="{{ url_for('repo_home', slug=repo.slug) }}">Back</a>
+  </div>
+  {{ repo_tabs(repo, tab) }}
+  <ul class="commit-list">
+    {% for c in commits %}
+      <li>
+        <a href="{{ url_for('repo_commit', slug=repo.slug, sha=c.sha) }}"><code>{{ c.short }}</code></a>
+        {{ c.subject }}
+        <span class="muted">{{ c.author }} · {{ c.date }}</span>
+      </li>
+    {% else %}
+      <li class="muted">No commits.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

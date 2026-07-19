@@ -1,0 +1,21 @@
+[Unit]
+Description=Idea Forge (Gunicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=__REMOTE_APP_DIR__/repo/__APP_SUBDIR__
+EnvironmentFile=/etc/idea-forge/env
+ExecStart=__REMOTE_APP_DIR__/venv/bin/gunicorn \
+  --bind 127.0.0.1:5050 \
+  --workers 2 \
+  --threads 4 \
+  --timeout 120 \
+  app:app
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

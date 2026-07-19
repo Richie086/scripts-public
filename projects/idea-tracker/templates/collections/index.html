@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Collections — Idea Forge{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <p class="eyebrow">Stacks</p>
+      <h1>Collections</h1>
+      <p class="lede">Group related entries into named stacks for focused browsing.</p>
+    </div>
+    {% if admin_logged_in %}
+      <a class="btn btn-primary" href="{{ url_for('collections_new') }}">New collection</a>
+    {% endif %}
+  </div>
+
+  {% if collections %}
+    <ul class="entry-list">
+      {% for c in collections %}
+        <li class="entry-card">
+          <a class="entry-link" href="{{ url_for('index', collection=c.slug) }}">
+            <h2>{{ c.name }}</h2>
+            {% if c.description %}
+              <p class="entry-excerpt">{{ c.description }}</p>
+            {% endif %}
+            <p class="muted">{{ c.entry_count }} entr{{ 'y' if c.entry_count == 1 else 'ies' }} · updated {{ c.updated_at }} UTC</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="empty">
+      <h2>No collections yet</h2>
+      <p>Create a stack, then add entries from any entry detail page.</p>
+      {% if admin_logged_in %}
+        <a class="btn btn-primary" href="{{ url_for('collections_new') }}">New collection</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

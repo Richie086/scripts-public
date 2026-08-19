@@ -1,6 +1,6 @@
 # Debian 13 (Trixie) Mail Server Deployment Script
 
-The [deploy-mailserver-debian.sh](file:///home/rtroiano/repositories/scripts-public/scripts-public/projects/deploy-mailserver-debian.sh) script provides automated, idempotent installation and configuration of a complete, secure mail server on Debian 13 (Trixie).
+The [deploy-mailserver-debian.sh](deploy-mailserver-debian.sh) script provides automated, idempotent installation and configuration of a complete, secure mail server on Debian 13 (Trixie).
 
 ## Overview of Components
 
@@ -56,7 +56,7 @@ sudo ./deploy-mailserver-debian.sh \
 - `--hostname <fqdn>`: Fully-qualified domain name of the mail server (e.g. `mail.example.com`).
 - `--admin-email <email>`: Administrator contact/postmaster email.
 - `--letsencrypt`: Acquire a valid Let's Encrypt SSL certificate.
-- `--no-imap`: Skip Dovecot IMAP configuration (MTA/SASL authentication only).
+- `--no-imap`: Skip Dovecot IMAP (MTA/SASL authentication only).
 - `--no-dkim`: Skip OpenDKIM signing setup.
 - `--non-interactive`: Run silently with default values.
 - `--rollback`: Perform a complete cleanup and package uninstallation.

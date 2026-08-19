@@ -200,7 +200,6 @@ scripts-public/
 * [.env.example](.env.example): file (904 bytes)
 * [.gitattributes](.gitattributes): file (170 bytes)
 * [.gitignore](.gitignore): file (327 bytes)
-* [my-antigravity-experience.md](my-antigravity-experience.md): My Experience Using Antigravity to Set Up Automated SSH Keys & Fix MCP Issues
 * [README.md](README.md): Public Scripts (`scripts-public`)
 * [scripts-public.code-workspace](scripts-public.code-workspace): file (43 bytes)
 * [SECURITY.md](SECURITY.md): Security Policy
@@ -236,28 +235,36 @@ scripts-public/
 * [apache-proxy-wizard/](bash/apache-proxy-wizard/): apache-proxy-wizard.sh
   * [apache-proxy-wizard.sh](bash/apache-proxy-wizard/apache-proxy-wizard.sh): Check Port 80
   * [README.md](bash/apache-proxy-wizard/README.md): apache-proxy-wizard.sh
+* [apt-get-tui/](bash/apt-get-tui/): apt-get-tui.sh
+  * [apt-get-tui.sh](bash/apt-get-tui/apt-get-tui.sh): A Text User Interface (TUI) for apt / apt-get on Ubuntu/Debian
+  * [README.md](bash/apt-get-tui/README.md): apt-get-tui.sh — Text User Interface for Apt / Apt-Get
 * [openssl-certtool/](bash/openssl-certtool/): openssl-certtool.sh
   * [openssl-certtool.sh](bash/openssl-certtool/openssl-certtool.sh): 1. Initialization & Security Setup Color codes for readable output
   * [README.md](bash/openssl-certtool/README.md): openssl-certtool.sh
 * [remove_user/](bash/remove_user/): remove_user.sh
   * [README.md](bash/remove_user/README.md): remove_user.sh
   * [remove_user.md](bash/remove_user/remove_user.md): User Account Decommissioning Utility (`remove_user.sh`)
-  * [remove_user.sh](bash/remove_user/remove_user.sh): Completely remove a user account from an Ubuntu system. This script terminates the user's active processes, stops user services, removes crontabs, deletes user-specific sudo rules, removes the user
+  * [remove_user.sh](bash/remove_user/remove_user.sh): Completely remove a user account from an Ubuntu system.
 * [script-public-merge/](bash/script-public-merge/): script-public-merge.sh
   * [README.md](bash/script-public-merge/README.md): script-public-merge.sh
   * [script-public-merge.sh](bash/script-public-merge/script-public-merge.sh): Ensure we are in the root of the existing repo
+* [setup-shared-dev-server/](bash/setup-shared-dev-server/): setup_shared_dev_server.sh
+  * [README.md](bash/setup-shared-dev-server/README.md): Shared Development Server Environment Setup (`setup_shared_dev_server.sh`)
+  * [setup_shared_dev_server.sh](bash/setup-shared-dev-server/setup_shared_dev_server.sh): Configures a shared Linux development server for multiple developers.
+* [setup-ssh-key/](bash/setup-ssh-key/): setup_ssh_key.sh
+  * [README.md](bash/setup-ssh-key/README.md): SSH Key Generator & Remote Deployment Tool (`setup_ssh_key.sh`)
+  * [setup_ssh_key.sh](bash/setup-ssh-key/setup_ssh_key.sh): Interactive SSH Key Generator & Remote Installer (Modern Theme)
 * [user_manager/](bash/user_manager/): user_manager.sh
   * [README.md](bash/user_manager/README.md): user_manager.sh
-  * [user_manager.sh](bash/user_manager/user_manager.sh): Script Name: user_manager.sh Description: Advanced Linux user account manager for Ubuntu. Supports interactive and CLI mode, audit logging, and dry-runs.
-* [apt-get-tui.sh](bash/apt-get-tui.sh): apt-get-tui.sh - A Text User Interface (TUI) for apt / apt-get on Ubuntu/Debian. Every common apt-get / apt-cache / apt-mark function is reachable from a menu. Package name fields for install/remove/etc. support TAB auto-completion:
+  * [user_manager.sh](bash/user_manager/user_manager.sh): Advanced Linux user account manager for Ubuntu.
+* [virtualbox-guest-additions/](bash/virtualbox-guest-additions/): virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh
+  * [README.md](bash/virtualbox-guest-additions/README.md): VirtualBox Guest Additions Setup & Configuration Script
+  * [virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh](bash/virtualbox-guest-additions/virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh): UNIFIED VIRTUALBOX GUEST ADDITIONS AUTOMATION SCRIPT
 * [README.md](bash/README.md): bash
-* [setup_shared_dev_server.sh](bash/setup_shared_dev_server.sh): Script Name: setup_shared_dev_server.sh Description: Configures a shared Linux development server for multiple developers. Sets up the shared devs group, shared directory with SetGID, and
-* [setup_ssh_key.md](bash/setup_ssh_key.md): SSH Key Generator & Remote Deployment Tool (`setup_ssh_key.sh`)
-* [setup_ssh_key.sh](bash/setup_ssh_key.sh): Interactive SSH Key Generator & Remote Installer (Modern Theme) This script guides the user through the process of: 1. Prompting for remote server details (username, host, port).
-* [virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh](bash/virtualbox-install-guest-addtions-enable-bidrectional-clipboard.sh): UNIFIED VIRTUALBOX GUEST ADDITIONS AUTOMATION SCRIPT
 
 ### 📝 Markdown (`/markdown`)
 * [developer-infrastructure-setup.md](markdown/developer-infrastructure-setup.md): Cheap & Secure Shared AI Developer Infrastructure Guide
+* [my-antigravity-experience.md](markdown/my-antigravity-experience.md): My Experience Using Antigravity to Set Up Automated SSH Keys & Fix MCP Issues
 * [PROJECT_DASHBOARD.md](markdown/PROJECT_DASHBOARD.md): Exit Code Automations: Project Status Dashboard
 * [README.md](markdown/README.md): markdown
 * [suggest_aliases.md](markdown/suggest_aliases.md): Shell Alias & Function Suggester
@@ -265,6 +272,7 @@ scripts-public/
 ### 📄 Markup (`/markup`)
 * [html/](markup/html/): html
   * [bash-readme.html](markup/html/bash-readme.html): bash README
+  * [installing-vscode.html](markup/html/installing-vscode.html): Installing Visual Studio Code
   * [README.md](markup/html/README.md): html
 * [README.md](markup/README.md): markup
 
@@ -449,8 +457,9 @@ scripts-public/
   * [README.md](projects/Wedge-400-Switch-API/README.md): Wedge-400-Switch-API
   * [test_switch.db](projects/Wedge-400-Switch-API/test_switch.db): file (32768 bytes)
   * [walkthrough.md](projects/Wedge-400-Switch-API/walkthrough.md): Walkthrough - Wedge 400 Switch API & Standalone Crawler Ingestion Engine
-* [deploy-mailserver-debian.md](projects/deploy-mailserver-debian.md): Debian 13 (Trixie) Mail Server Deployment Script
-* [deploy-mailserver-debian.sh](projects/deploy-mailserver-debian.sh): deploy-postfix-mailserver.sh Automates deployment of a Postfix-based mail server on Debian 13 (trixie), using Dovecot for SASL auth and IMAP. Also sets up TLS (self-signed or
+* [deploy-mailserver-debian/](projects/deploy-mailserver-debian/): deploy-mailserver-debian.sh
+  * [deploy-mailserver-debian.sh](projects/deploy-mailserver-debian/deploy-mailserver-debian.sh): deploy-postfix-mailserver.sh Automates deployment of a Postfix-based mail server on Debian 13 (trixie), using Dovecot for SASL auth and IMAP.
+  * [README.md](projects/deploy-mailserver-debian/README.md): Debian 13 (Trixie) Mail Server Deployment Script
 * [README.md](projects/README.md): projects
 
 ### 🐍 Python (`/python`)
@@ -511,7 +520,6 @@ scripts-public/
 * [how-to-update-rust-desk-pro-self-hosted-docker.md](wordpress/how-to-update-rust-desk-pro-self-hosted-docker.md): How to Update Rust Desk Pro Self Hosted - Docker
 * [how_to_use_antigravity.md](wordpress/how_to_use_antigravity.md): Getting Started with Google Antigravity
 * [install-terraform-ubuntu.md](wordpress/install-terraform-ubuntu.md): Define the required Terraform version and provider source
-* [installing-vscode.html](wordpress/installing-vscode.html): Installing Visual Studio Code
 * [installing-vscode.md](wordpress/installing-vscode.md): Visual Studio Code (VSCode) has become the go-to code editor for developers worldwide. It's lightweight, incredibly customizable, and supports a massive ecosystem of extensions. Whether you are a seasoned software engineer or just starti...
 * [jira-csv-import-atlassian-mcp.md](wordpress/jira-csv-import-atlassian-mcp.md): When Jira’s CSV Importer Fails, Paste the Spreadsheet Into Chat and Walk Away
 * [linux-distros-package-managers-part-2.md](wordpress/linux-distros-package-managers-part-2.md): Part 2: Distributions and Package Managers (Beyond the Wikipedia Page)

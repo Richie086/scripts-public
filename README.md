@@ -149,9 +149,30 @@ classDef file-text fill:#fafafa,stroke:#a3a3a3,stroke-width:1px,color:#404040;
 
 # Public Scripts (`scripts-public`)
 
+<p align="center">
+  <a href="https://github.com/Richie086/scripts-public"><img src="https://img.shields.io/github/last-commit/Richie086/scripts-public?style=for-the-badge&color=7c3aed" alt="Last Commit"></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://www.gnu.org/software/bash/"><img src="https://img.shields.io/badge/Shell-Bash-4E9F3D?style=for-the-badge&logo=gnu-bash&logoColor=white" alt="Bash"></a>
+  <a href="https://extremesarcasm.org"><img src="https://img.shields.io/badge/Blog-extremesarcasm.org-orange?style=for-the-badge&logo=wordpress" alt="Blog"></a>
+</p>
+
+<p align="center">
+  <strong><a href="#-linux-bash-">🐚 Linux Bash</a></strong> •
+  <strong><a href="#-python-">🐍 Python Tools</a></strong> •
+  <strong><a href="#-windows-powershell-">🔷 PowerShell</a></strong> •
+  <strong><a href="#-projects-">📁 Projects</a></strong> •
+  <strong><a href="#-wordpress-">📝 Blog Articles</a></strong>
+</p>
+
+---
+
 A curated collection of utility scripts, automation tools, and applications for various environments.
 
 All of these scripts along with detailed writeups on their usage and configuration can be found on my WordPress blog: [Extreme Sarcasm](https://extremesarcasm.org).
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Richie086&repo=scripts-public&theme=tokyonight" alt="GitHub Repository Stats" />
+</p>
 
 
 The [scripts_catalog.md](wordpress/scripts_catalog.md) in this repository was generated using [Google Antigravity](https://antigravity.google/).
